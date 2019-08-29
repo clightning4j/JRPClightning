@@ -1,6 +1,7 @@
 package jrpc.service.converters;
 
 import com.google.gson.*;
+import com.google.gson.stream.JsonReader;
 import jrpc.exceptions.ServiceException;
 
 import java.io.InputStream;
@@ -16,12 +17,16 @@ import java.util.Date;
  */
 public class JsonConverter implements IConverter {
 
+    private static final String ENCODING_DEFAULT = "UTF-8";
+
+    private String patternFormat = "dd-MM-yyyy HH:mm:ss";
+
     private GsonBuilder gsonBuilder;
 
     public JsonConverter() {
         this.gsonBuilder = new GsonBuilder();
-        gsonBuilder.registerTypeAdapter(Date.class, new AdapterDateType());
         gsonBuilder.setPrettyPrinting();
+        gsonBuilder.setDateFormat(patternFormat);
     }
 
     @Override
@@ -34,36 +39,21 @@ public class JsonConverter implements IConverter {
     }
 
     @Override
-    public Object deserialization(InputStream inputStream, Class type) {
+    public Object deserialization(InputStream inputStream, Type type) throws ServiceException {
         if(inputStream == null || type == null){
             throw new IllegalArgumentException("Arguments are/is null");
         }
         Object response;
-        Reader reader;
+        JsonReader reader;
         try {
-            reader = new InputStreamReader(inputStream);
+            reader = new JsonReader( new InputStreamReader(inputStream, ENCODING_DEFAULT));
             Gson gson = gsonBuilder.create();
             response = gson.fromJson(reader, type);
+            reader.close();
         }catch (Exception ex){
             throw new ServiceException("Exception inside the method deserialization to " +
                                         this.getClass().getSimpleName() + "\nMessage: " + ex.getLocalizedMessage());
         }
         return response;
-    }
-
-    protected class AdapterDateType implements JsonSerializer<Date>, JsonDeserializer<Date>{
-
-        private String patternFormat = "dd-MM-yyyy HH:mm:ss";
-
-        @Override
-        public Date deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException {
-            return null;
-        }
-
-        @Override
-        public JsonElement serialize(Date src, Type typeOfSrc, JsonSerializationContext context) {
-            DateFormat dateFormat = new SimpleDateFormat(patternFormat);
-            return new JsonPrimitive(dateFormat.format(src.getTime()));
-        }
     }
 }

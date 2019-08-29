@@ -1,30 +1,32 @@
 package jrpc.service.socket;
 
 import jrpc.exceptions.ServiceException;
+import jrpc.service.IOUtil;
 import jrpc.wrapper.IWrapperSocketCall;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
 import org.newsclub.net.unix.AFUNIXSocket;
 import org.newsclub.net.unix.AFUNIXSocketAddress;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.*;
+import java.lang.reflect.Type;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public abstract class UnixDomainSocketRpc implements ISocket{
+public abstract class UnixDomainSocketRpc implements ISocket {
 
+    private static final Logger LOGGER = LoggerFactory.getLogger(UnixDomainSocketRpc.class);
     protected static final String ENCODING = "UTF-8";
-
-
-    protected static int id = 1;
 
     protected AFUNIXSocket socket;
     protected InputStream inputStream;
     protected OutputStream outputStream;
     protected IConverter converterJson;
 
-    public UnixDomainSocketRpc(String pathSocket) {
+    public UnixDomainSocketRpc(String pathSocket) throws ServiceException {
         File file = new File(pathSocket);
 
         try {
@@ -35,37 +37,27 @@ public abstract class UnixDomainSocketRpc implements ISocket{
             this.converterJson = new JsonConverter();
         } catch (IOException e) {
             throw new ServiceException("Exception inside the method deserialization to " +
-                                          this.getClass().getSimpleName() + " with message\n" + e.getLocalizedMessage());
+                    this.getClass().getSimpleName() + " with message\n" + e.getLocalizedMessage());
         }
     }
 
     @Override
-    public Object doCall(IWrapperSocketCall wrapperSocket, Class typeResult) {
-        if(wrapperSocket == null){
+    public Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException {
+        if (wrapperSocket == null) {
             throw new IllegalArgumentException("The argument is null");
         }
-
         String serializationForm = converterJson.serialization(wrapperSocket);
-
+        LOGGER.debug("Request: \n" + serializationForm);
         try {
             this.outputStream.write(serializationForm.getBytes(ENCODING));
             this.outputStream.flush();
-        } catch (IOException e) {
-            throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
-                                        + " with message\n" + e.getLocalizedMessage());
-        }
-
-        //Object result = null;
-       /* try {
-            //TODO il method serializza non funziona con gli input al di fuori dei file giusto?
-           // String respose = IOUtil.readFullyAsString(inputStream, ENCODING);
-            result = converterJson.deserialization(inputStream, typeResult);
-            return result;
+            LOGGER.debug("Run request");
         } catch (IOException e) {
             throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
                     + " with message\n" + e.getLocalizedMessage());
-        }*/
-
-        return converterJson.deserialization(inputStream, typeResult);
+        }
+        Object o = converterJson.deserialization(inputStream, typeResult);
+        LOGGER.debug("Response\n" + converterJson.serialization(o));
+        return o;
     }
 }

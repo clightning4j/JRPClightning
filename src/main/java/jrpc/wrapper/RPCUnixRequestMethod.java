@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public class RPCUnixRequestMethod implements IWrapperSocketCall{
 
-    private int id;
+    private int id = 1;
     private String method;
     private Map<String, String> params;
 

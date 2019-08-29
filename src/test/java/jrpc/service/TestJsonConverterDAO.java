@@ -1,5 +1,6 @@
 package jrpc.service;
 
+import jrpc.exceptions.ServiceException;
 import jrpc.mock.RequestLightningRPC;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
@@ -39,7 +40,7 @@ public class TestJsonConverterDAO {
     }
 
     @Test
-    public void testOnefromJson() throws FileNotFoundException {
+    public void testOnefromJson() throws FileNotFoundException, ServiceException {
         InputStream inputStream = new FileInputStream(new File(System.getProperty("user.dir") + "/src/test/resources/object.json"));
         RequestLightningRPC req = (RequestLightningRPC) genericDAO.deserialization(inputStream, RequestLightningRPC.class);
         TestCase.assertEquals("getinfo", req.getMethod());
