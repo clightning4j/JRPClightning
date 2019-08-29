@@ -1,8 +1,7 @@
 package jrpc.service.socket;
 
 import jrpc.exceptions.ServiceException;
-import jrpc.service.IOUtil;
-import jrpc.wrapper.IWrapperSocketCall;
+import jrpc.wrapper.socket.IWrapperSocketCall;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
 import org.newsclub.net.unix.AFUNIXSocket;

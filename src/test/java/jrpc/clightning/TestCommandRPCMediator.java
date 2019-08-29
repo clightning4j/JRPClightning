@@ -26,8 +26,16 @@ public class TestCommandRPCMediator {
     }
 
     @Test
-    public void testParsingPayloadTwo(){
+    public void testParsingPayloadAddressTypeBech32(){
         String payload = "addresstype=bech32";
+        Object response = mediator.runCommand(Command.NEWADDR, payload);
+        TestCase.assertNotNull(response);
+    }
+
+    //p2sh-segwit
+    @Test
+    public void testParsingPayloadAddressTypeP2SH(){
+        String payload = "addresstype=p2sh-segwit";
         Object response = mediator.runCommand(Command.NEWADDR, payload);
         TestCase.assertNotNull(response);
     }

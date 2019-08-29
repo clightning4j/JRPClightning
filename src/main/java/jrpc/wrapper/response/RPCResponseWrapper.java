@@ -1,4 +1,4 @@
-package jrpc.wrapper;
+package jrpc.wrapper.response;
 
 /**
  * @author https://github.com/vincenzopalazzo

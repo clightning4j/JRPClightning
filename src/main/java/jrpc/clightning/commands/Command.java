@@ -5,7 +5,8 @@ package jrpc.clightning.commands;
  */
 public enum Command {
 
-    GETINFO,
-    NEWADDR,
-    ;
+    //TODO adding bitcoin core command with clightning
+
+    GETINFO, //Supported
+    NEWADDR, //Supported
 }

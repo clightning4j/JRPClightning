@@ -1,4 +1,4 @@
-package jrpc.wrapper;
+package jrpc.wrapper.socket;
 
 import java.util.Map;
 

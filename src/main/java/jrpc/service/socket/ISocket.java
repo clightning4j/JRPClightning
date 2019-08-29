@@ -1,7 +1,7 @@
 package jrpc.service.socket;
 
 import jrpc.exceptions.ServiceException;
-import jrpc.wrapper.IWrapperSocketCall;
+import jrpc.wrapper.socket.IWrapperSocketCall;
 
 import java.lang.reflect.Type;
 

@@ -2,7 +2,6 @@ package jrpc.clightning.commands;
 
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
-import jrpc.wrapper.RPCUnixRequestMethod;
 
 import java.util.HashMap;
 
