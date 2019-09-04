@@ -1,4 +1,3 @@
-<!--
 /**
  * Copyright 2019 https://github.com/vincenzopalazzo
  *
@@ -14,15 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
--->
-<configuration scan="true">
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
+package jrpc.clightning.model.types;
 
-  <root level="debug">
-    <appender-ref ref="STDOUT" />
-  </root>
-</configuration>
+/**
+ * @author https://github.com/vincenzopalazzo
+ */
+public enum AddressType {
+    P2SH_SEGWIT,
+    BECH32,
+}

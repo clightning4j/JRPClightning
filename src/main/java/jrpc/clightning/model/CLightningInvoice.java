@@ -13,16 +13,36 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.commands;
+package jrpc.clightning.model;
+
+import com.google.gson.annotations.SerializedName;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public enum Command {
+public class CLightningInvoice {
 
-    //TODO adding bitcoin core command with clightning
+    @SerializedName("payment_hash")
+    private String paymentHash;
+    @SerializedName("expires_at")
+    private String expiresAt;
+    private String bolt11;
+    @SerializedName("warning_capacity")
+    private String warningCapacity;
 
-    GETINFO, //Supported
-    NEWADDR, //Supported
-    INVOICE,
+    public String getPaymentHash() {
+        return paymentHash;
+    }
+
+    public String getExpiresAt() {
+        return expiresAt;
+    }
+
+    public String getBolt11() {
+        return bolt11;
+    }
+
+    public String getWarningCapacity() {
+        return warningCapacity;
+    }
 }

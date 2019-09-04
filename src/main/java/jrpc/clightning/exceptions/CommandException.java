@@ -13,37 +13,28 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.wrapper.socket;
+package jrpc.clightning.exceptions;
 
-
-import java.util.Map;
-
-public class RPCUnixRequestMethod implements IWrapperSocketCall{
-
-    private int id = 1;
-    private String method;
-    private Map<String, String> params;
-
-    public RPCUnixRequestMethod(String method, Map<String, String> params) {
-        this.id = getRandomNumber();
-        this.method = method;
-        this.params = params;
+/**
+ * @author https://github.com/vincenzopalazzo
+ */
+public class CommandException extends Exception{
+    public CommandException() {
     }
 
-    public int getId() {
-        return id;
+    public CommandException(String message) {
+        super(message);
     }
 
-    public String getMethod() {
-        return method;
+    public CommandException(String message, Throwable cause) {
+        super(message, cause);
     }
 
-    public Map<String, String> getParams() {
-        return params;
+    public CommandException(Throwable cause) {
+        super(cause);
     }
 
-
-    public int getRandomNumber(){
-        return (int)(Math.random()*100);
+    public CommandException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+        super(message, cause, enableSuppression, writableStackTrace);
     }
 }

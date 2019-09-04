@@ -17,7 +17,7 @@ package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
 import jrpc.clightning.exceptions.CommandException;
-import jrpc.clightning.model.CLightningNewAddress;
+import jrpc.clightning.model.CLightningInvoice;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.wrapper.response.RPCResponseWrapper;
@@ -31,25 +31,28 @@ import java.util.HashMap;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningCommandNewAddress extends AbstractRPCCommand<CLightningNewAddress>{
+public class CLightningCommandInvoice extends AbstractRPCCommand<CLightningInvoice>{
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CLightningCommandNewAddress.class);
-    private static final String IDENTIFIER_KEY = "addresstyp";
-    private static final String COMMAND_NAME = "newaddr";
+    private static final Logger LOGGER = LoggerFactory.getLogger(CLightningCommandInvoice.class);
+    private static final String COMMAND_NAME = "invoice";
 
-    public CLightningCommandNewAddress() {
+    public CLightningCommandInvoice() {
         super(COMMAND_NAME);
     }
 
     @Override
-    public CLightningNewAddress doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
+    public CLightningInvoice doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
         super.doRPCCommand(socket, payload);
 
-        RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(commandName, payload);
-        String addrType = payload.get(IDENTIFIER_KEY);
-        LOGGER.debug("addr type: " + addrType);
-        Type collectionType = new TypeToken<RPCResponseWrapper<CLightningNewAddress>>(){}.getType();
-        RPCResponseWrapper<CLightningNewAddress> response = (RPCResponseWrapper<CLightningNewAddress>) socket.doCall(wrapper, collectionType);
+        RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(COMMAND_NAME, payload);
+
+        Type collectionType = new TypeToken<RPCResponseWrapper<CLightningInvoice>>(){}.getType();
+        RPCResponseWrapper<CLightningInvoice> response = (RPCResponseWrapper<CLightningInvoice>) socket.doCall(wrapper, collectionType);
+
+        if(response.getError() != null){
+            throw new CommandException("Error inside command with error code: " +
+                    response.getError().getCode() + "\nMessage: " + response.getError().getMessage());
+        }
         return response.getResult();
     }
 }
