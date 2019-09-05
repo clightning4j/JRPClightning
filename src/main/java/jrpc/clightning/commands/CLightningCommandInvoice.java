@@ -41,7 +41,7 @@ public class CLightningCommandInvoice extends AbstractRPCCommand<CLightningInvoi
     }
 
     @Override
-    public CLightningInvoice doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
+    public CLightningInvoice doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException {
         super.doRPCCommand(socket, payload);
 
         RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(COMMAND_NAME, payload);

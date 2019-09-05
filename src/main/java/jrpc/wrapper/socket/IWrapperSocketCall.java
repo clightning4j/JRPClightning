@@ -26,5 +26,5 @@ public interface IWrapperSocketCall {
 
     String getMethod();
 
-    Map<String, String> getParams();
+    Map<String, Object> getParams();
 }

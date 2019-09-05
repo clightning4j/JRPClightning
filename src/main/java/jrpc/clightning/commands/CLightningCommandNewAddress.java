@@ -42,12 +42,10 @@ public class CLightningCommandNewAddress extends AbstractRPCCommand<CLightningNe
     }
 
     @Override
-    public CLightningNewAddress doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
+    public CLightningNewAddress doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException {
         super.doRPCCommand(socket, payload);
 
         RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(commandName, payload);
-        String addrType = payload.get(IDENTIFIER_KEY);
-        LOGGER.debug("addr type: " + addrType);
         Type collectionType = new TypeToken<RPCResponseWrapper<CLightningNewAddress>>(){}.getType();
         RPCResponseWrapper<CLightningNewAddress> response = (RPCResponseWrapper<CLightningNewAddress>) socket.doCall(wrapper, collectionType);
         return response.getResult();

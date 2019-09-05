@@ -29,6 +29,11 @@ public class CLightningInvoice {
     private String bolt11;
     @SerializedName("warning_capacity")
     private String warningCapacity;
+    private String label;
+    @SerializedName("msatoshi")
+    private String mSatoshi;
+    private String status;
+    private String description;
 
     public String getPaymentHash() {
         return paymentHash;
@@ -44,5 +49,21 @@ public class CLightningInvoice {
 
     public String getWarningCapacity() {
         return warningCapacity;
+    }
+
+    public String getLabel() {
+        return label;
+    }
+
+    public String getmSatoshi() {
+        return mSatoshi;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

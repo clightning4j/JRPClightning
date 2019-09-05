@@ -19,12 +19,12 @@ import jrpc.clightning.commands.Command;
 import jrpc.clightning.commands.CommandRPCMediator;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.CLightningGetInfo;
+import jrpc.clightning.model.CLightningListInvoices;
 import jrpc.clightning.model.CLightningInvoice;
 import jrpc.clightning.model.CLightningNewAddress;
 import jrpc.clightning.model.types.AddressType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import sun.plugin.ClassLoaderInfo;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -70,34 +70,91 @@ public class CLightningRPC {
         return resultCommand.getP2shSegwit();
     }
 
-    //TODO added the invoice for proprieties fallbacks, preimage, exposeprivatechannels
-    public CLightningInvoice getInvoice(int msatoshi, String label, String description, String expiry){
-        if(label == null || label.isEmpty()){
+    public CLightningInvoice getInvoice(int mSatoshi, String label, String description){
+        return this.getInvoice(mSatoshi, label, description, "", new String[]{}, "", false);
+    }
+
+    /**
+     *
+     * @param mSatoshi
+     * @param label
+     * @param description
+     * @param expiry is optionally the time the invoice is valid for; without a suffix it is interpreted as seconds,
+     *               otherwise suffixes s, m, h, d, w indicate seconds, minutes, hours, days and weeks respectively.
+     * @return
+     */
+    public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry){
+        return this.getInvoice(mSatoshi, label, description, expiry, new String[]{}, "", false);
+    }
+
+    public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry, String[] fallbacks, String preImage, boolean exposePrivateChannels){
+        if(label == null || label.trim().isEmpty()){
             throw new CLightningException("The method getInvoice have the parameter label null");
         }
-        if(description == null || description.isEmpty()){
+        if(description == null || description.trim().isEmpty()){
             throw new CLightningException("The method getInvoice have the parameter description null");
         }
         if(expiry == null){
             throw new CLightningException("The method getInvoice have the parameter expiry null");
         }
-        String payload = "msatoshi=" + msatoshi + "_label=" + label +
-                         "_description=" + description;
-        if(!expiry.isEmpty()){
-            payload += "_expiry=" + expiry;
+        if(fallbacks == null){
+            throw new CLightningException("The method getInvoice have the parameter fallbacks null");
         }
-        CLightningInvoice response = (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payload);
-        return response;
+        if(preImage == null){
+            throw new CLightningException("The method getInvoice have the parameter preImage null");
+        }
+        StringBuilder optionalString = new StringBuilder();
+        if(!expiry.trim().isEmpty()){
+            optionalString.append("_expiry=").append(expiry.trim()).append("");
+        }
+
+        if(fallbacks.length > 0){
+            optionalString.append("_fallbacks=[");
+            for(int i = 0; i < fallbacks.length; i++){
+                if(i == 0){
+                    optionalString.append(fallbacks[i].trim());
+                    continue;
+                }
+                optionalString.append(",").append(fallbacks[i].trim());
+            }
+            optionalString.append("]");
+        }
+
+        if(!preImage.trim().isEmpty()){
+            optionalString.append("_preimage=").append(preImage.trim());
+        }
+        if(exposePrivateChannels){
+            optionalString.append("_exposeprivatechannels=").append(exposePrivateChannels);
+        }
+
+        StringBuilder payload = new StringBuilder();
+
+        payload.append("msatoshi=").append(mSatoshi);
+        payload.append("_label=").append(label.trim()).append("");
+        payload.append("_description=").append(description.trim()).append("");
+        if(!optionalString.toString().trim().isEmpty()){
+            payload.append(optionalString.toString());
+        }
+
+        String payloadResult = payload.toString();
+        LOGGER.debug("Payload: " + payloadResult);
+
+        return (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payloadResult);
     }
 
-    public CLightningInvoice getInvoice(int msatoshi, String label, String description){
-        if(label == null || label.isEmpty()){
-            throw new CLightningException("The method getInvoice have the parameter label null");
+    public CLightningListInvoices getListInvoices(String label){
+        if(label == null){
+            throw new CLightningException("The method getListInvoices have the parameter label null");
         }
-        if(description == null || description.isEmpty()){
-            throw new CLightningException("The method getInvoice have the parameter description null");
+        String payload = "";
+        if(!label.isEmpty()){
+            payload = "label=" + label;
         }
-        return this.getInvoice(msatoshi, label, description, "");
+
+        return (CLightningListInvoices) mediatorCommand.runCommand(Command.LISTINVOICE, payload);
     }
 
+    public CLightningListInvoices getListInvoices(){
+        return getListInvoices("");
+    }
 }

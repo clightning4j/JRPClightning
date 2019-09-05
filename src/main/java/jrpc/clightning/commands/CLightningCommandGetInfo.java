@@ -41,7 +41,7 @@ class CLightningCommandGetInfo extends AbstractRPCCommand<CLightningGetInfo>{
     }
 
     @Override
-    public CLightningGetInfo doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
+    public CLightningGetInfo doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException {
         super.doRPCCommand(socket, payload);
 
         RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(COMMAND_NAME, payload);

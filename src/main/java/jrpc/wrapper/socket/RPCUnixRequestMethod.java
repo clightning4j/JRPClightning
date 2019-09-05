@@ -22,9 +22,9 @@ public class RPCUnixRequestMethod implements IWrapperSocketCall{
 
     private int id = 1;
     private String method;
-    private Map<String, String> params;
+    private Map<String, Object> params;
 
-    public RPCUnixRequestMethod(String method, Map<String, String> params) {
+    public RPCUnixRequestMethod(String method, Map<String, Object> params) {
         this.id = getRandomNumber();
         this.method = method;
         this.params = params;
@@ -38,7 +38,7 @@ public class RPCUnixRequestMethod implements IWrapperSocketCall{
         return method;
     }
 
-    public Map<String, String> getParams() {
+    public Map<String, Object> getParams() {
         return params;
     }
 

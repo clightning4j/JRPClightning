@@ -24,5 +24,6 @@ public enum Command {
 
     GETINFO, //Supported
     NEWADDR, //Supported
-    INVOICE,
+    INVOICE, //Supported
+    LISTINVOICE,
 }

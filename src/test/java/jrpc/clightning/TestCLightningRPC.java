@@ -16,6 +16,7 @@
 package jrpc.clightning;
 
 import jrpc.clightning.model.CLightningGetInfo;
+import jrpc.clightning.model.CLightningListInvoices;
 import jrpc.clightning.model.CLightningInvoice;
 import jrpc.clightning.model.types.AddressType;
 import junit.framework.TestCase;
@@ -55,5 +56,32 @@ public class TestCLightningRPC {
         CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(1000, "This is an test " + Math.random(), "description", "1w");
         LOGGER.debug("invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
+    }
+
+    @Test
+    public void testCommandGetInvoiceThree(){
+        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(100,
+                "This is an test " + Math.random(), "description", "1w",
+                    new String[]{"2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"}, "",false);
+        LOGGER.debug("invoice: " + invoice.getBolt11());
+        TestCase.assertNotNull(invoice.getBolt11());
+    }
+
+    @Test
+    public void testCommandGetListInvoiceOne(){
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices("");
+        TestCase.assertFalse(listInvoices.getListInvoice().isEmpty());
+    }
+
+    @Test
+    public void testCommandGetListInvoiceTwo(){
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices();
+        TestCase.assertFalse(listInvoices.getListInvoice().isEmpty());
+    }
+
+    @Test
+    public void testCommandGetListInvoiceThree(){
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices("Send me payment ");
+        TestCase.assertEquals(1, listInvoices.getListInvoice().size());
     }
 }

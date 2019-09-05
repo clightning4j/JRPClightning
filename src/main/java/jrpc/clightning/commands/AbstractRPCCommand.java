@@ -33,7 +33,7 @@ public abstract class AbstractRPCCommand<T> implements IRPCCommand<T>{
     }
 
     @Override
-    public T doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException {
+    public T doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException {
         if(socket == null || payload == null){
             throw new IllegalArgumentException("Methods is/are null");
         }

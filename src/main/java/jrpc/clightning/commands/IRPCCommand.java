@@ -26,5 +26,5 @@ import java.util.HashMap;
  */
 interface IRPCCommand<T> {
 
-    T doRPCCommand(CLightningSocket socket, HashMap<String, String> payload) throws ServiceException, CommandException;
+    T doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException;
 }
