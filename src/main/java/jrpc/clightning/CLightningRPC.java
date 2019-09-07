@@ -18,11 +18,9 @@ package jrpc.clightning;
 import jrpc.clightning.commands.Command;
 import jrpc.clightning.commands.CommandRPCMediator;
 import jrpc.clightning.exceptions.CLightningException;
-import jrpc.clightning.model.CLightningGetInfo;
-import jrpc.clightning.model.CLightningListInvoices;
-import jrpc.clightning.model.CLightningInvoice;
-import jrpc.clightning.model.CLightningNewAddress;
+import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
+import jrpc.clightning.model.types.BitcoinOutput;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,6 +31,8 @@ public class CLightningRPC {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CLightningRPC.class);
     private static final CLightningRPC SINGLETON = new CLightningRPC();
+
+    protected static final String JOIN_TOKEN_PROP = "+";
 
     public static CLightningRPC getInstance(){
         return SINGLETON;
@@ -88,7 +88,7 @@ public class CLightningRPC {
     }
 
     public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry, String[] fallbacks, String preImage, boolean exposePrivateChannels){
-        if(label == null || label.trim().isEmpty()){
+        if(label == null || label.isEmpty()){
             throw new CLightningException("The method getInvoice have the parameter label null");
         }
         if(description == null || description.trim().isEmpty()){
@@ -105,11 +105,11 @@ public class CLightningRPC {
         }
         StringBuilder optionalString = new StringBuilder();
         if(!expiry.trim().isEmpty()){
-            optionalString.append("_expiry=").append(expiry.trim()).append("");
+            optionalString.append(JOIN_TOKEN_PROP).append("expiry=").append(expiry.trim());
         }
 
         if(fallbacks.length > 0){
-            optionalString.append("_fallbacks=[");
+            optionalString.append(JOIN_TOKEN_PROP).append("fallbacks=[");
             for(int i = 0; i < fallbacks.length; i++){
                 if(i == 0){
                     optionalString.append(fallbacks[i].trim());
@@ -121,17 +121,17 @@ public class CLightningRPC {
         }
 
         if(!preImage.trim().isEmpty()){
-            optionalString.append("_preimage=").append(preImage.trim());
+            optionalString.append(JOIN_TOKEN_PROP).append("preimage=").append(preImage.trim());
         }
         if(exposePrivateChannels){
-            optionalString.append("_exposeprivatechannels=").append(exposePrivateChannels);
+            optionalString.append(JOIN_TOKEN_PROP).append("exposeprivatechannels=").append(exposePrivateChannels);
         }
 
         StringBuilder payload = new StringBuilder();
 
         payload.append("msatoshi=").append(mSatoshi);
-        payload.append("_label=").append(label.trim()).append("");
-        payload.append("_description=").append(description.trim()).append("");
+        payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
+        payload.append(JOIN_TOKEN_PROP).append("description=").append(description.trim());
         if(!optionalString.toString().trim().isEmpty()){
             payload.append(optionalString.toString());
         }
@@ -156,5 +156,170 @@ public class CLightningRPC {
 
     public CLightningListInvoices getListInvoices(){
         return getListInvoices("");
+    }
+
+    public CLightningInvoice delInvoice(String label, String status){
+        if(label == null){
+            throw new CLightningException("The method getListInvoices have the parameter label null");
+        }
+        if(status == null || status.isEmpty()){
+            throw new CLightningException("The method getListInvoices have the parameter label not valid (empty or null)");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
+        payload.append(JOIN_TOKEN_PROP).append("status=").append(status);
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload for command delInvoice: " + payloadString);
+
+        return (CLightningInvoice) mediatorCommand.runCommand(Command.DELINVOICE, payloadString);
+    }
+
+    public String autoCleanInvoice(){
+        return autoCleanInvoice("", "");
+    }
+
+    public String autoCleanInvoice(String cycleSeconds, String expiredBy){
+        if(cycleSeconds == null){
+            throw new CLightningException("The method getListInvoices have the parameter cycleSeconds null");
+        }
+        if(expiredBy == null){
+            throw new CLightningException("The method getListInvoices have the parameter expiredBy null");
+        }
+        StringBuilder payload = new StringBuilder();
+        if(!cycleSeconds.trim().isEmpty()){
+            payload.append("cycle_seconds=").append(cycleSeconds.trim());
+        }
+        if(!expiredBy.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("expired_by=").append(expiredBy.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload: " + payloadString);
+
+        return (String) mediatorCommand.runCommand(Command.AUTOCLEANINVOICE, payloadString);
+    }
+
+    public CLightningBitcoinTx txPrepare(String feerate, String minconf, BitcoinOutput... bitcoinOutputs){
+        if(bitcoinOutputs.length == 0){
+            throw new CLightningException("The method getListInvoices have the parameter output is/are empty");
+        }
+        if(feerate == null){
+            throw new CLightningException("The method getListInvoices have the parameter feerate is null");
+        }
+        if(minconf == null){
+            throw new CLightningException("The method getListInvoices have the parameter minconf is null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        String outputString = this.parsingBitcoinOutputs(bitcoinOutputs);
+        payload.append("outputs=").append(outputString);
+
+
+        if(!feerate.isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("feerate=").append(feerate.trim());
+        }
+        if(!minconf.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("minconf=").append(minconf.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload command txPrepare: " + payloadString);
+        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payloadString);
+    }
+
+    public CLightningBitcoinTx txPrepare(BitcoinOutput... bitcoinOutputs){
+        return this.txPrepare("", "", bitcoinOutputs);
+    }
+
+    public CLightningBitcoinTx txDiscard(String txId){
+        if(txId == null || txId.trim().isEmpty()){
+            throw new CLightningException("The method txDiscard have the parameter txId is empty or null");
+        }
+
+        String pyload = "txid=" + txId;
+        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXDISCARD, pyload);
+    }
+
+    public CLightningBitcoinTx withDraw(String destination, String satoshi, String feerate, String minconf){
+        if(destination == null || destination.trim().isEmpty()){
+            throw new CLightningException("The method getListInvoices have the parameter destination is/are empty");
+        }
+        if(satoshi == null){
+            throw new CLightningException("The method getListInvoices have the parameter satoshi is/are empty");
+        }
+        if(feerate == null){
+            throw new CLightningException("The method getListInvoices have the parameter feerate is null");
+        }
+        if(minconf == null){
+            throw new CLightningException("The method getListInvoices have the parameter minconf is null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+
+        payload.append("destination=").append(destination.trim());
+
+        if(satoshi.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("satoshi=").append("all");
+        }else {
+            payload.append(JOIN_TOKEN_PROP).append("satoshi=").append(satoshi.trim());
+        }
+        if(!feerate.isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("feerate=").append(feerate.trim());
+        }
+        if(!minconf.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("minconf=").append(minconf.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload command withDraw: " + payloadString);
+        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.WITHDRAW, payloadString);
+    }
+
+    public CLightningBitcoinTx withDraw(String destination, String satoshi){
+        return this.withDraw(destination, satoshi, "", "");
+    }
+
+    public CLightningBitcoinTx close(String id, String unilateraltimeout){
+        if(id == null || id.trim().isEmpty()){
+            throw new CLightningException("The method close have the parameter id is null");
+        }
+        if(unilateraltimeout == null){
+            throw new CLightningException("The method close have the parameter unilateraltimeout is null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        payload.append("id=").append(id);
+
+        if(!unilateraltimeout.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("unilateraltimeout=").append(unilateraltimeout.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload command close: " + payloadString);
+        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payloadString);
+    }
+
+    public CLightningBitcoinTx close(String id){
+        return this.close(id, "");
+    }
+
+    protected String parsingBitcoinOutputs(BitcoinOutput...bitcoinOutputs){
+        if(bitcoinOutputs.length == 0){
+            throw new CLightningException("The method getListInvoices have the parameter output is/are empty");
+        }
+
+        StringBuilder outputBuilder = new StringBuilder();
+        for(int i = 0; i < bitcoinOutputs.length; i++){
+            if(i == 0){
+                outputBuilder.append(bitcoinOutputs[i]);
+                continue;
+            }
+            outputBuilder.append("&").append(bitcoinOutputs[i]);
+        }
+
+        String outputsString = outputBuilder.toString();
+        LOGGER.debug("Output converted into string is: " + outputsString);
+        return outputsString;
     }
 }

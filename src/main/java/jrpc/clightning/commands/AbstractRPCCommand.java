@@ -18,7 +18,10 @@ package jrpc.clightning.commands;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
+import jrpc.wrapper.response.RPCResponseWrapper;
+import jrpc.wrapper.socket.RPCUnixRequestMethod;
 
+import java.lang.reflect.Type;
 import java.util.HashMap;
 
 /**
@@ -37,6 +40,18 @@ public abstract class AbstractRPCCommand<T> implements IRPCCommand<T>{
         if(socket == null || payload == null){
             throw new IllegalArgumentException("Methods is/are null");
         }
-        return null;
+        if(commandName == null || commandName.trim().isEmpty()){
+            throw new CommandException("The command name doesn't definited");
+        }
+        RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(commandName, payload);
+        Type type = toTypeFromClass();
+        RPCResponseWrapper<T> response = (RPCResponseWrapper<T>) socket.doCall(wrapper, type);
+        if(response.getError() != null){
+            throw new CommandException("Error inside command with error code: " +
+                    response.getError().getCode() + "\nMessage: " + response.getError().getMessage());
+        }
+        return response.getResult();
     }
+
+    protected abstract Type toTypeFromClass();
 }

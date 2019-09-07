@@ -20,10 +20,55 @@ package jrpc.clightning.commands;
  */
 public enum Command {
 
-    //TODO adding bitcoin core command with clightning
-
-    GETINFO, //Supported
+    // ---------- BITCOIN COMMANDS ---------------
+    FEERATES,
     NEWADDR, //Supported
+    TXDISCARD, //Supported
+    TXPREPARE, //Not supported inside the version 0.7.2
+    TXSEND, //Supported
+    WITHDRAW, //Supported
+
+    // ---------- CHANNELS COMMANDS ---------------
+    CLOSE, //Supported
+    FUNDCHANNEL,
+    FUNDCHANNEL_CANCEL,
+    FUNDCHANNEL_COMPLETE,
+    FUNDCHANNEL_START,
+    GETROUTE,
+    LISTCHANNELS,
+    LISTFORWARDS,
+    SETCHANNELFEE,
+
+    // ---------- NETWORK COMMANDS ---------------
+    CONNECT,
+    DISCONNECT,
+    LISTNODES,
+    LISTPEERS,
+    PING,
+
+    // ---------- PAYMENT COMMANDS ---------------
+    DECODEPAY,
+    DELEXPIREDINVOICE,
+    DELINVOICE, //SUPPORTED
     INVOICE, //Supported
-    LISTINVOICE,
+    LISTINVOICE, //Supported
+    LISTPAYMENTS,
+    LISTSENDPAYS,
+    SENDPAY,
+    WAITINGINVOICE,
+    WAITSENDPAY,
+
+    // ---------- UTILITY COMMANDS ---------------
+    GETINFO, //Supported
+    GETLOG,
+    LISTCONFIGS,
+    LISTFOUNDS,
+    STOP,
+
+    // ---------- DEVELOPERS COMMANDS ---------------
+    DEV_LISTADDRS,
+    DEV_RESCAN_OUTPUTS,
+
+    // ---------- PLUGINS COMMANDS -------------
+    AUTOCLEANINVOICE, //SUPPORTED
 }

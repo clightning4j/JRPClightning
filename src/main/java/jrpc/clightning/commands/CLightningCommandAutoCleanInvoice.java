@@ -16,7 +16,6 @@
 package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
-import jrpc.clightning.model.CLightningNewAddress;
 import jrpc.wrapper.response.RPCResponseWrapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,17 +25,17 @@ import java.lang.reflect.Type;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-class CLightningCommandNewAddress extends AbstractRPCCommand<CLightningNewAddress>{
+class CLightningCommandAutoCleanInvoice extends AbstractRPCCommand<String> {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CLightningCommandNewAddress.class);
-    private static final String COMMAND_NAME = "newaddr";
+    private static final Logger LOGGER = LoggerFactory.getLogger(CLightningCommandDelInvoice.class);
+    private static final String COMMAND_NAME = "autocleaninvoice";
 
-    public CLightningCommandNewAddress() {
+    public CLightningCommandAutoCleanInvoice() {
         super(COMMAND_NAME);
     }
 
     @Override
     protected Type toTypeFromClass() {
-        return new TypeToken<RPCResponseWrapper<CLightningNewAddress>>(){}.getType();
+        return new TypeToken<RPCResponseWrapper<String>>(){}.getType();
     }
 }

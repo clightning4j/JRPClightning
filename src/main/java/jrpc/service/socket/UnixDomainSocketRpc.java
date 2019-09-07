@@ -16,7 +16,6 @@ package jrpc.service.socket;
  *
  * @author https://github.com/vincenzopalazzo
  * vincenzopalazzo apported the modific from this pull request https://github.com/ElementsProject/lightning/pull/2223
- *
  */
 import jrpc.exceptions.ServiceException;
 import jrpc.wrapper.socket.IWrapperSocketCall;

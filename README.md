@@ -16,10 +16,16 @@ The license is available [here](https://www.apache.org/licenses/LICENSE-2.0)
 
 For the moment the library support this commands:
 
-- getinfo
-- newaddr
-- invoice
-- listinvoices
+- GETINFO
+- NEWADDR
+- INVOICE
+- LISTINVOICE
+- DELINVOICE
+- CLOSE
+- TXDISCARD
+- TXSEND
+- WITHDRAW
+- CLOSE
 
 ## Support
 For support work you can use this address bitcoin: `3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU`

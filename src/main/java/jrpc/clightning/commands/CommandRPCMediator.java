@@ -19,8 +19,6 @@ import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
-import jrpc.service.socket.ISocket;
-import jrpc.wrapper.response.ErrorResponse;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -33,13 +31,8 @@ public class CommandRPCMediator {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandRPCMediator.class);
 
-    private static final String GETINFO = "GETINFO";
-    private static final String NEWADDR = "NEWADDR";
-    private static final String INVOICE = "INVOICE";
-    private static final String LISTINVOICE = "LISTINVOICE";
-
     private CLightningSocket socket;
-    private Map<String, IRPCCommand> commands = new HashMap<>();
+    private Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
 
     public CommandRPCMediator() {
         try {
@@ -47,44 +40,37 @@ public class CommandRPCMediator {
         } catch (ServiceException e) {
             throw new RuntimeException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
         }
-        commands.put(GETINFO, new CLightningCommandGetInfo());
-        commands.put(NEWADDR, new CLightningCommandNewAddress());
-        commands.put(INVOICE, new CLightningCommandInvoice());
-        commands.put(LISTINVOICE, new CLightningCommandGetListInvoices());
+        commands.put(Command.GETINFO, new CLightningCommandGetInfo());
+        commands.put(Command.NEWADDR, new CLightningCommandNewAddress());
+        commands.put(Command.INVOICE, new CLightningCommandInvoice());
+        commands.put(Command.LISTINVOICE, new CLightningCommandGetListInvoices());
+        commands.put(Command.DELINVOICE, new CLightningCommandDelInvoice());
+        commands.put(Command.AUTOCLEANINVOICE, new CLightningCommandAutoCleanInvoice());
+        commands.put(Command.TXPREPARE, new CLightningCommandTxPrepare()); //TODO use an personal Type adapter library gson, I will try it
+        commands.put(Command.TXDISCARD, new CLightningCommandTxDiscard());
+        commands.put(Command.TXSEND, new CLightningCommandTxSend());
+        commands.put(Command.WITHDRAW, new CLightningCommandWithDraw());
+        commands.put(Command.CLOSE, new CLightningCommandClose());
     }
 
     public Object runCommand(Command command, String payload) {
-        String runCommand = null;
-        if (command.equals(Command.GETINFO)) {
-            runCommand = GETINFO;
-        } else if (command.equals(Command.NEWADDR)) {
-            runCommand = NEWADDR;
-        } else if (command.equals(Command.INVOICE)) {
-            runCommand = INVOICE;
-        }else if (command.equals(Command.LISTINVOICE)) {
-            runCommand = LISTINVOICE;
-        } else {
-            throw new IllegalArgumentException("Command not found");
-        }
-
-        IRPCCommand commandSelected = commands.get(runCommand);
+        IRPCCommand commandSelected = commands.get(command);
         HashMap<String, Object> setting = decodePayload(payload);
-
         try {
             return commandSelected.doRPCCommand(socket, setting);
         } catch (ServiceException e) {
             throw new RuntimeException("Service exception with message error\n" + e.getLocalizedMessage());
         } catch (CommandException e) {
-            throw new RuntimeException("Error whent running the command " + runCommand + ".\n" + e.getLocalizedMessage());
+            throw new RuntimeException("Error whent running the command " + command + ".\n" + e.getLocalizedMessage());
         }
     }
 
     private HashMap<String, Object> decodePayload(String payload) {
-        if (payload == null || payload.isEmpty()) {
+        if (payload == null || payload.trim().isEmpty()) {
             return new HashMap<>();
         }
 
-        StringTokenizer tokenizer = new StringTokenizer(payload, "_");
+        StringTokenizer tokenizer = new StringTokenizer(payload, "+");
         LOGGER.debug("Number toke of the payload " + payload + "\nis: " + tokenizer.countTokens());
         HashMap<String, Object> configResult = new HashMap<>();
         while (tokenizer.hasMoreTokens()) {
@@ -99,8 +85,16 @@ public class CommandRPCMediator {
                     String value = tokenProperty.nextToken();
                     LOGGER.debug("Value tokenized: " + value);
                     List<String> arrayObject = valueToList(value);
+                    HashMap<String, String> outputs = valueToHasMap(value);
                     if (arrayObject != null) {
                         configResult.put(key, arrayObject);
+                    }else if(outputs != null) {
+                        List<String> result = new ArrayList<>();
+                        for(Map.Entry<String, String> entry : outputs.entrySet()){
+                            String valueTmp = entry.getKey() + ":" + entry.getValue();
+                            result.add(valueTmp);
+                        }
+                        configResult.put(key, result);
                     } else {
                         configResult.put(key, value);
                     }
@@ -111,6 +105,27 @@ public class CommandRPCMediator {
         }
 
         return configResult;
+    }
+
+    private HashMap<String, String> valueToHasMap(String value) {
+        if (value == null) {
+            throw new IllegalArgumentException("The value inside the method valueToList inside the class "
+                    + this.getClass().getCanonicalName() + " is null");
+        }
+        if(value.contains("&")){
+            //parsin a list of output
+        }else if(value.contains("#")){
+            //Parsing a single output
+            StringTokenizer tokenizerOutput = new StringTokenizer(value, "#");
+            String key = tokenizerOutput.nextToken();
+            LOGGER.debug("The single key is: " + key);
+            String valueMap = tokenizerOutput.nextToken();
+            LOGGER.debug("The single value is: " + value);
+            HashMap<String, String> outputsMap = new HashMap<>();
+            outputsMap.put(key, valueMap);
+            return outputsMap;
+        }
+        return null;
     }
 
     private List<String> valueToList(String value) {

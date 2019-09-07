@@ -13,29 +13,47 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.model;
-
-import com.google.gson.annotations.SerializedName;
+package jrpc.clightning.model.types;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningNewAddress {
+public class BitcoinOutput {
 
     private String address;
-    private String bech32;
-    @SerializedName("p2sh-segwit")
-    private String p2shSegwit;
+    private String ammount;
 
-    public String getP2shSegwit() {
-        return p2shSegwit;
+    public BitcoinOutput() {}
+
+    public BitcoinOutput(String address, String ammount) {
+        this.address = address;
+        this.ammount = ammount;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public String getBech32() {
-        return bech32;
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getAmmount() {
+        return ammount;
+    }
+
+    public void setAmmount(String ammount) {
+        this.ammount = ammount;
+    }
+
+    @Override
+    public String toString() {
+        String ammountString;
+        if(ammount.trim().isEmpty()){
+            ammountString = "all";
+        }else{
+            ammountString = ammount;
+        }
+        return address + "#" + ammountString;
     }
 }

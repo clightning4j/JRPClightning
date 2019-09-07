@@ -17,7 +17,6 @@ package jrpc.clightning.model;
 
 import jrpc.clightning.model.types.BindingType;
 
-import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.List;
 
