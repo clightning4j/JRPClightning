@@ -15,6 +15,7 @@
  */
 package jrpc.clightning.service.socket;
 
+import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.socket.UnixDomainSocketRpc;
 
@@ -28,7 +29,7 @@ public class CLightningSocket extends UnixDomainSocketRpc{
     }
 
     public CLightningSocket() throws ServiceException {
-        super(""); //TODO setting default configuration
+        super(CLightningConfigurator.getInstance().getUrl()); //TODO setting default configuration
     }
 
 

@@ -32,11 +32,12 @@ public class CommandRPCMediator {
     private static final Logger LOGGER = LoggerFactory.getLogger(CommandRPCMediator.class);
 
     private CLightningSocket socket;
-    private Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
+    protected Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
 
     public CommandRPCMediator() {
         try {
-            socket = new CLightningSocket("/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc");
+            //socket = new CLightningSocket("/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc");
+            socket = new CLightningSocket();
         } catch (ServiceException e) {
             throw new RuntimeException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
         }

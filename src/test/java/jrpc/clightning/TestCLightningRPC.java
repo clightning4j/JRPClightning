@@ -42,6 +42,10 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInfo(){
         CLightningGetInfo infoNode = CLightningRPC.getInstance().getInfo();
+        String id = infoNode.getId();
+        String color = infoNode.getColor();
+        System.out.println("id=" + id);
+        System.out.println("color=" + color);
         TestCase.assertNotNull(infoNode.getNetwork());
     }
 

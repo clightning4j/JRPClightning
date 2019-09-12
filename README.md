@@ -17,8 +17,46 @@ The license is available [here](https://www.apache.org/licenses/LICENSE-2.0)
 For the moment the library support this commands:
 
 - GETINFO
+
+    You can use the RPC wrapper for call method **getinfo**, the command returned the 
+    json wrapper, called CLightningGetInfo
+    
+    ```
+        CLightningGetInfo infoNode = CLightningRPC.getInstance().getInfo();
+        String id = infoNode.getId();
+        String color = infoNode.getColor();
+        System.out.println("id=" + id);
+        System.out.println("color=" + color);
+    ```
+    
 - NEWADDR
+
+    For call the command **newaddr**, you can use this code, the command return an String
+    The method get the enum type called AddressType, and this enum add this value
+    - AddressType.BECH32
+    - AddressType.P2SH_SEGWIT
+    
+    ```
+    String newAddress = CLightningRPC.getInstance().getNewAddress(AddressType.BECH32);
+    ```
 - INVOICE
+    For call the command **invoice** you can call much method, and the command returned
+    a json wrapper called _CLightningInvoice_
+    
+    This is an simple code
+    
+    ```
+        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(50000, "This is an java wrapper", "a description");
+    ```
+    or 
+    
+    ```
+    CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(100,
+                    "this is a java wrapper", "a description", "1w",
+                        new String[]{"2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"}, "",false);  
+    ```
+  for convention the optional value do managed to the java command with an empty string.
+  if you don't use an optional parameter you can use the `""` and not the **null object**
 - LISTINVOICE
 - DELINVOICE
 - CLOSE
@@ -26,6 +64,36 @@ For the moment the library support this commands:
 - TXSEND
 - WITHDRAW
 - CLOSE
+- CONNECT
+- FUNDCHANNEL
+- LISTFUNDS
+
+# Configuration Unix Socket
+For configuration unix socket you can create an file called **clightning-rpc.properties** inside the classpath your application
+
+The example file config is [here](src/main/resources/clightining-rpc.properties)
+
+```
+# Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+# <p>
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+# <p>
+# http://www.apache.org/licenses/LICENSE-2.0
+# <p>
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+
+
+## The CLightning rpc wrapper configurator
+
+RPC_DIR=/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc
+```
+
 
 ## Support
 For support work you can use this address bitcoin: `3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU`
