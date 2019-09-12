@@ -15,27 +15,33 @@
  */
 package jrpc.clightning.model;
 
-import com.google.gson.annotations.SerializedName;
+import jrpc.clightning.model.types.CLightningChannel;
+import jrpc.clightning.model.types.CLightningOutput;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningNewAddress {
+public class CLightningListFounds {
 
-    private String address;
-    private String bech32;
-    @SerializedName("p2sh-segwit")
-    private String p2shSegwit;
+    private List<CLightningOutput> outputs = new ArrayList<>();
+    private List<CLightningChannel> channels = new ArrayList<>();
 
-    public String getP2shSegwit() {
-        return p2shSegwit;
+    public List<CLightningOutput> getOutputs() {
+        return outputs;
     }
 
-    public String getAddress() {
-        return address;
+    public void setOutputs(List<CLightningOutput> outputs) {
+        this.outputs = outputs;
     }
 
-    public String getBech32() {
-        return bech32;
+    public List<CLightningChannel> getChannels() {
+        return channels;
+    }
+
+    public void setChannels(List<CLightningChannel> channels) {
+        this.channels = channels;
     }
 }

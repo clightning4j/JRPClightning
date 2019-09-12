@@ -13,29 +13,27 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.model;
+package jrpc.clightning.commands;
 
-import com.google.gson.annotations.SerializedName;
+import com.google.gson.reflect.TypeToken;
+import jrpc.clightning.model.CLightningBitcoinTx;
+import jrpc.wrapper.response.RPCResponseWrapper;
+
+import java.lang.reflect.Type;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningNewAddress {
+class CLightningCommandFundChannel extends AbstractRPCCommand<CLightningBitcoinTx>{
 
-    private String address;
-    private String bech32;
-    @SerializedName("p2sh-segwit")
-    private String p2shSegwit;
+    private static final String COMMAND_NAME = "fundchannel";
 
-    public String getP2shSegwit() {
-        return p2shSegwit;
+    public CLightningCommandFundChannel() {
+        super(COMMAND_NAME);
     }
 
-    public String getAddress() {
-        return address;
-    }
-
-    public String getBech32() {
-        return bech32;
+    @Override
+    protected Type toTypeFromClass() {
+        return new TypeToken<RPCResponseWrapper<CLightningBitcoinTx>>(){}.getType();
     }
 }

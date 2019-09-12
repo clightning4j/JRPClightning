@@ -13,29 +13,45 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.model;
+package jrpc.clightning.model.types;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningNewAddress {
+public class CLightningOutput {
 
+    @SerializedName("txid")
+    private String txId;
+    private int output;
+    private String value;
+    @SerializedName("amount_msat")
+    private String amount;
     private String address;
-    private String bech32;
-    @SerializedName("p2sh-segwit")
-    private String p2shSegwit;
+    private String status;
 
-    public String getP2shSegwit() {
-        return p2shSegwit;
+    public String getTxId() {
+        return txId;
+    }
+
+    public int getOutput() {
+        return output;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    public String getAmount() {
+        return amount;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public String getBech32() {
-        return bech32;
+    public String getStatus() {
+        return status;
     }
 }

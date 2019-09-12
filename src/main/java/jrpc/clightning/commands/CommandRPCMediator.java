@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 https://github.com/vincenzopalazzo
+ * Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -51,6 +51,9 @@ public class CommandRPCMediator {
         commands.put(Command.TXSEND, new CLightningCommandTxSend());
         commands.put(Command.WITHDRAW, new CLightningCommandWithDraw());
         commands.put(Command.CLOSE, new CLightningCommandClose());
+        commands.put(Command.FUNDCHANNEL, new CLightningCommandFundChannel());
+        commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
+        commands.put(Command.CONNECT, new CLightningCommandConnect());
     }
 
     public Object runCommand(Command command, String payload) {
@@ -96,7 +99,12 @@ public class CommandRPCMediator {
                         }
                         configResult.put(key, result);
                     } else {
-                        configResult.put(key, value);
+                        if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")){
+                            Boolean valueBool = Boolean.valueOf(value);
+                            configResult.put(key, valueBool);
+                        }else{
+                            configResult.put(key, value);
+                        }
                     }
                 } else {
                     throw new CLightningException("Error inside the parser payload: the key " + key + " not have a property");
@@ -107,7 +115,8 @@ public class CommandRPCMediator {
         return configResult;
     }
 
-    private HashMap<String, String> valueToHasMap(String value) {
+    //TODO incomplete
+    protected HashMap<String, String> valueToHasMap(String value) {
         if (value == null) {
             throw new IllegalArgumentException("The value inside the method valueToList inside the class "
                     + this.getClass().getCanonicalName() + " is null");
@@ -128,7 +137,7 @@ public class CommandRPCMediator {
         return null;
     }
 
-    private List<String> valueToList(String value) {
+    protected List<String> valueToList(String value) {
         if (value == null) {
             throw new IllegalArgumentException("The value inside the method valueToList inside the class "
                     + this.getClass().getCanonicalName() + " is null");

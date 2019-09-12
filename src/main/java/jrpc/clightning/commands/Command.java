@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 https://github.com/vincenzopalazzo
+ * Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -30,7 +30,7 @@ public enum Command {
 
     // ---------- CHANNELS COMMANDS ---------------
     CLOSE, //Supported
-    FUNDCHANNEL,
+    FUNDCHANNEL, //Supported
     FUNDCHANNEL_CANCEL,
     FUNDCHANNEL_COMPLETE,
     FUNDCHANNEL_START,
@@ -62,7 +62,7 @@ public enum Command {
     GETINFO, //Supported
     GETLOG,
     LISTCONFIGS,
-    LISTFOUNDS,
+    LISTFOUNDS, //Supported
     STOP,
 
     // ---------- DEVELOPERS COMMANDS ---------------

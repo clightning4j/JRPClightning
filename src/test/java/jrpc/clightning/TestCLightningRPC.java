@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 https://github.com/vincenzopalazzo
+ * Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,14 +15,10 @@
  */
 package jrpc.clightning;
 
-import jrpc.clightning.model.CLightningBitcoinTx;
-import jrpc.clightning.model.CLightningGetInfo;
-import jrpc.clightning.model.CLightningListInvoices;
-import jrpc.clightning.model.CLightningInvoice;
+import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
 import junit.framework.TestCase;
-import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -46,14 +42,14 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInfo(){
         CLightningGetInfo infoNode = CLightningRPC.getInstance().getInfo();
-        TestCase.assertEquals(infoNode.getNetwork(), "testnet");
+        TestCase.assertNotNull(infoNode.getNetwork());
     }
 
     @Test
     public void testCommandNewAddress(){
         String newAddress = CLightningRPC.getInstance().getNewAddress(AddressType.BECH32);
         LOGGER.debug("Address: " + newAddress);
-        TestCase.assertTrue(newAddress.contains("tb"));
+        TestCase.assertFalse(newAddress.isEmpty());
     }
 
     @Test
@@ -124,10 +120,41 @@ public class TestCLightningRPC {
         CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
         TestCase.assertNotNull(txBitcoin);
     }
+
     @Test
-    public void testCommandCloseOne(){
+    public void testCommandConnectAndCloseOne(){
         ///Before create the tx, with tx prepare
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().close("02f6725f9c1c40333b67faea92fd211c183050f28df32cac3f9d69685fe9665432");
+        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().close("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e");
         TestCase.assertNotNull(txBitcoin);
+    }
+
+    @Test
+    public void testCommandFundChannelOne(){
+        String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
+        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+                "10000", "normal", true, 1, new String[]{});
+        TestCase.assertNotNull(txBitcoin);
+    }
+
+    @Test
+    public void testCommandFundChannelTwo(){
+        String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
+        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+                "10000", "normal", false, 1, new String[]{});
+        TestCase.assertNotNull(txBitcoin);
+    }
+
+    @Test
+    public void testCommandListFunds(){
+        CLightningListFounds listFounds = CLightningRPC.getInstance().listFunds();
+        TestCase.assertNotNull(listFounds);
+    }
+
+    @Test
+    public void testCommandConnectOne(){
+        String idString = "03ad091993d0ed893a029f94d3c11fe1745e6afdf4582bf7f61e46b9936350771e";
+        String port = "9736";
+        String id = CLightningRPC.getInstance().connect(idString, "", port);
+        TestCase.assertNotNull(id);
     }
 }
