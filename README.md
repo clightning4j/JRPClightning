@@ -68,10 +68,13 @@ For the moment the library support this commands:
 - FUNDCHANNEL
 - LISTFUNDS
 
+The javadoc here, inside the class [CLightningRPC](https://vincenzopalazzo.github.io/JRPClightning/jrpc/clightning/CLightningRPC.html) are all method you can be called.
+Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/)
+
 # Configuration Unix Socket
 For configuration unix socket you can create an file called **clightning-rpc.properties** inside the classpath your application
 
-The example file config is [here](src/main/resources/clightining-rpc.properties)
+The example file config is [here](https://github.com/vincenzopalazzo/JRPClightning/blob/master/src/main/resources/clightning-rpc.properties)
 
 ```
 # Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
