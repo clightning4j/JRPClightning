@@ -23,3 +23,9 @@ dependencies {
 
     testImplementation 'junit:junit:4.12'
 }
+
+jar {
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

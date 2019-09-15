@@ -29,7 +29,7 @@ public class CLightningConfigurator {
     private static final CLightningConfigurator SINGLETON = new CLightningConfigurator();
 
     private final Logger LOGGER = LoggerFactory.getLogger("CLightningConfigurator");
-    private static final String NAME_FILE_CONFIG = "clightning-rpc.properties";
+    private static final String NAME_FILE_CONFIG = "/clightning-rpc.properties";
     private static final String NAME_RPC = "lightning-rpc";
     private static final String DEFAULT_DIR = System.getProperty("home.dir") + "/.lightning/"; //TODO work only linux, this is an tempory solution.
 
@@ -50,7 +50,7 @@ public class CLightningConfigurator {
     private void load() {
         Properties configurator = new Properties();
         try {
-            configurator.load(ClassLoader.getSystemClassLoader().getResourceAsStream(NAME_FILE_CONFIG));
+            configurator.load(this.getClass().getResourceAsStream(NAME_FILE_CONFIG));
             url = configurator.getProperty(RPC_DIR);
             LOGGER.debug("The url is: " + url);
         } catch (IOException e) {
