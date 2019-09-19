@@ -75,14 +75,7 @@ public class CLightningRPC {
         return this.getInvoice(mSatoshi, label, description, "", new String[]{}, "", false);
     }
 
-    /**
-     * @param mSatoshi
-     * @param label
-     * @param description
-     * @param expiry      is optionally the time the invoice is valid for; without a suffix it is interpreted as seconds,
-     *                    otherwise suffixes s, m, h, d, w indicate seconds, minutes, hours, days and weeks respectively.
-     * @return
-     */
+
     public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry) {
         return this.getInvoice(mSatoshi, label, description, expiry, new String[]{}, "", false);
     }
@@ -370,6 +363,82 @@ public class CLightningRPC {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
         return this.connect(id, "", "");
+    }
+
+    protected CLightningPay pay(String bolt11){
+        return pay(bolt11,"", "", 10, "", 60, "");
+    }
+
+    protected CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay){
+        if(bolt11 == null || bolt11.trim().isEmpty()){
+            throw new CLightningException("The method pay have the parameter bolt11 is null or empty");
+        }
+        if(satoshi == null){
+            throw new CLightningException("The method pay have the parameter satoshi is null");
+        }
+        if(label == null){
+            throw new CLightningException("The method pay have the parameter label is null");
+        }
+        if(maxFeePercent == null){
+            throw new CLightningException("The method pay have the parameter maxFeePercent is null");
+        }
+        if(maxDelay == null){
+            throw new CLightningException("The method pay have the parameter maxDelay is null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        payload.append("bolt11=").append(bolt11);
+        if(!satoshi.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("satoshi=").append(satoshi);
+        }
+
+        if(!label.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
+        }
+
+        payload.append(JOIN_TOKEN_PROP).append("riskfactor=").append(riskFactor);
+
+        if(!maxFeePercent.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("maxfeepercent=").append(maxFeePercent);
+        }
+
+        payload.append(JOIN_TOKEN_PROP).append("retry_for=").append(retryFor);
+
+        if(!maxDelay.trim().isEmpty()){
+            payload.append(JOIN_TOKEN_PROP).append("maxDelay=").append(maxDelay);
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload for pay connect is: " + payloadString);
+        CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.SENDPAY, payloadString);
+        return pay;
+    }
+
+    public CLightningListSendPays listSendPays(){
+        return this.listSendPays("", "");
+    }
+
+    public CLightningListSendPays listSendPays(String bolt11, String paymentHash){
+        if(bolt11 == null || paymentHash == null){
+            throw new CLightningException("The method pay have the parameter bolt11 or/and paymentHash is/are null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        if(!bolt11.trim().isEmpty()){
+            payload.append("bolt11=").append(bolt11.trim());
+            if(!paymentHash.trim().isEmpty()){
+                payload.append(JOIN_TOKEN_PROP).append("payment_hash=").append(paymentHash.trim());
+            }
+        }else{
+            if(!paymentHash.trim().isEmpty()){
+                payload.append("payment_hash=").append(paymentHash.trim());
+            }
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload for command listSendPays is: " + payloadString);
+        CLightningListSendPays list = (CLightningListSendPays) mediatorCommand.runCommand(Command.LISTSENDPAYS, payloadString);
+        return list;
     }
 
     //TODO testing in the version 0.7.3

@@ -15,6 +15,7 @@
  */
 package jrpc.clightning;
 
+import jrpc.clightning.commands.Command;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
@@ -160,5 +161,25 @@ public class TestCLightningRPC {
         String port = "9736";
         String id = CLightningRPC.getInstance().connect(idString, "", port);
         TestCase.assertNotNull(id);
+    }
+
+    @Test
+    public void testCommandPayOne(){
+        String bolt11 = "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e";
+        CLightningPay pay = CLightningRPC.getInstance().pay(bolt11);
+        TestCase.assertNotNull(pay);
+    }
+
+    @Test(expected = RuntimeException.class)
+    public void testCommandPayOTwo(){
+        String bolt11 = "";
+        CLightningPay pay = CLightningRPC.getInstance().pay(bolt11);
+        TestCase.assertNotNull(pay);
+    }
+
+    @Test
+    public void testCommandListSendPaysOTwo(){
+        CLightningListSendPays pay = CLightningRPC.getInstance().listSendPays();
+        TestCase.assertNotNull(pay);
     }
 }

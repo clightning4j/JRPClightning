@@ -55,9 +55,14 @@ public class CommandRPCMediator {
         commands.put(Command.FUNDCHANNEL, new CLightningCommandFundChannel());
         commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
         commands.put(Command.CONNECT, new CLightningCommandConnect());
+        commands.put(Command.SENDPAY, new CLightningCommandPay());
+        commands.put(Command.LISTPAYMENTS, new CLightningCommandListSendPays());
     }
 
     public Object runCommand(Command command, String payload) {
+        if(!commands.containsKey(command)){
+            throw new CommandException("The command " + command + " not supported yet");
+        }
         IRPCCommand commandSelected = commands.get(command);
         HashMap<String, Object> setting = decodePayload(payload);
         try {

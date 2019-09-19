@@ -61,7 +61,6 @@ public class CLightningConfigurator {
     }
 
     //getter
-
     public String getUrl() {
         return url;
     }
