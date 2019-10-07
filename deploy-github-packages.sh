@@ -1,0 +1,1 @@
+ mvn deploy -DskipTests -Dregistry=https://maven.pkg.github.com/vincenzopalazzo -Dtoken=55a6d91adc9ba7d4b90bf0e37f1f24beff3ee93e

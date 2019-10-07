@@ -3,6 +3,9 @@
 out
 build
 
+#File maven
+target/
+
 #File ide
 .idea
 *.iml

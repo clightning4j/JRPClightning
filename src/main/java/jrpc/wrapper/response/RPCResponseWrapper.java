@@ -15,6 +15,8 @@
  */
 package jrpc.wrapper.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /**
  * @author https://github.com/vincenzopalazzo
  */

@@ -28,11 +28,11 @@ public class CLightningGetInfo {
     private String id;
     private String alias;
     private String color;
-    private Integer num_peers;
-    private Integer num_pending_channels;
-    private Integer num_active_channels;
-    private Integer num_inactive_channels;
-    private List<String> address = new ArrayList<>();
+    private int num_peers;
+    private int num_pending_channels;
+    private int num_active_channels;
+    private int num_inactive_channels;
+    private List<BindingType> address = new ArrayList<>(); //TODO the this
     private List<BindingType> binding = new ArrayList<>();
     private String version;
     private Long blockheight;
@@ -69,7 +69,7 @@ public class CLightningGetInfo {
         return num_inactive_channels;
     }
 
-    public List<String> getAddress() {
+    public List<BindingType> getAddress() {
         return address;
     }
 
