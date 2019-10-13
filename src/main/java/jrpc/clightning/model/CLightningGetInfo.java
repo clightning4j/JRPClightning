@@ -15,7 +15,7 @@
  */
 package jrpc.clightning.model;
 
-import jrpc.clightning.model.types.BindingType;
+import jrpc.clightning.model.types.NetworkAddresses;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -32,8 +32,8 @@ public class CLightningGetInfo {
     private int num_pending_channels;
     private int num_active_channels;
     private int num_inactive_channels;
-    private List<BindingType> address = new ArrayList<>(); //TODO the this
-    private List<BindingType> binding = new ArrayList<>();
+    private List<NetworkAddresses> address = new ArrayList<>(); //TODO the this
+    private List<NetworkAddresses> binding = new ArrayList<>();
     private String version;
     private Long blockheight;
     private String network;
@@ -69,11 +69,11 @@ public class CLightningGetInfo {
         return num_inactive_channels;
     }
 
-    public List<BindingType> getAddress() {
+    public List<NetworkAddresses> getAddress() {
         return address;
     }
 
-    public List<BindingType> getBinding() {
+    public List<NetworkAddresses> getBinding() {
         return binding;
     }
 

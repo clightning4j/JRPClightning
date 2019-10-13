@@ -358,18 +358,18 @@ public class CLightningRPC {
         return channelId.getId();
     }
 
-    protected String connect(String id){
+    public String connect(String id){
         if(id == null || id.trim().isEmpty()){
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
         return this.connect(id, "", "");
     }
 
-    protected CLightningPay pay(String bolt11){
+    public CLightningPay pay(String bolt11){
         return pay(bolt11,"", "", 10, "", 60, "");
     }
 
-    protected CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay){
+    public CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay){
         if(bolt11 == null || bolt11.trim().isEmpty()){
             throw new CLightningException("The method pay have the parameter bolt11 is null or empty");
         }
@@ -410,7 +410,7 @@ public class CLightningRPC {
 
         String payloadString = payload.toString();
         LOGGER.debug("Payload for pay connect is: " + payloadString);
-        CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.SENDPAY, payloadString);
+        CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.PAY, payloadString);
         return pay;
     }
 
@@ -439,6 +439,85 @@ public class CLightningRPC {
         LOGGER.debug("Payload for command listSendPays is: " + payloadString);
         CLightningListSendPays list = (CLightningListSendPays) mediatorCommand.runCommand(Command.LISTSENDPAYS, payloadString);
         return list;
+    }
+
+    public CLightningListChannels listChannels(){
+        return this.listChannels("", "");
+    }
+
+    public CLightningListChannels listChannels(String shortIdChannel, String source){
+        if(shortIdChannel == null){
+            throw new IllegalArgumentException("The shortIdChannel inside the method listChannels is null");
+        }
+        if(source == null){
+            throw new IllegalArgumentException("The source inside the method listChannels is null");
+        }
+        StringBuilder payload = new StringBuilder();
+        if(!shortIdChannel.trim().isEmpty()){
+            payload.append("short_channel_id=").append(shortIdChannel.trim());
+            if(!source.trim().isEmpty()){
+                payload.append(JOIN_TOKEN_PROP).append("source=").append(source.trim());
+            }
+        }else if(!source.isEmpty()){
+            payload.append("source=").append(source.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload for command listChannels " + payloadString);
+        CLightningListChannels channelsList = (CLightningListChannels) mediatorCommand.runCommand(Command.LISTCHANNELS, payloadString);
+        return channelsList;
+    }
+
+    public CLightningListPeers listPeers(){
+        return this.listPeers("", "");
+    }
+
+    public CLightningListPeers listPeers(String id, String level){
+        if(id == null){
+            throw new IllegalArgumentException("The id inside the method listChannels is null");
+        }
+        if(level == null){
+            throw new IllegalArgumentException("The level inside the method listChannels is null");
+        }
+        StringBuilder payload = new StringBuilder();
+        if(!id.trim().isEmpty()){
+            payload.append("id=").append(id.trim());
+            if(!level.trim().isEmpty()){
+                payload.append(JOIN_TOKEN_PROP).append("level=").append(level.trim());
+            }
+        }else if(!level.isEmpty()){
+            payload.append("level=").append(level.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("Payload for command listPeers " + payloadString);
+        CLightningListPeers listPeers = (CLightningListPeers) mediatorCommand.runCommand(Command.LISTPEERS, payloadString);
+        return listPeers;
+    }
+
+    public CLightningDecodePay decodePay(String bolt11){
+        return this.decodePay(bolt11, "");
+    }
+
+    public CLightningDecodePay decodePay(String bolt11, String description){
+        if(bolt11 == null || bolt11.trim().isEmpty()){
+            throw new IllegalArgumentException("The bolt11 inside the method decodePay is null or empty");
+        }
+        if(description == null){
+            throw new IllegalArgumentException("The level inside the method decodePay is null");
+        }
+
+        StringBuilder payload = new StringBuilder();
+        payload.append("bolt11=").append(bolt11.trim()).append(JOIN_TOKEN_PROP);
+
+        if(!description.trim().isEmpty()){
+            payload.append("description=").append(description.trim());
+        }
+
+        String payloadString = payload.toString();
+        LOGGER.debug("The payload for method decodePay is: " + payloadString);
+        CLightningDecodePay decodePay = (CLightningDecodePay) mediatorCommand.runCommand(Command.DECODEPAY, payloadString);
+        return decodePay;
     }
 
     //TODO testing in the version 0.7.3

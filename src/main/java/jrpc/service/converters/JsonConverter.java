@@ -46,6 +46,7 @@ public class JsonConverter implements IConverter {
         this.gsonBuilder = new GsonBuilder();
         gsonBuilder.setPrettyPrinting();
         gsonBuilder.setDateFormat(patternFormat);
+        gsonBuilder.registerTypeAdapter(Date.class, new MyDateTypeAdapter());
     }
 
     @Override
@@ -74,5 +75,23 @@ public class JsonConverter implements IConverter {
                                         this.getClass().getSimpleName() + "\nMessage: " + ex.getLocalizedMessage());
         }
         return response;
+    }
+
+    public class MyDateTypeAdapter extends TypeAdapter<Date> {
+        @Override
+        public void write(JsonWriter out, Date value) throws IOException {
+            if (value == null)
+                out.nullValue();
+            else
+                out.value(value.getTime() / 1000);
+        }
+
+        @Override
+        public Date read(JsonReader in) throws IOException {
+            if (in != null)
+                return new Date(in.nextLong() * 1000);
+            else
+                return null;
+        }
     }
 }

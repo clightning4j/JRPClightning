@@ -3,6 +3,7 @@ jrpc.clightning.commands
 jrpc.clightning.exceptions
 jrpc.clightning.model
 jrpc.clightning.model.types
+jrpc.clightning.service
 jrpc.clightning.service.socket
 jrpc.exceptions
 jrpc.service.converters

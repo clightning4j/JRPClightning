@@ -67,6 +67,9 @@ For the moment the library support this commands:
 - CONNECT
 - FUNDCHANNEL
 - LISTFUNDS
+- DECODEPAY
+- LISTPEERS
+- LISTCHANNELS
 
 The javadoc here, inside the class [CLightningRPC](https://vincenzopalazzo.github.io/JRPClightning/jrpc/clightning/CLightningRPC.html) are all method you can be called.
 Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/)

@@ -54,7 +54,7 @@ public enum Command {
     LISTINVOICE, //Supported
     LISTPAYMENTS,
     LISTSENDPAYS,
-    SENDPAY,
+    PAY,
     WAITINGINVOICE,
     WAITSENDPAY,
 

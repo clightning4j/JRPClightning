@@ -18,7 +18,7 @@ package jrpc.clightning.model.types;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class BindingType {
+public class NetworkAddresses {
 
     private String type;
     private String address;

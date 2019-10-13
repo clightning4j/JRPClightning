@@ -56,8 +56,11 @@ public class CommandRPCMediator {
             commands.put(Command.FUNDCHANNEL, new CLightningCommandFundChannel());
             commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
             commands.put(Command.CONNECT, new CLightningCommandConnect());
-            commands.put(Command.SENDPAY, new CLightningCommandPay());
+            commands.put(Command.PAY, new CLightningCommandPay());
             commands.put(Command.LISTPAYMENTS, new CLightningCommandListSendPays());
+            commands.put(Command.LISTCHANNELS, new CLightningCommandListChannels());
+            commands.put(Command.LISTPEERS, new CLightningCommandListPeers());
+            commands.put(Command.DECODEPAY, new CLightningCommandDecodePay());
         } catch (ServiceException e) {
             socket = null;
             throw new CLightningException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
@@ -82,9 +85,10 @@ public class CommandRPCMediator {
         try {
             return commandSelected.doRPCCommand(socket, setting);
         } catch (ServiceException e) {
-            throw new RuntimeException("Service exception with message error\n" + e.getLocalizedMessage());
+            e.printStackTrace();
+            throw new CLightningException("Service exception with message error\n" + e.getLocalizedMessage());
         } catch (CommandException e) {
-            throw new RuntimeException("Error whent running the command " + command + ".\n" + e.getLocalizedMessage());
+            throw new CLightningException("Error whent running the command " + command + ".\n" + e.getLocalizedMessage());
         }
     }
 

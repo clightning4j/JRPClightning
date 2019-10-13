@@ -33,7 +33,6 @@ public class TestCommandRPCMediator {
 
     private CommandRPCMediator mediator;
 
-
     @Before
     public void configure(){
         mediator = new CommandRPCMediator();

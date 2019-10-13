@@ -24,6 +24,8 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.List;
+
 /**
  * @author https://github.com/vincenzopalazzo
  */
@@ -181,5 +183,36 @@ public class TestCLightningRPC {
     public void testCommandListSendPaysOTwo(){
         CLightningListSendPays pay = CLightningRPC.getInstance().listSendPays();
         TestCase.assertNotNull(pay);
+    }
+
+    @Test
+    public void testCommandListChannelsOne(){
+        CLightningListChannels channles = CLightningRPC.getInstance().listChannels("", "");
+        TestCase.assertNotNull(channles);
+    }
+
+    @Test
+    public void testCommandListPeersOne(){
+        CLightningListPeers peers = CLightningRPC.getInstance().listPeers("", "");
+        TestCase.assertNotNull(peers);
+    }
+
+    @Test
+    public void testCommandDecodePayOne(){
+        String bolt11 = "lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235x" +
+                "jueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggry" +
+                "v43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl7" +
+                "5dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82";
+        CLightningDecodePay decodePay = CLightningRPC.getInstance().decodePay(bolt11);
+        TestCase.assertNotNull(decodePay);
+        TestCase.assertEquals("13300msat", decodePay.getAmountMSat());
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testCommandDecodePayTwo(){
+        String bolt11 = "";
+        CLightningDecodePay decodePay = CLightningRPC.getInstance().decodePay(bolt11);
+        TestCase.assertNotNull(decodePay);
+        TestCase.assertEquals("13300msat", decodePay.getAmountMSat());
     }
 }
