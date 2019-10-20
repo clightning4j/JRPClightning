@@ -22,8 +22,11 @@ import com.google.gson.annotations.SerializedName;
  */
 public class CLightningBitcoinTx {
 
+    //TODO Testing this command because I have the different Behaviors
+    //Look also the reference https://github.com/ElementsProject/lightning/blob/master/doc/lightning-withdraw.7.md
     @SerializedName("unsigned_tx")
     private String unsignedTx;
+    @SerializedName("txid")
     private String txId;
 
     public String getUnsignedTx() {
