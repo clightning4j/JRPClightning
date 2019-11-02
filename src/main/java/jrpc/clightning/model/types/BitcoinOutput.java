@@ -19,41 +19,34 @@ package jrpc.clightning.model.types;
  * @author https://github.com/vincenzopalazzo
  */
 public class BitcoinOutput {
-
+    //TODO FIXME when run the command txprepare I have this error
+    // The output format must be {destination: amount}
     private String address;
-    private String ammount;
+    private String amount;
 
     public BitcoinOutput() {}
 
-    public BitcoinOutput(String address, String ammount) {
+    public BitcoinOutput(String address, String amount) {
         this.address = address;
-        this.ammount = ammount;
+        this.amount = amount;
     }
 
     public String getAddress() {
         return address;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getAmmount() {
-        return ammount;
-    }
-
-    public void setAmmount(String ammount) {
-        this.ammount = ammount;
+    public String getAmount() {
+        return amount;
     }
 
     @Override
     public String toString() {
-        String ammountString;
-        if(ammount.trim().isEmpty()){
-            ammountString = "all";
+        String amountString;
+        if(amount.trim().isEmpty()){
+            amountString = "all";
         }else{
-            ammountString = ammount;
+            amountString = amount;
         }
-        return address + "#" + ammountString;
+        return address + "#" + amountString;
     }
 }

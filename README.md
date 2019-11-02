@@ -1,6 +1,8 @@
 # JRPClightning
 
-![work in progress](http://s3.amazonaws.com/snd-store/a/26553114/02_02_18_508408464_aab_560x292.jpg)
+<p align="center">
+    <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
+</p>
 
 This is an simple wrapper for c-lightning rpc, this project is inspired by this 
 [pull request](https://github.com/ElementsProject/lightning/pull/2223) by @renepickhardt
@@ -11,6 +13,7 @@ This  wrapper aims to be versatile, that is the final version should allow to ex
 The license is available [here](https://www.apache.org/licenses/LICENSE-2.0) 
 
 ## Status project :construction:
+The project support some command, if you want try it don't use on the **MAINET** but use **TESTNET**
 
 ## Command Support
 
@@ -63,13 +66,14 @@ For the moment the library support this commands:
 - TXDISCARD
 - TXSEND
 - WITHDRAW
-- CLOSE
 - CONNECT
 - FUNDCHANNEL
 - LISTFUNDS
 - DECODEPAY
 - LISTPEERS
 - LISTCHANNELS
+- LISTSENDPAYS
+- PAY
 
 The javadoc here, inside the class [CLightningRPC](https://vincenzopalazzo.github.io/JRPClightning/jrpc/clightning/CLightningRPC.html) are all method you can be called.
 Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/)

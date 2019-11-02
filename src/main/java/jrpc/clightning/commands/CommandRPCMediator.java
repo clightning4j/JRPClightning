@@ -57,7 +57,7 @@ public class CommandRPCMediator {
             commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
             commands.put(Command.CONNECT, new CLightningCommandConnect());
             commands.put(Command.PAY, new CLightningCommandPay());
-            commands.put(Command.LISTPAYMENTS, new CLightningCommandListSendPays());
+            commands.put(Command.LISTSENDPAYS, new CLightningCommandListSendPays());
             commands.put(Command.LISTCHANNELS, new CLightningCommandListChannels());
             commands.put(Command.LISTPEERS, new CLightningCommandListPeers());
             commands.put(Command.DECODEPAY, new CLightningCommandDecodePay());
