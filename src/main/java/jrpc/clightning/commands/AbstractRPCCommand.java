@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 https://github.com/vincenzopalazzo
+ * Copyright 2019-2020 https://github.com/vincenzopalazzo vincenzo.palazzo@protonmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -41,7 +41,7 @@ public abstract class AbstractRPCCommand<T> implements IRPCCommand<T>{
             throw new IllegalArgumentException("Methods is/are null");
         }
         if(commandName == null || commandName.trim().isEmpty()){
-            throw new CommandException("The command name doesn't definited");
+            throw new CommandException("The command name undefined");
         }
         RPCUnixRequestMethod wrapper = new RPCUnixRequestMethod(commandName, payload);
         Type type = toTypeFromClass();

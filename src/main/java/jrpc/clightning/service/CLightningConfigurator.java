@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ * Copyright 2019-2020 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -20,6 +20,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.util.Properties;
+import java.util.StringTokenizer;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -31,12 +32,14 @@ public class CLightningConfigurator {
     private final Logger LOGGER = LoggerFactory.getLogger("CLightningConfigurator");
     private static final String NAME_FILE_CONFIG = "/clightning-rpc.properties";
     private static final String NAME_RPC = "lightning-rpc";
-    private static final String DEFAULT_DIR = System.getProperty("home.dir") + "/.lightning/"; //TODO work only linux, this is an tempory solution.
+    private static final String DEFAULT_DIR = System.getProperty("home.dir") + "/.lightning/"; //TODO work only linux, this is an momentary solution.
 
-    //PROPRIET FILE const
+    //PROPRIETIES FILE value
     private static final String RPC_DIR = "RPC_DIR";
 
     private String url;
+    private String socketPath;
+    private String socketFileName;
 
     public static CLightningConfigurator getInstance(){
         return SINGLETON;
@@ -60,8 +63,45 @@ public class CLightningConfigurator {
 
     }
 
+    private void analizeUrl(){
+        //TODO look the delimitator
+        StringTokenizer tokenizer = new StringTokenizer(url, "/");
+        int start = 0;
+        int end = tokenizer.countTokens();
+        while(tokenizer.hasMoreElements()){
+            start++;
+            if(start == end){
+                socketFileName = tokenizer.nextToken();
+                socketPath = url.substring(0, url.length() - socketFileName.length() - 1);
+                LOGGER.debug(socketPath);
+            }else{
+                tokenizer.nextToken();
+            }
+        }
+    }
+
     //getter
     public String getUrl() {
         return url;
+    }
+
+    public String getSocketPath(){
+        if(url == null){
+            throw new IllegalArgumentException("URL socket is null");
+        }
+        if(socketPath == null){
+            analizeUrl();
+        }
+        return socketPath;
+    }
+
+    public String getSocketFileName() {
+        if(url == null){
+            throw new IllegalArgumentException("URL socket is null");
+        }
+        if(socketFileName == null){
+            analizeUrl();
+        }
+        return socketFileName;
     }
 }

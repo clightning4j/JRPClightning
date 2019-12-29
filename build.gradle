@@ -11,15 +11,14 @@ dependencies {
     implementation 'ch.qos.logback:logback-core:1.2.3'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'
 
-    compile group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.0.4'
+    compile group: 'com.kohlschutter.junixsocket', name: 'junixsocket-common', version: '2.3.0'
 
-    compile group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.0.4'
+    compile group: 'com.kohlschutter.junixsocket', name: 'junixsocket-native-common', version: '2.3.0'
 
     implementation 'com.google.code.gson:gson:2.8.5'
 
     // https://mvnrepository.com/artifact/commons-io/commons-io
     compile group: 'commons-io', name: 'commons-io', version: '2.4'
-
 
     testImplementation 'junit:junit:4.12'
 }

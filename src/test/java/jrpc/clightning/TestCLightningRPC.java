@@ -15,7 +15,7 @@
  */
 package jrpc.clightning;
 
-import jrpc.clightning.commands.Command;
+import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
@@ -24,7 +24,7 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.List;
+import java.time.format.TextStyle;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -108,7 +108,7 @@ public class TestCLightningRPC {
         CLightningRPC.getInstance().delInvoice(label, "unpaid");
     }
 
-    @Test
+    //@Test
     public void testCommandTxPrepareOne(){
         BitcoinOutput bitcoinOutput = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
         CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().txPrepare(bitcoinOutput);
@@ -117,38 +117,61 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandWithDrawOne(){
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-        TestCase.assertNotNull(txBitcoin);
+
+        try{
+            CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
+
     }
 
     @Test
     public void testCommandTxDiscardOne(){
         ///Before create the tx, with tx prepare
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-        TestCase.assertNotNull(txBitcoin);
+        try{
+            CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
     }
 
     @Test
     public void testCommandConnectAndCloseOne(){
         ///Before create the tx, with tx prepare
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().close("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e");
-        TestCase.assertNotNull(txBitcoin);
+        try{
+            CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().close("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e");
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
     }
 
     @Test
     public void testCommandFundChannelOne(){
-        String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
-                "10000", "normal", true, 1, new String[]{});
-        TestCase.assertNotNull(txBitcoin);
+        try{
+            String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
+            CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+                    "10000", "normal", true, 1, new String[]{});
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
     }
 
     @Test
     public void testCommandFundChannelTwo(){
-        String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
-        CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
-                "10000", "normal", false, 1, new String[]{});
-        TestCase.assertNotNull(txBitcoin);
+        try{
+            String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
+            CLightningBitcoinTx txBitcoin = CLightningRPC.getInstance().fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+                    "10000", "normal", false, 1, new String[]{});
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
+
     }
 
     @Test
@@ -159,17 +182,21 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandConnectOne(){
-        String idString = "03ad091993d0ed893a029f94d3c11fe1745e6afdf4582bf7f61e46b9936350771e";
-        String port = "9736";
+        String idString = "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef";
+        String port = "19736";
         String id = CLightningRPC.getInstance().connect(idString, "", port);
         TestCase.assertNotNull(id);
     }
 
     @Test
     public void testCommandPayOne(){
-        String bolt11 = "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e";
-        CLightningPay pay = CLightningRPC.getInstance().pay(bolt11);
-        TestCase.assertNotNull(pay);
+        try{
+            String bolt11 = "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e";
+            CLightningPay pay = CLightningRPC.getInstance().pay(bolt11);
+            TestCase.fail();
+        }catch (CLightningException ex){
+            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+        }
     }
 
     @Test(expected = RuntimeException.class)

@@ -1,5 +1,5 @@
 /**
- * Copyright 2019 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ * Copyright 2019-2020 https://github.com/vincenzopalazzo vincenzo.palazzo@protonmail.com
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -38,9 +38,9 @@ public class CommandRPCMediator {
         initializeMediator();
     }
 
-    protected void initializeMediator(){
+    //TODO refactoring this code
+    protected void initializeMediator() {
         try {
-            //socket = new CLightningSocket("/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc");
             socket = new CLightningSocket();
             commands.put(Command.GETINFO, new CLightningCommandGetInfo());
             commands.put(Command.NEWADDR, new CLightningCommandNewAddress());
@@ -69,15 +69,15 @@ public class CommandRPCMediator {
     }
 
     public Object runCommand(Command command, String payload) {
-        if(socket == null){
-            try{
+        if (socket == null) {
+            try {
                 initializeMediator();
-            }catch (CLightningException ex){
+            } catch (CLightningException ex) {
                 LOGGER.error("FATAL ERROR: Socket not initialization");
                 return null;
             }
         }
-        if(!commands.containsKey(command)){
+        if (!commands.containsKey(command)) {
             throw new CommandException("The command " + command + " not supported yet");
         }
         IRPCCommand commandSelected = commands.get(command);
@@ -88,7 +88,7 @@ public class CommandRPCMediator {
             e.printStackTrace();
             throw new CLightningException("Service exception with message error\n" + e.getLocalizedMessage());
         } catch (CommandException e) {
-            throw new CLightningException("Error whent running the command " + command + ".\n" + e.getLocalizedMessage());
+            throw new CLightningException("Error when running the command " + command + ".\n" + e.getLocalizedMessage());
         }
     }
 
@@ -115,18 +115,18 @@ public class CommandRPCMediator {
                     HashMap<String, String> outputs = valueToHasMap(value);
                     if (arrayObject != null) {
                         configResult.put(key, arrayObject);
-                    }else if(outputs != null) {
+                    } else if (outputs != null) {
                         List<String> result = new ArrayList<>();
-                        for(Map.Entry<String, String> entry : outputs.entrySet()){
+                        for (Map.Entry<String, String> entry : outputs.entrySet()) {
                             String valueTmp = entry.getKey() + ":" + entry.getValue();
                             result.add(valueTmp);
                         }
                         configResult.put(key, result);
                     } else {
-                        if(value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")){
+                        if (value.equalsIgnoreCase("true") || value.equalsIgnoreCase("false")) {
                             Boolean valueBool = Boolean.valueOf(value);
                             configResult.put(key, valueBool);
-                        }else{
+                        } else {
                             configResult.put(key, value);
                         }
                     }
@@ -145,9 +145,9 @@ public class CommandRPCMediator {
             throw new IllegalArgumentException("The value inside the method valueToList inside the class "
                     + this.getClass().getCanonicalName() + " is null");
         }
-        if(value.contains("&")){
+        if (value.contains("&")) {
             //parsin a list of output
-        }else if(value.contains("#")){
+        } else if (value.contains("#")) {
             //Parsing a single output
             StringTokenizer tokenizerOutput = new StringTokenizer(value, "#");
             String key = tokenizerOutput.nextToken();
