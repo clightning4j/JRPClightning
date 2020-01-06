@@ -18,18 +18,14 @@ package jrpc.service.converters;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.exceptions.ServiceException;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
-import java.io.Reader;
 import java.lang.reflect.Type;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -94,4 +90,5 @@ public class JsonConverter implements IConverter {
                 return null;
         }
     }
+
 }

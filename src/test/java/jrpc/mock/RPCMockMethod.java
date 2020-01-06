@@ -1,13 +1,13 @@
 package jrpc.mock;
 
-import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class RPCMockMethod extends AbstractRPCMethod {
+public class RPCMockMethod extends RPCMethod {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RPCMockMethod.class);
 

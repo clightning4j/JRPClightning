@@ -1,13 +1,12 @@
 package jrpc.clightning.plugins.rpcmethods.init;
 
-import com.google.gson.annotations.SerializedName;
-import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class InitMethod extends AbstractRPCMethod {
+public class InitMethod extends RPCMethod {
 
     private Configuration configuration;
 

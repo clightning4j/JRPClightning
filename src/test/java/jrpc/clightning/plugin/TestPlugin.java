@@ -1,6 +1,7 @@
 package jrpc.clightning.plugin;
 
 import jrpc.mock.PluginMock;
+import jrpc.mock.RPCMockMethod;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -23,6 +24,12 @@ public class TestPlugin {
 
     @Test
     public void testJsonResponseOne(){
+        RPCMockMethod method = new RPCMockMethod("test", "", "this is a simple test");
+        pluginMock.addRPCMethod(method);
+
+        pluginMock.start();
+
+
         String response = pluginMock.toString();
         LOGGER.debug("\n" + response);
         TestCase.assertFalse(response.contains("init"));

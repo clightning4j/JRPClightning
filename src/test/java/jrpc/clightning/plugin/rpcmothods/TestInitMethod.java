@@ -26,6 +26,6 @@ public class TestInitMethod {
     public void testStringMethodEmptyOne(){
         String jsonResult = init.toString();
         LOGGER.debug("\n" + jsonResult);
-        TestCase.assertTrue(jsonResult.contains("init"));
+        TestCase.assertFalse(jsonResult.contains("init"));
     }
 }

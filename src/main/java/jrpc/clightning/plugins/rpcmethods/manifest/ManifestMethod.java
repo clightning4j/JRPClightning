@@ -1,31 +1,26 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.annotations.SerializedName;
-import jrpc.clightning.CLightningRPC;
-import jrpc.clightning.plugins.exceptions.CLightningPluginException;
-import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
-import jrpc.service.converters.IConverter;
-import jrpc.service.converters.JsonConverter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class ManifestMethod extends AbstractRPCMethod {
+public class ManifestMethod extends RPCMethod {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(ManifestMethod.class);
 
     private List<Option> options = new ArrayList<>();
     @SerializedName("rpcmethods")
-    private List<ICLightningRPCMethod> rpcMethods = new ArrayList<>();
+    private List<RPCMethod> rpcMethods = new ArrayList<>();
     private List<String> subscriptions = new ArrayList<>();
     private List<String> hooks = new ArrayList<>();
     private Boolean dynamic = Boolean.TRUE;
@@ -34,7 +29,7 @@ public class ManifestMethod extends AbstractRPCMethod {
         super("getmanifest", null, null);
     }
 
-    public ManifestMethod(List<Option> options, List<ICLightningRPCMethod> rpcMethods,
+    public ManifestMethod(List<Option> options, List<RPCMethod> rpcMethods,
                           List<String> subscriptions, List<String> hooks, Boolean dynamic) {
         this();
         this.options = options;
@@ -49,7 +44,7 @@ public class ManifestMethod extends AbstractRPCMethod {
         //do nothing for moment
     }
 
-    public boolean addMethods(List<ICLightningRPCMethod> methods){
+    public boolean addMethods(List<RPCMethod> methods){
         if(methods == null || methods.isEmpty()){
             throw new IllegalArgumentException("List of methods empty or null");
         }
@@ -69,12 +64,30 @@ public class ManifestMethod extends AbstractRPCMethod {
         return this.options.add(option);
     }
 
+    public void addSubscriptions(String subscription){
+        if(subscription == null){
+            throw new IllegalArgumentException("Subscription null");
+        }
+        this.subscriptions.add(subscription);
+    }
+
+    public void addHook(String hook){
+        if(hook == null){
+            throw new IllegalArgumentException("Hook null");
+        }
+        this.hooks.add(hook);
+    }
+
+    public void setDynamic(Boolean dynamic) {
+        this.dynamic = dynamic;
+    }
+
     //getter methods
     public List<Option> getOptions() {
         return options;
     }
 
-    public List<ICLightningRPCMethod> getRpcMethods() {
+    public List<RPCMethod> getRpcMethods() {
         return rpcMethods;
     }
 
