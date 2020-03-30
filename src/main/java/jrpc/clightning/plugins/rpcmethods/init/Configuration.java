@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-class Configuration {
+public class Configuration {
 
     @SerializedName("lightning-dir")
     private String socketPath;

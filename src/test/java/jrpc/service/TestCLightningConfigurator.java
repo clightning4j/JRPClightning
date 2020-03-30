@@ -4,6 +4,9 @@ import jrpc.clightning.service.CLightningConfigurator;
 import junit.framework.TestCase;
 import org.junit.Test;
 
+import java.io.IOException;
+import java.util.Properties;
+
 /**
  * @author https://github.com/vincenzopalazzo
  */
@@ -23,10 +26,15 @@ public class TestCLightningConfigurator {
 
     @Test
     public void testSocketPathValueTwo(){
-        //TODO add this path to proprietis files
-        String nameRpc = "/media/vincenzo/Maxtor/sanboxTestWrapperRPC/lightning_dir_one";
-        String socketPath = CLightningConfigurator.getInstance().getSocketPath();
-        TestCase.assertEquals(nameRpc, socketPath);
+        Properties properties = new Properties();
+        try {
+            properties.load(this.getClass().getResourceAsStream("/clightning-rpc.properties"));
+            String nameRpc = properties.getProperty("RPC_DIR").substring(0, properties.getProperty("RPC_DIR").length() - "lightning-rpc".length() - 1);
+            String socketPath = CLightningConfigurator.getInstance().getSocketPath();
+            TestCase.assertEquals(nameRpc, socketPath);
+        } catch (IOException e) {
+            TestCase.fail("Assertion file bacause there is an exception with this message: " + e.getLocalizedMessage());
+        }
     }
 
     @Test

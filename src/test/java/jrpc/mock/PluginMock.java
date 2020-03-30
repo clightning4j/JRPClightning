@@ -1,6 +1,7 @@
 package jrpc.mock;
 
 import jrpc.clightning.plugins.AbstractPlugin;
+import jrpc.service.JRPCLightningLogger;
 
 
 /**
@@ -11,6 +12,6 @@ public class PluginMock extends AbstractPlugin {
     @Override
     public void start() {
         super.start();
-        LOGGER.debug("******* MOCK plugin method run *******");
+        JRPCLightningLogger.getInstance().debug(TAG,"******* MOCK plugin method run *******");
     }
 }

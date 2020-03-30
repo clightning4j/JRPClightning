@@ -1,28 +1,31 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.annotations.SerializedName;
+import jrpc.clightning.plugins.ICLightningPlugin;
+import jrpc.clightning.plugins.exceptions.CLightningPluginException;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
-import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
+import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
 public class ManifestMethod extends RPCMethod {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(ManifestMethod.class);
-
     private List<Option> options = new ArrayList<>();
     @SerializedName("rpcmethods")
     private List<RPCMethod> rpcMethods = new ArrayList<>();
     private List<String> subscriptions = new ArrayList<>();
     private List<String> hooks = new ArrayList<>();
+    private Features features;
     private Boolean dynamic = Boolean.TRUE;
 
     public ManifestMethod() {
@@ -30,13 +33,24 @@ public class ManifestMethod extends RPCMethod {
     }
 
     public ManifestMethod(List<Option> options, List<RPCMethod> rpcMethods,
-                          List<String> subscriptions, List<String> hooks, Boolean dynamic) {
+                          List<String> subscriptions, List<String> hooks, Features features, Boolean dynamic) {
         this();
         this.options = options;
         this.rpcMethods = rpcMethods;
         this.subscriptions = subscriptions;
         this.hooks = hooks;
+        this.features = features;
         this.dynamic = dynamic;
+    }
+
+    public ManifestMethod(ICLightningPlugin plugin) {
+        this();
+        this.options = new ArrayList<>();
+        options.add(new Option(plugin));
+        this.rpcMethods = plugin.getRpcMethods();
+        this.subscriptions = plugin.getSubscriptions();
+        this.hooks = plugin.getHooks();
+        this.dynamic = plugin.isDynamic();
     }
 
     @Override
@@ -44,24 +58,26 @@ public class ManifestMethod extends RPCMethod {
         //do nothing for moment
     }
 
-    public boolean addMethods(List<RPCMethod> methods){
+    public void addFeature(String node, String init, String invoice){
+        //TODO if empty
+        this.features = new Features(node, init, invoice);
+
+    }
+
+    public void addMethods(List<RPCMethod> methods){
         if(methods == null || methods.isEmpty()){
             throw new IllegalArgumentException("List of methods empty or null");
         }
         methods.removeIf(method -> (method instanceof ManifestMethod || method instanceof InitMethod));
-        return this.rpcMethods.addAll(methods);
+        this.rpcMethods.addAll(methods);
     }
 
-    public boolean addOption(String name, String type, String def, String description){
-        if((name == null || name.isEmpty())
-                || (type == null || type.isEmpty())
-                || (def == null || def.isEmpty())
-                || (description == null || description.isEmpty())){
-            throw new IllegalArgumentException("Argument/s null");
+    public void addOption(ICLightningPlugin plugin){
+        if(plugin == null){
+            throw new IllegalArgumentException("Argument is null");
         }
-
-        Option option = new Option(name, type, def, description);
-        return this.options.add(option);
+        Option option = new Option(plugin);
+        this.options.add(option);
     }
 
     public void addSubscriptions(String subscription){
@@ -97,6 +113,10 @@ public class ManifestMethod extends RPCMethod {
 
     public List<String> getHooks() {
         return hooks;
+    }
+
+    public Features getFeatures() {
+        return features;
     }
 
     public Boolean getDynamic() {

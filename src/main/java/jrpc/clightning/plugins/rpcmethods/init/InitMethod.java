@@ -23,4 +23,8 @@ public class InitMethod extends RPCMethod {
         //do thing for moment
     }
 
+    //getter
+    public Configuration getConfiguration() {
+        return configuration;
+    }
 }

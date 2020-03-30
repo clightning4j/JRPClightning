@@ -29,10 +29,10 @@ public class TestPlugin {
 
         pluginMock.start();
 
-
         String response = pluginMock.toString();
         LOGGER.debug("\n" + response);
         TestCase.assertFalse(response.contains("init"));
         TestCase.assertFalse(response.contains("getmanifest"));
+        TestCase.assertFalse(response.contains("null"));
     }
 }

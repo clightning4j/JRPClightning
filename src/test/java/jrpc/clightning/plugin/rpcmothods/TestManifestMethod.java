@@ -1,7 +1,10 @@
 package jrpc.clightning.plugin.rpcmothods;
 
+import jrpc.clightning.plugins.AbstractPlugin;
+import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.mock.PluginMock;
 import jrpc.mock.RPCMockMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import junit.framework.TestCase;
@@ -24,16 +27,24 @@ public class TestManifestMethod {
 
     @Before
     public void init(){
-        manifest = new ManifestMethod();
+        ICLightningPlugin plugin = new PluginMock();
+        manifest = new ManifestMethod(plugin);
     }
 
     @Test
     public void testStringMethodEmptyOne(){
         ManifestMethod method = (ManifestMethod) manifest;
-        method.addOption("getmanifesttest", "String", "default", "this is only test");
         String jsonResult = method.toString();
         LOGGER.debug("\n" + jsonResult);
         TestCase.assertFalse(jsonResult.contains("usage"));
+    }
+
+    @Test
+    public void testStringMethodEmptyTwo(){
+        ManifestMethod method = (ManifestMethod) manifest;
+        String jsonResult = method.toString();
+        LOGGER.debug("\n" + jsonResult);
+        TestCase.assertFalse(jsonResult.contains("name"));
     }
 
     @Test
