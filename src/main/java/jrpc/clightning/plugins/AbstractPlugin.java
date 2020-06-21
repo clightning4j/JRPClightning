@@ -20,70 +20,43 @@ import java.util.List;
 public abstract class AbstractPlugin implements ICLightningPlugin {
 
     @Expose
-    protected static final Class TAG = AbstractPlugin.class;
+    private static final Class TAG = AbstractPlugin.class;
 
-    @SerializedName("name")
-    protected String namePlugin;
-    @SerializedName("rpcmethods")
-    protected List<RPCMethod> rpcMethods = new ArrayList<>();
-    protected String type;
-    @SerializedName("default")
-    protected String defaultPropriety;
-    @SerializedName("description")
-    protected String descriptionPlugin;
-    protected List<String> subscriptions = new ArrayList<>();
-    protected List<String> hooks = new ArrayList<>();
-    protected List<String> features = new ArrayList<>();
-    protected boolean dynamic;
+    private ManifestMethod manifest;
 
+    public AbstractPlugin() {
+        this.manifest = new ManifestMethod();
+    }
 
     public void addRPCMethod(RPCMethod method){
         if(method == null){
             throw new IllegalArgumentException("Method object null");
         }
         JRPCLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
-        this.rpcMethods.add(method);
+        this.manifest.addMethod(method);
     }
 
     @Override
     public void start() {
-        ManifestMethod manifestMethod = new ManifestMethod();
-        manifestMethod.addMethods(this.rpcMethods);
-        addRPCMethod(manifestMethod);
+        addRPCMethod(this.manifest);
         addRPCMethod(new InitMethod(Boolean.TRUE));
     }
 
     // getter method
-    public String getNamePlugin() {
-        return namePlugin;
-    }
-
     public List<RPCMethod> getRpcMethods() {
-        return rpcMethods;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public String getDefaultPropriety() {
-        return defaultPropriety;
-    }
-
-    public String getDescriptionPlugin() {
-        return descriptionPlugin;
+        return manifest.getRpcMethods();
     }
 
     public List<String> getSubscriptions() {
-        return subscriptions;
+        return manifest.getSubscriptions();
     }
 
     public List<String> getHooks() {
-        return hooks;
+        return manifest.getHooks();
     }
 
     public boolean isDynamic() {
-        return dynamic;
+        return manifest.getDynamic();
     }
 
     @Override

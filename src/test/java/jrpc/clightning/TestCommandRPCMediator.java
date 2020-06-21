@@ -20,6 +20,8 @@ import jrpc.clightning.commands.CommandRPCMediator;
 import jrpc.clightning.model.CLightningGetInfo;
 import jrpc.clightning.model.CLightningInvoice;
 import jrpc.clightning.model.CLightningListInvoices;
+import jrpc.clightning.service.socket.CLightningSocket;
+import jrpc.exceptions.ServiceException;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -35,7 +37,11 @@ public class TestCommandRPCMediator {
 
     @Before
     public void configure(){
-        mediator = new CommandRPCMediator();
+        try {
+            mediator = new CommandRPCMediator(new CLightningSocket());
+        } catch (ServiceException e) {
+            e.printStackTrace();
+        }
         //Clean invoice
         //cleanInvoice();
     }

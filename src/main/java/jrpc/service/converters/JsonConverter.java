@@ -48,7 +48,6 @@ public class JsonConverter implements IConverter {
         gsonBuilder.registerTypeAdapter(Date.class, new MyDateTypeAdapter());
         gsonBuilder.registerTypeAdapter(ManifestMethod.class, new ManifestMethodTypeAdapter(gsonBuilder.create()));
         gsonBuilder.registerTypeAdapter(InitMethod.class, new InitMethodTypeAdapter(gsonBuilder.create()));
-       // gsonBuilder.addSerializationExclusionStrategy(new JRPCLightningExcludeStarategy());
     }
 
     @Override
@@ -79,19 +78,6 @@ public class JsonConverter implements IConverter {
         return response;
     }
 
-    protected class JRPCLightningExcludeStarategy implements ExclusionStrategy {
-
-        @Override
-        public boolean shouldSkipField(FieldAttributes f) {
-            return false;
-        }
-
-        @Override
-        public boolean shouldSkipClass(Class<?> clazz) {
-            boolean skip = (clazz.equals(InitMethod.class));
-            return skip;
-        }
-    }
 
     protected class MyDateTypeAdapter extends TypeAdapter<Date> {
         @Override

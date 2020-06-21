@@ -61,15 +61,21 @@ public class ManifestMethod extends RPCMethod {
     public void addFeature(String node, String init, String invoice){
         //TODO if empty
         this.features = new Features(node, init, invoice);
-
     }
 
     public void addMethods(List<RPCMethod> methods){
-        if(methods == null || methods.isEmpty()){
+        if(methods == null){
             throw new IllegalArgumentException("List of methods empty or null");
         }
         methods.removeIf(method -> (method instanceof ManifestMethod || method instanceof InitMethod));
         this.rpcMethods.addAll(methods);
+    }
+
+    public void addMethod(RPCMethod method){
+        if(method == null){
+            throw new IllegalArgumentException("List of methods empty or null");
+        }
+        this.rpcMethods.add(method);
     }
 
     public void addOption(ICLightningPlugin plugin){

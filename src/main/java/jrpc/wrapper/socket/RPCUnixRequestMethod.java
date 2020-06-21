@@ -15,12 +15,11 @@
  */
 package jrpc.wrapper.socket;
 
-
 import java.util.Map;
 
 public class RPCUnixRequestMethod implements IWrapperSocketCall{
 
-    private int id = 1;
+    private int id;
     private String method;
     private Map<String, Object> params;
 
@@ -42,7 +41,7 @@ public class RPCUnixRequestMethod implements IWrapperSocketCall{
         return params;
     }
 
-
+    //TODO generate a correct id number, is correct this number?
     public int getRandomNumber(){
         return (int)(Math.random()*100);
     }

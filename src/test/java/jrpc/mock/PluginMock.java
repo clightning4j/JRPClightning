@@ -9,6 +9,8 @@ import jrpc.service.JRPCLightningLogger;
  */
 public class PluginMock extends AbstractPlugin {
 
+    private static final Class TAG = PluginMock.class;
+
     @Override
     public void start() {
         super.start();

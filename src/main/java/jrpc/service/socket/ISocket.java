@@ -19,6 +19,7 @@ import jrpc.exceptions.ServiceException;
 import jrpc.wrapper.socket.IWrapperSocketCall;
 
 import java.lang.reflect.Type;
+import java.net.SocketException;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -26,4 +27,8 @@ import java.lang.reflect.Type;
 public interface ISocket {
 
     Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException;
+
+    void close() throws ServiceException;
+
+    int getReceiveBufferSize() throws SocketException;
 }

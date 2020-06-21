@@ -1,0 +1,3962 @@
+463  [main] DEBUG CLightningConfigurator - The url is: /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+715  [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+735  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 97,
+  "method": "listinvoices",
+  "params": {}
+}
+735  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 97,
+  "method": "listinvoices",
+  "params": {}
+}
+735  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 97,
+  "method": "listinvoices",
+  "params": {}
+}
+735  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+735  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+736  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+778  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 97,
+  "result": {
+    "invoices": []
+  }
+}
+779  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 97,
+  "result": {
+    "invoices": []
+  }
+}
+779  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 97,
+  "result": {
+    "invoices": []
+  }
+}
+779  [main] DEBUG jrpc.clightning.CLightningRPC - The payload for method decodePay is: bolt11=lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82+
+779  [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload bolt11=lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82+
+is: 1
+779  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: bolt11=lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82
+779  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: bolt11
+779  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82
+779  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+781  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "decodepay",
+  "params": {
+    "bolt11": "lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82"
+  }
+}
+781  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "decodepay",
+  "params": {
+    "bolt11": "lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82"
+  }
+}
+781  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "decodepay",
+  "params": {
+    "bolt11": "lntb133n1pw6xee8pp5lejvtfa9vutxh4yxeavznv9fzk30ghcn32pmee8jrgtgzjqp7ytsdr4235xjueqd9h8vmmfvdjjq6tnyp3hyetpw3jkggr0dek8jgrxdaezqar9wd6xjmn8yp3k7mtdv9hxggryv43k7er92pshjgrfdcs8g6r9ypmhyctswpjhyxqyjw5qcqp2f9qswccpctzw2ya82w83rqkkr0d8rvayctcl75dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82"
+  }
+}
+781  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+781  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+781  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+814  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "currency": "tb",
+    "expiry": 604800,
+    "payee": "023dfbbc3011303a613645671defa34df29934ac19c507c6d42ec88df54a1532df",
+    "payment_hash": "fe64c5a7a567166bd486cf5829b0a915a2f45f138a83bce4f21a16814801f117",
+    "signature": "304402204941076301c2c4e513a7538f1182d61bda71b3a4c2f1ff51b7d0aa03d3800be502200ca7e2927a1a27b277634deb88ba460d17e5d7071f4903fea30d529981cf7591",
+    "description": "This invoice is created only for testing command decodePay in the wrapper",
+    "msatoshi": "13300",
+    "amount_msat": "13300msat"
+  }
+}
+814  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "currency": "tb",
+    "expiry": 604800,
+    "payee": "023dfbbc3011303a613645671defa34df29934ac19c507c6d42ec88df54a1532df",
+    "payment_hash": "fe64c5a7a567166bd486cf5829b0a915a2f45f138a83bce4f21a16814801f117",
+    "signature": "304402204941076301c2c4e513a7538f1182d61bda71b3a4c2f1ff51b7d0aa03d3800be502200ca7e2927a1a27b277634deb88ba460d17e5d7071f4903fea30d529981cf7591",
+    "description": "This invoice is created only for testing command decodePay in the wrapper",
+    "msatoshi": "13300",
+    "amount_msat": "13300msat"
+  }
+}
+814  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "currency": "tb",
+    "expiry": 604800,
+    "payee": "023dfbbc3011303a613645671defa34df29934ac19c507c6d42ec88df54a1532df",
+    "payment_hash": "fe64c5a7a567166bd486cf5829b0a915a2f45f138a83bce4f21a16814801f117",
+    "signature": "304402204941076301c2c4e513a7538f1182d61bda71b3a4c2f1ff51b7d0aa03d3800be502200ca7e2927a1a27b277634deb88ba460d17e5d7071f4903fea30d529981cf7591",
+    "description": "This invoice is created only for testing command decodePay in the wrapper",
+    "msatoshi": "13300",
+    "amount_msat": "13300msat"
+  }
+}
+826  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 5,
+  "method": "listinvoices",
+  "params": {}
+}
+830  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 5,
+  "method": "listinvoices",
+  "params": {}
+}
+830  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 5,
+  "method": "listinvoices",
+  "params": {}
+}
+830  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+830  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+830  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+835  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 5,
+  "result": {
+    "invoices": []
+  }
+}
+835  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 5,
+  "result": {
+    "invoices": []
+  }
+}
+835  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 5,
+  "result": {
+    "invoices": []
+  }
+}
+837  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "listinvoices",
+  "params": {}
+}
+838  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "listinvoices",
+  "params": {}
+}
+838  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "listinvoices",
+  "params": {}
+}
+840  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+840  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+840  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+844  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "result": {
+    "invoices": []
+  }
+}
+844  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "result": {
+    "invoices": []
+  }
+}
+844  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "result": {
+    "invoices": []
+  }
+}
+844  [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command listSendPays is: 
+846  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listsendpays",
+  "params": {}
+}
+846  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listsendpays",
+  "params": {}
+}
+847  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listsendpays",
+  "params": {}
+}
+847  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+847  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+847  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+860  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "id": 0
+  }
+}
+860  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "id": 0
+  }
+}
+860  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "id": 0
+  }
+}
+862  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 77,
+  "method": "listinvoices",
+  "params": {}
+}
+862  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 77,
+  "method": "listinvoices",
+  "params": {}
+}
+862  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 77,
+  "method": "listinvoices",
+  "params": {}
+}
+862  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+862  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+862  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+874  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 77,
+  "result": {
+    "invoices": []
+  }
+}
+874  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 77,
+  "result": {
+    "invoices": []
+  }
+}
+874  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 77,
+  "result": {
+    "invoices": []
+  }
+}
+875  [main] DEBUG jrpc.clightning.CLightningRPC - Payload command withDraw: destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq+satoshi=all
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq+satoshi=all
+is: 2
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: destination
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq
+875  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: satoshi=all
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: satoshi
+875  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: all
+875  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+878  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+878  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+878  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+878  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+878  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+878  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+884  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+885  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+885  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+890  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 31,
+  "method": "listinvoices",
+  "params": {}
+}
+890  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 31,
+  "method": "listinvoices",
+  "params": {}
+}
+890  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 31,
+  "method": "listinvoices",
+  "params": {}
+}
+891  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+891  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+891  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+896  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 31,
+  "result": {
+    "invoices": []
+  }
+}
+896  [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 31,
+  "result": {
+    "invoices": []
+  }
+}
+896  [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 31,
+  "result": {
+    "invoices": []
+  }
+}
+897  [main] DEBUG jrpc.clightning.CLightningRPC - The result of the method "arrayConverted"
++fallbacks=[2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]
+897  [main] DEBUG jrpc.clightning.CLightningRPC - Payload: msatoshi=100+label=This is an test 0.8723626607435998+description=description+expiry=1w+fallbacks=[2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]+exposeprivatechannels=false
+897  [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=100+label=This is an test 0.8723626607435998+description=description+expiry=1w+fallbacks=[2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]+exposeprivatechannels=false
+is: 6
+897  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=100
+897  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 100
+898  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This is an test 0.8723626607435998
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is an test 0.8723626607435998
+898  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=description
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: description
+898  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+898  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+899  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: fallbacks=[2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: fallbacks
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: [2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]
+899  [main] DEBUG j.c.commands.CommandRPCMediator - The value is an list and this is value before the substring [2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk]
+899  [main] DEBUG j.c.commands.CommandRPCMediator - The value substring method parsing is: 2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV,2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk
+899  [main] DEBUG j.c.commands.CommandRPCMediator - The element is: 2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV
+899  [main] DEBUG j.c.commands.CommandRPCMediator - The element is: 2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: exposeprivatechannels=false
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: exposeprivatechannels
+899  [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: false
+900  [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+901  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "fallbacks": [
+      "2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV",
+      "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"
+    ],
+    "msatoshi": "100",
+    "description": "description",
+    "label": "This is an test 0.8723626607435998",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+901  [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "fallbacks": [
+      "2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV",
+      "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"
+    ],
+    "msatoshi": "100",
+    "description": "description",
+    "label": "This is an test 0.8723626607435998",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+901  [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "fallbacks": [
+      "2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV",
+      "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"
+    ],
+    "msatoshi": "100",
+    "description": "description",
+    "label": "This is an test 0.8723626607435998",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+902  [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+902  [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+903  [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1020 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "warning_capacity": "No channels"
+  }
+}
+1020 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "warning_capacity": "No channels"
+  }
+}
+1020 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "warning_capacity": "No channels"
+  }
+}
+1020 [main] DEBUG jrpc.clightning.TestCLightningRPC - invoice: lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6
+1020 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command delInvoice: +label=This is an test 0.8723626607435998+status=unpaid
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload +label=This is an test 0.8723626607435998+status=unpaid
+is: 2
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This is an test 0.8723626607435998
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is an test 0.8723626607435998
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+1021 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1022 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 56,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.8723626607435998",
+    "status": "unpaid"
+  }
+}
+1023 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 56,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.8723626607435998",
+    "status": "unpaid"
+  }
+}
+1023 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 56,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.8723626607435998",
+    "status": "unpaid"
+  }
+}
+1023 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1023 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1023 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1113 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 56,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "label": "This is an test 0.8723626607435998",
+    "msatoshi": "100",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1114 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 56,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "label": "This is an test 0.8723626607435998",
+    "msatoshi": "100",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1114 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 56,
+  "result": {
+    "payment_hash": "50c754b2e2e26fb6ae45f716db321a9ca7beba1947e2523ea77e37d8b0497747",
+    "expires_at": "1593316088",
+    "bolt11": "lnbcrt1n1p0wakrcpp52rr4fvhzufhmdtj97utdkvs6njnmawsegl39y0480cma3vzfwarsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5jacwl5230dvhx7gvhh05k9g7tpudytett40y7qva4vpewrs20zjqfppjg7ddp2vfds5hgdvsvknhdut0fxpe4z6nfppjmc3rmhe0wngplqnl3002udz6vj3kzwqs9qy9qsq2r2n0vf37s9lpsxqfk0u40z0gfxl0gs49snf4et3z37u4tnnm7erueszl8ttnsyv0w38xuk7s8nprxs24x6tk9q3px6kqeqen5amevspcqvch6",
+    "label": "This is an test 0.8723626607435998",
+    "msatoshi": "100",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1115 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 51,
+  "method": "listinvoices",
+  "params": {}
+}
+1116 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 51,
+  "method": "listinvoices",
+  "params": {}
+}
+1116 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 51,
+  "method": "listinvoices",
+  "params": {}
+}
+1116 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1116 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1116 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1130 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 51,
+  "result": {
+    "invoices": []
+  }
+}
+1131 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 51,
+  "result": {
+    "invoices": []
+  }
+}
+1131 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 51,
+  "result": {
+    "invoices": []
+  }
+}
+1132 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 13,
+  "method": "listinvoices",
+  "params": {}
+}
+1132 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 13,
+  "method": "listinvoices",
+  "params": {}
+}
+1132 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 13,
+  "method": "listinvoices",
+  "params": {}
+}
+1133 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1133 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1133 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1139 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 13,
+  "result": {
+    "invoices": []
+  }
+}
+1139 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 13,
+  "result": {
+    "invoices": []
+  }
+}
+1139 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 13,
+  "result": {
+    "invoices": []
+  }
+}
+1141 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 71,
+  "method": "listinvoices",
+  "params": {}
+}
+1141 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 71,
+  "method": "listinvoices",
+  "params": {}
+}
+1141 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 71,
+  "method": "listinvoices",
+  "params": {}
+}
+1142 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1142 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1142 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1146 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 71,
+  "result": {
+    "invoices": []
+  }
+}
+1146 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 71,
+  "result": {
+    "invoices": []
+  }
+}
+1146 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 71,
+  "result": {
+    "invoices": []
+  }
+}
+1146 [main] DEBUG jrpc.clightning.CLightningRPC - Payload: msatoshi=1000+label=This invice was created for test command listIncovoice+description=description+expiry=1w+exposeprivatechannels=false
+1146 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=This invice was created for test command listIncovoice+description=description+expiry=1w+exposeprivatechannels=false
+is: 5
+1146 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This invice was created for test command listIncovoice
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This invice was created for test command listIncovoice
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=description
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: description
+1147 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: exposeprivatechannels=false
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: exposeprivatechannels
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: false
+1148 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1150 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 88,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This invice was created for test command listIncovoice",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1150 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 88,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This invice was created for test command listIncovoice",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1150 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 88,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This invice was created for test command listIncovoice",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1152 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1153 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1153 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1236 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 88,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "warning_capacity": "No channels"
+  }
+}
+1239 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 88,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "warning_capacity": "No channels"
+  }
+}
+1239 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 88,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "warning_capacity": "No channels"
+  }
+}
+1240 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "listinvoices",
+  "params": {}
+}
+1240 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "listinvoices",
+  "params": {}
+}
+1240 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "listinvoices",
+  "params": {}
+}
+1241 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1241 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1242 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1244 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "result": {
+    "invoices": [
+      {
+        "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+        "expires_at": "1593316089",
+        "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+        "label": "This invice was created for test command listIncovoice",
+        "msatoshi": "1000",
+        "status": "unpaid",
+        "description": "description"
+      }
+    ]
+  }
+}
+1244 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "result": {
+    "invoices": [
+      {
+        "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+        "expires_at": "1593316089",
+        "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+        "label": "This invice was created for test command listIncovoice",
+        "msatoshi": "1000",
+        "status": "unpaid",
+        "description": "description"
+      }
+    ]
+  }
+}
+1244 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "result": {
+    "invoices": [
+      {
+        "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+        "expires_at": "1593316089",
+        "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+        "label": "This invice was created for test command listIncovoice",
+        "msatoshi": "1000",
+        "status": "unpaid",
+        "description": "description"
+      }
+    ]
+  }
+}
+1249 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command delInvoice: +label=This invice was created for test command listIncovoice+status=unpaid
+1249 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload +label=This invice was created for test command listIncovoice+status=unpaid
+is: 2
+1249 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This invice was created for test command listIncovoice
+1249 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1249 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This invice was created for test command listIncovoice
+1249 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1250 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+1250 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+1250 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+1250 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1251 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 70,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invice was created for test command listIncovoice",
+    "status": "unpaid"
+  }
+}
+1251 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 70,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invice was created for test command listIncovoice",
+    "status": "unpaid"
+  }
+}
+1251 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 70,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invice was created for test command listIncovoice",
+    "status": "unpaid"
+  }
+}
+1254 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1254 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1254 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1340 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 70,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "label": "This invice was created for test command listIncovoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1341 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 70,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "label": "This invice was created for test command listIncovoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1341 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 70,
+  "result": {
+    "payment_hash": "0333a9eab585f189b77515980c083b36d9dc399c024561ea44ba5d5197a15c53",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5qve6n644shccndm4zkvqczpmxmvacwvuqfzkr6jyhfw4r9apt3fsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5f7zze0mnhszmyevaunh2htl59875qtc8thuy5wvzlvfanwemtp8s9qy9qsqr93hjhac94vx77lqvw8rd5rms5c2jwc4sw7ajnpfw0lzt3yuzely3w8r9d93a6hatszzdspp4yf4cjz9n4y0syrdt6zgswwes7cry8cqjmrf8g",
+    "label": "This invice was created for test command listIncovoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1342 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listinvoices",
+  "params": {}
+}
+1342 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listinvoices",
+  "params": {}
+}
+1342 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 24,
+  "method": "listinvoices",
+  "params": {}
+}
+1348 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1348 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1348 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1352 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "invoices": []
+  }
+}
+1355 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "invoices": []
+  }
+}
+1355 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 24,
+  "result": {
+    "invoices": []
+  }
+}
+1355 [main] DEBUG jrpc.clightning.CLightningRPC - Payload command withDraw: destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq+satoshi=all
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq+satoshi=all
+is: 2
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: destination=2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: destination
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1355 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: satoshi=all
+1356 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: satoshi
+1356 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: all
+1356 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1356 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 48,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+1357 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 48,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+1359 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 48,
+  "method": "withdraw",
+  "params": {
+    "satoshi": "all",
+    "destination": "2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq"
+  }
+}
+1359 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1359 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1359 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1362 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 48,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+1362 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 48,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+1363 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 48,
+  "error": {
+    "code": 301,
+    "message": "Cannot afford transaction"
+  }
+}
+1371 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "listinvoices",
+  "params": {}
+}
+1371 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "listinvoices",
+  "params": {}
+}
+1371 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "listinvoices",
+  "params": {}
+}
+1372 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1373 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1373 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1375 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "result": {
+    "invoices": []
+  }
+}
+1376 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "result": {
+    "invoices": []
+  }
+}
+1376 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "result": {
+    "invoices": []
+  }
+}
+1376 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command connect is: id=03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736
+1376 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload id=03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736
+is: 1
+1376 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: id=03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736
+1376 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: id
+1376 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736
+1376 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1379 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "connect",
+  "params": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736"
+  }
+}
+1379 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "connect",
+  "params": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736"
+  }
+}
+1380 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 83,
+  "method": "connect",
+  "params": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef@127.0.0.1:19736"
+  }
+}
+1381 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1381 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1381 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1421 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef"
+  }
+}
+1422 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef"
+  }
+}
+1422 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 83,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef"
+  }
+}
+1423 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 0,
+  "method": "listinvoices",
+  "params": {}
+}
+1423 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 0,
+  "method": "listinvoices",
+  "params": {}
+}
+1423 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 0,
+  "method": "listinvoices",
+  "params": {}
+}
+1423 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1423 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1423 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1433 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 0,
+  "result": {
+    "invoices": []
+  }
+}
+1434 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 0,
+  "result": {
+    "invoices": []
+  }
+}
+1434 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 0,
+  "result": {
+    "invoices": []
+  }
+}
+1435 [main] DEBUG jrpc.clightning.CLightningRPC - Payload: addresstype=bech32
+1435 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload addresstype=bech32
+is: 1
+1435 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: addresstype=bech32
+1435 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: addresstype
+1435 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: bech32
+1435 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1438 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 40,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+1438 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 40,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+1438 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 40,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+1440 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1440 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1440 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1524 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 40,
+  "result": {
+    "address": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu",
+    "bech32": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu"
+  }
+}
+1526 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 40,
+  "result": {
+    "address": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu",
+    "bech32": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu"
+  }
+}
+1527 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 40,
+  "result": {
+    "address": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu",
+    "bech32": "bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu"
+  }
+}
+1527 [main] DEBUG jrpc.clightning.TestCLightningRPC - Address: bcrt1q28uv326eljp8hwy0wz87gd9jgare4zrrvzdqgu
+1528 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 44,
+  "method": "listinvoices",
+  "params": {}
+}
+1529 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 44,
+  "method": "listinvoices",
+  "params": {}
+}
+1535 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 44,
+  "method": "listinvoices",
+  "params": {}
+}
+1541 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1541 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1541 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1543 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 44,
+  "result": {
+    "invoices": []
+  }
+}
+1543 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 44,
+  "result": {
+    "invoices": []
+  }
+}
+1543 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 44,
+  "result": {
+    "invoices": []
+  }
+}
+1545 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 37,
+  "method": "listfunds",
+  "params": {}
+}
+1545 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 37,
+  "method": "listfunds",
+  "params": {}
+}
+1545 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 37,
+  "method": "listfunds",
+  "params": {}
+}
+1547 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1547 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1547 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1553 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 37,
+  "result": {
+    "outputs": [],
+    "channels": []
+  }
+}
+1553 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 37,
+  "result": {
+    "outputs": [],
+    "channels": []
+  }
+}
+1553 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 37,
+  "result": {
+    "outputs": [],
+    "channels": []
+  }
+}
+1568 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "listinvoices",
+  "params": {}
+}
+1568 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "listinvoices",
+  "params": {}
+}
+1568 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 82,
+  "method": "listinvoices",
+  "params": {}
+}
+1570 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1570 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1570 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1572 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "invoices": []
+  }
+}
+1573 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "invoices": []
+  }
+}
+1573 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 82,
+  "result": {
+    "invoices": []
+  }
+}
+1575 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 89,
+  "method": "listinvoices",
+  "params": {}
+}
+1575 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 89,
+  "method": "listinvoices",
+  "params": {}
+}
+1576 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 89,
+  "method": "listinvoices",
+  "params": {}
+}
+1577 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1577 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1577 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1583 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 89,
+  "result": {
+    "invoices": []
+  }
+}
+1583 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 89,
+  "result": {
+    "invoices": []
+  }
+}
+1584 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 89,
+  "result": {
+    "invoices": []
+  }
+}
+1584 [main] DEBUG jrpc.clightning.CLightningRPC - Payload: msatoshi=1000+label=Hello this is an test 0.40427591212944414+description=description+exposeprivatechannels=false
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=Hello this is an test 0.40427591212944414+description=description+exposeprivatechannels=false
+is: 4
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=Hello this is an test 0.40427591212944414
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: Hello this is an test 0.40427591212944414
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=description
+1584 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: description
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: exposeprivatechannels=false
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: exposeprivatechannels
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: false
+1585 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1586 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 8,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "Hello this is an test 0.40427591212944414",
+    "exposeprivatechannels": false
+  }
+}
+1586 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 8,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "Hello this is an test 0.40427591212944414",
+    "exposeprivatechannels": false
+  }
+}
+1586 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 8,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "Hello this is an test 0.40427591212944414",
+    "exposeprivatechannels": false
+  }
+}
+1588 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1588 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1588 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1659 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 8,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "warning_capacity": "No channels"
+  }
+}
+1660 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 8,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "warning_capacity": "No channels"
+  }
+}
+1660 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 8,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "warning_capacity": "No channels"
+  }
+}
+1660 [main] DEBUG jrpc.clightning.TestCLightningRPC - invoice: lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq
+1660 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command delInvoice: +label=Hello this is an test 0.40427591212944414+status=unpaid
+1660 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload +label=Hello this is an test 0.40427591212944414+status=unpaid
+is: 2
+1660 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=Hello this is an test 0.40427591212944414
+1660 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1660 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: Hello this is an test 0.40427591212944414
+1661 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1661 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+1661 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+1661 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+1661 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1662 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "Hello this is an test 0.40427591212944414",
+    "status": "unpaid"
+  }
+}
+1662 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "Hello this is an test 0.40427591212944414",
+    "status": "unpaid"
+  }
+}
+1662 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "Hello this is an test 0.40427591212944414",
+    "status": "unpaid"
+  }
+}
+1662 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1662 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1662 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1730 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "label": "Hello this is an test 0.40427591212944414",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1730 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "label": "Hello this is an test 0.40427591212944414",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1730 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "0e7bb7f661a3af39af50d35170f67fe18d00b8882cf7a0e4814d16f6b5246a71",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5peam0anp5whnnt6s6dghpanluxxspwyg9nm6peypf5t0ddfydfcsdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5as7ke6dly3usr7srv45r7rdf2fpmz9hjc4mn7ffzzr45k37lekhq9qy9qsq9k27359rwne5fj4m8ppk95m3ee06j9zvd30hjzt8latrxhan3gp47e64rhfce97xjtrdgyzj8hfyk5ckhw5jew0ztplwf2evh5rvd7qqhxh8cq",
+    "label": "Hello this is an test 0.40427591212944414",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1732 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 72,
+  "method": "listinvoices",
+  "params": {}
+}
+1732 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 72,
+  "method": "listinvoices",
+  "params": {}
+}
+1732 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 72,
+  "method": "listinvoices",
+  "params": {}
+}
+1732 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1732 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1732 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1740 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 72,
+  "result": {
+    "invoices": []
+  }
+}
+1740 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 72,
+  "result": {
+    "invoices": []
+  }
+}
+1740 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 72,
+  "result": {
+    "invoices": []
+  }
+}
+1740 [main] DEBUG jrpc.clightning.CLightningRPC - Payload: msatoshi=1000+label=This is an test 0.7448721741330047+description=description+expiry=1w+exposeprivatechannels=false
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=This is an test 0.7448721741330047+description=description+expiry=1w+exposeprivatechannels=false
+is: 5
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This is an test 0.7448721741330047
+1740 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is an test 0.7448721741330047
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=description
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: description
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: exposeprivatechannels=false
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: exposeprivatechannels
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: false
+1741 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1742 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 94,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This is an test 0.7448721741330047",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1742 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 94,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This is an test 0.7448721741330047",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1742 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 94,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "description",
+    "label": "This is an test 0.7448721741330047",
+    "expiry": "1w",
+    "exposeprivatechannels": false
+  }
+}
+1745 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1745 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1745 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1809 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 94,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "warning_capacity": "No channels"
+  }
+}
+1810 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 94,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "warning_capacity": "No channels"
+  }
+}
+1810 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 94,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "warning_capacity": "No channels"
+  }
+}
+1810 [main] DEBUG jrpc.clightning.TestCLightningRPC - invoice: lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw
+1810 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command delInvoice: +label=This is an test 0.7448721741330047+status=unpaid
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload +label=This is an test 0.7448721741330047+status=unpaid
+is: 2
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This is an test 0.7448721741330047
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is an test 0.7448721741330047
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+1810 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1811 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 33,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.7448721741330047",
+    "status": "unpaid"
+  }
+}
+1811 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 33,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.7448721741330047",
+    "status": "unpaid"
+  }
+}
+1811 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 33,
+  "method": "delinvoice",
+  "params": {
+    "label": "This is an test 0.7448721741330047",
+    "status": "unpaid"
+  }
+}
+1824 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1824 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1824 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1887 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 33,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "label": "This is an test 0.7448721741330047",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1888 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 33,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "label": "This is an test 0.7448721741330047",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1888 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 33,
+  "result": {
+    "payment_hash": "49b5a16a6fd264b6eed2bf6cbd2f70526f71580f84c2e94e40dc89b65e60d138",
+    "expires_at": "1593316089",
+    "bolt11": "lnbcrt10n1p0wakrepp5fx66z6n06fjtdmkjhakt6tms2fhhzkq0snpwjnjqmjymvhnq6yuqdqjv3jhxcmjd9c8g6t0dcxqyjw5qcqp2sp5z4uhrn069vrd246qy0cc2h3y4j5wd6uhqvhf5cg2jhvwu3ykttsq9qy9qsq6ahhffllk4z892u6nlzrcyqlax3q92qz4n0tvrcj57pw9k74v3xjc63dl6egptmw5jgv39l0jk8s79c3x9xq5rtg6m46sl0ajnxhqfsqt65mtw",
+    "label": "This is an test 0.7448721741330047",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "description"
+  }
+}
+1889 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "listinvoices",
+  "params": {}
+}
+1890 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "listinvoices",
+  "params": {}
+}
+1890 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "listinvoices",
+  "params": {}
+}
+1891 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1892 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1892 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1895 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "result": {
+    "invoices": []
+  }
+}
+1895 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "result": {
+    "invoices": []
+  }
+}
+1895 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "result": {
+    "invoices": []
+  }
+}
+1895 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command listPeers 
+1897 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 99,
+  "method": "listpeers",
+  "params": {}
+}
+1898 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 99,
+  "method": "listpeers",
+  "params": {}
+}
+1898 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 99,
+  "method": "listpeers",
+  "params": {}
+}
+1898 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1898 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1898 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1904 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 99,
+  "result": {
+    "peers": []
+  }
+}
+1904 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 99,
+  "result": {
+    "peers": []
+  }
+}
+1904 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 99,
+  "result": {
+    "peers": []
+  }
+}
+1913 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1913 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1913 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1914 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1914 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1914 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1917 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1917 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1917 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1917 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for command listChannels 
+1918 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "listchannels",
+  "params": {}
+}
+1919 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "listchannels",
+  "params": {}
+}
+1919 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "listchannels",
+  "params": {}
+}
+1920 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1920 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1920 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1922 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "channels": []
+  }
+}
+1922 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "channels": []
+  }
+}
+1922 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "channels": []
+  }
+}
+1927 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 22,
+  "method": "listinvoices",
+  "params": {}
+}
+1928 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 22,
+  "method": "listinvoices",
+  "params": {}
+}
+1928 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 22,
+  "method": "listinvoices",
+  "params": {}
+}
+1929 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1930 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1930 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1934 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 22,
+  "result": {
+    "invoices": []
+  }
+}
+1934 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 22,
+  "result": {
+    "invoices": []
+  }
+}
+1934 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 22,
+  "result": {
+    "invoices": []
+  }
+}
+1936 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 63,
+  "method": "getinfo",
+  "params": {}
+}
+1936 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 63,
+  "method": "getinfo",
+  "params": {}
+}
+1936 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 63,
+  "method": "getinfo",
+  "params": {}
+}
+1940 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1941 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1941 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1949 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 63,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+1949 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 63,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+1949 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 63,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+1952 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1952 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1952 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 67,
+  "method": "listinvoices",
+  "params": {}
+}
+1954 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1954 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1954 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1956 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1956 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1956 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 67,
+  "result": {
+    "invoices": []
+  }
+}
+1956 [main] DEBUG jrpc.clightning.CLightningRPC - Payload command close: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1956 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+is: 1
+1956 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1956 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: id
+1956 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1956 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1959 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "close",
+  "params": {
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e"
+  }
+}
+1959 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "close",
+  "params": {
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e"
+  }
+}
+1959 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 41,
+  "method": "close",
+  "params": {
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e"
+  }
+}
+1960 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1960 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1960 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1963 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "error": {
+    "code": -32602,
+    "message": "Given id is not a channel ID or short channel ID: \u0027\"03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e\"\u0027"
+  }
+}
+1963 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "error": {
+    "code": -32602,
+    "message": "Given id is not a channel ID or short channel ID: \u0027\"03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e\"\u0027"
+  }
+}
+1963 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 41,
+  "error": {
+    "code": -32602,
+    "message": "Given id is not a channel ID or short channel ID: \u0027\"03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e\"\u0027"
+  }
+}
+1964 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "listinvoices",
+  "params": {}
+}
+1964 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "listinvoices",
+  "params": {}
+}
+1964 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "listinvoices",
+  "params": {}
+}
+1964 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1964 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1964 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1966 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "invoices": []
+  }
+}
+1966 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "invoices": []
+  }
+}
+1966 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "invoices": []
+  }
+}
+1967 [main] DEBUG jrpc.clightning.CLightningRPC - Payload method fundChannel is: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e+satoshi=10000+feerate=normal
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e+satoshi=10000+feerate=normal
+is: 3
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: id
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: satoshi=10000
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: satoshi
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 10000
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: feerate=normal
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: feerate
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: normal
+1967 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1968 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 78,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "feerate": "normal"
+  }
+}
+1968 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 78,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "feerate": "normal"
+  }
+}
+1968 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 78,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "feerate": "normal"
+  }
+}
+1969 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1969 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1969 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1993 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 78,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+1993 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 78,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+1993 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 78,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+1995 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 9,
+  "method": "listinvoices",
+  "params": {}
+}
+1995 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 9,
+  "method": "listinvoices",
+  "params": {}
+}
+1995 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 9,
+  "method": "listinvoices",
+  "params": {}
+}
+1995 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+1995 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+1995 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+1998 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 9,
+  "result": {
+    "invoices": []
+  }
+}
+1998 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 9,
+  "result": {
+    "invoices": []
+  }
+}
+1998 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 9,
+  "result": {
+    "invoices": []
+  }
+}
+1998 [main] DEBUG jrpc.clightning.CLightningRPC - Payload method fundChannel is: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e+satoshi=10000+feerate=normal+announce=false
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e+satoshi=10000+feerate=normal+announce=false
+is: 4
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: id=03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: id
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: satoshi=10000
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: satoshi
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 10000
+1998 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: feerate=normal
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: feerate
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: normal
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: announce=false
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: announce
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: false
+1999 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+1999 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "announce": false,
+    "feerate": "normal"
+  }
+}
+1999 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "announce": false,
+    "feerate": "normal"
+  }
+}
+1999 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 96,
+  "method": "fundchannel",
+  "params": {
+    "satoshi": "10000",
+    "id": "03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+    "announce": false,
+    "feerate": "normal"
+  }
+}
+2001 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2001 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2001 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2002 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+2002 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+2002 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 96,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: satoshi"
+  }
+}
+2003 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "listinvoices",
+  "params": {}
+}
+2003 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "listinvoices",
+  "params": {}
+}
+2003 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "listinvoices",
+  "params": {}
+}
+2005 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2005 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2005 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2006 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "invoices": []
+  }
+}
+2006 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "invoices": []
+  }
+}
+2006 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "invoices": []
+  }
+}
+2006 [main] DEBUG jrpc.clightning.CLightningRPC - Payload for pay connect is: bolt11=lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e+riskfactor=10.0+retry_for=60
+2006 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload bolt11=lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e+riskfactor=10.0+retry_for=60
+is: 3
+2006 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: bolt11=lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e
+2006 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: bolt11
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: riskfactor=10.0
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: riskfactor
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 10.0
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: retry_for=60
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: retry_for
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 60
+2007 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2008 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "pay",
+  "params": {
+    "retry_for": "60",
+    "riskfactor": "10.0",
+    "bolt11": "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e"
+  }
+}
+2008 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "pay",
+  "params": {
+    "retry_for": "60",
+    "riskfactor": "10.0",
+    "bolt11": "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e"
+  }
+}
+2008 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 12,
+  "method": "pay",
+  "params": {
+    "retry_for": "60",
+    "riskfactor": "10.0",
+    "bolt11": "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e"
+  }
+}
+2009 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2009 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2009 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2051 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "error": {
+    "code": 205,
+    "message": "Invoice is for another network testnet"
+  }
+}
+2051 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "error": {
+    "code": 205,
+    "message": "Invoice is for another network testnet"
+  }
+}
+2051 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 12,
+  "error": {
+    "code": 205,
+    "message": "Invoice is for another network testnet"
+  }
+}
+2052 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload label= +status=pippo
+is: 2
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label= 
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized:  
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=pippo
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: pippo
+2053 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2054 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 11,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "pippo"
+  }
+}
+2054 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 11,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "pippo"
+  }
+}
+2054 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 11,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "pippo"
+  }
+}
+2055 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2056 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2056 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2057 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 11,
+  "error": {
+    "code": -1,
+    "message": "Unknown invoice"
+  }
+}
+2057 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 11,
+  "error": {
+    "code": -1,
+    "message": "Unknown invoice"
+  }
+}
+2057 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 11,
+  "error": {
+    "code": -1,
+    "message": "Unknown invoice"
+  }
+}
+2059 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2059 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload pippo=pippo
+is: 1
+2059 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: pippo=pippo
+2059 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: pippo
+2059 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: pippo
+2059 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2060 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "getinfo",
+  "params": {
+    "pippo": "pippo"
+  }
+}
+2060 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "getinfo",
+  "params": {
+    "pippo": "pippo"
+  }
+}
+2060 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 6,
+  "method": "getinfo",
+  "params": {
+    "pippo": "pippo"
+  }
+}
+2061 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2062 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2062 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2064 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: pippo"
+  }
+}
+2064 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: pippo"
+  }
+}
+2064 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 6,
+  "error": {
+    "code": -32602,
+    "message": "unknown parameter: pippo"
+  }
+}
+2065 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=This invoice is created for test the command delete invoice+description=This is a minimal expression for command invoice?+expiry=1w
+is: 4
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This invoice is created for test the command delete invoice
+2065 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This invoice is created for test the command delete invoice
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+2066 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2066 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "This invoice is created for test the command delete invoice",
+    "expiry": "1w"
+  }
+}
+2067 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "This invoice is created for test the command delete invoice",
+    "expiry": "1w"
+  }
+}
+2067 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 34,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "This invoice is created for test the command delete invoice",
+    "expiry": "1w"
+  }
+}
+2068 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2071 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2071 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2161 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "warning_capacity": "No channels"
+  }
+}
+2162 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "warning_capacity": "No channels"
+  }
+}
+2162 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 34,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "warning_capacity": "No channels"
+  }
+}
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload label=This invoice is created for test the command delete invoice+status=unpaid
+is: 2
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=This invoice is created for test the command delete invoice
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This invoice is created for test the command delete invoice
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+2162 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2163 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invoice is created for test the command delete invoice",
+    "status": "unpaid"
+  }
+}
+2163 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invoice is created for test the command delete invoice",
+    "status": "unpaid"
+  }
+}
+2163 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 74,
+  "method": "delinvoice",
+  "params": {
+    "label": "This invoice is created for test the command delete invoice",
+    "status": "unpaid"
+  }
+}
+2164 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2164 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2164 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2225 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "label": "This invoice is created for test the command delete invoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2225 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "label": "This invoice is created for test the command delete invoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2225 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 74,
+  "result": {
+    "payment_hash": "bf876685755dad56b663efdd4ec9372f260c18ded3e9a818a0d9a080b64e8976",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5h7rkdpt4tkk4ddnralw5ajfh9unqcxx76056sx9qmxsgpdjw39mqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5x9f65t6dahyprjufm4x22qty04casxkdvxp2g7lspann42c34u9s9qy9qsq9qagjnvs3lw9z8vss0rxqsyfua5sjc0z2lcvcp8w7krsu9aw5phxcxq6s0m84fschyt5exuudznm7h7za8qc56vj0s6k7v6p047jfkcp030v8n",
+    "label": "This invoice is created for test the command delete invoice",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2226 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label= +description=This is a minimal expression for command invoice?+expiry=1w
+is: 4
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label= 
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized:  
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+2227 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2228 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": " ",
+    "expiry": "1w"
+  }
+}
+2237 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": " ",
+    "expiry": "1w"
+  }
+}
+2237 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": " ",
+    "expiry": "1w"
+  }
+}
+2237 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2237 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2237 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2308 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "warning_capacity": "No channels"
+  }
+}
+2308 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "warning_capacity": "No channels"
+  }
+}
+2308 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "warning_capacity": "No channels"
+  }
+}
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload label= +status=unpaid
+is: 2
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label= 
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized:  
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+2308 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2309 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 95,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "unpaid"
+  }
+}
+2309 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 95,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "unpaid"
+  }
+}
+2309 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 95,
+  "method": "delinvoice",
+  "params": {
+    "label": " ",
+    "status": "unpaid"
+  }
+}
+2309 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2309 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2309 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2372 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 95,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "label": " ",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2372 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 95,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "label": " ",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2372 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 95,
+  "result": {
+    "payment_hash": "667ea51c4d4dfc0f40d36385ee5d8929b053bbe4ee6051986a730c4b9103f50c",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vel228zdfh7q7sxnvwz7uhvf9xc98wlyaes9rxr2wvxyhygr75xqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp593fkczm9r8670pfskxzeg0a3eys8nl9lg4ktzvul44j7u5ct93yq9qy9qsq3gqp02sme9908h26jwrzyq4yk6r8msfgynq420z8zllaq6ucw0qn50fa46nwds8322uxy4q64dm26yg6k027qn5ntrk0e559gndxhxcppc0c4g",
+    "label": " ",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2381 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2381 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload addresstype=p2sh-segwit
+is: 1
+2381 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: addresstype=p2sh-segwit
+2381 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: addresstype
+2381 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: p2sh-segwit
+2381 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2382 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 60,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "p2sh-segwit"
+  }
+}
+2382 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 60,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "p2sh-segwit"
+  }
+}
+2382 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 60,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "p2sh-segwit"
+  }
+}
+2384 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2384 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2384 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2435 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 60,
+  "result": {
+    "address": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ",
+    "p2sh-segwit": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ"
+  }
+}
+2435 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 60,
+  "result": {
+    "address": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ",
+    "p2sh-segwit": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ"
+  }
+}
+2435 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 60,
+  "result": {
+    "address": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ",
+    "p2sh-segwit": "2MwEXAYLLrsJUhF9WZ3DGwGCNgavJferDCJ"
+  }
+}
+2437 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=I am vincent and this is my personal test31+description=This is a minimal expression for command invoice?+expiry=1p
+is: 4
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=I am vincent and this is my personal test31
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: I am vincent and this is my personal test31
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1p
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1p
+2437 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2445 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test31",
+    "expiry": "1p"
+  }
+}
+2445 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test31",
+    "expiry": "1p"
+  }
+}
+2445 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 85,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test31",
+    "expiry": "1p"
+  }
+}
+2446 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2446 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2446 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2448 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "error": {
+    "code": -32602,
+    "message": "\u0027expiry\u0027 should be a number with optional {s,m,h,d,w} suffix, not \u00271p\u0027"
+  }
+}
+2448 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "error": {
+    "code": -32602,
+    "message": "\u0027expiry\u0027 should be a number with optional {s,m,h,d,w} suffix, not \u00271p\u0027"
+  }
+}
+2448 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 85,
+  "error": {
+    "code": -32602,
+    "message": "\u0027expiry\u0027 should be a number with optional {s,m,h,d,w} suffix, not \u00271p\u0027"
+  }
+}
+2455 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=I am vincent and this is my personal test14+description=This is a minimal expression for command invoice?+expiry=1w
+is: 4
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=I am vincent and this is my personal test14
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: I am vincent and this is my personal test14
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: expiry=1w
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: expiry
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1w
+2456 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2457 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 19,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test14",
+    "expiry": "1w"
+  }
+}
+2457 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 19,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test14",
+    "expiry": "1w"
+  }
+}
+2457 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 19,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test14",
+    "expiry": "1w"
+  }
+}
+2458 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2458 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2458 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2529 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 19,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "warning_capacity": "No channels"
+  }
+}
+2529 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 19,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "warning_capacity": "No channels"
+  }
+}
+2529 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 19,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "warning_capacity": "No channels"
+  }
+}
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload label=I am vincent and this is my personal test14+status=unpaid
+is: 2
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=I am vincent and this is my personal test14
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: I am vincent and this is my personal test14
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+2529 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2532 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 62,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test14",
+    "status": "unpaid"
+  }
+}
+2532 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 62,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test14",
+    "status": "unpaid"
+  }
+}
+2532 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 62,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test14",
+    "status": "unpaid"
+  }
+}
+2532 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2532 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2532 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2592 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 62,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "label": "I am vincent and this is my personal test14",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2592 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 62,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "label": "I am vincent and this is my personal test14",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2592 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 62,
+  "result": {
+    "payment_hash": "1da8cee27a107b43e53364d50bdd27f211421a77f7c3d52eba65fae50802605a",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5rk5vacn6zpa58efnvn2shhf87gg5yxnh7lpa2t46vhaw2zqzvpdqdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5tav0qqgy8dxy0wynpha3udmwyf07zu7yp9zscf6pnh2w2mxnl6ls9qy9qsqkqmn4ktzwc39xevpkvxwag2c3eqrqt6qa87dck8696mndv6xl638c20ju77xmd9s9xys8cvvxa9xjgqyk7mvavnx6hh9ukz7ekw9jvcpc8l0tc",
+    "label": "I am vincent and this is my personal test14",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2594 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2594 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label=I am vincent and this is my personal test35+description=This is a minimal expression for command invoice?
+is: 3
+2594 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2594 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=I am vincent and this is my personal test35
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: I am vincent and this is my personal test35
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2595 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2596 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 49,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test35"
+  }
+}
+2596 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 49,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test35"
+  }
+}
+2596 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 49,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?",
+    "label": "I am vincent and this is my personal test35"
+  }
+}
+2596 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2596 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2596 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2666 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 49,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "warning_capacity": "No channels"
+  }
+}
+2666 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 49,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "warning_capacity": "No channels"
+  }
+}
+2666 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 49,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "warning_capacity": "No channels"
+  }
+}
+2666 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload label=I am vincent and this is my personal test35+status=unpaid
+is: 2
+2666 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label=I am vincent and this is my personal test35
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: I am vincent and this is my personal test35
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: status=unpaid
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: status
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: unpaid
+2667 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2667 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 25,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test35",
+    "status": "unpaid"
+  }
+}
+2667 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 25,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test35",
+    "status": "unpaid"
+  }
+}
+2667 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 25,
+  "method": "delinvoice",
+  "params": {
+    "label": "I am vincent and this is my personal test35",
+    "status": "unpaid"
+  }
+}
+2669 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2669 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2669 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2728 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 25,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "label": "I am vincent and this is my personal test35",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2728 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 25,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "label": "I am vincent and this is my personal test35",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2729 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 25,
+  "result": {
+    "payment_hash": "648a2ea168fcee8f5c0779e793a5e14005b1ce82bd2e86e8d7d79b30881d584d",
+    "expires_at": "1593316090",
+    "bolt11": "lnbcrt10n1p0wakr6pp5vj9zagtglnhg7hq808ne8f0pgqzmrn5zh5hgd6xh67dnpzqatpxsdz0235xjueqd9ejqcfqd45ku6tdv9kzqetcwpex2umnd9hkugrxdaezqcm0d4kkzmnyyp5kuan0d93k20cxqyjw5qcqp2sp5uzwntgdua6mneja32h3c2e28vq3a8kcl6nahw226e0a8ud8hcvns9qy9qsqn73quudefsuatjwzml33lcvfygz0c2fwvjjpc48yjue55anejg5ywhw5rhck3787sr0g9jsy8z2nkh5aduj4z8f48qp9z3e23xpe2pqqlva3fg",
+    "label": "I am vincent and this is my personal test35",
+    "msatoshi": "1000",
+    "status": "unpaid",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2730 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+description=This is a minimal expression for command invoice?
+is: 2
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: description=This is a minimal expression for command invoice?
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: description
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: This is a minimal expression for command invoice?
+2730 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2731 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2731 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2731 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 29,
+  "method": "invoice",
+  "params": {
+    "msatoshi": "1000",
+    "description": "This is a minimal expression for command invoice?"
+  }
+}
+2732 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2733 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2733 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2734 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "error": {
+    "code": -32602,
+    "message": "missing required parameter: label"
+  }
+}
+2734 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "error": {
+    "code": -32602,
+    "message": "missing required parameter: label"
+  }
+}
+2734 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 29,
+  "error": {
+    "code": -32602,
+    "message": "missing required parameter: label"
+  }
+}
+2735 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2735 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload msatoshi=1000+label+description=This is a minimal expression for command invoice?
+is: 3
+2735 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: msatoshi=1000
+2736 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: msatoshi
+2736 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: 1000
+2736 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2736 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: label
+2736 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: label
+2737 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2738 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "getinfo",
+  "params": {}
+}
+2738 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "getinfo",
+  "params": {}
+}
+2738 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 36,
+  "method": "getinfo",
+  "params": {}
+}
+2739 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2739 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2739 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2741 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+2742 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+2742 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 36,
+  "result": {
+    "id": "03ef7709d8e478d833c73ed78b65dc442f0f64e43a9aa62bc16ab5a835d44fe4ef",
+    "alias": "YELLOWSUCKER_TES_TWO",
+    "color": "03ad98",
+    "num_peers": 0,
+    "num_pending_channels": 0,
+    "num_active_channels": 0,
+    "num_inactive_channels": 0,
+    "address": [],
+    "binding": [
+      {
+        "type": "ipv4",
+        "address": "127.0.0.1",
+        "port": "19736"
+      }
+    ],
+    "version": "0.8.2.1",
+    "blockheight": 808,
+    "network": "regtest",
+    "msatoshi_fees_collected": 0,
+    "fees_collected_msat": "0msat"
+  }
+}
+2744 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2744 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload foo
+is: 1
+2744 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: foo
+2744 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: foo
+2746 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc
+2746 [main] DEBUG j.c.commands.CommandRPCMediator - Number toke of the payload addresstype=bech32
+is: 1
+2746 [main] DEBUG j.c.commands.CommandRPCMediator - Actual token: addresstype=bech32
+2746 [main] DEBUG j.c.commands.CommandRPCMediator - Key tokenized: addresstype
+2746 [main] DEBUG j.c.commands.CommandRPCMediator - Value tokenized: bech32
+2746 [main] DEBUG j.c.commands.CommandRPCMediator - The value not is a list
+2747 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 59,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+2747 [main] ERROR j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 59,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+2747 [main] INFO  j.s.socket.UnixDomainSocketRpc - Request: 
+{
+  "id": 59,
+  "method": "newaddr",
+  "params": {
+    "addresstype": "bech32"
+  }
+}
+2750 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Run request
+2750 [main] ERROR j.s.socket.UnixDomainSocketRpc - Run request
+2750 [main] INFO  j.s.socket.UnixDomainSocketRpc - Run request
+2822 [main] DEBUG j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 59,
+  "result": {
+    "address": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp",
+    "bech32": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp"
+  }
+}
+2822 [main] ERROR j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 59,
+  "result": {
+    "address": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp",
+    "bech32": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp"
+  }
+}
+2822 [main] INFO  j.s.socket.UnixDomainSocketRpc - Response
+{
+  "jsonrpc": 2.0,
+  "id": 59,
+  "result": {
+    "address": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp",
+    "bech32": "bcrt1ql3d7snwsmmufd8ghshpvyfmz4wj9a0wsd6ylvp"
+  }
+}
+2823 [main] DEBUG j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2823 [main] ERROR j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2823 [main] INFO  j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2823 [main] DEBUG j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2823 [main] ERROR j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2824 [main] INFO  j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2824 [main] DEBUG CLightningConfigurator - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest
+2824 [main] DEBUG j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2824 [main] ERROR j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2824 [main] INFO  j.clightning.plugins.AbstractPlugin - Added method to list methods of plugin
+2824 [main] DEBUG jrpc.mock.PluginMock - ******* MOCK plugin method run *******
+2824 [main] ERROR jrpc.mock.PluginMock - ******* MOCK plugin method run *******
+2824 [main] INFO  jrpc.mock.PluginMock - ******* MOCK plugin method run *******
+2826 [main] DEBUG jrpc.clightning.plugin.TestPlugin - 
+{
+  "manifest": {
+    "options": [],
+    "rpcmethods": [
+      {
+        "name": "test",
+        "usage": "",
+        "description": "this is a simple test"
+      }
+    ],
+    "subscriptions": [],
+    "hooks": []
+  }
+}
+2827 [main] DEBUG j.c.p.rpcmothods.TestManifestMethod - 
+{
+  "configuration": {
+    "lightning-dir": "/media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest",
+    "rpc-file": "lightning-rpc",
+    "startup": true
+  }
+}
+2829 [main] DEBUG j.c.p.rpcmothods.TestManifestMethod - 
+{
+  "options": [
+    {
+      "type": "string"
+    }
+  ],
+  "rpcmethods": [],
+  "subscriptions": [],
+  "hooks": []
+}
+2831 [main] DEBUG j.c.p.rpcmothods.TestManifestMethod - 
+{
+  "options": [
+    {
+      "type": "string"
+    }
+  ],
+  "rpcmethods": [],
+  "subscriptions": [],
+  "hooks": []
+}
+2834 [main] DEBUG j.c.service.socket.CLightningSocket - /media/vincent/Maxtor/sanboxTestWrapperRPC/lightning_dir_two/regtest/lightning-rpc

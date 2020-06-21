@@ -14,16 +14,7 @@ public interface ICLightningPlugin {
 
     void addRPCMethod(RPCMethod method);
 
-    //Getter method
-    String getNamePlugin();
-
     List<RPCMethod> getRpcMethods();
-
-    String getType();
-
-    String getDefaultPropriety();
-
-    String getDescriptionPlugin();
 
     List<String> getSubscriptions();
 

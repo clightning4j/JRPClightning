@@ -22,8 +22,14 @@ import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
 import jrpc.clightning.model.types.CLightningChannelId;
+import jrpc.clightning.service.socket.CLightningSocket;
+import jrpc.exceptions.ServiceException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
+import java.io.InputStream;
+import java.io.OutputStream;
+import java.net.SocketException;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -39,22 +45,42 @@ public class CLightningRPC {
         return SINGLETON;
     }
 
+    protected CLightningSocket socket;
     protected CommandRPCMediator mediatorCommand;
 
     private CLightningRPC() {
         try{
-            this.mediatorCommand = new CommandRPCMediator();
+            socket = new CLightningSocket();
+            this.mediatorCommand = new CommandRPCMediator(socket);
         }catch (CLightningException clex){
-            LOGGER.error("CLightningRPC throws an exeption " + clex.getLocalizedMessage());
+            LOGGER.error("CLightningRPC throws an exception " + clex.getLocalizedMessage());
             clex.printStackTrace();
-            return;
+        } catch (ServiceException e) {
+            socket = null;
+            throw new CLightningException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
         }
     }
 
+    public InputStream getInputStream(){
+        if(socket != null){
+            return socket.getInputStream();
+        }
+        return null;
+    }
+
+    public OutputStream getOutputStream(){
+        if(socket != null){
+            return socket.getOutputStream();
+        }
+        return null;
+    }
+
+    public int getReceiveBufferSize() throws SocketException {
+        return socket.getReceiveBufferSize();
+    }
 
     public CLightningGetInfo getInfo() {
-        String payload = "";
-        CLightningGetInfo resultCommand = (CLightningGetInfo) mediatorCommand.runCommand(Command.GETINFO, payload);
+        CLightningGetInfo resultCommand = (CLightningGetInfo) mediatorCommand.runCommand(Command.GETINFO, "");
         return resultCommand;
     }
 
@@ -62,7 +88,7 @@ public class CLightningRPC {
         if (type == null) {
             throw new IllegalArgumentException("Type address is null");
         }
-        String typeString = null;
+        String typeString;
         if (type.equals(AddressType.BECH32)) {
             typeString = "bech32";
         } else {

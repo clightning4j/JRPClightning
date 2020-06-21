@@ -20,6 +20,7 @@ package jrpc.service.socket;
 
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.exceptions.ServiceException;
+import jrpc.service.JRPCLightningLogger;
 import jrpc.wrapper.socket.IWrapperSocketCall;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
@@ -31,10 +32,11 @@ import org.slf4j.LoggerFactory;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.InetSocketAddress;
+import java.net.SocketException;
 
 public abstract class UnixDomainSocketRpc implements ISocket {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(UnixDomainSocketRpc.class);
+    private static final Class TAG = UnixDomainSocketRpc.class;
     protected static final String ENCODING = "UTF-8";
 
     protected AFUNIXSocket socket;
@@ -60,9 +62,26 @@ public abstract class UnixDomainSocketRpc implements ISocket {
             this.outputStream = socket.getOutputStream();
             this.converterJson = new JsonConverter();
         } catch (IOException e) {
-            LOGGER.error(e.getMessage());
+            JRPCLightningLogger.getInstance().error(TAG, e.getMessage());
             throw new ServiceException("Exception inside the method deserialization to " +
                     this.getClass().getSimpleName() + " with message\n" + e.getLocalizedMessage());
+        }
+    }
+
+    @Override
+    public int getReceiveBufferSize() throws SocketException {
+        return socket.getReceiveBufferSize();
+    }
+
+    @Override
+    public void close() throws ServiceException {
+         try {
+            socket.shutdownInput();
+            socket.shutdownOutput();
+            socket.close();
+        } catch (IOException e) {
+            throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
+                    + " with message\n" + e.getLocalizedMessage());
         }
     }
 
@@ -73,18 +92,18 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         }
         if(socket.isClosed()){
             try {
-                LOGGER.debug("UnixDomainSocketRpc: path is " + pathSocket);
+                JRPCLightningLogger.getInstance().debug(TAG, "UnixDomainSocketRpc: path is " + pathSocket);
                 File fileRPC = new File(pathSocket);
                 if(fileRPC.exists()){
                     InetSocketAddress socketAddress = new AFUNIXSocketAddress(fileRPC);
-                    LOGGER.error("BEFORE CONNECT INSIDE METHOD doCall");
+                    JRPCLightningLogger.getInstance().error(TAG,"BEFORE CONNECT INSIDE METHOD doCall");
                     this.socket = AFUNIXSocket.newInstance();
                     this.socket.connect(socketAddress);
                     this.inputStream = socket.getInputStream();
                     this.outputStream = socket.getOutputStream();
-                    LOGGER.error("AFTER CONNECT INSIDE METHOD doCall");
+                    JRPCLightningLogger.getInstance().error(TAG,"AFTER CONNECT INSIDE METHOD doCall");
                 }else {
-                    LOGGER.error("File not exist inside the path: " + pathSocket);
+                    JRPCLightningLogger.getInstance().error(TAG,"File not exist inside the path: " + pathSocket);
                     throw new CLightningException("File not exist inside the path: " + pathSocket);
                 }
             } catch (IOException e) {
@@ -93,25 +112,28 @@ public abstract class UnixDomainSocketRpc implements ISocket {
             }
         }
         String serializationForm = converterJson.serialization(wrapperSocket);
-        LOGGER.debug("Request: \n" + serializationForm);
+        JRPCLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
         try {
             this.outputStream.write(serializationForm.getBytes(ENCODING));
             this.outputStream.flush();
-            LOGGER.debug("Run request");
+            JRPCLightningLogger.getInstance().debug(TAG,"Run request");
         } catch (IOException e) {
             throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
                     + " with message\n" + e.getLocalizedMessage());
         }
         Object o = converterJson.deserialization(inputStream, typeResult);
-        try {
-            socket.shutdownInput();
-            socket.shutdownOutput();
-            socket.close();
-        } catch (IOException e) {
-            throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
-                    + " with message\n" + e.getLocalizedMessage());
-        }
-        LOGGER.debug("Response\n" + converterJson.serialization(o));
+        //TODO I should be close the socket my maybe no?
+        //this.close();
+        JRPCLightningLogger.getInstance().debug(TAG,"Response\n" + converterJson.serialization(o));
         return o;
+    }
+
+    //get and setter
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public OutputStream getOutputStream() {
+        return outputStream;
     }
 }

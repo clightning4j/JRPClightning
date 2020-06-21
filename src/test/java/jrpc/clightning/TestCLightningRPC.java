@@ -20,6 +20,7 @@ import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -34,11 +35,13 @@ public class TestCLightningRPC {
     private static final Logger LOGGER = LoggerFactory.getLogger(TestCLightningRPC.class);
     private static final String TOKE_JOIN_PAR = "+";
 
-  // @Before
+   @Before
     public void cleanInvoice(){
         CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices();
-        for(CLightningInvoice invoice : listInvoices.getListInvoice()){
-            CLightningRPC.getInstance().delInvoice(invoice.getLabel(), invoice.getStatus());
+        if(!listInvoices.getListInvoice().isEmpty()){
+            for(CLightningInvoice invoice : listInvoices.getListInvoice()){
+                CLightningRPC.getInstance().delInvoice(invoice.getLabel(), invoice.getStatus());
+            }
         }
     }
 

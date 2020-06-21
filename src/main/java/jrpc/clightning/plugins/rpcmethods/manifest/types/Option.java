@@ -20,10 +20,10 @@ public class Option {
     public Option() {}
 
     public Option(ICLightningPlugin plugin) {
-        this.namePlugin = plugin.getNamePlugin();
+        /*this.namePlugin = plugin.getNamePlugin();
         this.descriptionPlugin = plugin.getDescriptionPlugin();
         this.type = plugin.getType();
-        this.defaultPropriety = plugin.getDefaultPropriety();
+        this.defaultPropriety = plugin.getDefaultPropriety();*/
     }
 
     //getter method

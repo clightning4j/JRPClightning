@@ -20,7 +20,7 @@ public class InitMethod extends RPCMethod {
 
     @Override
     public void doRun(Object... params) {
-        //do thing for moment
+        //TODO implement this code
     }
 
     //getter

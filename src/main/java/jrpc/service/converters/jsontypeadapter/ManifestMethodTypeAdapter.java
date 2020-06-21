@@ -47,7 +47,7 @@ public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
         //Start array rpc method
         out.beginArray();
         for(ICLightningRPCMethod rpcMethod : value.getRpcMethods()){
-            if(!rpcMethod.getName().equals("init")){
+            if(!rpcMethod.getName().equals("init") && !rpcMethod.getName().equals("getmanifest")){
                 out.beginObject();
                 out.name("name").value(rpcMethod.getName());
                 out.name("usage").value(rpcMethod.getUsage());

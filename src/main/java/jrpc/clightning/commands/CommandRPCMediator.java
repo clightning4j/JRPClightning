@@ -15,6 +15,7 @@
  */
 package jrpc.clightning.commands;
 
+import jrpc.clightning.CLightningRPC;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
@@ -34,38 +35,31 @@ public class CommandRPCMediator {
     private CLightningSocket socket;
     protected Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
 
-    public CommandRPCMediator() {
+    public CommandRPCMediator(CLightningSocket socket) {
+        this.socket = socket;
         initializeMediator();
     }
 
-    //TODO refactoring this code
     protected void initializeMediator() {
-        try {
-            socket = new CLightningSocket();
-            commands.put(Command.GETINFO, new CLightningCommandGetInfo());
-            commands.put(Command.NEWADDR, new CLightningCommandNewAddress());
-            commands.put(Command.INVOICE, new CLightningCommandInvoice());
-            commands.put(Command.LISTINVOICE, new CLightningCommandGetListInvoices());
-            commands.put(Command.DELINVOICE, new CLightningCommandDelInvoice());
-            commands.put(Command.AUTOCLEANINVOICE, new CLightningCommandAutoCleanInvoice());
-            commands.put(Command.TXPREPARE, new CLightningCommandTxPrepare()); //TODO use an personal Type adapter library gson, I will try it
-            commands.put(Command.TXDISCARD, new CLightningCommandTxDiscard());
-            commands.put(Command.TXSEND, new CLightningCommandTxSend());
-            commands.put(Command.WITHDRAW, new CLightningCommandWithDraw());
-            commands.put(Command.CLOSE, new CLightningCommandClose());
-            commands.put(Command.FUNDCHANNEL, new CLightningCommandFundChannel());
-            commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
-            commands.put(Command.CONNECT, new CLightningCommandConnect());
-            commands.put(Command.PAY, new CLightningCommandPay());
-            commands.put(Command.LISTSENDPAYS, new CLightningCommandListSendPays());
-            commands.put(Command.LISTCHANNELS, new CLightningCommandListChannels());
-            commands.put(Command.LISTPEERS, new CLightningCommandListPeers());
-            commands.put(Command.DECODEPAY, new CLightningCommandDecodePay());
-        } catch (ServiceException e) {
-            socket = null;
-            throw new CLightningException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
-        }
-
+        commands.put(Command.GETINFO, new CLightningCommandGetInfo());
+        commands.put(Command.NEWADDR, new CLightningCommandNewAddress());
+        commands.put(Command.INVOICE, new CLightningCommandInvoice());
+        commands.put(Command.LISTINVOICE, new CLightningCommandGetListInvoices());
+        commands.put(Command.DELINVOICE, new CLightningCommandDelInvoice());
+        commands.put(Command.AUTOCLEANINVOICE, new CLightningCommandAutoCleanInvoice());
+        commands.put(Command.TXPREPARE, new CLightningCommandTxPrepare()); //TODO use an personal Type adapter library gson, I will try it
+        commands.put(Command.TXDISCARD, new CLightningCommandTxDiscard());
+        commands.put(Command.TXSEND, new CLightningCommandTxSend());
+        commands.put(Command.WITHDRAW, new CLightningCommandWithDraw());
+        commands.put(Command.CLOSE, new CLightningCommandClose());
+        commands.put(Command.FUNDCHANNEL, new CLightningCommandFundChannel());
+        commands.put(Command.LISTFOUNDS, new CLightningCommandListFounds());
+        commands.put(Command.CONNECT, new CLightningCommandConnect());
+        commands.put(Command.PAY, new CLightningCommandPay());
+        commands.put(Command.LISTSENDPAYS, new CLightningCommandListSendPays());
+        commands.put(Command.LISTCHANNELS, new CLightningCommandListChannels());
+        commands.put(Command.LISTPEERS, new CLightningCommandListPeers());
+        commands.put(Command.DECODEPAY, new CLightningCommandDecodePay());
     }
 
     public Object runCommand(Command command, String payload) {
