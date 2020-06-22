@@ -37,11 +37,14 @@ import java.net.SocketException;
 public class CLightningRPC {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(CLightningRPC.class);
-    private static final CLightningRPC SINGLETON = new CLightningRPC();
+    private static CLightningRPC SINGLETON;
 
     protected static final String JOIN_TOKEN_PROP = "+";
 
     public static CLightningRPC getInstance() {
+        if(SINGLETON == null){
+            SINGLETON = new CLightningRPC();
+        }
         return SINGLETON;
     }
 

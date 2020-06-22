@@ -1,12 +1,10 @@
 package jrpc.clightning.plugin.rpcmothods;
 
-import jrpc.clightning.plugins.AbstractPlugin;
-import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
-import jrpc.mock.PluginMock;
 import jrpc.mock.RPCMockMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
+import jrpc.service.converters.JsonConverter;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,8 +25,7 @@ public class TestManifestMethod {
 
     @Before
     public void init(){
-        ICLightningPlugin plugin = new PluginMock();
-        manifest = new ManifestMethod(plugin);
+        manifest = new ManifestMethod();
     }
 
     @Test
@@ -66,6 +63,19 @@ public class TestManifestMethod {
         method.addMethods(methodList);
         TestCase.assertFalse(method.getRpcMethods().isEmpty());
         TestCase.assertEquals(1, method.getRpcMethods().size());
+    }
+
+    @Test
+    public void testAllPropriety(){
+        ManifestMethod method = (ManifestMethod) manifest;
+        JsonConverter converter = new JsonConverter();
+        String jsonFormat = converter.serialization(method);
+        TestCase.assertTrue(jsonFormat.contains("options"));
+        TestCase.assertTrue(jsonFormat.contains("rpcmethods"));
+        TestCase.assertTrue(jsonFormat.contains("subscriptions"));
+        TestCase.assertTrue(jsonFormat.contains("hooks"));
+        TestCase.assertTrue(jsonFormat.contains("features"));
+        TestCase.assertTrue(jsonFormat.contains("dynamic"));
     }
 
 }

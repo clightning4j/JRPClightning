@@ -12,7 +12,7 @@ public interface ICLightningRPCMethod {
     /**
      * This method implement the core of the rpc method
      */
-    void doRun(Object...params);
+    String doRun(Object...params);
 
     String getName();
 

@@ -1,5 +1,7 @@
 package jrpc.clightning.plugins.rpcmethods.manifest.types;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.plugins.ICLightningPlugin;
 
@@ -19,11 +21,11 @@ public class Option {
 
     public Option() {}
 
-    public Option(ICLightningPlugin plugin) {
-        /*this.namePlugin = plugin.getNamePlugin();
-        this.descriptionPlugin = plugin.getDescriptionPlugin();
-        this.type = plugin.getType();
-        this.defaultPropriety = plugin.getDefaultPropriety();*/
+    public Option(JsonObject object) {
+        this.namePlugin = object.get("name").getAsString();
+        this.descriptionPlugin = object.get("type").getAsString();
+        this.type = object.get("default").getAsString();
+        this.defaultPropriety = object.get("description").getAsString();
     }
 
     //getter method

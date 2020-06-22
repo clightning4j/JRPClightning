@@ -1,17 +1,13 @@
 package jrpc.clightning.plugins;
 
 import com.google.gson.annotations.Expose;
-import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
-import jrpc.service.JRPCLightningLogger;
+import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,7 +28,7 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         if(method == null){
             throw new IllegalArgumentException("Method object null");
         }
-        JRPCLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
+        CLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
         this.manifest.addMethod(method);
     }
 

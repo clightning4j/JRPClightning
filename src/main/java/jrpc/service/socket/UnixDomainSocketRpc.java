@@ -20,14 +20,12 @@ package jrpc.service.socket;
 
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.exceptions.ServiceException;
-import jrpc.service.JRPCLightningLogger;
+import jrpc.service.CLightningLogger;
 import jrpc.wrapper.socket.IWrapperSocketCall;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
 import org.newsclub.net.unix.AFUNIXSocket;
 import org.newsclub.net.unix.AFUNIXSocketAddress;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.io.*;
 import java.lang.reflect.Type;
@@ -62,7 +60,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
             this.outputStream = socket.getOutputStream();
             this.converterJson = new JsonConverter();
         } catch (IOException e) {
-            JRPCLightningLogger.getInstance().error(TAG, e.getMessage());
+            CLightningLogger.getInstance().error(TAG, e.getMessage());
             throw new ServiceException("Exception inside the method deserialization to " +
                     this.getClass().getSimpleName() + " with message\n" + e.getLocalizedMessage());
         }
@@ -92,18 +90,18 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         }
         if(socket.isClosed()){
             try {
-                JRPCLightningLogger.getInstance().debug(TAG, "UnixDomainSocketRpc: path is " + pathSocket);
+                CLightningLogger.getInstance().debug(TAG, "UnixDomainSocketRpc: path is " + pathSocket);
                 File fileRPC = new File(pathSocket);
                 if(fileRPC.exists()){
                     InetSocketAddress socketAddress = new AFUNIXSocketAddress(fileRPC);
-                    JRPCLightningLogger.getInstance().error(TAG,"BEFORE CONNECT INSIDE METHOD doCall");
+                    CLightningLogger.getInstance().error(TAG,"BEFORE CONNECT INSIDE METHOD doCall");
                     this.socket = AFUNIXSocket.newInstance();
                     this.socket.connect(socketAddress);
                     this.inputStream = socket.getInputStream();
                     this.outputStream = socket.getOutputStream();
-                    JRPCLightningLogger.getInstance().error(TAG,"AFTER CONNECT INSIDE METHOD doCall");
+                    CLightningLogger.getInstance().error(TAG,"AFTER CONNECT INSIDE METHOD doCall");
                 }else {
-                    JRPCLightningLogger.getInstance().error(TAG,"File not exist inside the path: " + pathSocket);
+                    CLightningLogger.getInstance().error(TAG,"File not exist inside the path: " + pathSocket);
                     throw new CLightningException("File not exist inside the path: " + pathSocket);
                 }
             } catch (IOException e) {
@@ -112,11 +110,11 @@ public abstract class UnixDomainSocketRpc implements ISocket {
             }
         }
         String serializationForm = converterJson.serialization(wrapperSocket);
-        JRPCLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
+        CLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
         try {
             this.outputStream.write(serializationForm.getBytes(ENCODING));
             this.outputStream.flush();
-            JRPCLightningLogger.getInstance().debug(TAG,"Run request");
+            CLightningLogger.getInstance().debug(TAG,"Run request");
         } catch (IOException e) {
             throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
                     + " with message\n" + e.getLocalizedMessage());
@@ -124,7 +122,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         Object o = converterJson.deserialization(inputStream, typeResult);
         //TODO I should be close the socket my maybe no?
         //this.close();
-        JRPCLightningLogger.getInstance().debug(TAG,"Response\n" + converterJson.serialization(o));
+        CLightningLogger.getInstance().debug(TAG,"Response\n" + converterJson.serialization(o));
         return o;
     }
 

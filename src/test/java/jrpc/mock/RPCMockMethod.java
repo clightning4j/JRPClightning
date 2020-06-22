@@ -20,7 +20,8 @@ public class RPCMockMethod extends RPCMethod {
     }
 
     @Override
-    public void doRun(Object... params) {
+    public String doRun(Object... params) {
         LOGGER.error("******* MOCK method run *******");
+        return "";
     }
 }

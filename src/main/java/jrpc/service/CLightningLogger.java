@@ -7,21 +7,21 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JRPCLightningLogger {
+public class CLightningLogger {
 
-    private static final String CLASS_TAG = JRPCLightningLogger.class.getCanonicalName();
-    private static JRPCLightningLogger SINGLETON;
+    private static final String CLASS_TAG = CLightningLogger.class.getCanonicalName();
+    private static CLightningLogger SINGLETON;
 
-    public static JRPCLightningLogger getInstance(){
-        if(SINGLETON == null){
-            SINGLETON = new JRPCLightningLogger();
+    public static CLightningLogger getInstance() {
+        if (SINGLETON == null) {
+            SINGLETON = new CLightningLogger();
         }
         return SINGLETON;
     }
 
     private Map<String, Logger> loggersCache;
 
-    private JRPCLightningLogger(){
+    private CLightningLogger() {
         this.loggersCache = new HashMap<>();
     }
 
@@ -33,7 +33,7 @@ public class JRPCLightningLogger {
         }
     }
 
-    public void error(Class clazz, String message){
+    public void error(Class clazz, String message) {
         try {
             printMessage(LevelLogger.ERROR, clazz, message);
         } catch (ServiceException e) {
@@ -41,7 +41,7 @@ public class JRPCLightningLogger {
         }
     }
 
-    public void info(Class clazz, String message){
+    public void info(Class clazz, String message) {
         try {
             printMessage(LevelLogger.INFO, clazz, message);
         } catch (ServiceException e) {
@@ -50,16 +50,16 @@ public class JRPCLightningLogger {
     }
 
     protected void printMessage(LevelLogger levelLogger, Class clazz, String message) throws ServiceException {
-        if(clazz == null || (message == null || message.isEmpty())){
+        if (clazz == null || (message == null || message.isEmpty())) {
             String errorMessage = this.getMessageException();
-            if(clazz == null){
+            if (clazz == null) {
                 errorMessage += "- ";
                 errorMessage += "Class null\n";
             }
-            if(message == null){
+            if (message == null) {
                 errorMessage += "- ";
                 errorMessage += "Log message null";
-            }else{
+            } else {
                 errorMessage += "- ";
                 errorMessage += "Log message empty";
             }
@@ -68,26 +68,31 @@ public class JRPCLightningLogger {
 
         Logger logger = this.getLoggerByClass(clazz);
 
-        if(logger == null){
+        if (logger == null) {
             String errorMessage = this.getMessageException() + "- Logger null, error irreversible";
             throw new ServiceException(errorMessage);
         }
 
-        switch (levelLogger){
-            case DEBUG: logger.debug(message);
-            case ERROR: logger.error(message);
-            default: logger.info(message);
+        switch (levelLogger) {
+            case DEBUG:
+                logger.debug(message);
+                break;
+            case ERROR:
+                logger.error(message);
+                break;
+            default:
+                logger.info(message);
         }
     }
 
     protected Logger getLoggerByClass(Class clazz) throws ServiceException {
-        if(clazz == null){
+        if (clazz == null) {
             String message = this.getMessageException();
             message += "- Class inside methods getLoggerByClass null";
             throw new ServiceException(message);
         }
         String classpath = clazz.getCanonicalName();
-        if(loggersCache.containsKey(classpath)){
+        if (loggersCache.containsKey(classpath)) {
             return loggersCache.get(classpath);
         }
         Logger newLogger = LoggerFactory.getLogger(classpath);
@@ -95,7 +100,7 @@ public class JRPCLightningLogger {
         return newLogger;
     }
 
-    private String getMessageException(){
+    private String getMessageException() {
         return "Exception generated inside class " + CLASS_TAG + " Errors List:\n";
     }
 

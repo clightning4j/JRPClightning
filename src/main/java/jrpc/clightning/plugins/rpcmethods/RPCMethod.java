@@ -8,7 +8,7 @@ import jrpc.service.converters.JsonConverter;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class RPCMethod implements ICLightningRPCMethod{
+public abstract class RPCMethod implements ICLightningRPCMethod{
 
     protected String name;
     protected String usage;
@@ -33,11 +33,6 @@ public class RPCMethod implements ICLightningRPCMethod{
     public String toString() {
         IConverter converter = new JsonConverter();
         return converter.serialization(this);
-    }
-
-    @Override
-    public void doRun(Object... params) {
-        //Do nothing for moment
     }
 
     //Getter

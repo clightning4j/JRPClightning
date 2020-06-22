@@ -1,66 +1,54 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.annotations.SerializedName;
+import jrpc.clightning.CLightningConstant;
+import jrpc.clightning.model.CLightningModelMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.exceptions.CLightningPluginException;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import jrpc.service.CLightningLogger;
+import jrpc.service.converters.JsonConverter;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
 public class ManifestMethod extends RPCMethod {
 
+    private static final Class TAG = ManifestMethod.class;
+
     private List<Option> options = new ArrayList<>();
     @SerializedName("rpcmethods")
     private List<RPCMethod> rpcMethods = new ArrayList<>();
     private List<String> subscriptions = new ArrayList<>();
     private List<String> hooks = new ArrayList<>();
-    private Features features;
-    private Boolean dynamic = Boolean.TRUE;
+    private Features features = new Features();
+    private boolean dynamic = true;
 
     public ManifestMethod() {
         super("getmanifest", null, null);
     }
 
-    public ManifestMethod(List<Option> options, List<RPCMethod> rpcMethods,
-                          List<String> subscriptions, List<String> hooks, Features features, Boolean dynamic) {
-        this();
-        this.options = options;
-        this.rpcMethods = rpcMethods;
-        this.subscriptions = subscriptions;
-        this.hooks = hooks;
-        this.features = features;
-        this.dynamic = dynamic;
-    }
-
-    public ManifestMethod(ICLightningPlugin plugin) {
-        this();
-        this.options = new ArrayList<>();
-        options.add(new Option(plugin));
-        this.rpcMethods = plugin.getRpcMethods();
-        this.subscriptions = plugin.getSubscriptions();
-        this.hooks = plugin.getHooks();
-        this.dynamic = plugin.isDynamic();
-    }
-
     @Override
-    public void doRun(Object... params) {
-        //do nothing for moment
+    public String doRun(Object... params) {
+        boolean containsOptionValue = CLightningModelMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
+        if(containsOptionValue){
+            Option option = (Option) CLightningModelMediator.getInstance().getValue(CLightningConstant.OPTIONS);
+            this.addOption(option);
+        }
+        JsonConverter converter = new JsonConverter();
+        String result = converter.serialization(this);
+        CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + result);
+        return result;
     }
 
-    public void addFeature(String node, String init, String invoice){
+    public void addFeature(String node, String channel, String init, String invoice){
         //TODO if empty
-        this.features = new Features(node, init, invoice);
+        this.features = new Features(node, channel, init, invoice);
     }
 
     public void addMethods(List<RPCMethod> methods){
@@ -78,11 +66,20 @@ public class ManifestMethod extends RPCMethod {
         this.rpcMethods.add(method);
     }
 
+    @Deprecated
     public void addOption(ICLightningPlugin plugin){
         if(plugin == null){
             throw new IllegalArgumentException("Argument is null");
         }
-        Option option = new Option(plugin);
+        //Option option = new Option(plugin);
+        //this.options.add(option);
+    }
+
+    public void addOption(Option option){
+        if(option == null){
+            CLightningLogger.getInstance().error(TAG, "Option null in method addOption");
+            throw new IllegalArgumentException("option null");
+        }
         this.options.add(option);
     }
 

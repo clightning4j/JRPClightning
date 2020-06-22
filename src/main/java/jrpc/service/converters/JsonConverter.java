@@ -78,6 +78,22 @@ public class JsonConverter implements IConverter {
         return response;
     }
 
+    @Override
+    public Object deserialization(String jsonForm, Type type) throws ServiceException {
+        if ((jsonForm == null || jsonForm.isEmpty() ) || type == null) {
+            throw new IllegalArgumentException("Arguments are/is null");
+        }
+        Object response;
+        try {
+            Gson gson = gsonBuilder.create();
+            response = gson.fromJson(jsonForm, type);
+        } catch (Exception ex) {
+            throw new ServiceException("Exception inside the method deserialization to " +
+                    this.getClass().getSimpleName() + "\nMessage: " + ex.getLocalizedMessage());
+        }
+        return response;
+    }
+
 
     protected class MyDateTypeAdapter extends TypeAdapter<Date> {
         @Override

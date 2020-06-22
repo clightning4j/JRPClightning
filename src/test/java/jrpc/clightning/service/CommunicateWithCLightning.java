@@ -24,7 +24,7 @@ public class CommunicateWithCLightning {
         }
     }
 
-    @Test
+    //@Test
     public void testSendInformationWithSocket() {
         try {
             byte[] buffer = new byte[socketRpc.getReceiveBufferSize()];

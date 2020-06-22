@@ -83,6 +83,9 @@ public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
         out.name("features");
         gson.getAdapter(Features.class).write(out, value.getFeatures());
 
+        out.name("dynamic");
+        gson.getAdapter(Boolean.class).write(out, value.getDynamic());
+
         out.endObject();
         //EndObject get manifest
     }

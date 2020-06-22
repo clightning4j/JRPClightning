@@ -16,14 +16,8 @@
  */
 -->
 <configuration scan="true">
-  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
-    <encoder>
-      <pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg%n</pattern>
-    </encoder>
-  </appender>
-
   <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-    <file>jrpclightning.log</file>
+    <file>${user.home}/clightning_java_plugin/log.log</file>
     <append>true</append>
     <!-- set immediateFlush to false for much higher logging throughput -->
     <immediateFlush>true</immediateFlush>
@@ -34,10 +28,11 @@
     </encoder>
   </appender>
 
-  <root level="debug">
-    <!--
-    <appender-ref ref="STDOUT" />
-    -->
+  <root level="OFF">
     <appender-ref ref="FILE" />
   </root>
+
+  <logger name="jrpc.clightning.plugins" level="OFF">
+    <appender-ref ref="FILE" />
+  </logger>
 </configuration>

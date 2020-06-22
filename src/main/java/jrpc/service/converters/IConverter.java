@@ -28,4 +28,6 @@ public interface IConverter {
     String serialization(Object o);
 
     Object deserialization(InputStream inputStream, Type type) throws ServiceException;
+
+    Object deserialization(String jsonForm, Type type) throws ServiceException;
 }
