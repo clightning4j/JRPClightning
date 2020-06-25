@@ -3,20 +3,20 @@ package jrpc.clightning.model;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CLightningModelMediator {
+public class CLightningProprietiesMediator {
 
-    private static CLightningModelMediator SINGLETON;
+    private static CLightningProprietiesMediator SINGLETON;
 
-    public static CLightningModelMediator getInstance(){
+    public static CLightningProprietiesMediator getInstance(){
         if(SINGLETON == null){
-            SINGLETON = new CLightningModelMediator();
+            SINGLETON = new CLightningProprietiesMediator();
         }
         return SINGLETON;
     }
 
     private Map<String, Object> repository;
 
-    private CLightningModelMediator(){
+    private CLightningProprietiesMediator(){
         this.repository = new HashMap<>();
     }
 

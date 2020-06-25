@@ -30,5 +30,7 @@ public interface ISocket {
 
     void close() throws ServiceException;
 
+    boolean isOpen();
+
     int getReceiveBufferSize() throws SocketException;
 }

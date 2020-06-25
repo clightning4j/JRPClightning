@@ -18,7 +18,7 @@ package jrpc.exceptions;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class ServiceException extends Exception{
+public class ServiceException extends RuntimeException {
 
     public ServiceException() {
         super();

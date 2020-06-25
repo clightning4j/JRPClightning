@@ -35,7 +35,7 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
     @Override
     public void start() {
         addRPCMethod(this.manifest);
-        addRPCMethod(new InitMethod(Boolean.TRUE));
+        addRPCMethod(new InitMethod());
     }
 
     // getter method

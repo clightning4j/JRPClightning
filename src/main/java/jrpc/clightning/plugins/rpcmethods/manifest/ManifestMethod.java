@@ -2,7 +2,7 @@ package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.CLightningConstant;
-import jrpc.clightning.model.CLightningModelMediator;
+import jrpc.clightning.model.CLightningProprietiesMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
@@ -35,9 +35,9 @@ public class ManifestMethod extends RPCMethod {
 
     @Override
     public String doRun(Object... params) {
-        boolean containsOptionValue = CLightningModelMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
+        boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
         if(containsOptionValue){
-            Option option = (Option) CLightningModelMediator.getInstance().getValue(CLightningConstant.OPTIONS);
+            Option option = (Option) CLightningProprietiesMediator.getInstance().getValue(CLightningConstant.OPTIONS);
             this.addOption(option);
         }
         JsonConverter converter = new JsonConverter();

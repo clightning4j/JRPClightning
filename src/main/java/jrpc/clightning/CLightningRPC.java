@@ -24,6 +24,7 @@ import jrpc.clightning.model.types.BitcoinOutput;
 import jrpc.clightning.model.types.CLightningChannelId;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
+import jrpc.service.CLightningLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -36,7 +37,7 @@ import java.net.SocketException;
  */
 public class CLightningRPC {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CLightningRPC.class);
+    private static final Class TAG = CLightningRPC.class;
     private static CLightningRPC SINGLETON;
 
     protected static final String JOIN_TOKEN_PROP = "+";
@@ -56,7 +57,7 @@ public class CLightningRPC {
             socket = new CLightningSocket();
             this.mediatorCommand = new CommandRPCMediator(socket);
         }catch (CLightningException clex){
-            LOGGER.error("CLightningRPC throws an exception " + clex.getLocalizedMessage());
+            CLightningLogger.getInstance().error(TAG, "CLightningRPC throws an exception " + clex.getLocalizedMessage());
             clex.printStackTrace();
         } catch (ServiceException e) {
             socket = null;
@@ -98,7 +99,7 @@ public class CLightningRPC {
             typeString = "p2sh-segwit";
         }
         String payload = "addresstype=" + typeString;
-        LOGGER.debug("Payload: " + payload);
+        CLightningLogger.getInstance().debug(TAG,"Payload: " + payload);
         CLightningNewAddress resultCommand = (CLightningNewAddress) mediatorCommand.runCommand(Command.NEWADDR, payload);
         if (type.equals(AddressType.BECH32)) {
             return resultCommand.getBech32();
@@ -155,7 +156,7 @@ public class CLightningRPC {
         }
 
         String payloadResult = payload.toString();
-        LOGGER.debug("Payload: " + payloadResult);
+        CLightningLogger.getInstance().debug(TAG,"Payload: " + payloadResult);
 
         return (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payloadResult);
     }
@@ -188,7 +189,7 @@ public class CLightningRPC {
         payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
         payload.append(JOIN_TOKEN_PROP).append("status=").append(status);
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for command delInvoice: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for command delInvoice: " + payloadString);
 
         return (CLightningInvoice) mediatorCommand.runCommand(Command.DELINVOICE, payloadString);
     }
@@ -213,7 +214,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload: " + payloadString);
 
         return (String) mediatorCommand.runCommand(Command.AUTOCLEANINVOICE, payloadString);
     }
@@ -242,7 +243,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload command txPrepare: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload command txPrepare: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payloadString);
     }
 
@@ -290,7 +291,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload command withDraw: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload command withDraw: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.WITHDRAW, payloadString);
     }
 
@@ -314,7 +315,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload command close: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload command close: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payloadString);
     }
 
@@ -352,7 +353,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload method fundChannel is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload method fundChannel is: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.FUNDCHANNEL, payloadString);
     }
 
@@ -388,7 +389,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for command connect is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for command connect is: " + payloadString);
         CLightningChannelId channelId = (CLightningChannelId) mediatorCommand.runCommand(Command.CONNECT, payloadString);
         return channelId.getId();
     }
@@ -444,7 +445,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for pay connect is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for pay connect is: " + payloadString);
         CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.PAY, payloadString);
         return pay;
     }
@@ -471,7 +472,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for command listSendPays is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for command listSendPays is: " + payloadString);
         CLightningListSendPays list = (CLightningListSendPays) mediatorCommand.runCommand(Command.LISTSENDPAYS, payloadString);
         return list;
     }
@@ -498,7 +499,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for command listChannels " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for command listChannels " + payloadString);
         CLightningListChannels channelsList = (CLightningListChannels) mediatorCommand.runCommand(Command.LISTCHANNELS, payloadString);
         return channelsList;
     }
@@ -525,7 +526,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("Payload for command listPeers " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"Payload for command listPeers " + payloadString);
         CLightningListPeers listPeers = (CLightningListPeers) mediatorCommand.runCommand(Command.LISTPEERS, payloadString);
         return listPeers;
     }
@@ -550,7 +551,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        LOGGER.debug("The payload for method decodePay is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG,"The payload for method decodePay is: " + payloadString);
         CLightningDecodePay decodePay = (CLightningDecodePay) mediatorCommand.runCommand(Command.DECODEPAY, payloadString);
         return decodePay;
     }
@@ -571,7 +572,7 @@ public class CLightningRPC {
         }
 
         String outputsString = outputBuilder.toString();
-        LOGGER.debug("Output converted into string is: " + outputsString);
+        CLightningLogger.getInstance().debug(TAG,"Output converted into string is: " + outputsString);
         return outputsString;
     }
 
@@ -595,7 +596,7 @@ public class CLightningRPC {
         }
         arrayConverted.append("]");
         String result = arrayConverted.toString();
-        LOGGER.debug("The result of the method \"arrayConverted\"\n" + result);
+        CLightningLogger.getInstance().debug(TAG,"The result of the method \"arrayConverted\"\n" + result);
         return result;
     }
 }

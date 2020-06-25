@@ -43,7 +43,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     protected IConverter converterJson;
     protected String pathSocket;
 
-    public UnixDomainSocketRpc(String pathSocket) throws ServiceException {
+    public UnixDomainSocketRpc(String pathSocket){
         if(pathSocket == null || pathSocket.isEmpty()){
             if(pathSocket != null){
                 throw new ServiceException("Path socket is null");
@@ -74,13 +74,20 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     @Override
     public void close() throws ServiceException {
          try {
-            socket.shutdownInput();
-            socket.shutdownOutput();
-            socket.close();
+             if(socket.isClosed()){
+                 socket.shutdownInput();
+                 socket.shutdownOutput();
+                 socket.close();
+             }
         } catch (IOException e) {
             throw new ServiceException("Exception generated to doCall method of the class " + this.getClass().getSimpleName()
                     + " with message\n" + e.getLocalizedMessage());
         }
+    }
+
+    @Override
+    public boolean isOpen() {
+        return socket != null && !socket.isClosed();
     }
 
     @Override

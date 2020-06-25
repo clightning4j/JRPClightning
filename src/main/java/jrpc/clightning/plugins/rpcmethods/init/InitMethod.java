@@ -1,41 +1,43 @@
 package jrpc.clightning.plugins.rpcmethods.init;
 
 import com.google.gson.JsonObject;
-import jrpc.clightning.CLightningConstant;
-import jrpc.clightning.model.CLightningModelMediator;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
-import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
-import netscape.javascript.JSObject;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
 public class InitMethod extends RPCMethod {
 
-    private Configuration configuration;
+    private static final Class TAG = InitMethod.class;
 
-    public InitMethod(Boolean startup) {
+    public InitMethod() {
         super("init", null, null);
-        //TODO assicure that this method is every different to null
-        String socketPaht = CLightningConfigurator.getInstance().getSocketPath();
-        String socketName = CLightningConfigurator.getInstance().getSocketFileName();
-        configuration = new Configuration(socketPaht, socketName, startup);
     }
 
+    /**
+     * This method is used to receive the information on c-lightning node to configure the plugin
+     */
     @Override
-    //TODO this method collect data to configure the plugin with clightning implementation.
-    //TODO this information will be ignored from clightning node
     public String doRun(Object... params) {
-        CLightningLogger.getInstance().debug(InitMethod.class, "**** Called rpc method init ****");
-        //TODO read configuration
-        return "{}";
-    }
-
-    //getter
-    public Configuration getConfiguration() {
-        return configuration;
+        CLightningLogger.getInstance().debug(TAG, "**** Called rpc method init ****");
+        if(params.length == 1){
+            Object object = params[0];
+            if (object instanceof JsonObject){
+                JsonObject initRequest = (JsonObject) object;
+                CLightningLogger.getInstance().debug(TAG, "***** Json Object  "+ initRequest.toString() +" *****");
+                JsonObject jsonParams = (JsonObject) initRequest.get("params");
+                JsonObject config = (JsonObject) jsonParams.get("configuration");
+                CLightningLogger.getInstance().debug(TAG, "***** Config propriety "+ config.toString() +" *****");
+                String rpcPath = config.get("lightning-dir").getAsString() + "/" + config.get("rpc-file").getAsString();
+                CLightningLogger.getInstance().debug(TAG, "***** Method init rpc file path "+ rpcPath +" *****");
+                CLightningConfigurator.getInstance().changeUrlRpcFile(rpcPath);
+                //This method change the url inside the configurator to set the personal path from plugin.
+                //also this method ignore the variable startup, maybe I should be save this variable inside the mediator?
+            }
+        }
+        return new JsonConverter().serialization(this);
     }
 }

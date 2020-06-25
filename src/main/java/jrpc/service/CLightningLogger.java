@@ -7,7 +7,7 @@ import org.slf4j.LoggerFactory;
 import java.util.HashMap;
 import java.util.Map;
 
-public class CLightningLogger {
+public class CLightningLogger{
 
     private static final String CLASS_TAG = CLightningLogger.class.getCanonicalName();
     private static CLightningLogger SINGLETON;

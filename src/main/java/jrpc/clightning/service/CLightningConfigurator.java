@@ -15,6 +15,7 @@
  */
 package jrpc.clightning.service;
 
+import jrpc.service.CLightningLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,15 +24,17 @@ import java.util.Properties;
 import java.util.StringTokenizer;
 
 /**
+ * TODO Refactoring this class
  * @author https://github.com/vincenzopalazzo
  */
 public class CLightningConfigurator {
 
     private static final CLightningConfigurator SINGLETON = new CLightningConfigurator();
 
-    private final Logger LOGGER = LoggerFactory.getLogger("CLightningConfigurator");
+    private final Class TAG = CLightningConfigurator.class;
     private static final String NAME_FILE_CONFIG = "/clightning-rpc.properties";
     private static final String NAME_RPC = "lightning-rpc";
+    //TODO this path is not valid in c-lightning > 0.7.2.1
     private static final String DEFAULT_DIR = System.getProperty("home.dir") + "/.lightning/"; //TODO work only linux, this is an momentary solution.
 
     //PROPRIETIES FILE value
@@ -55,10 +58,10 @@ public class CLightningConfigurator {
         try {
             configurator.load(this.getClass().getResourceAsStream(NAME_FILE_CONFIG));
             url = configurator.getProperty(RPC_DIR);
-            LOGGER.debug("The url is: " + url);
+            CLightningLogger.getInstance().debug(TAG,"The url is: " + url);
         } catch (IOException e) {
-            LOGGER.warn("Exception generated inside the CLightningConfigurator id " + e.getLocalizedMessage());
-            LOGGER.error("File " + NAME_FILE_CONFIG + " not found, I setting a default dir " + DEFAULT_DIR);
+            CLightningLogger.getInstance().error(TAG,"Exception generated inside the CLightningConfigurator id " + e.getLocalizedMessage());
+            CLightningLogger.getInstance().error(TAG,"File " + NAME_FILE_CONFIG + " not found, I setting a default dir " + DEFAULT_DIR);
         }
 
     }
@@ -73,7 +76,7 @@ public class CLightningConfigurator {
             if(start == end){
                 socketFileName = tokenizer.nextToken();
                 socketPath = url.substring(0, url.length() - socketFileName.length() - 1);
-                LOGGER.debug(socketPath);
+                CLightningLogger.getInstance().debug(TAG,socketPath);
             }else{
                 tokenizer.nextToken();
             }
@@ -83,6 +86,10 @@ public class CLightningConfigurator {
     //getter
     public String getUrl() {
         return url;
+    }
+
+    public void changeUrlRpcFile(String urlRpcFile){
+        this.url = urlRpcFile;
     }
 
     public String getSocketPath(){
