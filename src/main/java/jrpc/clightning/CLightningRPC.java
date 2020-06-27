@@ -327,6 +327,7 @@ public class CLightningRPC {
         return fundChannel(id, satoshi, "normal", true, 1, new String[]{});
     }
 
+    //TODO the parameter change the name from satoshi in amount, what is the version that this change appened?
     public CLightningBitcoinTx fundChannel(String id, String satoshi, String feerate, boolean announce, int minConf, String[] utxos) {
         if (id == null || id.trim().isEmpty()) {
             throw new CLightningException("The method fundChannel have the parameter id is null");
@@ -342,7 +343,8 @@ public class CLightningRPC {
         }
         StringBuilder payload = new StringBuilder();
         payload.append("id=").append(id.trim());
-        payload.append(JOIN_TOKEN_PROP).append("satoshi=").append(satoshi.trim());
+        // TODO CHEHCK the version
+        payload.append(JOIN_TOKEN_PROP).append("amount=").append(satoshi.trim());
         payload.append(JOIN_TOKEN_PROP).append("feerate=").append(feerate.trim());
         if (!announce) {
             payload.append(JOIN_TOKEN_PROP).append("announce=").append(announce);

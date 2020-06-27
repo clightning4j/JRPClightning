@@ -19,7 +19,7 @@ public class TestInitMethod {
 
     @Before
     public void init(){
-        init = new InitMethod(Boolean.TRUE);
+        init = new InitMethod();
     }
 
     @Test
