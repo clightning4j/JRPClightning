@@ -1,5 +1,7 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.CLightningConstant;
 import jrpc.clightning.model.CLightningProprietiesMediator;
@@ -10,9 +12,11 @@ import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
+import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -44,6 +48,20 @@ public class ManifestMethod extends RPCMethod {
         String result = converter.serialization(this);
         CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + result);
         return result;
+    }
+
+    @Override
+    public void doRun(CLightningJsonObject request, CLightningJsonObject response) {
+        // TODO refactoring this information; how I can store the options?
+        boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
+        if(containsOptionValue){
+            Option option = (Option) CLightningProprietiesMediator.getInstance().getValue(CLightningConstant.OPTIONS);
+            this.addOption(option);
+        }
+        CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + response);
+        JsonConverter converter = new JsonConverter();
+        JsonObject getManifet = (JsonObject) converter.deserialization(converter.serialization(this), JsonObject.class);
+        response.mapping(getManifet);
     }
 
     public void addFeature(String node, String channel, String init, String invoice){

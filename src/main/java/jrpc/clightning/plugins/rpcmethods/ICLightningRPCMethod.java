@@ -1,6 +1,8 @@
 package jrpc.clightning.plugins.rpcmethods;
 
+import com.google.gson.JsonObject;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
+import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 import java.util.Map;
 
@@ -10,9 +12,12 @@ import java.util.Map;
 public interface ICLightningRPCMethod {
 
     /**
-     * This method implement the core of the rpc method
+     * This method is deprecated in fovor of doRun(jsonRequest, jsonResponse)
      */
+    @Deprecated
     String doRun(Object...params);
+
+    void doRun(CLightningJsonObject request, CLightningJsonObject response);
 
     String getName();
 
