@@ -1,10 +1,10 @@
 package jrpc.clightning.plugins.log;
 
 public enum CLightningLevelLog {
-    UNUSUAL("unusual"),
+    INFO("info"),
     DEBUG("debug"),
-    IO("io"),
-    INFO("info");
+    WARNING("warn"),
+    ERROR("error");
 
     private String level;
 

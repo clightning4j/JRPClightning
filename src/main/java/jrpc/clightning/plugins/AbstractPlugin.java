@@ -78,19 +78,17 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         CLightningJsonObject params = new CLightningJsonObject();
         params.add("level", level.getLevel());
         params.add("message", logMessage);
-
-        payload.add("id", (int)Math.random());
-        payload.add("jsonrpc", 2.0);
+        payload.add("jsonrpc", "2.0");
         payload.add("method", "log");
         payload.add("params", params.getWrapper());
         CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
 
-        /*try {
-            //this.stdout.write(payload.getWrapper().toString());
-            //this.stdout.flush();
+        try {
+            this.stdout.write(payload.getWrapper().toString());
+            this.stdout.flush();
         } catch (IOException ioException) {
             ioException.printStackTrace();
-        }*/
+        }
     }
 
     protected void registerMethod(){
