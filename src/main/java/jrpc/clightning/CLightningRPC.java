@@ -1,12 +1,12 @@
 /**
  * Copyright 2019-2020 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     http://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -43,7 +43,7 @@ public class CLightningRPC {
     protected static final String JOIN_TOKEN_PROP = "+";
 
     public static CLightningRPC getInstance() {
-        if(SINGLETON == null){
+        if (SINGLETON == null) {
             SINGLETON = new CLightningRPC();
         }
         return SINGLETON;
@@ -53,10 +53,10 @@ public class CLightningRPC {
     protected CommandRPCMediator mediatorCommand;
 
     private CLightningRPC() {
-        try{
+        try {
             socket = new CLightningSocket();
             this.mediatorCommand = new CommandRPCMediator(socket);
-        }catch (CLightningException clex){
+        } catch (CLightningException clex) {
             CLightningLogger.getInstance().error(TAG, "CLightningRPC throws an exception " + clex.getLocalizedMessage());
             clex.printStackTrace();
         } catch (ServiceException e) {
@@ -65,15 +65,15 @@ public class CLightningRPC {
         }
     }
 
-    public InputStream getInputStream(){
-        if(socket != null){
+    public InputStream getInputStream() {
+        if (socket != null) {
             return socket.getInputStream();
         }
         return null;
     }
 
-    public OutputStream getOutputStream(){
-        if(socket != null){
+    public OutputStream getOutputStream() {
+        if (socket != null) {
             return socket.getOutputStream();
         }
         return null;
@@ -99,7 +99,7 @@ public class CLightningRPC {
             typeString = "p2sh-segwit";
         }
         String payload = "addresstype=" + typeString;
-        CLightningLogger.getInstance().debug(TAG,"Payload: " + payload);
+        CLightningLogger.getInstance().debug(TAG, "Payload: " + payload);
         CLightningNewAddress resultCommand = (CLightningNewAddress) mediatorCommand.runCommand(Command.NEWADDR, payload);
         if (type.equals(AddressType.BECH32)) {
             return resultCommand.getBech32();
@@ -156,7 +156,7 @@ public class CLightningRPC {
         }
 
         String payloadResult = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload: " + payloadResult);
+        CLightningLogger.getInstance().debug(TAG, "Payload: " + payloadResult);
 
         return (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payloadResult);
     }
@@ -189,7 +189,7 @@ public class CLightningRPC {
         payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
         payload.append(JOIN_TOKEN_PROP).append("status=").append(status);
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for command delInvoice: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for command delInvoice: " + payloadString);
 
         return (CLightningInvoice) mediatorCommand.runCommand(Command.DELINVOICE, payloadString);
     }
@@ -214,7 +214,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload: " + payloadString);
 
         return (String) mediatorCommand.runCommand(Command.AUTOCLEANINVOICE, payloadString);
     }
@@ -243,7 +243,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload command txPrepare: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload command txPrepare: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payloadString);
     }
 
@@ -291,7 +291,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload command withDraw: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload command withDraw: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.WITHDRAW, payloadString);
     }
 
@@ -315,7 +315,7 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload command close: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload command close: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payloadString);
     }
 
@@ -355,205 +355,205 @@ public class CLightningRPC {
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload method fundChannel is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload method fundChannel is: " + payloadString);
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.FUNDCHANNEL, payloadString);
     }
 
 
-    public CLightningListFounds listFunds(){
+    public CLightningListFounds listFunds() {
         String payloadString = "";
         return (CLightningListFounds) mediatorCommand.runCommand(Command.LISTFOUNDS, payloadString);
     }
 
-    public String connect(String id, String host, String port){
-        if(id == null || id.trim().isEmpty()){
+    public String connect(String id, String host, String port) {
+        if (id == null || id.trim().isEmpty()) {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
-        if(host == null){
+        if (host == null) {
             throw new CLightningException("The method connect have the parameter host is null");
         }
-        if(port == null ){
+        if (port == null) {
             throw new CLightningException("The method connect have the parameter port is null");
         }
 
         StringBuilder payload = new StringBuilder();
         payload.append("id=").append(id).append("@");
-        if(host.trim().isEmpty()){
+        if (host.trim().isEmpty()) {
             payload.append("127.0.0.1");
-        }else{
+        } else {
             payload.append(host);
         }
         payload.append(":");
-        if(port.trim().isEmpty()){
+        if (port.trim().isEmpty()) {
             payload.append("9735");
-        }else{
+        } else {
             payload.append(port);
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for command connect is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for command connect is: " + payloadString);
         CLightningChannelId channelId = (CLightningChannelId) mediatorCommand.runCommand(Command.CONNECT, payloadString);
         return channelId.getId();
     }
 
-    public String connect(String id){
-        if(id == null || id.trim().isEmpty()){
+    public String connect(String id) {
+        if (id == null || id.trim().isEmpty()) {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
         return this.connect(id, "", "");
     }
 
-    public CLightningPay pay(String bolt11){
-        return pay(bolt11,"", "", 10, "", 60, "");
+    public CLightningPay pay(String bolt11) {
+        return pay(bolt11, "", "", 10, "", 60, "");
     }
 
-    public CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay){
-        if(bolt11 == null || bolt11.trim().isEmpty()){
+    public CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay) {
+        if (bolt11 == null || bolt11.trim().isEmpty()) {
             throw new CLightningException("The method pay have the parameter bolt11 is null or empty");
         }
-        if(satoshi == null){
+        if (satoshi == null) {
             throw new CLightningException("The method pay have the parameter satoshi is null");
         }
-        if(label == null){
+        if (label == null) {
             throw new CLightningException("The method pay have the parameter label is null");
         }
-        if(maxFeePercent == null){
+        if (maxFeePercent == null) {
             throw new CLightningException("The method pay have the parameter maxFeePercent is null");
         }
-        if(maxDelay == null){
+        if (maxDelay == null) {
             throw new CLightningException("The method pay have the parameter maxDelay is null");
         }
 
         StringBuilder payload = new StringBuilder();
         payload.append("bolt11=").append(bolt11);
-        if(!satoshi.trim().isEmpty()){
+        if (!satoshi.trim().isEmpty()) {
             payload.append(JOIN_TOKEN_PROP).append("satoshi=").append(satoshi);
         }
 
-        if(!label.trim().isEmpty()){
+        if (!label.trim().isEmpty()) {
             payload.append(JOIN_TOKEN_PROP).append("label=").append(label);
         }
 
         payload.append(JOIN_TOKEN_PROP).append("riskfactor=").append(riskFactor);
 
-        if(!maxFeePercent.trim().isEmpty()){
+        if (!maxFeePercent.trim().isEmpty()) {
             payload.append(JOIN_TOKEN_PROP).append("maxfeepercent=").append(maxFeePercent);
         }
 
         payload.append(JOIN_TOKEN_PROP).append("retry_for=").append(retryFor);
 
-        if(!maxDelay.trim().isEmpty()){
+        if (!maxDelay.trim().isEmpty()) {
             payload.append(JOIN_TOKEN_PROP).append("maxDelay=").append(maxDelay);
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for pay connect is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for pay connect is: " + payloadString);
         CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.PAY, payloadString);
         return pay;
     }
 
-    public CLightningListSendPays listSendPays(){
+    public CLightningListSendPays listSendPays() {
         return this.listSendPays("", "");
     }
 
-    public CLightningListSendPays listSendPays(String bolt11, String paymentHash){
-        if(bolt11 == null || paymentHash == null){
+    public CLightningListSendPays listSendPays(String bolt11, String paymentHash) {
+        if (bolt11 == null || paymentHash == null) {
             throw new CLightningException("The method pay have the parameter bolt11 or/and paymentHash is/are null");
         }
 
         StringBuilder payload = new StringBuilder();
-        if(!bolt11.trim().isEmpty()){
+        if (!bolt11.trim().isEmpty()) {
             payload.append("bolt11=").append(bolt11.trim());
-            if(!paymentHash.trim().isEmpty()){
+            if (!paymentHash.trim().isEmpty()) {
                 payload.append(JOIN_TOKEN_PROP).append("payment_hash=").append(paymentHash.trim());
             }
-        }else{
-            if(!paymentHash.trim().isEmpty()){
+        } else {
+            if (!paymentHash.trim().isEmpty()) {
                 payload.append("payment_hash=").append(paymentHash.trim());
             }
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for command listSendPays is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for command listSendPays is: " + payloadString);
         CLightningListSendPays list = (CLightningListSendPays) mediatorCommand.runCommand(Command.LISTSENDPAYS, payloadString);
         return list;
     }
 
-    public CLightningListChannels listChannels(){
+    public CLightningListChannels listChannels() {
         return this.listChannels("", "");
     }
 
-    public CLightningListChannels listChannels(String shortIdChannel, String source){
-        if(shortIdChannel == null){
+    public CLightningListChannels listChannels(String shortIdChannel, String source) {
+        if (shortIdChannel == null) {
             throw new IllegalArgumentException("The shortIdChannel inside the method listChannels is null");
         }
-        if(source == null){
+        if (source == null) {
             throw new IllegalArgumentException("The source inside the method listChannels is null");
         }
         StringBuilder payload = new StringBuilder();
-        if(!shortIdChannel.trim().isEmpty()){
+        if (!shortIdChannel.trim().isEmpty()) {
             payload.append("short_channel_id=").append(shortIdChannel.trim());
-            if(!source.trim().isEmpty()){
+            if (!source.trim().isEmpty()) {
                 payload.append(JOIN_TOKEN_PROP).append("source=").append(source.trim());
             }
-        }else if(!source.isEmpty()){
+        } else if (!source.isEmpty()) {
             payload.append("source=").append(source.trim());
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for command listChannels " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for command listChannels " + payloadString);
         CLightningListChannels channelsList = (CLightningListChannels) mediatorCommand.runCommand(Command.LISTCHANNELS, payloadString);
         return channelsList;
     }
 
-    public CLightningListPeers listPeers(){
+    public CLightningListPeers listPeers() {
         return this.listPeers("", "");
     }
 
-    public CLightningListPeers listPeers(String id, String level){
-        if(id == null){
+    public CLightningListPeers listPeers(String id, String level) {
+        if (id == null) {
             throw new IllegalArgumentException("The id inside the method listChannels is null");
         }
-        if(level == null){
+        if (level == null) {
             throw new IllegalArgumentException("The level inside the method listChannels is null");
         }
         StringBuilder payload = new StringBuilder();
-        if(!id.trim().isEmpty()){
+        if (!id.trim().isEmpty()) {
             payload.append("id=").append(id.trim());
-            if(!level.trim().isEmpty()){
+            if (!level.trim().isEmpty()) {
                 payload.append(JOIN_TOKEN_PROP).append("level=").append(level.trim());
             }
-        }else if(!level.isEmpty()){
+        } else if (!level.isEmpty()) {
             payload.append("level=").append(level.trim());
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"Payload for command listPeers " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "Payload for command listPeers " + payloadString);
         CLightningListPeers listPeers = (CLightningListPeers) mediatorCommand.runCommand(Command.LISTPEERS, payloadString);
         return listPeers;
     }
 
-    public CLightningDecodePay decodePay(String bolt11){
+    public CLightningDecodePay decodePay(String bolt11) {
         return this.decodePay(bolt11, "");
     }
 
-    public CLightningDecodePay decodePay(String bolt11, String description){
-        if(bolt11 == null || bolt11.trim().isEmpty()){
+    public CLightningDecodePay decodePay(String bolt11, String description) {
+        if (bolt11 == null || bolt11.trim().isEmpty()) {
             throw new IllegalArgumentException("The bolt11 inside the method decodePay is null or empty");
         }
-        if(description == null){
+        if (description == null) {
             throw new IllegalArgumentException("The level inside the method decodePay is null");
         }
 
         StringBuilder payload = new StringBuilder();
         payload.append("bolt11=").append(bolt11.trim()).append(JOIN_TOKEN_PROP);
 
-        if(!description.trim().isEmpty()){
+        if (!description.trim().isEmpty()) {
             payload.append("description=").append(description.trim());
         }
 
         String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG,"The payload for method decodePay is: " + payloadString);
+        CLightningLogger.getInstance().debug(TAG, "The payload for method decodePay is: " + payloadString);
         CLightningDecodePay decodePay = (CLightningDecodePay) mediatorCommand.runCommand(Command.DECODEPAY, payloadString);
         return decodePay;
     }
@@ -574,7 +574,7 @@ public class CLightningRPC {
         }
 
         String outputsString = outputBuilder.toString();
-        CLightningLogger.getInstance().debug(TAG,"Output converted into string is: " + outputsString);
+        CLightningLogger.getInstance().debug(TAG, "Output converted into string is: " + outputsString);
         return outputsString;
     }
 
@@ -598,7 +598,7 @@ public class CLightningRPC {
         }
         arrayConverted.append("]");
         String result = arrayConverted.toString();
-        CLightningLogger.getInstance().debug(TAG,"The result of the method \"arrayConverted\"\n" + result);
+        CLightningLogger.getInstance().debug(TAG, "The result of the method \"arrayConverted\"\n" + result);
         return result;
     }
 }

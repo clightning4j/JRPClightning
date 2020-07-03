@@ -1,7 +1,7 @@
 package jrpc.clightning.plugins;
 
+import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
-import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 
 import java.util.List;
 
@@ -21,5 +21,7 @@ public interface ICLightningPlugin {
     List<String> getHooks();
 
     boolean isDynamic();
+
+    void log(CLightningLevelLog level, String logMessage);
 
 }

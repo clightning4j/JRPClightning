@@ -15,7 +15,6 @@
  */
 package jrpc.clightning.commands;
 
-import jrpc.clightning.CLightningRPC;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
@@ -90,7 +89,6 @@ public class CommandRPCMediator {
         if (payload == null || payload.trim().isEmpty()) {
             return new HashMap<>();
         }
-
         StringTokenizer tokenizer = new StringTokenizer(payload, "+");
         LOGGER.debug("Number toke of the payload " + payload + "\nis: " + tokenizer.countTokens());
         HashMap<String, Object> configResult = new HashMap<>();
@@ -98,7 +96,7 @@ public class CommandRPCMediator {
             String token = tokenizer.nextToken();
             LOGGER.debug("Actual token: " + token);
             StringTokenizer tokenProperty = new StringTokenizer(token, "=");
-            //TODO token propiety
+            //TODO token proprieties
             while (tokenProperty.hasMoreTokens()) {
                 String key = tokenProperty.nextToken();
                 LOGGER.debug("Key tokenized: " + key);

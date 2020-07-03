@@ -1,10 +1,10 @@
 package jrpc.clightning.plugins;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
-import com.google.gson.JsonPrimitive;
 import com.google.gson.annotations.Expose;
+import jrpc.clightning.CLightningRPC;
+import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
@@ -25,10 +25,15 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
     @Expose
     private static final Class TAG = AbstractPlugin.class;
 
+
     private ManifestMethod manifest;
+    private BufferedWriter stdout;
+    private BufferedReader stdin;
 
     public AbstractPlugin() {
         this.manifest = new ManifestMethod();
+        this.stdin = new BufferedReader(new InputStreamReader(System.in));
+        this.stdout = new BufferedWriter(new OutputStreamWriter(System.out));
     }
 
     public void addRPCMethod(RPCMethod method){
@@ -44,11 +49,9 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         this.registerMethod();
         //InputStream inputStreamSocket = CLightningRPC.getInstance().getInputStream();
         try {
-            BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(System.in));
-            BufferedWriter stdout = new BufferedWriter(new OutputStreamWriter(System.out));
             String messageSocket;
             JsonConverter jsonConverter = new JsonConverter();
-            while ((messageSocket = bufferedReader.readLine()) != null) {
+            while ((messageSocket = stdin.readLine()) != null) {
                 if (messageSocket.trim().isEmpty()) {
                     continue;
                 }
@@ -64,6 +67,30 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         } catch (ServiceException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override //TODO I'm working here
+    public void log(CLightningLevelLog level, String logMessage) {
+        if(logMessage == null || logMessage.isEmpty()){
+            throw new IllegalArgumentException("Method log in Plugin class: Log message is null or empty");
+        }
+        CLightningJsonObject payload = new CLightningJsonObject();
+        CLightningJsonObject params = new CLightningJsonObject();
+        params.add("level", level.getLevel());
+        params.add("message", logMessage);
+
+        payload.add("id", (int)Math.random());
+        payload.add("jsonrpc", 2.0);
+        payload.add("method", "log");
+        payload.add("params", params.getWrapper());
+        CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
+
+        /*try {
+            //this.stdout.write(payload.getWrapper().toString());
+            //this.stdout.flush();
+        } catch (IOException ioException) {
+            ioException.printStackTrace();
+        }*/
     }
 
     protected void registerMethod(){
@@ -101,7 +128,7 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
                 response.add("result", result.getWrapper());
                 CLightningLogger.getInstance().debug(TAG, "******** final answer: " + response.toString());
-                stdout.append(response.toString());
+                stdout.write(response.toString());
                 stdout.flush();
             }
         }
