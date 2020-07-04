@@ -16,6 +16,7 @@ import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 import java.io.*;
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -47,7 +48,6 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
     @Override
     public void start() {
         this.registerMethod();
-        //InputStream inputStreamSocket = CLightningRPC.getInstance().getInputStream();
         try {
             String messageSocket;
             JsonConverter jsonConverter = new JsonConverter();
@@ -69,7 +69,12 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         }
     }
 
-    @Override //TODO I'm working here
+    /**
+     * This call should be enable also in RPC methods.
+     * @param level level log, this class should be an instance of enum CLightningLevelLog
+     * @param logMessage log message should be the log message
+     */
+    @Override
     public void log(CLightningLevelLog level, String logMessage) {
         if(logMessage == null || logMessage.isEmpty()){
             throw new IllegalArgumentException("Method log in Plugin class: Log message is null or empty");
@@ -77,17 +82,26 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
         CLightningJsonObject payload = new CLightningJsonObject();
         CLightningJsonObject params = new CLightningJsonObject();
         params.add("level", level.getLevel());
-        params.add("message", logMessage);
+
         payload.add("jsonrpc", "2.0");
         payload.add("method", "log");
         payload.add("params", params.getWrapper());
         CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
 
-        try {
-            this.stdout.write(payload.getWrapper().toString());
-            this.stdout.flush();
-        } catch (IOException ioException) {
-            ioException.printStackTrace();
+        StringTokenizer endLine = new StringTokenizer(logMessage, "\n");
+        while (endLine.hasMoreTokens()){
+            String line = endLine.nextToken();
+            params.remove("message");
+            params.add("message", line);
+
+            payload.remove("params");
+            payload.add("params", params.getWrapper());
+            try {
+                this.stdout.write(payload.getWrapper().toString());
+                this.stdout.flush();
+            } catch (IOException ioException) {
+                ioException.printStackTrace();
+            }
         }
     }
 
@@ -120,7 +134,7 @@ public abstract class AbstractPlugin implements ICLightningPlugin {
                 CLightningJsonObject result = new CLightningJsonObject();
                 response.add("id", request.get("id"));
                 response.add("jsonrpc", request.get("jsonrpc"));
-                rpcMethod.doRun(new CLightningJsonObject(request), result);
+                rpcMethod.doRun(this, new CLightningJsonObject(request), result); //TODO I'm testing to pass the plugin inside the rpc method
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
                 //JsonElement jsonResult = (JsonElement) jsonConverter.deserialization(result, JsonElement.class);
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");

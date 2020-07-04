@@ -1,6 +1,7 @@
 package jrpc.clightning.plugins.rpcmethods.init;
 
 import com.google.gson.JsonObject;
+import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;
@@ -44,6 +45,11 @@ public class InitMethod extends RPCMethod {
 
     @Override
     public void doRun(CLightningJsonObject request, CLightningJsonObject response) {
+        //TODO deprecaded, I can delete this method inside the interfaces
+    }
+
+    @Override
+    public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         CLightningLogger.getInstance().debug(TAG, "**** Called rpc method init ****");
         CLightningLogger.getInstance().debug(TAG, "***** Json Object  " + request.toString() + " *****");
         JsonObject jsonParams = (JsonObject) request.get("params");

@@ -52,6 +52,11 @@ public class ManifestMethod extends RPCMethod {
 
     @Override
     public void doRun(CLightningJsonObject request, CLightningJsonObject response) {
+        //TODO deprecaded, I can delete this method inside the interfaces
+    }
+
+    @Override
+    public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         // TODO refactoring this information; how I can store the options?
         boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
         if(containsOptionValue){
@@ -60,8 +65,8 @@ public class ManifestMethod extends RPCMethod {
         }
         CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + response);
         JsonConverter converter = new JsonConverter();
-        JsonObject getManifet = (JsonObject) converter.deserialization(converter.serialization(this), JsonObject.class);
-        response.mapping(getManifet);
+        JsonObject getManifest = (JsonObject) converter.deserialization(converter.serialization(this), JsonObject.class);
+        response.mapping(getManifest);
     }
 
     public void addFeature(String node, String channel, String init, String invoice){
