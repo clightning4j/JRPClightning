@@ -38,24 +38,6 @@ public class ManifestMethod extends RPCMethod {
     }
 
     @Override
-    public String doRun(Object... params) {
-        boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
-        if(containsOptionValue){
-            Option option = (Option) CLightningProprietiesMediator.getInstance().getValue(CLightningConstant.OPTIONS);
-            this.addOption(option);
-        }
-        JsonConverter converter = new JsonConverter();
-        String result = converter.serialization(this);
-        CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + result);
-        return result;
-    }
-
-    @Override
-    public void doRun(CLightningJsonObject request, CLightningJsonObject response) {
-        //TODO deprecaded, I can delete this method inside the interfaces
-    }
-
-    @Override
     public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         // TODO refactoring this information; how I can store the options?
         boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);

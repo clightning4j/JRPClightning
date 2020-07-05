@@ -3,7 +3,6 @@ package jrpc.clightning.plugins;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
-import jrpc.clightning.CLightningRPC;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
@@ -21,17 +20,18 @@ import java.util.StringTokenizer;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public abstract class AbstractPlugin implements ICLightningPlugin {
+public class CLightningPlugin implements ICLightningPlugin {
 
     @Expose
-    private static final Class TAG = AbstractPlugin.class;
-
+    private static final Class TAG = CLightningPlugin.class;
 
     private ManifestMethod manifest;
+    @Expose
     private BufferedWriter stdout;
+    @Expose
     private BufferedReader stdin;
 
-    public AbstractPlugin() {
+    public CLightningPlugin() {
         this.manifest = new ManifestMethod();
         this.stdin = new BufferedReader(new InputStreamReader(System.in));
         this.stdout = new BufferedWriter(new OutputStreamWriter(System.out));

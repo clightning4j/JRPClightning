@@ -1,6 +1,9 @@
 package jrpc.mock;
 
+import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.service.CLightningLogger;
+import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,8 +23,8 @@ public class RPCMockMethod extends RPCMethod {
     }
 
     @Override
-    public String doRun(Object... params) {
-        LOGGER.error("******* MOCK method run *******");
-        return "";
+    public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
+        CLightningLogger.getInstance().error(this.getClass(),"******* MOCK method run *******");
+
     }
 }

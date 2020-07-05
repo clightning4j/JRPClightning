@@ -12,15 +12,6 @@ import java.util.Map;
  */
 public interface ICLightningRPCMethod {
 
-    /**
-     * This method is deprecated in fovor of doRun(jsonRequest, jsonResponse)
-     */
-    @Deprecated
-    String doRun(Object...params);
-
-    @Deprecated
-    void doRun(CLightningJsonObject request, CLightningJsonObject response);
-
     void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response);
 
     String getName();
