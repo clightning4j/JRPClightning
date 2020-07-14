@@ -18,57 +18,68 @@ package jrpc.clightning.commands;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public enum Command {
+public enum Command implements ICommandKey{
 
     // ---------- BITCOIN COMMANDS ---------------
-    FEERATES,
-    NEWADDR, //Supported
-    TXDISCARD, //Supported
-    TXPREPARE, //Not supported inside the version 0.7.2
-    TXSEND, //Supported
-    WITHDRAW, //Supported
+    FEERATES("FEERATES"),
+    NEWADDR("NEWADDR"), //Supported
+    TXDISCARD("TXDISCARD"), //Supported
+    TXPREPARE("TXPREPARE"), //Not supported inside the version 0.7.2
+    TXSEND("TXSEND"), //Supported
+    WITHDRAW("WITHDRAW"), //Supported
 
     // ---------- CHANNELS COMMANDS ---------------
-    CLOSE, //Supported
-    FUNDCHANNEL, //Supported
-    FUNDCHANNEL_CANCEL,
-    FUNDCHANNEL_COMPLETE,
-    FUNDCHANNEL_START,
-    GETROUTE,
-    LISTCHANNELS,
-    LISTFORWARDS,
-    SETCHANNELFEE,
+    CLOSE("CLOSE"), //Supported
+    FUNDCHANNEL("FUNDCHANNEL"), //Supported
+    FUNDCHANNEL_CANCEL("FUNDCHANNEL_CANCEL"),
+    FUNDCHANNEL_COMPLETE("FUNDCHANNEL_COMPLETE"),
+    FUNDCHANNEL_START("FUNDCHANNEL_START"),
+    GETROUTE("GETROUTE"),
+    LISTCHANNELS("LISTCHANNELS"),
+    LISTFORWARDS("LISTFORWARDS"),
+    SETCHANNELFEE("SETCHANNELFEE"),
 
     // ---------- NETWORK COMMANDS ---------------
-    CONNECT,
-    DISCONNECT,
-    LISTNODES,
-    LISTPEERS,
-    PING,
+    CONNECT("CONNECT"),
+    DISCONNECT("DISCONNECT"),
+    LISTNODES("LISTNODES"),
+    LISTPEERS("LISTPEERS"),
+    PING("PING"),
 
     // ---------- PAYMENT COMMANDS ---------------
-    DECODEPAY,
-    DELEXPIREDINVOICE,
-    DELINVOICE, //SUPPORTED
-    INVOICE, //Supported
-    LISTINVOICE, //Supported
-    LISTPAYMENTS,
-    LISTSENDPAYS,
-    PAY,
-    WAITINGINVOICE,
-    WAITSENDPAY,
+    DECODEPAY("DECODEPAY"),
+    DELEXPIREDINVOICE("DELEXPIREDINVOICE"),
+    DELINVOICE("DELINVOICE"), //SUPPORTED
+    INVOICE("INVOICE"), //Supported
+    LISTINVOICE("LISTINVOICE"), //Supported
+    LISTPAYMENTS("LISTPAYMENTS"),
+    LISTSENDPAYS("LISTSENDPAYS"),
+    PAY("PAY"),
+    WAITINGINVOICE("WAITINGINVOICE"),
+    WAITSENDPAY("WAITSENDPAY"),
 
     // ---------- UTILITY COMMANDS ---------------
-    GETINFO, //Supported
-    GETLOG,
-    LISTCONFIGS,
-    LISTFOUNDS, //Supported
-    STOP,
+    GETINFO("GETINFO"), //Supported
+    GETLOG("GETLOG"),
+    LISTCONFIGS("LISTCONFIGS"),
+    LISTFOUNDS("LISTFOUNDS"), //Supported
+    STOP("STOP"),
 
     // ---------- DEVELOPERS COMMANDS ---------------
-    DEV_LISTADDRS,
-    DEV_RESCAN_OUTPUTS,
+    DEV_LISTADDRS("DEV_LISTADDRS"),
+    DEV_RESCAN_OUTPUTS("DEV_RESCAN_OUTPUTS"),
 
     // ---------- PLUGINS COMMANDS -------------
-    AUTOCLEANINVOICE, //SUPPORTED
+    AUTOCLEANINVOICE("AUTOCLEANINVOICE"); //SUPPORTED
+
+    private String commandKey;
+
+    Command(String commandKey) {
+        this.commandKey = commandKey;
+    }
+
+    @Override
+    public String getCommandKey() {
+        return commandKey;
+    }
 }

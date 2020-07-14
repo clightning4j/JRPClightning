@@ -16,9 +16,13 @@
 package jrpc.clightning;
 
 import jrpc.clightning.exceptions.CLightningException;
+import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
 import jrpc.clightning.model.types.BitcoinOutput;
+import jrpc.clightning.model.types.CLightningListPay;
+import jrpc.mock.rpccommand.CustomCommand;
+import jrpc.mock.rpccommand.PersonalRPCCommand;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -26,6 +30,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.time.format.TextStyle;
+import java.util.HashMap;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -244,5 +249,18 @@ public class TestCLightningRPC {
         CLightningDecodePay decodePay = CLightningRPC.getInstance().decodePay(bolt11);
         TestCase.assertNotNull(decodePay);
         TestCase.assertEquals("13300msat", decodePay.getAmountMSat());
+    }
+
+    // I expected exception because bolt11 have a bad format
+    @Test(expected = CommandException.class)
+    public void testCustomCommandDelPay(){
+        HashMap<String, Object> payload = new HashMap<>();
+        //TODO implement the list of payment and after use here to get a valid bol11
+        payload.put("bolt11", "YOUR_BOLT11");
+
+        PersonalRPCCommand paysCommand = new PersonalRPCCommand();
+        CLightningRPC.getInstance().registerCommand(CustomCommand.DELPAY, paysCommand);
+
+        CLightningListPay result = CLightningRPC.getInstance().runRegisterCommand(CustomCommand.DELPAY, payload);
     }
 }

@@ -33,6 +33,7 @@ public class CommandRPCMediator {
 
     private CLightningSocket socket;
     protected Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
+    protected Map<String, IRPCCommand> cusomCommands = new HashMap<>();
 
     public CommandRPCMediator(CLightningSocket socket) {
         this.socket = socket;
@@ -83,6 +84,21 @@ public class CommandRPCMediator {
         } catch (CommandException e) {
             throw new CLightningException("Error when running the command " + command + ".\n" + e.getLocalizedMessage());
         }
+    }
+
+    public void registerCommand(ICommandKey key, IRPCCommand command){
+        if(key == null || command == null){
+            throw new IllegalArgumentException("Key and/or command null");
+        }
+        cusomCommands.put(key.getCommandKey(), command);
+    }
+
+    public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload){
+        if(!cusomCommands.containsKey(key.getCommandKey())){
+            throw new IllegalArgumentException("Command with key:" + key.getCommandKey() + " inside the register command cache");
+        }
+        IRPCCommand command = cusomCommands.get(key.getCommandKey());
+        return (T) command.doRPCCommand(socket, payload);
     }
 
     private HashMap<String, Object> decodePayload(String payload) {

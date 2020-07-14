@@ -34,10 +34,14 @@
     </encoder>
   </appender>
 
-  <root level="OFF">
+  <root level="DEBUG">
     <appender-ref ref="STDOUT" />
     <appender-ref ref="FILE" />
   </root>
+
+  <logger name="j.service.socket.UnixDomainSocketRpc" level="OFF">
+    <appender-ref ref="STDOUT" />
+  </logger>
 
   <logger name="jrpc.clightning.plugins" level="OFF">
     <appender-ref ref="FILE" />

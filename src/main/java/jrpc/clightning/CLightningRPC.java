@@ -17,6 +17,8 @@ package jrpc.clightning;
 
 import jrpc.clightning.commands.Command;
 import jrpc.clightning.commands.CommandRPCMediator;
+import jrpc.clightning.commands.ICommandKey;
+import jrpc.clightning.commands.IRPCCommand;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.AddressType;
@@ -31,6 +33,7 @@ import org.slf4j.LoggerFactory;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.SocketException;
+import java.util.HashMap;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -359,7 +362,6 @@ public class CLightningRPC {
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.FUNDCHANNEL, payloadString);
     }
 
-
     public CLightningListFounds listFunds() {
         String payloadString = "";
         return (CLightningListFounds) mediatorCommand.runCommand(Command.LISTFOUNDS, payloadString);
@@ -600,5 +602,16 @@ public class CLightningRPC {
         String result = arrayConverted.toString();
         CLightningLogger.getInstance().debug(TAG, "The result of the method \"arrayConverted\"\n" + result);
         return result;
+    }
+
+    public void registerCommand(ICommandKey key, IRPCCommand command){
+        if(key == null || command == null){
+            throw new IllegalArgumentException("Key and/or command null");
+        }
+        mediatorCommand.registerCommand(key, command);
+    }
+
+    public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload){
+        return mediatorCommand.runRegisterCommand(key, payload);
     }
 }
