@@ -16,7 +16,7 @@ import java.io.*;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public abstract class RPCMethod implements ICLightningRPCMethod{
+public abstract class AbstractRPCMethod implements ICLightningRPCMethod{
 
     protected String name;
     protected String usage;
@@ -24,13 +24,13 @@ public abstract class RPCMethod implements ICLightningRPCMethod{
     @SerializedName("long_description")
     protected String longDescription;
 
-    public RPCMethod(String name, String usage, String description) {
+    public AbstractRPCMethod(String name, String usage, String description) {
         this.name = name;
         this.usage = usage;
         this.description = description;
     }
 
-    public RPCMethod(String name, String usage, String description, String longDescription) {
+    public AbstractRPCMethod(String name, String usage, String description, String longDescription) {
         this.name = name;
         this.usage = usage;
         this.description = description;

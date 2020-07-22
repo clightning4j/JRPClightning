@@ -1,7 +1,7 @@
 package jrpc.clightning.plugin.rpcmothods;
 
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
-import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.mock.RPCMockMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.service.converters.JsonConverter;
@@ -47,7 +47,7 @@ public class TestManifestMethod {
     @Test
     public void testFilterRPCMethodOne(){
         ManifestMethod method = (ManifestMethod) manifest;
-        List<RPCMethod> methodList = new ArrayList<>();
+        List<AbstractRPCMethod> methodList = new ArrayList<>();
         methodList.add(method);
         methodList.add(method);
         method.addMethods(methodList);
@@ -57,7 +57,7 @@ public class TestManifestMethod {
     @Test
     public void testFilterRPCMethodTwo(){
         ManifestMethod method = (ManifestMethod) manifest;
-        List<RPCMethod> methodList = new ArrayList<>();
+        List<AbstractRPCMethod> methodList = new ArrayList<>();
         methodList.add(method);
         methodList.add(new RPCMockMethod("mock", "mock", "mock"));
         method.addMethods(methodList);

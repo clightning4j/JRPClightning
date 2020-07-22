@@ -2,7 +2,7 @@ package jrpc.clightning.plugins.rpcmethods.init;
 
 import com.google.gson.JsonObject;
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
@@ -10,7 +10,7 @@ import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class InitMethod extends RPCMethod {
+public class InitMethod extends AbstractRPCMethod {
 
     private static final Class TAG = InitMethod.class;
 

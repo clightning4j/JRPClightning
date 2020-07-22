@@ -1,12 +1,11 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.CLightningConstant;
 import jrpc.clightning.model.CLightningProprietiesMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
@@ -16,18 +15,17 @@ import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class ManifestMethod extends RPCMethod {
+public class ManifestMethod extends AbstractRPCMethod {
 
     private static final Class TAG = ManifestMethod.class;
 
     private List<Option> options = new ArrayList<>();
     @SerializedName("rpcmethods")
-    private List<RPCMethod> rpcMethods = new ArrayList<>();
+    private List<AbstractRPCMethod> rpcMethods = new ArrayList<>();
     private List<String> subscriptions = new ArrayList<>();
     private List<String> hooks = new ArrayList<>();
     private Features features = new Features();
@@ -56,7 +54,7 @@ public class ManifestMethod extends RPCMethod {
         this.features = new Features(node, channel, init, invoice);
     }
 
-    public void addMethods(List<RPCMethod> methods){
+    public void addMethods(List<AbstractRPCMethod> methods){
         if(methods == null){
             throw new IllegalArgumentException("List of methods empty or null");
         }
@@ -64,7 +62,7 @@ public class ManifestMethod extends RPCMethod {
         this.rpcMethods.addAll(methods);
     }
 
-    public void addMethod(RPCMethod method){
+    public void addMethod(AbstractRPCMethod method){
         if(method == null){
             throw new IllegalArgumentException("List of methods empty or null");
         }
@@ -111,7 +109,7 @@ public class ManifestMethod extends RPCMethod {
         return options;
     }
 
-    public List<RPCMethod> getRpcMethods() {
+    public List<AbstractRPCMethod> getRpcMethods() {
         return rpcMethods;
     }
 

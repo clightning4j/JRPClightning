@@ -1,7 +1,7 @@
 package jrpc.mock;
 
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import org.slf4j.Logger;
@@ -10,7 +10,7 @@ import org.slf4j.LoggerFactory;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class RPCMockMethod extends RPCMethod {
+public class RPCMockMethod extends AbstractRPCMethod {
 
     private static final Logger LOGGER = LoggerFactory.getLogger(RPCMockMethod.class);
 

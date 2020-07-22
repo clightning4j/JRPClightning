@@ -1,7 +1,7 @@
 package jrpc.clightning.plugins;
 
 import jrpc.clightning.plugins.log.CLightningLevelLog;
-import jrpc.clightning.plugins.rpcmethods.RPCMethod;
+import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 
 import java.util.List;
 
@@ -12,9 +12,9 @@ public interface ICLightningPlugin {
 
     void start();
 
-    void addRPCMethod(RPCMethod method);
+    void addRPCMethod(AbstractRPCMethod method);
 
-    List<RPCMethod> getRpcMethods();
+    List<AbstractRPCMethod> getRpcMethods();
 
     List<String> getSubscriptions();
 
@@ -23,5 +23,4 @@ public interface ICLightningPlugin {
     boolean isDynamic();
 
     void log(CLightningLevelLog level, String logMessage);
-
 }
