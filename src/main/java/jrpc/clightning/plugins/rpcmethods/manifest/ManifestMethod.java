@@ -6,6 +6,7 @@ import jrpc.clightning.CLightningConstant;
 import jrpc.clightning.model.CLightningProprietiesMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;

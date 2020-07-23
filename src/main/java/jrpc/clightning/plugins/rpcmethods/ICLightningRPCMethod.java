@@ -21,4 +21,6 @@ public interface ICLightningRPCMethod {
     String getDescription();
 
     String getLongDescription();
+
+    RPCMethodType getType();
 }

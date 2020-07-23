@@ -21,10 +21,10 @@ package jrpc.clightning.commands;
 public enum Command implements ICommandKey{
 
     // ---------- BITCOIN COMMANDS ---------------
-    FEERATES("FEERATES"),
+    FEERATES("FEERATES"), //Supported
     NEWADDR("NEWADDR"), //Supported
     TXDISCARD("TXDISCARD"), //Supported
-    TXPREPARE("TXPREPARE"), //Not supported inside the version 0.7.2
+    TXPREPARE("TXPREPARE"), //Supported
     TXSEND("TXSEND"), //Supported
     WITHDRAW("WITHDRAW"), //Supported
 
@@ -34,14 +34,14 @@ public enum Command implements ICommandKey{
     FUNDCHANNEL_CANCEL("FUNDCHANNEL_CANCEL"),
     FUNDCHANNEL_COMPLETE("FUNDCHANNEL_COMPLETE"),
     FUNDCHANNEL_START("FUNDCHANNEL_START"),
-    GETROUTE("GETROUTE"),
-    LISTCHANNELS("LISTCHANNELS"),
+    GETROUTE("GETROUTE"), //Supported
+    LISTCHANNELS("LISTCHANNELS"), //Supported
     LISTFORWARDS("LISTFORWARDS"),
     SETCHANNELFEE("SETCHANNELFEE"),
 
     // ---------- NETWORK COMMANDS ---------------
-    CONNECT("CONNECT"),
-    DISCONNECT("DISCONNECT"),
+    CONNECT("CONNECT"), // Supported
+    DISCONNECT("DISCONNECT"), // Supported
     LISTNODES("LISTNODES"),
     LISTPEERS("LISTPEERS"),
     PING("PING"),
@@ -80,6 +80,6 @@ public enum Command implements ICommandKey{
 
     @Override
     public String getCommandKey() {
-        return commandKey;
+        return commandKey.toLowerCase();
     }
 }

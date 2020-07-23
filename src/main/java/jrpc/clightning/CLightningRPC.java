@@ -21,18 +21,10 @@ import jrpc.clightning.commands.ICommandKey;
 import jrpc.clightning.commands.IRPCCommand;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
-import jrpc.clightning.model.types.AddressType;
-import jrpc.clightning.model.types.BitcoinOutput;
-import jrpc.clightning.model.types.CLightningChannelId;
+import jrpc.clightning.model.types.*;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.SocketException;
 import java.util.HashMap;
 
 /**
@@ -68,22 +60,49 @@ public class CLightningRPC {
         }
     }
 
-    public InputStream getInputStream() {
-        if (socket != null) {
-            return socket.getInputStream();
+    public CLightningFeeRate feeRate(FeeRateStyle style){
+        if(style == null){
+            throw new CLightningException("style null");
         }
-        return null;
+        HashMap<String, Object> payload = new HashMap<>();
+        payload.put("style", style.toString());
+        return (CLightningFeeRate) mediatorCommand.runCommand(Command.FEERATES, payload);
     }
 
-    public OutputStream getOutputStream() {
-        if (socket != null) {
-            return socket.getOutputStream();
-        }
-        return null;
+    public CLightningGetRoutes getRoute(String id, String mSatoshi, float riskFactor){
+        return getRoute(id, mSatoshi, riskFactor, 9, "", "", 20);
     }
 
-    public int getReceiveBufferSize() throws SocketException {
-        return socket.getReceiveBufferSize();
+    public CLightningGetRoutes getRoute(String id, String mSatoshi, float riskFactor, int cltv,
+                           String fromid, String fuzzpercent, int maxHope, ExcludeChannel... exclude){
+        doCheckString("getRoute", "id", id, false);
+        doCheckString("getRoute", "mSatoshi", mSatoshi, false);
+        doCheckString("getRoute", "fromid", fromid, true);
+        doCheckString("getRoute", "fuzzpercent", fuzzpercent, true);
+        doCheckPositiveNumber("getRoute", "riskFactor", riskFactor);
+        doCheckPositiveNumber("getRoute", "cltv", cltv);
+        doCheckPositiveNumber("getRoute", "maxHope", maxHope);
+
+        HashMap<String, Object> payload = new HashMap<>();
+
+        payload.put("id", id);
+        payload.put("msatoshi", maxHope);
+        payload.put("riskfactor", riskFactor);
+        payload.put("cltv", cltv);
+        payload.put("maxhope", maxHope);
+
+        if(!fromid.isEmpty()){
+            payload.put("fromid", fromid);
+        }
+
+        if(!fuzzpercent.isEmpty()){
+            payload.put("fuzzpercent", fuzzpercent);
+        }
+
+        if(exclude.length > 0){
+            payload.put("exclude", exclude);
+        }
+        return (CLightningGetRoutes) mediatorCommand.runCommand(Command.GETROUTE, payload);
     }
 
     public CLightningGetInfo getInfo() {
@@ -113,7 +132,6 @@ public class CLightningRPC {
     public CLightningInvoice getInvoice(int mSatoshi, String label, String description) {
         return this.getInvoice(mSatoshi, label, description, "", new String[]{}, "", false);
     }
-
 
     public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry) {
         return this.getInvoice(mSatoshi, label, description, expiry, new String[]{}, "", false);
@@ -233,21 +251,19 @@ public class CLightningRPC {
             throw new CLightningException("The method getListInvoices have the parameter minconf is null");
         }
 
-        StringBuilder payload = new StringBuilder();
-        String outputString = this.parsingBitcoinOutputs(bitcoinOutputs);
-        payload.append("outputs=").append(outputString);
-
-
-        if (!feerate.isEmpty()) {
-            payload.append(JOIN_TOKEN_PROP).append("feerate=").append(feerate.trim());
-        }
-        if (!minconf.trim().isEmpty()) {
-            payload.append(JOIN_TOKEN_PROP).append("minconf=").append(minconf.trim());
+        for (BitcoinOutput output : bitcoinOutputs){
+            if(output.getAmount().isEmpty()){
+                output.setAmount("all");
+            }
         }
 
-        String payloadString = payload.toString();
-        CLightningLogger.getInstance().debug(TAG, "Payload command txPrepare: " + payloadString);
-        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payloadString);
+        HashMap<String, Object> payload = new HashMap<>();
+        payload.put("outputs", bitcoinOutputs);
+        payload.put("feerate", minconf);
+        payload.put("minconf", feerate);
+
+        CLightningLogger.getInstance().debug(TAG, "Payload command txPrepare: " + payload.toString());
+        return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payload);
     }
 
     public CLightningBitcoinTx txPrepare(BitcoinOutput... bitcoinOutputs) {
@@ -330,23 +346,27 @@ public class CLightningRPC {
         return fundChannel(id, satoshi, "normal", true, 1, new String[]{});
     }
 
-    //TODO the parameter change the name from satoshi in amount, what is the version that this change appened?
+    /**
+     * from version 0.7.2.1 the parameter satoshi were change from satoshi to amount, it mean that the library
+     * support the parameter amount but you can support the satoshi parameter with a personal RPC method.
+     * Look here TODO
+     * @param id
+     * @param satoshi
+     * @param feerate
+     * @param announce
+     * @param minConf
+     * @param utxos
+     * @return CLightningBitcoinTx
+     */
     public CLightningBitcoinTx fundChannel(String id, String satoshi, String feerate, boolean announce, int minConf, String[] utxos) {
-        if (id == null || id.trim().isEmpty()) {
-            throw new CLightningException("The method fundChannel have the parameter id is null");
-        }
-        if (satoshi == null || satoshi.trim().isEmpty()) {
-            throw new CLightningException("The method fundChannel have the parameter satoshi is null");
-        }
-        if (feerate == null || feerate.trim().isEmpty()) {
-            throw new CLightningException("The method fundChannel have the parameter feerate is null");
-        }
+        doCheckString("fundChannel", "id", id, false);
+        doCheckString("fundChannel", "satoshi", satoshi, false);
+        doCheckString("fundChannel", "feerate", feerate, false);
         if (minConf <= 0) {
             throw new CLightningException("The method fundChannel have the parameter minconf is minus than 1");
         }
         StringBuilder payload = new StringBuilder();
         payload.append("id=").append(id.trim());
-        // TODO CHEHCK the version
         payload.append(JOIN_TOKEN_PROP).append("amount=").append(satoshi.trim());
         payload.append(JOIN_TOKEN_PROP).append("feerate=").append(feerate.trim());
         if (!announce) {
@@ -403,6 +423,23 @@ public class CLightningRPC {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
         return this.connect(id, "", "");
+    }
+
+    public boolean disconnect(String id){
+        return this.disconnect(id, true);
+    }
+
+    public boolean disconnect(String id, boolean force){
+       doCheckString("disconnect", "id", id, false);
+
+       HashMap<String, Object> payload = new HashMap<>();
+
+       payload.put("id", id);
+       payload.put("force", force);
+
+       mediatorCommand.runCommand(Command.DISCONNECT, payload);
+       //If I arrive here no error happened and it mean that there isn't error
+       return true;
     }
 
     public CLightningPay pay(String bolt11) {
@@ -560,7 +597,40 @@ public class CLightningRPC {
         return decodePay;
     }
 
-    //TODO testing in the version 0.7.3
+    public void registerCommand(ICommandKey key, IRPCCommand command){
+        if(key == null || command == null){
+            throw new IllegalArgumentException("Key and/or command null");
+        }
+        mediatorCommand.registerCommand(key, command);
+    }
+
+    public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload){
+        return mediatorCommand.runRegisterCommand(key, payload);
+    }
+
+    //Utility methods
+    private void doCheckString(String command, String name, String value, boolean onlyNull){
+        if(value == null || value.isEmpty()){
+            String message = "Propriety " + name + " in the command " + command;
+            if(name == null){
+                message += " null";
+            }else if(onlyNull){
+                return; //Good for the library
+            }else {
+                message += " empty";
+            }
+            throw new CLightningException(message);
+        }
+    }
+
+    private void doCheckPositiveNumber(String command, String name, Number value){
+        if(value.floatValue() < 0){
+            String message = "Propriety " + name + " in the command " + command + " must be positive";
+            throw new CLightningException(message);
+        }
+    }
+
+    @Deprecated
     protected String parsingBitcoinOutputs(BitcoinOutput... bitcoinOutputs) {
         if (bitcoinOutputs.length == 0) {
             throw new CLightningException("The method getListInvoices have the parameter output is/are empty");
@@ -580,6 +650,7 @@ public class CLightningRPC {
         return outputsString;
     }
 
+    @Deprecated
     protected String parsingArrayElement(String proprietyName, String[] array) {
         if (proprietyName == null || proprietyName.trim().isEmpty()) {
             throw new CLightningException("The internal method \"parsingArrayElement\" have the parameter proprietyName is empty or null");
@@ -602,16 +673,5 @@ public class CLightningRPC {
         String result = arrayConverted.toString();
         CLightningLogger.getInstance().debug(TAG, "The result of the method \"arrayConverted\"\n" + result);
         return result;
-    }
-
-    public void registerCommand(ICommandKey key, IRPCCommand command){
-        if(key == null || command == null){
-            throw new IllegalArgumentException("Key and/or command null");
-        }
-        mediatorCommand.registerCommand(key, command);
-    }
-
-    public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload){
-        return mediatorCommand.runRegisterCommand(key, payload);
     }
 }

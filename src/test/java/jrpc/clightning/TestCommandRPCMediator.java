@@ -181,14 +181,14 @@ public class TestCommandRPCMediator {
         mediator.runCommand(Command.DELINVOICE, payload);
     }
 
-    //@Test TODO find this bug
+    @Test
     public void testParsingPayloadAutoCleanInvoiceOne(){
         String payload = " ";
         Object response = mediator.runCommand(Command.AUTOCLEANINVOICE, payload);
         TestCase.assertNotNull(response);
     }
 
-    //@Test TODO find this bug
+    @Test
     public void testParsingPayloadAutoCleanInvoiceTwo(){
         String cycleSeconds = "3600";
         String expiredBy = "86400";
@@ -197,7 +197,7 @@ public class TestCommandRPCMediator {
         TestCase.assertNotNull(response);
     }
 
-    //@Test TODO find this bug
+    @Test
     public void testParsingPayloadAutoCleanInvoiceThree(){
         String cycleSeconds = "3600";
         String payload = "cycle_seconds=" + cycleSeconds;
@@ -205,7 +205,7 @@ public class TestCommandRPCMediator {
         TestCase.assertNotNull(response);
     }
 
-   //@Test TODO find this bug
+   @Test
     public void testParsingPayloadTxPrepareOne(){
         String cycleSeconds = "3600";
         String payload = "cycle_seconds=" + cycleSeconds;

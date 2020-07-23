@@ -22,7 +22,7 @@ public class BitcoinOutput {
     //TODO FIXME when run the command txprepare I have this error
     // The output format must be {destination: amount}
     private String address;
-    private String amount;
+    private String amount = "all";
 
     public BitcoinOutput() {}
 
@@ -39,14 +39,7 @@ public class BitcoinOutput {
         return amount;
     }
 
-    @Override
-    public String toString() {
-        String amountString;
-        if(amount.trim().isEmpty()){
-            amountString = "all";
-        }else{
-            amountString = amount;
-        }
-        return address + "#" + amountString;
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

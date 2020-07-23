@@ -3,11 +3,14 @@ package jrpc.clightning.plugins;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
+import jrpc.clightning.plugins.annotation.Hook;
 import jrpc.clightning.plugins.annotation.RPCMethod;
 import jrpc.clightning.plugins.annotation.Subscription;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
+import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;
@@ -29,7 +32,7 @@ import java.util.StringTokenizer;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningPlugin implements ICLightningPlugin {
+public abstract class CLightningPlugin implements ICLightningPlugin {
 
     @Expose
     private static final Class TAG = CLightningPlugin.class;
@@ -55,6 +58,10 @@ public class CLightningPlugin implements ICLightningPlugin {
             throw new IllegalArgumentException("Method object null");
         }
         CLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
+        if(method.getType().equals(RPCMethodType.HOOK)){
+            this.manifest.addHook(method.getName());
+            return;
+        }
         this.manifest.addMethod(method);
     }
 
@@ -141,6 +148,7 @@ public class CLightningPlugin implements ICLightningPlugin {
         addRPCMethod(this.manifest);
         this.registerMethodsWithAnnotation();
         this.registerSubscriptionsWithAnnotation();
+        //this.registerHooksWithAnnotation();
         addRPCMethod(new InitMethod());
     }
 
@@ -168,6 +176,19 @@ public class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
+    private void registerHooksWithAnnotation(){
+        for(Method method : reflections.getMethodsAnnotatedWith(Subscription.class)){
+            if(method.isAnnotationPresent(Hook.class)){
+                Hook hook = method.getAnnotation(Hook.class);
+                String hookEvent = hook.hook();
+                RPCMethodReflection hookMethod =
+                        new RPCMethodReflection(hookEvent, "", "", "",
+                                RPCMethodType.HOOK, method);
+                this.addRPCMethod(hookMethod);
+            }
+        }
+    }
+
     private boolean isRpcCall(JsonObject object) {
         if (object == null) {
             throw new IllegalArgumentException("JsonObject null");
@@ -175,7 +196,6 @@ public class CLightningPlugin implements ICLightningPlugin {
         return object.has("method") || object.has("jsonrpc") || object.has("params");
     }
 
-    //TODO remove JSONConverter
     private void doMethods(JsonObject request, BufferedWriter stdout) throws ServiceException, IOException {
         CLightningLogger.getInstance().debug(TAG, "c-lightning calls for execution rpc method");
         String method = request.get("method").getAsString();

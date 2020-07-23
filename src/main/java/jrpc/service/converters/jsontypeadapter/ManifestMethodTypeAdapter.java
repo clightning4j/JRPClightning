@@ -2,11 +2,11 @@ package jrpc.service.converters.jsontypeadapter;
 
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
-import com.google.gson.internal.$Gson$Preconditions;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
+import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
@@ -17,7 +17,6 @@ import java.util.Map;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-//TODO after
 public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
 
     private Gson gson;
@@ -47,7 +46,9 @@ public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
         //Start array rpc method
         out.beginArray();
         for(ICLightningRPCMethod rpcMethod : value.getRpcMethods()){
-            if(!rpcMethod.getName().equals("init") && !rpcMethod.getName().equals("getmanifest")){
+            if(!rpcMethod.getName().equals("init")
+                    && !rpcMethod.getName().equals("getmanifest")
+            && rpcMethod.getType().equals(RPCMethodType.RPCMETHOD)){
                 out.beginObject();
                 out.name("name").value(rpcMethod.getName());
                 out.name("usage").value(rpcMethod.getUsage());
@@ -91,7 +92,7 @@ public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
     }
 
     @Override
-    public ManifestMethod read(JsonReader in) throws IOException {
-        return null;
+    public ManifestMethod read(JsonReader in) {
+        return gson.fromJson(in, ManifestMethod.class);
     }
 }

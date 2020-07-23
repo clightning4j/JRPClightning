@@ -4,6 +4,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.JsonPrimitive;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
@@ -23,19 +24,25 @@ public abstract class AbstractRPCMethod implements ICLightningRPCMethod{
     protected String description;
     @SerializedName("long_description")
     protected String longDescription;
+    @Expose
+    private RPCMethodType type;
 
     public AbstractRPCMethod(String name, String usage, String description) {
-        this.name = name;
-        this.usage = usage;
-        this.description = description;
+        this(name, usage, description, description);
     }
 
     public AbstractRPCMethod(String name, String usage, String description, String longDescription) {
+        this(name, usage, description, longDescription, RPCMethodType.RPCMETHOD);
+    }
+
+    public AbstractRPCMethod(String name, String usage, String description, String longDescription, RPCMethodType type) {
         this.name = name;
         this.usage = usage;
         this.description = description;
         this.longDescription = longDescription;
+        this.type = type;
     }
+
 
     @Override
     public String toString() {
@@ -58,5 +65,9 @@ public abstract class AbstractRPCMethod implements ICLightningRPCMethod{
 
     public String getLongDescription() {
         return longDescription;
+    }
+
+    public RPCMethodType getType() {
+        return type;
     }
 }

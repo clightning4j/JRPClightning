@@ -17,51 +17,97 @@ package jrpc.clightning.model.types;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.math.BigInteger;
+import java.util.Date;
+
 /**
  * @author https://github.com/vincenzopalazzo
  */
 public class CLightningChannel {
 
-    @SerializedName("peer_id")
-    private String peerId;
+    private String source;
+    private String destination;
     @SerializedName("short_channel_id")
     private String shortChannelId;
-    @SerializedName("channel_sat")
-    private String channelSat;
-    @SerializedName("our_amount_msat")
-    private String ourAmountMSat;
-    @SerializedName("channel_total_sat")
-    private String channelTotalSat;
-    @SerializedName("amount_msat")
-    private String amountMSat;
-    @SerializedName("funding_output")
-    private int fundingOutput;
+    @SerializedName("public")
+    private boolean publicChannel;
+    private long satoshis;
+    @SerializedName("amount_sat")
+    private String amountSat;
+    @SerializedName("message_flags")
+    private int messageFlags;
+    @SerializedName("channel_flags")
+    private int channelFlags;
+    private boolean active;
+    @SerializedName("last_update")
+    private Date lastUpdate;
+    @SerializedName("base_fee_millisatoshi")
+    private BigInteger baseFeeMilliSatoshi;
+    @SerializedName("fee_per_millionth")
+    private long feePerMillionth;
+    private long delay;
+    @SerializedName("htlc_minimum_msat")
+    private String htlcMinimumMSat;
+    @SerializedName("htlc_maximum_msat")
+    private String htlcMaximumMSat;
 
-    public String getPeerId() {
-        return peerId;
+    public String getSource() {
+        return source;
+    }
+
+    public String getDestination() {
+        return destination;
     }
 
     public String getShortChannelId() {
         return shortChannelId;
     }
 
-    public String getChannelSat() {
-        return channelSat;
+    public boolean isPublicChannel() {
+        return publicChannel;
     }
 
-    public String getOurAmountMSat() {
-        return ourAmountMSat;
+    public long getSatoshis() {
+        return satoshis;
     }
 
-    public String getChannelTotalSat() {
-        return channelTotalSat;
+    public String getAmountSat() {
+        return amountSat;
     }
 
-    public String getAmountMSat() {
-        return amountMSat;
+    public int getMessageFlags() {
+        return messageFlags;
     }
 
-    public int getFundingOutput() {
-        return fundingOutput;
+    public int getChannelFlags() {
+        return channelFlags;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public Date getLastUpdate() {
+        return lastUpdate;
+    }
+
+    public BigInteger getBaseFeeMilliSatoshi() {
+        return baseFeeMilliSatoshi;
+    }
+
+    public long getFeePerMillionth() {
+        return feePerMillionth;
+    }
+
+    public long getDelay() {
+        return delay;
+    }
+
+    public String getHtlcMinimumMSat() {
+        return htlcMinimumMSat;
+    }
+
+    public String getHtlcMaximumMSat() {
+        return htlcMaximumMSat;
     }
 }

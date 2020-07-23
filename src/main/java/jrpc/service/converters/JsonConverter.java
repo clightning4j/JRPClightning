@@ -18,9 +18,13 @@ package jrpc.service.converters;
 import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
+import jrpc.clightning.model.CLightningFeeRate;
+import jrpc.clightning.model.types.BitcoinOutput;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;
+import jrpc.service.converters.jsontypeadapter.BitcoinOutputTypeAdapter;
+import jrpc.service.converters.jsontypeadapter.FeeRateTypeAdapter;
 import jrpc.service.converters.jsontypeadapter.InitMethodTypeAdapter;
 import jrpc.service.converters.jsontypeadapter.ManifestMethodTypeAdapter;
 
@@ -48,6 +52,8 @@ public class JsonConverter implements IConverter {
         gsonBuilder.registerTypeAdapter(Date.class, new MyDateTypeAdapter());
         gsonBuilder.registerTypeAdapter(ManifestMethod.class, new ManifestMethodTypeAdapter(gsonBuilder.create()));
         gsonBuilder.registerTypeAdapter(InitMethod.class, new InitMethodTypeAdapter(gsonBuilder.create()));
+        gsonBuilder.registerTypeAdapter(BitcoinOutput.class, new BitcoinOutputTypeAdapter(gsonBuilder.create()));
+        gsonBuilder.registerTypeAdapter(CLightningFeeRate.class, new FeeRateTypeAdapter(gsonBuilder.create()));
     }
 
     @Override

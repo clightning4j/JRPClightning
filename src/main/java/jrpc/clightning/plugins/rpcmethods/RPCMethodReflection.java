@@ -20,6 +20,13 @@ public class RPCMethodReflection extends AbstractRPCMethod {
         this.method = method;
     }
 
+    public RPCMethodReflection(String name, String usage,
+                               String description, String longDescription,
+                               RPCMethodType type,  Method method) {
+        super(name, usage, description, longDescription, type);
+        this.method = method;
+    }
+
     @Override
     public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         try {

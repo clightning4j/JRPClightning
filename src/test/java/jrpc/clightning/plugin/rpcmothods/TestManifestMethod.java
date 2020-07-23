@@ -1,9 +1,11 @@
 package jrpc.clightning.plugin.rpcmothods;
 
+import com.google.gson.JsonObject;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.mock.RPCMockMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
+import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -76,6 +78,17 @@ public class TestManifestMethod {
         TestCase.assertTrue(jsonFormat.contains("hooks"));
         TestCase.assertTrue(jsonFormat.contains("features"));
         TestCase.assertTrue(jsonFormat.contains("dynamic"));
+    }
+
+    @Test
+    public void testInsertHook(){
+        ManifestMethod method = (ManifestMethod) manifest;
+        method.addHook("random_hook");
+        JsonConverter converter = new JsonConverter();
+        String jsonFormat = converter.serialization(method);
+        CLightningLogger.getInstance().debug(getClass(), jsonFormat);
+        JsonObject jsonObject = (JsonObject) converter.deserialization(jsonFormat, JsonObject.class);
+        TestCase.assertEquals(1, jsonObject.getAsJsonArray("hooks").size());
     }
 
 }

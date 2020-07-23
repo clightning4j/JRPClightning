@@ -29,7 +29,7 @@ public class CLightningPeerData {
     private Boolean connected;
     private List<String> netaddr;
     private String features;
-    private List<CLightningChannelData> channels;
+    private List<CLightningChannel> channels;
     private String log;
 
     public String getIdPeer() {
@@ -44,7 +44,7 @@ public class CLightningPeerData {
         return netaddr;
     }
 
-    public List<CLightningChannelData> getChannels() {
+    public List<CLightningChannel> getChannels() {
         return channels;
     }
 

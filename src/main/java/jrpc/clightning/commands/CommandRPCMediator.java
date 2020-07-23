@@ -19,6 +19,7 @@ import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
+import jrpc.service.CLightningLogger;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -29,7 +30,7 @@ import java.util.*;
  */
 public class CommandRPCMediator {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(CommandRPCMediator.class);
+    private static final Class TAG = CommandRPCMediator.class;
 
     private CLightningSocket socket;
     protected Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
@@ -47,7 +48,7 @@ public class CommandRPCMediator {
         commands.put(Command.LISTINVOICE, new CLightningCommandGetListInvoices());
         commands.put(Command.DELINVOICE, new CLightningCommandDelInvoice());
         commands.put(Command.AUTOCLEANINVOICE, new CLightningCommandAutoCleanInvoice());
-        commands.put(Command.TXPREPARE, new CLightningCommandTxPrepare()); //TODO use an personal Type adapter library gson, I will try it
+        commands.put(Command.TXPREPARE, new CLightningCommandTxPrepare());
         commands.put(Command.TXDISCARD, new CLightningCommandTxDiscard());
         commands.put(Command.TXSEND, new CLightningCommandTxSend());
         commands.put(Command.WITHDRAW, new CLightningCommandWithDraw());
@@ -60,14 +61,19 @@ public class CommandRPCMediator {
         commands.put(Command.LISTCHANNELS, new CLightningCommandListChannels());
         commands.put(Command.LISTPEERS, new CLightningCommandListPeers());
         commands.put(Command.DECODEPAY, new CLightningCommandDecodePay());
+        commands.put(Command.GETROUTE, new CLightningCommandGetRoute());
+        commands.put(Command.FEERATES, new CLightningCommandFeeRate());
+        commands.put(Command.DISCONNECT, new CLightningCommandDisconnect());
+        commands.put(Command.LISTNODES, new CLightningCommandListNodes());
     }
 
+    @Deprecated
     public Object runCommand(Command command, String payload) {
         if (socket == null) {
             try {
                 initializeMediator();
             } catch (CLightningException ex) {
-                LOGGER.error("FATAL ERROR: Socket not initialization");
+                CLightningLogger.getInstance().error(TAG, "FATAL ERROR: Socket not initialization");
                 return null;
             }
         }
@@ -80,6 +86,30 @@ public class CommandRPCMediator {
             return commandSelected.doRPCCommand(socket, setting);
         } catch (ServiceException e) {
             e.printStackTrace();
+            throw new CLightningException("Service exception with message error\n" + e.getLocalizedMessage());
+        } catch (CommandException e) {
+            throw new CLightningException("Error when running the command " + command + ".\n" + e.getLocalizedMessage());
+        }
+    }
+
+    public Object runCommand(Command command, HashMap<String, Object> payload) {
+        if (socket == null) {
+            try {
+                initializeMediator();
+            } catch (CLightningException ex) {
+                CLightningLogger.getInstance().error(TAG, "FATAL ERROR: Socket not initialization");
+                return null;
+            }
+        }
+        if (!commands.containsKey(command)) {
+            throw new CommandException("The command " + command + " not supported yet");
+        }
+        IRPCCommand commandSelected = commands.get(command);
+        try {
+            return commandSelected.doRPCCommand(socket, payload);
+        } catch (ServiceException e) {
+            e.printStackTrace();
+            CLightningLogger.getInstance().error(TAG, e.getLocalizedMessage());
             throw new CLightningException("Service exception with message error\n" + e.getLocalizedMessage());
         } catch (CommandException e) {
             throw new CLightningException("Error when running the command " + command + ".\n" + e.getLocalizedMessage());
@@ -106,19 +136,19 @@ public class CommandRPCMediator {
             return new HashMap<>();
         }
         StringTokenizer tokenizer = new StringTokenizer(payload, "+");
-        LOGGER.debug("Number toke of the payload " + payload + "\nis: " + tokenizer.countTokens());
+        CLightningLogger.getInstance().debug(TAG,"Number toke of the payload " + payload + "\nis: " + tokenizer.countTokens());
         HashMap<String, Object> configResult = new HashMap<>();
         while (tokenizer.hasMoreTokens()) {
             String token = tokenizer.nextToken();
-            LOGGER.debug("Actual token: " + token);
+            CLightningLogger.getInstance().debug(TAG,"Actual token: " + token);
             StringTokenizer tokenProperty = new StringTokenizer(token, "=");
             //TODO token proprieties
             while (tokenProperty.hasMoreTokens()) {
                 String key = tokenProperty.nextToken();
-                LOGGER.debug("Key tokenized: " + key);
+                CLightningLogger.getInstance().debug(TAG,"Key tokenized: " + key);
                 if (tokenProperty.hasMoreTokens()) {
                     String value = tokenProperty.nextToken();
-                    LOGGER.debug("Value tokenized: " + value);
+                    CLightningLogger.getInstance().debug(TAG,"Value tokenized: " + value);
                     List<String> arrayObject = valueToList(value);
                     HashMap<String, String> outputs = valueToHasMap(value);
                     if (arrayObject != null) {
@@ -159,9 +189,9 @@ public class CommandRPCMediator {
             //Parsing a single output
             StringTokenizer tokenizerOutput = new StringTokenizer(value, "#");
             String key = tokenizerOutput.nextToken();
-            LOGGER.debug("The single key is: " + key);
+            CLightningLogger.getInstance().debug(TAG,"The single key is: " + key);
             String valueMap = tokenizerOutput.nextToken();
-            LOGGER.debug("The single value is: " + value);
+            CLightningLogger.getInstance().debug(TAG,"The single value is: " + value);
             HashMap<String, String> outputsMap = new HashMap<>();
             outputsMap.put(key, valueMap);
             return outputsMap;
@@ -175,20 +205,20 @@ public class CommandRPCMediator {
                     + this.getClass().getCanonicalName() + " is null");
         }
         if (value.contains("[") && value.contains("]")) {
-            LOGGER.debug("The value is an list and this is value before the substring " + value);
+            CLightningLogger.getInstance().debug(TAG,"The value is an list and this is value before the substring " + value);
             String containsValue = value.substring(1, value.length() - 1);
-            LOGGER.debug("The value substring method parsing is: " + containsValue);
+            CLightningLogger.getInstance().debug(TAG,"The value substring method parsing is: " + containsValue);
 
             StringTokenizer parsinList = new StringTokenizer(containsValue, ",");
             List<String> elements = new ArrayList<>();
             while (parsinList.hasMoreTokens()) {
                 String element = parsinList.nextToken();
-                LOGGER.debug("The element is: " + element);
+                CLightningLogger.getInstance().debug(TAG,"The element is: " + element);
                 elements.add(element);
             }
             return elements;
         }
-        LOGGER.debug("The value not is a list");
+        CLightningLogger.getInstance().debug(TAG,"The value not is a list");
         return null;
 
     }

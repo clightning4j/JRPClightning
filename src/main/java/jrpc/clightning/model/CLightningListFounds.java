@@ -15,7 +15,7 @@
  */
 package jrpc.clightning.model;
 
-import jrpc.clightning.model.types.CLightningChannel;
+import jrpc.clightning.model.types.CLightningInfoChannel;
 import jrpc.clightning.model.types.CLightningOutput;
 
 import java.util.ArrayList;
@@ -27,7 +27,7 @@ import java.util.List;
 public class CLightningListFounds {
 
     private List<CLightningOutput> outputs = new ArrayList<>();
-    private List<CLightningChannel> channels = new ArrayList<>();
+    private List<CLightningInfoChannel> channels = new ArrayList<>();
 
     public List<CLightningOutput> getOutputs() {
         return outputs;
@@ -37,11 +37,11 @@ public class CLightningListFounds {
         this.outputs = outputs;
     }
 
-    public List<CLightningChannel> getChannels() {
+    public List<CLightningInfoChannel> getChannels() {
         return channels;
     }
 
-    public void setChannels(List<CLightningChannel> channels) {
+    public void setChannels(List<CLightningInfoChannel> channels) {
         this.channels = channels;
     }
 }
