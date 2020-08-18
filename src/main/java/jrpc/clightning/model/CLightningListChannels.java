@@ -31,4 +31,8 @@ public class CLightningListChannels {
         return channels;
     }
 
+    public int size(){
+        return channels.size();
+    }
+
 }

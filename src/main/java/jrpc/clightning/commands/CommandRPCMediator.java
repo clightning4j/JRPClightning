@@ -65,6 +65,7 @@ public class CommandRPCMediator {
         commands.put(Command.FEERATES, new CLightningCommandFeeRate());
         commands.put(Command.DISCONNECT, new CLightningCommandDisconnect());
         commands.put(Command.LISTNODES, new CLightningCommandListNodes());
+        commands.put(Command.STOP, new CLightningCommandStop());
     }
 
     @Deprecated

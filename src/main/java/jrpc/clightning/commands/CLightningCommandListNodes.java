@@ -1,7 +1,6 @@
 package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
-import jrpc.clightning.model.CLightningListChannels;
 import jrpc.clightning.model.CLightningListNodes;
 import jrpc.wrapper.response.RPCResponseWrapper;
 

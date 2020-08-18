@@ -5,9 +5,9 @@ import java.util.List;
 
 public class CLightningListPay {
 
-    private List<CLightningPayment> pays = new ArrayList<>();
+    private List<CLightningPay> pays = new ArrayList<>();
 
-    public List<CLightningPayment> getPays() {
+    public List<CLightningPay> getPays() {
         return pays;
     }
 }

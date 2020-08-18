@@ -16,7 +16,7 @@
 package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
-import jrpc.clightning.model.CLightningPay;
+import jrpc.clightning.model.CLightningPayResult;
 import jrpc.wrapper.response.RPCResponseWrapper;
 
 import java.lang.reflect.Type;
@@ -24,7 +24,7 @@ import java.lang.reflect.Type;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningCommandPay extends AbstractRPCCommand<CLightningPay> {
+public class CLightningCommandPay extends AbstractRPCCommand<CLightningPayResult> {
 
     private static final String COMMAND_NAME = "pay";
 
@@ -34,6 +34,6 @@ public class CLightningCommandPay extends AbstractRPCCommand<CLightningPay> {
 
     @Override
     protected Type toTypeFromClass() {
-        return new TypeToken<RPCResponseWrapper<CLightningPay>>(){}.getType();
+        return new TypeToken<RPCResponseWrapper<CLightningPayResult>>(){}.getType();
     }
 }

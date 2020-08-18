@@ -7,11 +7,11 @@ import jrpc.wrapper.response.RPCResponseWrapper;
 
 import java.lang.reflect.Type;
 
-public class PersonalRPCCommand extends AbstractRPCCommand<CLightningListPay> {
+public class PersonalDelPayRPCCommand extends AbstractRPCCommand<CLightningListPay> {
 
     private static final String COMMAND_NAME = "delpay";
 
-    public PersonalRPCCommand() {
+    public PersonalDelPayRPCCommand() {
         super(COMMAND_NAME);
     }
 

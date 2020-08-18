@@ -20,7 +20,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningPay {
+public class CLightningPayResult {
 
     @SerializedName("payment_preimage")
     private String paymentPreImage;

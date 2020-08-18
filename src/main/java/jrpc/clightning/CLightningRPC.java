@@ -22,10 +22,14 @@ import jrpc.clightning.commands.IRPCCommand;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.*;
+import jrpc.clightning.model.types.CLightningPay;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
+
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -53,7 +57,7 @@ public class CLightningRPC {
             this.mediatorCommand = new CommandRPCMediator(socket);
         } catch (CLightningException clex) {
             CLightningLogger.getInstance().error(TAG, "CLightningRPC throws an exception " + clex.getLocalizedMessage());
-            clex.printStackTrace();
+            socket = null;
         } catch (ServiceException e) {
             socket = null;
             throw new CLightningException("Configuration socket error, Message error is:" + e.getLocalizedMessage());
@@ -442,11 +446,11 @@ public class CLightningRPC {
        return true;
     }
 
-    public CLightningPay pay(String bolt11) {
+    public CLightningPayResult pay(String bolt11) {
         return pay(bolt11, "", "", 10, "", 60, "");
     }
 
-    public CLightningPay pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay) {
+    public CLightningPayResult pay(String bolt11, String satoshi, String label, float riskFactor, String maxFeePercent, int retryFor, String maxDelay) {
         if (bolt11 == null || bolt11.trim().isEmpty()) {
             throw new CLightningException("The method pay have the parameter bolt11 is null or empty");
         }
@@ -487,7 +491,7 @@ public class CLightningRPC {
 
         String payloadString = payload.toString();
         CLightningLogger.getInstance().debug(TAG, "Payload for pay connect is: " + payloadString);
-        CLightningPay pay = (CLightningPay) mediatorCommand.runCommand(Command.PAY, payloadString);
+        CLightningPayResult pay = (CLightningPayResult) mediatorCommand.runCommand(Command.PAY, payloadString);
         return pay;
     }
 
@@ -595,6 +599,11 @@ public class CLightningRPC {
         CLightningLogger.getInstance().debug(TAG, "The payload for method decodePay is: " + payloadString);
         CLightningDecodePay decodePay = (CLightningDecodePay) mediatorCommand.runCommand(Command.DECODEPAY, payloadString);
         return decodePay;
+    }
+
+    public boolean stop(){
+        HashMap<String, Object> payload = new HashMap<>();
+        return mediatorCommand.runCommand(Command.STOP, payload).equals("Shutdown complete");
     }
 
     public void registerCommand(ICommandKey key, IRPCCommand command){

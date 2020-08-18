@@ -72,6 +72,9 @@ public enum Command implements ICommandKey{
     // ---------- PLUGINS COMMANDS -------------
     AUTOCLEANINVOICE("AUTOCLEANINVOICE"); //SUPPORTED
 
+    //Deprecated command
+
+
     private String commandKey;
 
     Command(String commandKey) {

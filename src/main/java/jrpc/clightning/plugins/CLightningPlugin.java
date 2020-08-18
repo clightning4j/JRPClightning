@@ -148,7 +148,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         addRPCMethod(this.manifest);
         this.registerMethodsWithAnnotation();
         this.registerSubscriptionsWithAnnotation();
-        //this.registerHooksWithAnnotation();
+        this.registerHooksWithAnnotation();
         addRPCMethod(new InitMethod());
     }
 
@@ -202,6 +202,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         if (method == null || method.isEmpty()) {
             return;
         }
+        
         CLightningLogger.getInstance().debug(TAG, "c-lightning calls for method: ++++++ " + method + " ++++++");
         for (AbstractRPCMethod rpcMethod : this.getRpcMethods()) {
             CLightningLogger.getInstance().debug(TAG, "Call method plugin ++++++ " + rpcMethod.getName() + " ++++++");
