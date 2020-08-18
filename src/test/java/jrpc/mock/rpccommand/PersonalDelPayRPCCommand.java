@@ -17,7 +17,6 @@ public class PersonalDelPayRPCCommand extends AbstractRPCCommand<CLightningListP
 
     @Override
     protected Type toTypeFromClass() {
-        return new TypeToken<RPCResponseWrapper<RPCResponseWrapper<CLightningListPays>>>() {
-        }.getType();
+        return new TypeToken<RPCResponseWrapper<CLightningListPays>>(){}.getType();
     }
 }

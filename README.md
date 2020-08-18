@@ -19,66 +19,50 @@ The project support some command, if you want try it don't use on the **MAINET**
 
 ## Command Support
 
-At the moment the library support these commands:
+At the moment the library doesn't support all command avaible on clightning, a list of command is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
 
-- GETINFO
-
-    You can use the RPC wrapper to call the method **getinfo**, the command returns the 
-    json wrapper, called CLightningGetInfo.
+- You can use the RPC wrapper to call the method **getinfo**, the command returns the 
+json wrapper, called CLightningGetInfo.
     
-    ```
+    ```java
         CLightningGetInfo infoNode = CLightningRPC.getInstance().getInfo();
         String id = infoNode.getId();
         String color = infoNode.getColor();
         System.out.println("id=" + id);
         System.out.println("color=" + color);
     ```
-    
-- NEWADDR
 
-    To call the command **newaddr**, you can use this code, the command returns a String.
-    This method gets the enum type called AddressType and this enum will add this value
-    - AddressType.BECH32
-    - AddressType.P2SH_SEGWIT
-    
-    ```
-    String newAddress = CLightningRPC.getInstance().getNewAddress(AddressType.BECH32);
-    ```
-- INVOICE
+- You can create the personal wrapper to support new commands (i.e: personal plugins or command not supported yet by library)
+   
+  **Create the command wrapper**
+  
+  ```java
+  public class PersonalDelPayRPCCommand extends AbstractRPCCommand<CLightningListPays> {
+  
+      private static final String COMMAND_NAME = "delpay";
+  
+      public PersonalDelPayRPCCommand() {
+          super(COMMAND_NAME);
+      }
+  
+      @Override
+      protected Type toTypeFromClass() {
+          return new TypeToken<RPCResponseWrapper<CLightningListPays>>(){}.getType();
+      }
+  }
+  ```
+  
+  **Create the personal Json wrapper** 
+  - In this cases is used a library wrapper, you can see all wrapper available in the library [here](https://vincenzopalazzo.github.io/JRPClightning/)
+  
+  **Register the command and run it**
+  
+  ```java
+  PersonalRPCCommand paysCommand = new PersonalRPCCommand();
+  CLightningRPC.registerCommand(CustomCommand.DELPAY, paysCommand);
+  CLightningListPay result = CLightningRPC.runRegisterCommand(CustomCommand.DELPAY, payload);
+  ```
 
-    To call the command **invoice** you can call this method and the command returns
-    a json wrapper called _CLightningInvoice_.
-    
-    This is a simple code
-    
-    ```
-        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(50000, "This is an java wrapper", "a description");
-    ```
-    or 
-    
-    ```
-    CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(100,
-                    "this is a java wrapper", "a description", "1w",
-                        new String[]{"2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"}, "",false);  
-    ```
-  for this convention the optional value has to pass an empty string to the Java command.
-  If you don't use an optional parameter you can use the `""` and not the **null object**.
-- LISTINVOICE
-- DELINVOICE
-- CLOSE
-- TXDISCARD
-- TXSEND
-- WITHDRAW
-- CONNECT
-- FUNDCHANNEL
-- LISTFUNDS
-- DECODEPAY
-- LISTPEERS
-- LISTCHANNELS
-- LISTSENDPAYS
-- PAY
-
-Refer to the javadoc inside the class [CLightningRPC](https://vincenzopalazzo.github.io/JRPClightning/jrpc/clightning/CLightningRPC.html) to see all the options for this method.
 Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/).
 
 # Configuration Unix Socket
