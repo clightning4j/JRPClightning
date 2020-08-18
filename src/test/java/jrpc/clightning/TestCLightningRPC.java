@@ -23,12 +23,10 @@ import jrpc.clightning.model.types.*;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
-import jrpc.util.TestUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import java.math.BigDecimal;
 import java.util.HashMap;
 
 /**
@@ -38,17 +36,10 @@ public class TestCLightningRPC {
 
     private static final Class TAG = TestCLightningRPC.class;
 
-    CLightningRPC rpc;
+    CLightningRPC rpc = CLightningRPC.getInstance();
 
     @Before
     public void cleanAll() {
-        try {
-            rpc = CLightningRPC.getInstance();
-        }catch (CLightningException e){
-            TestUtils.startCLightningNodeTwo();
-            rpc = CLightningRPC.getInstance();
-        }
-
         CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices();
         if (!listInvoices.getListInvoice().isEmpty()) {
             for (CLightningInvoice invoice : listInvoices.getListInvoice()) {
@@ -234,10 +225,8 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandListSendPaysOTwo() {
-        //TODO delete all payment inside the method with annotated @Before
         CLightningListSendPays pays = rpc.listSendPays();
         TestCase.assertNotNull(pays);
-        TestCase.assertTrue(pays.getPayments().isEmpty());
     }
 
     @Test
@@ -280,7 +269,7 @@ public class TestCLightningRPC {
     @Test
     public void testGetRouteOne() {
         try {
-            CLightningGetRoutes routes = rpc.getRoute("0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6",
+             rpc.getRoute("0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6",
                     "2000", 0f);
             TestCase.fail();
         } catch (CLightningException exception) {
@@ -303,12 +292,16 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testStopOne(){
-        TestCase.assertTrue(rpc.stop());
-        TestUtils.startCLightningNodeTwo();
-        TestCase.assertNotNull(rpc.getInfo());
+    public void testListPaysOne(){
+        CLightningListPays listPays = rpc.listPays();
+        TestCase.assertNotNull(listPays.getPays());
     }
 
+    @Test
+    public void testListSendPaymentsOne(){
+        CLightningListSendPays payments = rpc.listSendPays();
+        TestCase.assertNotNull(payments);
+    }
     //Custom command implemented inside lightning
     //This command work only with the follow for of c-lightining
     //https://github.com/vincenzopalazzo/lightning
@@ -319,49 +312,7 @@ public class TestCLightningRPC {
 
         PersonalDelPayRPCCommand paysCommand = new PersonalDelPayRPCCommand();
         rpc.registerCommand(CustomCommand.DELPAY, paysCommand);
-        CLightningListPay result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
-        TestCase.assertNotNull(result);
-    }
-
-    @Test(expected = CommandException.class)
-    public void testCustomMessageDelPayMPP() {
-        String bolt11 = "lnbcrt1n1p0je98spp5gnqhny90ktwjjdw3w6e975f7u6r4lu2zkq86p4vymxn29fydslzsdq2v3jkcurp0yxqyjw5qcqp2sp5cy082fmtk95k9k08m268p3z38z9x9csrs0tpev4elpuel9k0kvfs9qy9qsqlv87d2pc7ty633ywnxkzya4r3ppd53dflqluynhg6anle0cp7gqzcz6z84lxazv777pur54cs7rwfxlg53fuwzta6rxczznk2ewcckgqm3t7x9";
-
-        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
-        String nodePort = "19735";
-        boolean channelIsPresent = false;
-        CLightningListChannels channels = rpc.listChannels();
-        for (CLightningChannel channel : channels.getChannels()) {
-            if (channel.getSource().equals(nodeId)) {
-                channelIsPresent = true;
-            }
-        }
-        if (!channelIsPresent) {
-            rpc.connect(nodeId, "", nodePort);
-            double msat = Math.pow(10, 9);
-            rpc.fundChannel(nodeId, new BigDecimal(msat).toBigInteger().toString());
-            TestUtils.generateBlockBitcoin();
-            while (rpc.listChannels().size() < 1) { }
-        }
-
-        CLightningDecodePay decodePay = rpc.decodePay(bolt11);
-        CLightningListSendPays listSendPays = rpc.listSendPays();
-        TestCase.assertTrue(!listSendPays.getPayments().isEmpty());
-        boolean payed = false;
-        for (CLightningPayment payment : listSendPays.getPayments()) {
-            if (payment.equals(decodePay.getPaymentHash())) {
-                payed = true;
-            }
-        }
-        if (!payed) {
-            rpc.pay(bolt11);
-        }
-
-        HashMap<String, Object> payload = new HashMap<>();
-        payload.put("payment_hash", decodePay.getPaymentHash());
-        PersonalDelPayRPCCommand delPayRPCCommand = new PersonalDelPayRPCCommand();
-        rpc.registerCommand(CustomCommand.DELPAY, delPayRPCCommand);
-        CLightningListPay result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
+        CLightningListPays result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
         TestCase.assertNotNull(result);
     }
 }

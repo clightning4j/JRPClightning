@@ -26,10 +26,8 @@ import java.lang.reflect.Type;
  */
 public class CLightningCommandListSendPays extends AbstractRPCCommand<CLightningListSendPays>{
 
-    private static final String COMMAND_NAME = "listsendpays";
-
     public CLightningCommandListSendPays() {
-        super(COMMAND_NAME);
+        super(Command.LISTSENDPAYS.getCommandKey());
     }
 
     @Override

@@ -52,18 +52,18 @@ public enum Command implements ICommandKey{
     DELINVOICE("DELINVOICE"), //SUPPORTED
     INVOICE("INVOICE"), //Supported
     LISTINVOICE("LISTINVOICE"), //Supported
-    LISTPAYMENTS("LISTPAYMENTS"),
-    LISTSENDPAYS("LISTSENDPAYS"),
-    PAY("PAY"),
-    WAITINGINVOICE("WAITINGINVOICE"),
-    WAITSENDPAY("WAITSENDPAY"),
+    LISTPAYS("LISTPAYS"), //Supported
+    LISTSENDPAYS("LISTSENDPAYS"),// Supported
+    PAY("PAY"), //Supported
+    WAITINVOICE("WAITINVOICE"), //supported
+    WAITSENDPAY("WAITSENDPAY"), // Supported
 
     // ---------- UTILITY COMMANDS ---------------
     GETINFO("GETINFO"), //Supported
     GETLOG("GETLOG"),
     LISTCONFIGS("LISTCONFIGS"),
     LISTFOUNDS("LISTFOUNDS"), //Supported
-    STOP("STOP"),
+    STOP("STOP"), //supported
 
     // ---------- DEVELOPERS COMMANDS ---------------
     DEV_LISTADDRS("DEV_LISTADDRS"),
@@ -71,9 +71,6 @@ public enum Command implements ICommandKey{
 
     // ---------- PLUGINS COMMANDS -------------
     AUTOCLEANINVOICE("AUTOCLEANINVOICE"); //SUPPORTED
-
-    //Deprecated command
-
 
     private String commandKey;
 

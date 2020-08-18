@@ -34,6 +34,6 @@ class CLightningCommandClose extends AbstractRPCCommand<CLightningBitcoinTx> {
 
     @Override
     protected Type toTypeFromClass() {
-        return new TypeToken<RPCResponseWrapper<RPCResponseWrapper<CLightningBitcoinTx>>>(){}.getType();
+        return new TypeToken<RPCResponseWrapper<CLightningBitcoinTx>>(){}.getType();
     }
 }

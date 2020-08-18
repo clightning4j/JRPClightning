@@ -15,7 +15,11 @@
  */
 package jrpc.clightning.commands;
 
+import com.google.gson.internal.$Gson$Types;
+import com.google.gson.reflect.TypeToken;
 import jrpc.clightning.exceptions.CommandException;
+import jrpc.clightning.model.CLightningBitcoinTx;
+import jrpc.clightning.model.CLightningListPays;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.wrapper.response.RPCResponseWrapper;
@@ -23,6 +27,7 @@ import jrpc.wrapper.socket.RPCUnixRequestMethod;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -36,7 +41,7 @@ public abstract class AbstractRPCCommand<T> implements IRPCCommand<T>{
     }
 
     @Override
-    public T doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException {
+    public T doRPCCommand(CLightningSocket socket, Map<String, Object> payload) throws ServiceException, CommandException {
         if(socket == null || payload == null){
             throw new IllegalArgumentException("Methods is/are null");
         }

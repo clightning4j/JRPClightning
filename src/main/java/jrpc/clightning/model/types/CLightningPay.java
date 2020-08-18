@@ -5,13 +5,22 @@ import com.google.gson.annotations.SerializedName;
 public class CLightningPay {
 
     private String bolt11;
+    @SerializedName("payment_hash")
+    private String paymentHash;
     private String status;
+    @SerializedName("payment_preimage")
     private String preimage;
+    private String label;
     @SerializedName("amount_sent_msat")
-    private String amountSent;
+    private String amountSentMsat;
+
 
     public String getBolt11() {
         return bolt11;
+    }
+
+    public String getPaymentHash() {
+        return paymentHash;
     }
 
     public String getStatus() {
@@ -22,7 +31,11 @@ public class CLightningPay {
         return preimage;
     }
 
-    public String getAmountSent() {
-        return amountSent;
+    public String getLabel() {
+        return label;
+    }
+
+    public String getAmountSentMsat() {
+        return amountSentMsat;
     }
 }

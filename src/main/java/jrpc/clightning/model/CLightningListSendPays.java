@@ -1,14 +1,17 @@
 package jrpc.clightning.model;
 
+
+import jrpc.clightning.model.types.CLightningSendPay;
+
 import java.util.ArrayList;
 import java.util.List;
-import jrpc.clightning.model.types.CLightningPayment;
+
 
 public class CLightningListSendPays {
 
-    private List<CLightningPayment> payments = new ArrayList<>();
+    private List<CLightningSendPay> payments = new ArrayList<>();
 
-    public List<CLightningPayment> getPayments() {
+    public List<CLightningSendPay> getPayments() {
         return payments;
     }
 }

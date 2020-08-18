@@ -1,9 +1,11 @@
-package jrpc.clightning.model.types;
+package jrpc.clightning.model;
+
+import jrpc.clightning.model.types.CLightningPay;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class CLightningListPay {
+public class CLightningListPays {
 
     private List<CLightningPay> pays = new ArrayList<>();
 

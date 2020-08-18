@@ -7,6 +7,14 @@ import java.io.IOException;
 
 public class TestUtils {
 
+    public static void runBitcoin(){
+        runProcess("run-bitcoin.sh");
+    }
+
+    public static void stopBitcoin(){
+        runProcess("stop-bitcoin.sh");
+    }
+
     public static void generateBlockBitcoin(){
         runProcess("generate-block-bitcoin.sh");
     }

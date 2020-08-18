@@ -20,11 +20,12 @@ import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 
 import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
 public interface IRPCCommand<T> {
 
-    T doRPCCommand(CLightningSocket socket, HashMap<String, Object> payload) throws ServiceException, CommandException;
+    T doRPCCommand(CLightningSocket socket, Map<String, Object> payload) throws ServiceException, CommandException;
 }

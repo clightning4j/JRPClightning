@@ -20,8 +20,6 @@ import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 
@@ -66,6 +64,8 @@ public class CommandRPCMediator {
         commands.put(Command.DISCONNECT, new CLightningCommandDisconnect());
         commands.put(Command.LISTNODES, new CLightningCommandListNodes());
         commands.put(Command.STOP, new CLightningCommandStop());
+        commands.put(Command.LISTPAYS, new CLightningCommandListPays());
+        commands.put(Command.WAITINVOICE, new CLightningCommandWaitingInvoice());
     }
 
     @Deprecated
@@ -93,7 +93,7 @@ public class CommandRPCMediator {
         }
     }
 
-    public Object runCommand(Command command, HashMap<String, Object> payload) {
+    public Object runCommand(Command command, Map<String, Object> payload) {
         if (socket == null) {
             try {
                 initializeMediator();
@@ -132,6 +132,7 @@ public class CommandRPCMediator {
         return (T) command.doRPCCommand(socket, payload);
     }
 
+    @Deprecated
     private HashMap<String, Object> decodePayload(String payload) {
         if (payload == null || payload.trim().isEmpty()) {
             return new HashMap<>();
@@ -178,7 +179,7 @@ public class CommandRPCMediator {
         return configResult;
     }
 
-    //TODO incomplete
+    @Deprecated
     protected HashMap<String, String> valueToHasMap(String value) {
         if (value == null) {
             throw new IllegalArgumentException("The value inside the method valueToList inside the class "
@@ -200,6 +201,7 @@ public class CommandRPCMediator {
         return null;
     }
 
+    @Deprecated
     protected List<String> valueToList(String value) {
         if (value == null) {
             throw new IllegalArgumentException("The value inside the method valueToList inside the class "
