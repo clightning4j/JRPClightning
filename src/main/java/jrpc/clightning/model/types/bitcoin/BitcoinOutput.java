@@ -13,16 +13,32 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.model.types;
+package jrpc.clightning.model.types.bitcoin;
 
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningChannelId {
+public class BitcoinOutput {
 
-    String id;
+    private String address;
+    private String amount = "all";
 
-    public String getId() {
-        return id;
+    public BitcoinOutput() {}
+
+    public BitcoinOutput(String address, String amount) {
+        this.address = address;
+        this.amount = amount;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
     }
 }

@@ -23,4 +23,9 @@ public interface ICLightningPlugin {
     boolean isDynamic();
 
     void log(CLightningLevelLog level, String logMessage);
+
+    void addParameter(String key, Object value);
+
+    <T> T getParameter(String key);
+
 }

@@ -19,8 +19,6 @@ package jrpc.clightning.exceptions;
  * @author https://github.com/vincenzopalazzo
  */
 public class CommandException extends RuntimeException{
-    public CommandException() {
-    }
 
     public CommandException(String message) {
         super(message);

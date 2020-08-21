@@ -6,7 +6,7 @@
     <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
 </p>
 
-This is a simple wrapper for c-lightning rpc, this project is inspired by this 
+This is a wrapper for c-lightning rpc, this project is inspired by this 
 [pull request](https://github.com/ElementsProject/lightning/pull/2223) by @renepickhardt.
 
 The wrapper aims to be versatile, the final version should allow the user to execute commands even of custom plugins, allowing them to write the code for the command.
@@ -82,6 +82,21 @@ The library support now the plugins and you can subscribe the plugin to notify w
 
 ### Example
 
+### Plugin example 
+
+```java
+    @RPCMethod(
+            name = "annotation_hello",
+            description = "Annotation plugin"
+    )
+    public void hello(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
+        log(CLightningLevelLog.WARNING, request.toString());
+        response.add("type", "random");
+    }
+```
+
+### Notification example 
+
 ```java
     @Subscription(notification = "invoice_creation")
     public void doInvoiceCreation(CLightningJsonObject data){
@@ -90,5 +105,42 @@ The library support now the plugins and you can subscribe the plugin to notify w
     }
 ```
 
+### Hook example
+
+```java
+    @Hook(hook = "rpc_command")
+    public void logAllRPCCommand(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
+        log(CLightningLevelLog.WARNING, request.toString());
+        response.add("result", "continue");
+    }
+```
+
 ## Support
-For any additional support you can use this bitcoin address: `3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU`
+For any additional support you can use this bitcoin address: ``
+If you like the library and want support it, please considerer to donate with the following system
+- [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
+- [3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU](bitcoin:3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU)
+- [Github support](https://github.com/sponsors/vincenzopalazzo)
+
+## License
+
+<div align="center">
+  <img src="https://opensource.org/files/osi_keyhole_300X300_90ppi_0.png" width="150" height="150"/>
+</div>
+
+ This is a wrapper for c-lightning RPC interface.
+ Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ 
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU General Public License as published by
+ the Free Software Foundation; either version 2 of the License.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ GNU General Public License for more details.
+ 
+ You should have received a copy of the GNU General Public License along
+ with this program; if not, write to the Free Software Foundation, Inc.,
+ *51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
+ */

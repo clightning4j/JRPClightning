@@ -1,5 +1,8 @@
 package jrpc.clightning.model;
 
+import jrpc.clightning.exceptions.CLightningException;
+import jrpc.clightning.plugins.exceptions.CLightningPluginException;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -25,15 +28,21 @@ public class CLightningProprietiesMediator {
         this.repository.put(key, value);
     }
 
-    public Object getValue(String key){
-        //TODO check value
+    public <T> T getValue(String key){
+        if(key == null || key.isEmpty()){
+            throw new CLightningException("Key inside the CLightningProprietiesMediator null");
+        }
         if(this.repository.containsKey(key)){
-            return this.repository.get(key);
+            return (T)this.repository.get(key);
         }
         return null;
     }
 
     public boolean containsValue(String key){
         return this.repository.containsKey(key);
+    }
+
+    public void clean(){
+        this.repository.clear();
     }
 }

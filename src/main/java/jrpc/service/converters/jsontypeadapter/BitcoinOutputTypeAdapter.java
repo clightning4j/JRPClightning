@@ -4,7 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import jrpc.clightning.model.types.BitcoinOutput;
+import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 
 import java.io.IOException;
 

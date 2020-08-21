@@ -16,7 +16,7 @@
 package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
-import jrpc.clightning.model.types.CLightningChannelId;
+import jrpc.clightning.model.types.CLightningConnect;
 import jrpc.wrapper.response.RPCResponseWrapper;
 
 import java.lang.reflect.Type;
@@ -24,16 +24,14 @@ import java.lang.reflect.Type;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningCommandConnect extends AbstractRPCCommand<CLightningChannelId>{
-
-    private static final String COMMAND_NAME = "connect";
+public class CLightningCommandConnect extends AbstractRPCCommand<CLightningConnect>{
 
     public CLightningCommandConnect() {
-        super(COMMAND_NAME);
+        super(Command.CONNECT.getCommandKey());
     }
 
     @Override
     protected Type toTypeFromClass() {
-        return new TypeToken<RPCResponseWrapper<CLightningChannelId>>(){}.getType();
+        return new TypeToken<RPCResponseWrapper<CLightningConnect>>(){}.getType();
     }
 }
