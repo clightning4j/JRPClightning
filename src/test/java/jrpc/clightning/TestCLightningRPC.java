@@ -20,6 +20,7 @@ import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.CLightningPayResult;
 import jrpc.clightning.model.types.*;
+import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
@@ -201,7 +202,7 @@ public class TestCLightningRPC {
     public void testCommandConnectOne() {
         String idString = "02bd7e87692775d2ce65a3cf81765d942ea0b15c883c6bd6d060005aaa43dc5cc6";
         String port = "19736";
-        String id = rpc.connect(idString, "", port);
+        String id = rpc.connect(idString, "", port).getId();
         TestCase.assertNotNull(id);
     }
 
@@ -302,6 +303,42 @@ public class TestCLightningRPC {
         CLightningListSendPays payments = rpc.listSendPays();
         TestCase.assertNotNull(payments);
     }
+
+    @Test
+    public void testListNodesOne(){
+        CLightningListNodes listNodes = rpc.listNodes();
+        TestCase.assertNotNull(listNodes);
+    }
+
+    @Test
+    public void testListNodesTwo(){
+        //Connect to node one
+        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
+        rpc.connect(nodeId, "", "19735");
+
+        CLightningListNodes listNodes = rpc.listNodes(nodeId);
+        TestCase.assertEquals(1, listNodes.getNodes().size());
+
+        rpc.disconnect(nodeId, true);
+    }
+
+    @Test
+    public void testPingOne(){
+        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
+        rpc.connect(nodeId, "", "19735");
+
+        CLightningPing pingResult = rpc.ping(nodeId);
+        TestCase.assertNotNull(pingResult);
+
+        rpc.disconnect(nodeId);
+    }
+
+    @Test
+    public void testListTransactionsOne(){
+        CLightningListTransactions listTransactions = rpc.listTransactions();
+        TestCase.assertNotNull(listTransactions);
+    }
+
     //Custom command implemented inside lightning
     //This command work only with the follow for of c-lightining
     //https://github.com/vincenzopalazzo/lightning

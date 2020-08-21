@@ -42,12 +42,12 @@ public enum Command implements ICommandKey{
     // ---------- NETWORK COMMANDS ---------------
     CONNECT("CONNECT"), // Supported
     DISCONNECT("DISCONNECT"), // Supported
-    LISTNODES("LISTNODES"),
-    LISTPEERS("LISTPEERS"),
-    PING("PING"),
+    LISTNODES("LISTNODES"), //Support
+    LISTPEERS("LISTPEERS"), //Support
+    PING("PING"), //Supported
 
     // ---------- PAYMENT COMMANDS ---------------
-    DECODEPAY("DECODEPAY"),
+    DECODEPAY("DECODEPAY"), //Suppoeted
     DELEXPIREDINVOICE("DELEXPIREDINVOICE"),
     DELINVOICE("DELINVOICE"), //SUPPORTED
     INVOICE("INVOICE"), //Supported
@@ -57,6 +57,8 @@ public enum Command implements ICommandKey{
     PAY("PAY"), //Supported
     WAITINVOICE("WAITINVOICE"), //supported
     WAITSENDPAY("WAITSENDPAY"), // Supported
+    LISTTRANSACTIONS("LISTTRANSACTIONS"), //Supported
+
 
     // ---------- UTILITY COMMANDS ---------------
     GETINFO("GETINFO"), //Supported

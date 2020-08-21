@@ -19,7 +19,7 @@ import com.google.gson.*;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import jrpc.clightning.model.CLightningFeeRate;
-import jrpc.clightning.model.types.BitcoinOutput;
+import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;

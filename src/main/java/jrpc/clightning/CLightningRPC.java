@@ -1,17 +1,20 @@
 /**
- * Copyright 2019-2020 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This is a wrapper for c-lightning RPC interface.
+ * Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 package jrpc.clightning;
 
@@ -22,6 +25,7 @@ import jrpc.clightning.commands.IRPCCommand;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
 import jrpc.clightning.model.types.*;
+import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
@@ -383,7 +387,7 @@ public class CLightningRPC {
         return (CLightningListFounds) mediatorCommand.runCommand(Command.LISTFOUNDS, payloadString);
     }
 
-    public String connect(String id, String host, String port) {
+    public CLightningConnect connect(String id, String host, String port) {
         if (id == null || id.trim().isEmpty()) {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
@@ -410,11 +414,11 @@ public class CLightningRPC {
 
         String payloadString = payload.toString();
         CLightningLogger.getInstance().debug(TAG, "Payload for command connect is: " + payloadString);
-        CLightningChannelId channelId = (CLightningChannelId) mediatorCommand.runCommand(Command.CONNECT, payloadString);
-        return channelId.getId();
+        CLightningConnect channelId = (CLightningConnect) mediatorCommand.runCommand(Command.CONNECT, payloadString);
+        return channelId;
     }
 
-    public String connect(String id) {
+    public CLightningConnect connect(String id) {
         if (id == null || id.trim().isEmpty()) {
             throw new CLightningException("The method connect have the parameter id is null or empty");
         }
@@ -621,8 +625,8 @@ public class CLightningRPC {
         return this.listPays("");
     }
 
-    public CLightningInvoice waitInvoice(String label){
-        if(label == null){
+    public CLightningInvoice waitInvoice(String label) {
+        if (label == null) {
             throw new CLightningException("The argument inside the method listPays is null");
         }
         Map<String, Object> payload = new HashMap<>();
@@ -630,12 +634,12 @@ public class CLightningRPC {
         return (CLightningInvoice) mediatorCommand.runCommand(Command.WAITINVOICE, payload);
     }
 
-    public CLightningSendPay waitSendPay(String paymentHash){
+    public CLightningSendPay waitSendPay(String paymentHash) {
         return this.waitSendPays(paymentHash, 0, 0);
     }
 
-    public CLightningSendPay waitSendPays(String paymentHash, int timeout, int partid){
-        if(paymentHash == null){
+    public CLightningSendPay waitSendPays(String paymentHash, int timeout, int partid) {
+        if (paymentHash == null) {
             throw new CLightningException("The argument {paymentHash} inside the method waitSendPays is null");
         }
         doCheckPositiveNumber("waitSendPays", "timeout", timeout);
@@ -643,16 +647,52 @@ public class CLightningRPC {
 
         Map<String, Object> payload = new HashMap<>();
         payload.put("payment_hash", paymentHash.trim());
-        if(timeout > 0){
+        if (timeout > 0) {
             payload.put("timeout", timeout);
         }
-        if (partid > 0){
+        if (partid > 0) {
             payload.put("partid", partid);
         }
         return (CLightningSendPay) mediatorCommand.runCommand(Command.WAITSENDPAY, payload);
     }
 
+    public CLightningListNodes listNodes(String nodeId) {
+        doCheckString("listNodes", "nodeId", nodeId, true);
+        Map<String, Object> payload = new HashMap<>();
+        if (!nodeId.trim().isEmpty()) {
+            payload.put("id", nodeId);
+        }
+        return (CLightningListNodes) mediatorCommand.runCommand(Command.LISTNODES, payload);
+    }
 
+    public CLightningListNodes listNodes() {
+        return this.listNodes("");
+    }
+
+    public CLightningPing ping(String nodeId, int len, int pongBytes) {
+        doCheckString("ping", "ping", nodeId, true);
+        doCheckPositiveNumber("ping", "len", len);
+        doCheckPositiveNumber("ping", "pongBytes", pongBytes);
+        Map<String, Object> payload = new HashMap<>();
+
+        if (!nodeId.isEmpty()) {
+            payload.put("id", nodeId);
+        }
+
+        payload.put("len", len);
+        payload.put("pongbytes", pongBytes);
+        return (CLightningPing) mediatorCommand.runCommand(Command.PING, payload);
+    }
+
+    public CLightningPing ping(String nodeId) {
+        return this.ping(nodeId, 128, 128);
+    }
+
+    public CLightningListTransactions listTransactions(){
+        return (CLightningListTransactions) mediatorCommand.runCommand(Command.LISTTRANSACTIONS, new HashMap<>());
+    }
+
+    //Register commands
     public void registerCommand(ICommandKey key, IRPCCommand command) {
         if (key == null || command == null) {
             throw new IllegalArgumentException("Key and/or command null");
@@ -666,13 +706,11 @@ public class CLightningRPC {
 
     //Utility methods
     private void doCheckString(String command, String name, String value, boolean onlyNull) {
-        if (value == null || value.isEmpty()) {
+        if (value == null || (value.isEmpty() && !onlyNull)) {
             String message = "Propriety " + name + " in the command " + command;
-            if (name == null) {
+            if (value == null) {
                 message += " null";
-            } else if (onlyNull) {
-                return; //Good for the library
-            } else {
+            } else if (value.isEmpty() && !onlyNull) {
                 message += " empty";
             }
             throw new CLightningException(message);

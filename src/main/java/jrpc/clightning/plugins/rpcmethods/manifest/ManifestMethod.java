@@ -6,7 +6,6 @@ import jrpc.clightning.CLightningConstant;
 import jrpc.clightning.model.CLightningProprietiesMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
-import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
@@ -22,7 +21,7 @@ import java.util.List;
  */
 public class ManifestMethod extends AbstractRPCMethod {
 
-    private static final Class TAG = ManifestMethod.class;
+    private static final Class<ManifestMethod> TAG = ManifestMethod.class;
 
     private List<Option> options = new ArrayList<>();
     @SerializedName("rpcmethods")
@@ -38,12 +37,6 @@ public class ManifestMethod extends AbstractRPCMethod {
 
     @Override
     public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
-        // TODO refactoring this information; how I can store the options?
-        boolean containsOptionValue = CLightningProprietiesMediator.getInstance().containsValue(CLightningConstant.OPTIONS);
-        if(containsOptionValue){
-            Option option = (Option) CLightningProprietiesMediator.getInstance().getValue(CLightningConstant.OPTIONS);
-            this.addOption(option);
-        }
         CLightningLogger.getInstance().debug(TAG, "**** result method getmanifest: \n" + response);
         JsonConverter converter = new JsonConverter();
         JsonObject getManifest = (JsonObject) converter.deserialization(converter.serialization(this), JsonObject.class);
@@ -68,15 +61,6 @@ public class ManifestMethod extends AbstractRPCMethod {
             throw new IllegalArgumentException("List of methods empty or null");
         }
         this.rpcMethods.add(method);
-    }
-
-    @Deprecated
-    public void addOption(ICLightningPlugin plugin){
-        if(plugin == null){
-            throw new IllegalArgumentException("Argument is null");
-        }
-        //Option option = new Option(plugin);
-        //this.options.add(option);
     }
 
     public void addOption(Option option){

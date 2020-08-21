@@ -18,28 +18,11 @@ package jrpc.clightning.model.types;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class BitcoinOutput {
-    //TODO FIXME when run the command txprepare I have this error
-    // The output format must be {destination: amount}
-    private String address;
-    private String amount = "all";
+public class CLightningConnect {
 
-    public BitcoinOutput() {}
+    private String id;
 
-    public BitcoinOutput(String address, String amount) {
-        this.address = address;
-        this.amount = amount;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
+    public String getId() {
+        return id;
     }
 }

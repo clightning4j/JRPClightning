@@ -66,6 +66,8 @@ public class CommandRPCMediator {
         commands.put(Command.STOP, new CLightningCommandStop());
         commands.put(Command.LISTPAYS, new CLightningCommandListPays());
         commands.put(Command.WAITINVOICE, new CLightningCommandWaitingInvoice());
+        commands.put(Command.PING, new CLightningCommandPing());
+        commands.put(Command.LISTTRANSACTIONS, new CLightningCommandListTransactions());
     }
 
     @Deprecated
