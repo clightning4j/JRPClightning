@@ -692,6 +692,10 @@ public class CLightningRPC {
         return (CLightningListTransactions) mediatorCommand.runCommand(Command.LISTTRANSACTIONS, new HashMap<>());
     }
 
+    public CLightningHelp help(){
+        return (CLightningHelp) mediatorCommand.runCommand(Command.HELP, new HashMap<>());
+    }
+
     //Register commands
     public void registerCommand(ICommandKey key, IRPCCommand command) {
         if (key == null || command == null) {

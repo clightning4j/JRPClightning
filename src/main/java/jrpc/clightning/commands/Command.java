@@ -20,6 +20,8 @@ package jrpc.clightning.commands;
  */
 public enum Command implements ICommandKey{
 
+    HELP("HELP"), // Supported
+
     // ---------- BITCOIN COMMANDS ---------------
     FEERATES("FEERATES"), //Supported
     NEWADDR("NEWADDR"), //Supported

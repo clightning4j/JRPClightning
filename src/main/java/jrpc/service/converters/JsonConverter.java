@@ -23,6 +23,7 @@ import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;
+import jrpc.service.CLightningLogger;
 import jrpc.service.converters.jsontypeadapter.BitcoinOutputTypeAdapter;
 import jrpc.service.converters.jsontypeadapter.FeeRateTypeAdapter;
 import jrpc.service.converters.jsontypeadapter.InitMethodTypeAdapter;

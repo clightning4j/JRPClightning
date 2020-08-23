@@ -339,6 +339,12 @@ public class TestCLightningRPC {
         TestCase.assertNotNull(listTransactions);
     }
 
+    @Test
+    public void testHelpOne(){
+        CLightningHelp help = rpc.help();
+        TestCase.assertNotNull(help);
+    }
+
     //Custom command implemented inside lightning
     //This command work only with the follow for of c-lightining
     //https://github.com/vincenzopalazzo/lightning
