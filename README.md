@@ -11,9 +11,6 @@ This is a wrapper for c-lightning rpc, this project is inspired by this
 
 The wrapper aims to be versatile, the final version should allow the user to execute commands even of custom plugins, allowing them to write the code for the command.
 
-## License
-The license is available [here](https://www.apache.org/licenses/LICENSE-2.0). 
-
 ## Status of project :construction:
 The project support some command, if you want try it don't use on the **MAINET** but use **TESTNET**
 
