@@ -5,7 +5,7 @@ jrpc.clightning.model
 jrpc.clightning.model.types
 jrpc.clightning.model.types.bitcoin
 jrpc.clightning.plugins
-jrpc.clightning.plugins.annotation
+jrpc.clightning.annotation
 jrpc.clightning.plugins.exceptions
 jrpc.clightning.plugins.log
 jrpc.clightning.plugins.rpcmethods

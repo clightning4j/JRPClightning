@@ -1,17 +1,17 @@
 /**
  * This is a wrapper for c-lightning RPC interface.
  * Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -31,6 +31,7 @@ import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.util.Validator;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -688,12 +689,68 @@ public class CLightningRPC {
         return this.ping(nodeId, 128, 128);
     }
 
-    public CLightningListTransactions listTransactions(){
+    public CLightningListTransactions listTransactions() {
         return (CLightningListTransactions) mediatorCommand.runCommand(Command.LISTTRANSACTIONS, new HashMap<>());
     }
 
-    public CLightningHelp help(){
+    public CLightningHelp help() {
         return (CLightningHelp) mediatorCommand.runCommand(Command.HELP, new HashMap<>());
+    }
+
+    public CLightningFundPSBT fundPSBT(String satoshi, int feeRate, int startWeight) {
+        return fundsPSBT(satoshi, feeRate, startWeight, 1, true, null);
+    }
+
+    public CLightningReserveInputs reserveInputs(String pdbt) {
+        return this.reseverInputs(pdbt, false);
+    }
+
+    public CLightningReserveInputs reseverInputs(String psbt, boolean exclusive) {
+        doCheckString("reseverInputs", "psbt", psbt, false);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("pdbt", psbt);
+        payload.put("exclusive", exclusive);
+        return (CLightningReserveInputs) mediatorCommand.runCommand(Command.RESERVEINPUTS, payload);
+    }
+
+    public CLightningPSBT signPSBT(String psbt) {
+        doCheckString("signPSBT", "psbt", psbt, false);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("psbt", psbt);
+        return (CLightningPSBT) mediatorCommand.runCommand(Command.SIGNPSBT, payload);
+    }
+
+    public CLightningTransaction sendPSBT(String psbt) {
+        doCheckString("sendPSBT", "psbt", psbt, false);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("psbt", psbt);
+        return (CLightningTransaction) mediatorCommand.runCommand(Command.SENDPSBT, payload);
+    }
+
+    public CLightningFundPSBT fundsPSBT(String satoshi, int feeRate, int startWeight, int minConf, boolean reserve, BigInteger locktime) {
+        doCheckString("fundPSBT", "satishi", satoshi, false);
+        doCheckPositiveNumber("fundPSBT", "feeRate", feeRate);
+        doCheckPositiveNumber("fundPSBT", "startWeight", startWeight);
+        doCheckPositiveNumber("fundPSBT", "minconf", minConf);
+        doCheckPositiveNumber("fundPSBT", "locktime", locktime, true);
+        Map<String, Object> payload = new HashMap<>();
+
+        payload.put("satoshi", satoshi);
+        payload.put("feerate", feeRate);
+        payload.put("startweight", startWeight);
+        payload.put("minconf", minConf);
+        payload.put("reserve", reserve);
+        if (locktime != null)
+            payload.put("locktime", locktime);
+
+        return (CLightningFundPSBT) mediatorCommand.runCommand(Command.FUNDPSBT, payload);
+    }
+
+    public CLightningReserveInputs unReserveInputs(String psbt){
+        doCheckString("unReserveInputs", "psbt", psbt, false);
+        Map<String, Object> payload = new HashMap<>();
+        payload.put("psbt", psbt);
+        return (CLightningReserveInputs) mediatorCommand.runCommand(Command.UNRESERVEINPUTS, payload);
     }
 
     //Register commands
@@ -705,6 +762,10 @@ public class CLightningRPC {
     }
 
     public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload) {
+        return mediatorCommand.runRegisterCommand(key, payload);
+    }
+
+    public <T> T runRegisterCommand(String key, HashMap<String, Object> payload) {
         return mediatorCommand.runRegisterCommand(key, payload);
     }
 
@@ -722,6 +783,13 @@ public class CLightningRPC {
     }
 
     private void doCheckPositiveNumber(String command, String name, Number value) {
+        this.doCheckPositiveNumber(command, name, value, false);
+    }
+
+    private void doCheckPositiveNumber(String command, String name, Number value, boolean admitNull) {
+        //This use case mean that the default value depend from the blockchain status
+        //is difficult estimate a value number if it depend from the blockchain status
+        if (value == null) return;
         if (value.floatValue() < 0) {
             String message = "Propriety " + name + " in the command " + command + " must be positive";
             throw new CLightningException(message);

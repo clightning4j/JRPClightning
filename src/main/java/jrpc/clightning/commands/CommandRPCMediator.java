@@ -1,17 +1,20 @@
 /**
- * Copyright 2019-2020 https://github.com/vincenzopalazzo vincenzo.palazzo@protonmail.com
- * <p>
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * <p>
- * http://www.apache.org/licenses/LICENSE-2.0
- * <p>
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
+ * This is a wrapper for c-lightning RPC interface.
+ * Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ *
+ * This program is free software; you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation; either version 2 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License along
+ * with this program; if not, write to the Free Software Foundation, Inc.,
+ * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 package jrpc.clightning.commands;
 
@@ -20,6 +23,7 @@ import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
+import jrpc.util.ReflectionManager;
 
 import java.util.*;
 
@@ -32,7 +36,7 @@ public class CommandRPCMediator {
 
     private CLightningSocket socket;
     protected Map<Command, IRPCCommand> commands = new EnumMap<>(Command.class);
-    protected Map<String, IRPCCommand> cusomCommands = new HashMap<>();
+    protected Map<String, IRPCCommand> customCommands = new HashMap<>();
 
     public CommandRPCMediator(CLightningSocket socket) {
         this.socket = socket;
@@ -69,6 +73,19 @@ public class CommandRPCMediator {
         commands.put(Command.PING, new CLightningCommandPing());
         commands.put(Command.LISTTRANSACTIONS, new CLightningCommandListTransactions());
         commands.put(Command.HELP, new CLightningCommandHelp());
+        commands.put(Command.FUNDPSBT, new CLightningCommandFundPSBT());
+        commands.put(Command.RESERVEINPUTS, new CLightningCommandReserveInputs());
+        commands.put(Command.SENDPSBT, new CLightningCommandSendPSBT());
+        commands.put(Command.SIGNPSBT, new CLightningCommandSignPSBT());
+        commands.put(Command.UNRESERVEINPUTS, new CLightningCommandUnreserveInputs());
+
+        try {
+            Map<String, IRPCCommand> commandWithAnnotation = ReflectionManager.getInstance().getCommandWithAnnotation();
+            this.customCommands.putAll(commandWithAnnotation);
+        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
+            CLightningLogger.getInstance().error(this.getClass(), e.getLocalizedMessage());
+            throw new CommandException(e.getCause());
+        }
     }
 
     @Deprecated
@@ -117,6 +134,8 @@ public class CommandRPCMediator {
             throw new CLightningException("Service exception with message error\n" + e.getLocalizedMessage());
         } catch (CommandException e) {
             throw new CLightningException("Error when running the command " + command + ".\n" + e.getLocalizedMessage());
+        }finally {
+            payload.clear();
         }
     }
 
@@ -124,14 +143,22 @@ public class CommandRPCMediator {
         if(key == null || command == null){
             throw new IllegalArgumentException("Key and/or command null");
         }
-        cusomCommands.put(key.getCommandKey(), command);
+        customCommands.put(key.getCommandKey(), command);
     }
 
     public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload){
-        if(!cusomCommands.containsKey(key.getCommandKey())){
+        if(!customCommands.containsKey(key.getCommandKey())){
             throw new IllegalArgumentException("Command with key:" + key.getCommandKey() + " inside the register command cache");
         }
-        IRPCCommand command = cusomCommands.get(key.getCommandKey());
+        IRPCCommand command = customCommands.get(key.getCommandKey());
+        return (T) command.doRPCCommand(socket, payload);
+    }
+
+    public <T> T runRegisterCommand(String key, HashMap<String, Object> payload){
+        if(!customCommands.containsKey(key)){
+            throw new IllegalArgumentException("Command with key:" + key + " inside the register command cache");
+        }
+        IRPCCommand command = customCommands.get(key);
         return (T) command.doRPCCommand(socket, payload);
     }
 

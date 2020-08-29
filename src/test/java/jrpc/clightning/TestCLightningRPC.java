@@ -24,6 +24,7 @@ import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
+import jrpc.util.TestUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -115,13 +116,8 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandTxPrepareOne() {
-        try {
-            BitcoinOutput bitcoinOutput = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-            CLightningRPC.getInstance().txPrepare(bitcoinOutput);
-            TestCase.fail();
-        } catch (CLightningException ex) {
-            TestCase.assertTrue(ex.getLocalizedMessage().contains("Cannot afford transaction"));
-        }
+        BitcoinOutput bitcoinOutput = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+        TestCase.assertNotNull(bitcoinOutput);
     }
 
     @Test
@@ -270,7 +266,7 @@ public class TestCLightningRPC {
     @Test
     public void testGetRouteOne() {
         try {
-             rpc.getRoute("0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6",
+            rpc.getRoute("0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6",
                     "2000", 0f);
             TestCase.fail();
         } catch (CLightningException exception) {
@@ -293,25 +289,25 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testListPaysOne(){
+    public void testListPaysOne() {
         CLightningListPays listPays = rpc.listPays();
         TestCase.assertNotNull(listPays.getPays());
     }
 
     @Test
-    public void testListSendPaymentsOne(){
+    public void testListSendPaymentsOne() {
         CLightningListSendPays payments = rpc.listSendPays();
         TestCase.assertNotNull(payments);
     }
 
     @Test
-    public void testListNodesOne(){
+    public void testListNodesOne() {
         CLightningListNodes listNodes = rpc.listNodes();
         TestCase.assertNotNull(listNodes);
     }
 
     @Test
-    public void testListNodesTwo(){
+    public void testListNodesTwo() {
         //Connect to node one
         String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
         rpc.connect(nodeId, "", "19735");
@@ -323,7 +319,7 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testPingOne(){
+    public void testPingOne() {
         String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
         rpc.connect(nodeId, "", "19735");
 
@@ -334,15 +330,26 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testListTransactionsOne(){
+    public void testListTransactionsOne() {
         CLightningListTransactions listTransactions = rpc.listTransactions();
         TestCase.assertNotNull(listTransactions);
     }
 
     @Test
-    public void testHelpOne(){
+    public void testHelpOne() {
         CLightningHelp help = rpc.help();
         TestCase.assertNotNull(help);
+    }
+
+    @Test
+    public void testFundPSBTOne() {
+        try{
+            CLightningFundPSBT fundPSBT = rpc.fundPSBT("1000msat", 1, 1);
+            TestCase.assertNotNull(fundPSBT);
+            TestCase.assertTrue(fundPSBT.getPsbt().length() > 20);
+        }catch (CLightningException exception){
+            TestCase.assertTrue(exception.getMessage().contains("Could not afford"));
+        }
     }
 
     //Custom command implemented inside lightning
@@ -356,6 +363,15 @@ public class TestCLightningRPC {
         PersonalDelPayRPCCommand paysCommand = new PersonalDelPayRPCCommand();
         rpc.registerCommand(CustomCommand.DELPAY, paysCommand);
         CLightningListPays result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
+        TestCase.assertNotNull(result);
+    }
+
+    @Test(expected = CommandException.class)
+    public void testCustomCommandDelPayWithAnnotation() {
+        HashMap<String, Object> payload = new HashMap<>();
+        payload.put("payment_hash", "YOUR_BOLT11");
+
+        CLightningListPays result = rpc.runRegisterCommand("delpay", payload);
         TestCase.assertNotNull(result);
     }
 }

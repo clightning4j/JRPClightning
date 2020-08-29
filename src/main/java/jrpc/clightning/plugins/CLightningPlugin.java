@@ -21,10 +21,10 @@ package jrpc.clightning.plugins;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
-import jrpc.clightning.plugins.annotation.Hook;
-import jrpc.clightning.plugins.annotation.PluginOption;
-import jrpc.clightning.plugins.annotation.RPCMethod;
-import jrpc.clightning.plugins.annotation.Subscription;
+import jrpc.clightning.annotation.Hook;
+import jrpc.clightning.annotation.PluginOption;
+import jrpc.clightning.annotation.RPCMethod;
+import jrpc.clightning.annotation.Subscription;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
@@ -201,8 +201,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     }
 
     private void registerMethodsWithAnnotation(){
-        for(Method method : reflections.getMethodsAnnotatedWith(jrpc.clightning.plugins.annotation.RPCMethod.class)){
-            if(method.isAnnotationPresent(jrpc.clightning.plugins.annotation.RPCMethod.class)){
+        for(Method method : reflections.getMethodsAnnotatedWith(jrpc.clightning.annotation.RPCMethod.class)){
+            if(method.isAnnotationPresent(jrpc.clightning.annotation.RPCMethod.class)){
                 RPCMethod annotation = method.getAnnotation(RPCMethod.class);
                 String name = annotation.name();
                 String description = annotation.description();

@@ -1,4 +1,4 @@
-package jrpc.clightning.plugins.annotation;
+package jrpc.clightning.annotation;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
