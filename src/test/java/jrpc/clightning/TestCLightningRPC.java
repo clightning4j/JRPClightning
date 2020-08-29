@@ -24,7 +24,6 @@ import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
-import jrpc.util.TestUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -70,7 +69,7 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInvoiceOne() {
         String label = "Hello this is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(1000, label, "description");
+        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("1000", label, "description");
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
         CLightningRPC.getInstance().delInvoice(label, "unpaid");
@@ -79,7 +78,7 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInvoiceTwo() {
         String label = "This is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(1000, label, "description", "1w");
+        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("1000", label, "description");
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
 
@@ -89,7 +88,7 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInvoiceThree() {
         String label = "This is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(100,
+        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("100",
                 label, "description", "1w",
                 new String[]{"2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"}, "", false);
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
@@ -106,12 +105,13 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetListInvoiceTwo() {
         String label = "This invice was created for test command listIncovoice";
-        CLightningInvoice invoice = CLightningRPC.getInstance().getInvoice(1000, label, "description", "1w");
-
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices("");
+        CLightningInvoice invoice = rpc
+                .invoice("1000", label, "description");
+        TestCase.assertNotNull(invoice);
+        CLightningListInvoices listInvoices = rpc.getListInvoices("");
         TestCase.assertEquals(1, listInvoices.getListInvoice().size());
+        rpc.delInvoice(label, "unpaid");
 
-        CLightningRPC.getInstance().delInvoice(label, "unpaid");
     }
 
     @Test

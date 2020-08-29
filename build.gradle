@@ -5,6 +5,8 @@ repositories {
     mavenCentral()
 }
 
+version = '0.1.6-SNAPSHOT'
+
 dependencies {
 
     implementation 'ch.qos.logback:logback-classic:1.2.3'
@@ -26,7 +28,7 @@ dependencies {
 }
 
 task copyLib(type: Copy){
-    from  "${project.buildDir}/libs/jrpclightning.jar" into '/home/vincent/Github/lightning-rest/libdev/'
+    from  "${project.buildDir}/libs/jrpclightning-${version}.jar" into '/home/vincent/Github/lightning-rest/libdev/'
 }
 
 jar {

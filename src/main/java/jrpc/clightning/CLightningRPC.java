@@ -137,30 +137,17 @@ public class CLightningRPC {
         return resultCommand.getP2shSegwit();
     }
 
-    public CLightningInvoice getInvoice(int mSatoshi, String label, String description) {
-        return this.getInvoice(mSatoshi, label, description, "", new String[]{}, "", false);
+    public CLightningInvoice invoice(String milliSatoshi, String label, String description) {
+        return this.invoice(milliSatoshi, label, description, "", new String[]{}, "", false);
     }
 
-    public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry) {
-        return this.getInvoice(mSatoshi, label, description, expiry, new String[]{}, "", false);
-    }
+    public CLightningInvoice invoice(String milliSatoshi, String label, String description, String expiry, String[] fallbacks, String preImage, boolean exposePrivateChannels) {
+        doCheckString("invoice", "milliSatoshi", milliSatoshi, false);
+        doCheckString("invoice", "description", description, false);
+        doCheckString("invoice", "expiry", expiry, true);
+        doCheckObjectNotNull("invoice", "expiry", fallbacks);
+        doCheckObjectNotNull("preImage", "preImage", fallbacks);
 
-    public CLightningInvoice getInvoice(int mSatoshi, String label, String description, String expiry, String[] fallbacks, String preImage, boolean exposePrivateChannels) {
-        if (label == null || label.isEmpty()) {
-            throw new CLightningException("The method getInvoice have the parameter label null");
-        }
-        if (description == null || description.trim().isEmpty()) {
-            throw new CLightningException("The method getInvoice have the parameter description null");
-        }
-        if (expiry == null) {
-            throw new CLightningException("The method getInvoice have the parameter expiry null");
-        }
-        if (fallbacks == null) {
-            throw new CLightningException("The method getInvoice have the parameter fallbacks null");
-        }
-        if (preImage == null) {
-            throw new CLightningException("The method getInvoice have the parameter preImage null");
-        }
         Map<String, Object> payload = new HashMap<>();
         if (!expiry.trim().isEmpty()) {
             payload.put("expiry", expiry);
@@ -174,13 +161,12 @@ public class CLightningRPC {
             payload.put("preimage", preImage);
         }
         payload.put("exposeprivatechannels", exposePrivateChannels);
-
-        payload.put("msatoshi", mSatoshi);
+        payload.put("msatoshi", milliSatoshi);
         payload.put("label", label);
         payload.put("description", description.trim());
-
         return (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payload);
     }
+
 
     public CLightningListInvoices getListInvoices(String label) {
         if (label == null) {
@@ -746,7 +732,7 @@ public class CLightningRPC {
         return (CLightningFundPSBT) mediatorCommand.runCommand(Command.FUNDPSBT, payload);
     }
 
-    public CLightningReserveInputs unReserveInputs(String psbt){
+    public CLightningReserveInputs unReserveInputs(String psbt) {
         doCheckString("unReserveInputs", "psbt", psbt, false);
         Map<String, Object> payload = new HashMap<>();
         payload.put("psbt", psbt);
@@ -778,6 +764,13 @@ public class CLightningRPC {
             } else if (value.isEmpty() && !onlyNull) {
                 message += " empty";
             }
+            throw new CLightningException(message);
+        }
+    }
+
+    private void doCheckObjectNotNull(String command, String name, Object value) {
+        if (value == null) {
+            String message = String.format("Propriety %s in command %s null", name, command);
             throw new CLightningException(message);
         }
     }
