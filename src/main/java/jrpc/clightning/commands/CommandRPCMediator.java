@@ -79,13 +79,13 @@ public class CommandRPCMediator {
         commands.put(Command.SIGNPSBT, new CLightningCommandSignPSBT());
         commands.put(Command.UNRESERVEINPUTS, new CLightningCommandUnreserveInputs());
 
-        try {
-            Map<String, IRPCCommand> commandWithAnnotation = ReflectionManager.getInstance().getCommandWithAnnotation();
-            this.customCommands.putAll(commandWithAnnotation);
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException e) {
-            CLightningLogger.getInstance().error(this.getClass(), e.getLocalizedMessage());
-            throw new CommandException(e.getCause());
-        }
+        Map<String, IRPCCommand> customCommandWithAnnotation = ReflectionManager.getInstance().getCustomCommandWithAnnotation();
+        this.customCommands.putAll(customCommandWithAnnotation);
+
+        /* TODO this don't work because the key insode the not custom command is a enum type!
+        Map<String, IRPCCommand> commandWithAnnotation = ReflectionManager.getInstance().getCommandWithAnnotation();
+        this.commands*/
+
     }
 
     @Deprecated

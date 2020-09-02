@@ -20,8 +20,7 @@ public class Option {
     protected String descriptionPlugin;
     protected boolean deprecated = false;
 
-    public Option() {
-    }
+    public Option() {  }
 
     public Option(JsonObject object) {
         this.namePlugin = object.get("name").getAsString();
@@ -44,7 +43,11 @@ public class Option {
     }
 
     public void setType(String type) {
-        this.type = type;
+        if(type.equals("null")){
+            this.type = null;
+        }else{
+            this.type = type;
+        }
     }
 
     public String getDefaultPropriety() {

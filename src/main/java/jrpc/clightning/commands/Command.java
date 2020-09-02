@@ -23,6 +23,8 @@ package jrpc.clightning.commands;
  */
 public enum Command implements ICommandKey{
 
+    NULL("NULL"), //Used to indicate that null value
+
     HELP("HELP"), // Supported
 
     // ---------- BITCOIN COMMANDS ---------------

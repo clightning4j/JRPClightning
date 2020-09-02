@@ -32,19 +32,21 @@ public class InitMethod extends AbstractRPCMethod {
         //This method change the url inside the configurator to set the personal path from plugin.
         CLightningConfigurator.getInstance().changeUrlRpcFile(rpcPath);
 
-        plugin.log(CLightningLevelLog.WARNING, jsonParams.toString());
+        plugin.log(CLightningLevelLog.WARNING, jsonParams);
         mappingParameters(plugin, jsonParams);
     }
 
+    //TODO I can bing this parameter with the direct propriety annotated!
     private void mappingParameters(ICLightningPlugin plugin, JsonObject jsonParams) {
         if(jsonParams == null){
             throw new IllegalArgumentException("jsonParams null");
         }
+        plugin.log(CLightningLevelLog.DEBUG, "-------------- Method mappingParameters with json object --------------");
+        plugin.log(CLightningLevelLog.DEBUG, jsonParams);
         if(jsonParams.has("options")){
             JsonObject options = jsonParams.getAsJsonObject("options");
-            options.keySet().forEach(key ->{
+            options.keySet().forEach(key -> {
                 JsonPrimitive value = options.get(key).getAsJsonPrimitive();
-                plugin.log(CLightningLevelLog.WARNING,value.toString());
                 if(value.isBoolean()){
                     plugin.addParameter(key, value.getAsBoolean());
                 }else if(value.isNumber()){
@@ -52,6 +54,9 @@ public class InitMethod extends AbstractRPCMethod {
                 }else{
                     plugin.addParameter(key, value.getAsString());
                 }
+                plugin.log(CLightningLevelLog.WARNING,
+                        String.format("Parameter with key %s equal to %s", key, plugin.getParameter(key) + "")
+                );
             });
         }
     }

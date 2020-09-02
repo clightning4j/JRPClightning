@@ -8,9 +8,10 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.FIELD)
 public @interface PluginOption {
-    public String name();
-    public String defValue() default "";
-    public String typeValue() default "string";
-    public String description();
-    public boolean deprecated() default false;
+    String name();
+    String description();
+    //TODO this option sholw have different type!
+    String defValue() default  "null";
+    String typeValue() default "string";
+    boolean deprecated() default false;
 }

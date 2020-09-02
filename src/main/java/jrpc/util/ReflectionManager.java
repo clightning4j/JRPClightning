@@ -5,6 +5,7 @@ import java.util.Map;
 
 import jrpc.clightning.annotation.RPCCommand;
 import jrpc.clightning.commands.IRPCCommand;
+import jrpc.clightning.exceptions.CLightningException;
 import jrpc.service.CLightningLogger;
 import org.reflections.Reflections;
 import org.reflections.scanners.FieldAnnotationsScanner;
@@ -33,14 +34,30 @@ public class ReflectionManager {
                     new TypeAnnotationsScanner(),
                     new SubTypesScanner()));
 
-    public Map<String, IRPCCommand> getCommandWithAnnotation() throws ClassNotFoundException, IllegalAccessException, InstantiationException {
+    public Map<String, IRPCCommand> getCustomCommandWithAnnotation(){
+        return getCommandAnnotated(true);
+    }
+
+    public Map<String, IRPCCommand> getCommandWithAnnotation(){
+        return getCommandAnnotated(false);
+    }
+
+    private Map<String, IRPCCommand> getCommandAnnotated(boolean custom){
         Map<String, IRPCCommand> commandsAnnotated = new HashMap<>();
         for(Class clazz : reflections.getTypesAnnotatedWith(RPCCommand.class)){
             if(clazz.isAnnotationPresent(RPCCommand.class)){
                 RPCCommand rpcCommand = (RPCCommand) clazz.getAnnotation(RPCCommand.class);
+                if(rpcCommand.custom() != custom) continue;
                 String key = rpcCommand.name();
                 CLightningLogger.getInstance().debug(this.getClass(), String.format("Command annotate with : %s", key));
-                IRPCCommand newInstance = (IRPCCommand) this.getClass().getClassLoader().loadClass(clazz.getCanonicalName()).newInstance();
+                IRPCCommand newInstance = null;
+                try {
+                    newInstance = (IRPCCommand) this.getClass().getClassLoader().loadClass(clazz.getCanonicalName()).newInstance();
+                } catch (InstantiationException |
+                        IllegalAccessException |
+                        ClassNotFoundException e) {
+                    throw new CLightningException(String.format("Error during load rpc method annotated with @RPCCommand \n", e.getLocalizedMessage()));
+                }
                 commandsAnnotated.put(key, newInstance);
             }
         }

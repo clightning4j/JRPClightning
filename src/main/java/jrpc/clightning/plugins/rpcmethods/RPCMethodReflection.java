@@ -31,9 +31,8 @@ public class RPCMethodReflection extends AbstractRPCMethod {
     public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         try {
             method.invoke(plugin, new Object[]{plugin, request, response});
-        } catch (ServiceException |
-                IllegalAccessException | InvocationTargetException exception) {
-            CLightningLogger.getInstance().error(TAG, exception.getLocalizedMessage());
+        } catch (Exception exception) {
+            CLightningLogger.getInstance().error(this.getClass(), exception.getLocalizedMessage());
             plugin.log(CLightningLevelLog.ERROR, exception.getLocalizedMessage());
             exception.printStackTrace();
         }

@@ -47,10 +47,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.StringTokenizer;
+import java.util.*;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -68,6 +65,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     @Expose
     private BufferedReader stdin;
     @Expose
+    private JsonConverter converter;
+    @Expose
     private Reflections reflections = new Reflections(new ConfigurationBuilder()
             .setUrls(ClasspathHelper.forPackage("jrpc.clightning.plugins"))
             .setScanners(new MethodAnnotationsScanner(), new FieldAnnotationsScanner()));
@@ -77,6 +76,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         this.stdin = new BufferedReader(new InputStreamReader(System.in));
         this.stdout = new BufferedWriter(new OutputStreamWriter(System.out));
         this.parameters = new HashMap<>();
+        this.converter = new JsonConverter();
     }
 
     public void addRPCMethod(AbstractRPCMethod method){
@@ -135,6 +135,15 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         return !object.has("id");
     }
 
+    public void log(CLightningLevelLog level, CLightningJsonObject json){
+        this.log(level, json.getWrapper());
+    }
+
+    public void log(CLightningLevelLog level, Object json){
+        String jsonString = converter.serialization(json);
+        this.log(level, jsonString);
+    }
+
     /**
      * This call should be enable also in RPC methods.
      * @param level level log, this class should be an instance of enum CLightningLevelLog
@@ -154,6 +163,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         payload.add("params", params.getWrapper());
         CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
 
+        //TODO! I don't like that this print each line that have a \n on more debig log
         StringTokenizer endLine = new StringTokenizer(logMessage, "\n");
         while (endLine.hasMoreTokens()){
             String line = endLine.nextToken();
@@ -283,11 +293,13 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
     public <T> T getParameter(String key){
         if(key == null || key.isEmpty()){
+            log(CLightningLevelLog.WARNING, "Parameter key is null or empty");
             throw new IllegalArgumentException("Key is null or empty");
         }
         if(parameters.containsKey(key)){
            return (T) parameters.get(key);
         }
+        log(CLightningLevelLog.WARNING, String.format("Parameter with key %s not found", key));
         return null;
     }
 

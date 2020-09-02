@@ -1,5 +1,7 @@
 package jrpc.clightning.plugins.log;
 
+//TODO this is used inside the plugin and I need to refactoring and make this internal
+//Only the plugin should be know the log level!
 public enum CLightningLevelLog {
     INFO("info"),
     DEBUG("debug"),

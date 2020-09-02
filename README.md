@@ -113,8 +113,8 @@ The library support now the plugins and you can subscribe the plugin to notify w
 ```
 
 ## Support
-For any additional support you can use this bitcoin address: ``
 If you like the library and want support it, please considerer to donate with the following system
+
 - [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
 - [3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU](bitcoin:3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU)
 - [Github support](https://github.com/sponsors/vincenzopalazzo)
