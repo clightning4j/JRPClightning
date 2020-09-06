@@ -11,8 +11,8 @@ import java.lang.annotation.Target;
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RPCMethod {
-    public String name();
-    public String description();
-    public String longDescription() default "";
-    public String parameter() default "";
+    String name();
+    String description();
+    String longDescription() default "";
+    String parameter() default "";
 }

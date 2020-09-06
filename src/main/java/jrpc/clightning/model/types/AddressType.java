@@ -19,6 +19,21 @@ package jrpc.clightning.model.types;
  * @author https://github.com/vincenzopalazzo
  */
 public enum AddressType {
-    P2SH_SEGWIT,
-    BECH32,
+    P2SH_SEGWIT("p2sh-segwit"),
+    BECH32("bech32");
+
+    private String value;
+
+    AddressType(String value) {
+        this.value = value;
+    }
+
+    public String getValue() {
+        return value;
+    }
+
+    @Override
+    public String toString() {
+        return value;
+    }
 }

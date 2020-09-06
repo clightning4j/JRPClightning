@@ -21,6 +21,7 @@ import jrpc.clightning.model.*;
 import jrpc.clightning.model.CLightningPayResult;
 import jrpc.clightning.model.types.*;
 import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
+import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
@@ -41,7 +42,7 @@ public class TestCLightningRPC {
 
     @Before
     public void cleanAll() {
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices();
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices();
         if (!listInvoices.getListInvoice().isEmpty()) {
             for (CLightningInvoice invoice : listInvoices.getListInvoice()) {
                 CLightningRPC.getInstance().delInvoice(invoice.getLabel(), invoice.getStatus());
@@ -98,7 +99,7 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandGetListInvoiceOne() {
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices("");
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices("");
         TestCase.assertNotNull(listInvoices.getListInvoice());
     }
 
@@ -108,7 +109,7 @@ public class TestCLightningRPC {
         CLightningInvoice invoice = rpc
                 .invoice("1000", label, "description");
         TestCase.assertNotNull(invoice);
-        CLightningListInvoices listInvoices = rpc.getListInvoices("");
+        CLightningListInvoices listInvoices = rpc.listInvoices("");
         TestCase.assertEquals(1, listInvoices.getListInvoice().size());
         rpc.delInvoice(label, "unpaid");
 
@@ -147,7 +148,7 @@ public class TestCLightningRPC {
     public void testCommandTxDiscardOne() {
         try {
             CLightningBitcoinTx txBitcoin = rpc.withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-            TestCase.fail();
+            TestCase.assertNotNull(txBitcoin.getTxId());
         } catch (CLightningException ex) {
             TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
         }
@@ -350,6 +351,15 @@ public class TestCLightningRPC {
         }catch (CLightningException exception){
             TestCase.assertTrue(exception.getMessage().contains("Could not afford"));
         }
+    }
+
+    @Test
+    public void testListConfigs(){
+        CLightningListConfigs configs = rpc.listConfigs();
+        TestCase.assertNotNull(configs);
+        TestCase.assertEquals("regtest", configs.getNetwork());
+        TestCase.assertEquals(CLightningConfigurator.getInstance().getSocketPath(),
+                configs.getLightningDir() + "/" + configs.getNetwork());
     }
 
     //Custom command implemented inside lightning

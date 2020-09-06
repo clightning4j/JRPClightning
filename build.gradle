@@ -5,10 +5,9 @@ repositories {
     mavenCentral()
 }
 
-version = '0.1.6-SNAPSHOT'
+version = '0.1.8-SNAPSHOT'
 
 dependencies {
-
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback:logback-core:1.2.3'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.25'

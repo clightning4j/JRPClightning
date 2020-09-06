@@ -3,24 +3,22 @@ package jrpc.clightning.plugins.exceptions;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class CLightningPluginException extends Exception{
+public class CLightningPluginException extends RuntimeException{
 
-    public CLightningPluginException() {
-    }
+    private int code;
+    private String errorMessage;
 
-    public CLightningPluginException(String message) {
+    public CLightningPluginException(int code, String message) {
         super(message);
+        this.code = code;
+        this.errorMessage = message;
     }
 
-    public CLightningPluginException(String message, Throwable cause) {
-        super(message, cause);
+    public int getCode() {
+        return code;
     }
 
-    public CLightningPluginException(Throwable cause) {
-        super(cause);
-    }
-
-    public CLightningPluginException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
-        super(message, cause, enableSuppression, writableStackTrace);
+    public String getErrorMessage() {
+        return errorMessage;
     }
 }

@@ -168,7 +168,7 @@ public class CLightningRPC {
     }
 
 
-    public CLightningListInvoices getListInvoices(String label) {
+    public CLightningListInvoices listInvoices(String label) {
         if (label == null) {
             throw new CLightningException("The method getListInvoices have the parameter label null");
         }
@@ -180,8 +180,8 @@ public class CLightningRPC {
         return (CLightningListInvoices) mediatorCommand.runCommand(Command.LISTINVOICE, payload);
     }
 
-    public CLightningListInvoices getListInvoices() {
-        return getListInvoices("");
+    public CLightningListInvoices listInvoices() {
+        return listInvoices("");
     }
 
     public CLightningInvoice delInvoice(String label, String status) {
@@ -737,6 +737,20 @@ public class CLightningRPC {
         Map<String, Object> payload = new HashMap<>();
         payload.put("psbt", psbt);
         return (CLightningReserveInputs) mediatorCommand.runCommand(Command.UNRESERVEINPUTS, payload);
+    }
+
+    public CLightningListConfigs listConfigs(String config){
+        doCheckString("listConfig", "config", config, true);
+        Map<String, Object> payload = new HashMap<>();
+        if(!config.trim().isEmpty()){
+            payload.put("config", config.trim());
+        }
+
+        return (CLightningListConfigs) mediatorCommand.runCommand(Command.LISTCONFIGS, payload);
+    }
+
+    public CLightningListConfigs listConfigs(){
+        return this.listConfigs("");
     }
 
     //Register commands

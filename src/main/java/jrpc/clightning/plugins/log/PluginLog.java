@@ -1,15 +1,14 @@
 package jrpc.clightning.plugins.log;
 
-@Deprecated
-public enum CLightningLevelLog {
-    INFO("info"),
+public enum PluginLog {
     DEBUG("debug"),
+    INFO("info"),
     WARNING("warn"),
     ERROR("error");
 
     private String level;
 
-    CLightningLevelLog(String level) {
+    PluginLog(String level) {
         this.level = level;
     }
 

@@ -25,7 +25,12 @@ import jrpc.clightning.annotation.Hook;
 import jrpc.clightning.annotation.PluginOption;
 import jrpc.clightning.annotation.RPCMethod;
 import jrpc.clightning.annotation.Subscription;
-import jrpc.clightning.plugins.log.CLightningLevelLog;
+import jrpc.clightning.model.CLightningListConfigs;
+import jrpc.clightning.model.types.CLightingPluginConfig;
+import jrpc.clightning.model.types.CLightningPluginConfModel;
+import jrpc.clightning.plugins.exceptions.CLightningPluginException;
+import jrpc.clightning.CLightningRPC;
+import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
@@ -67,8 +72,10 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     @Expose
     private JsonConverter converter;
     @Expose
+    protected CLightingPluginConfig configs;
+    @Expose
     private Reflections reflections = new Reflections(new ConfigurationBuilder()
-            .setUrls(ClasspathHelper.forPackage("jrpc.clightning.plugins"))
+            .setUrls(ClasspathHelper.forJavaClassPath())
             .setScanners(new MethodAnnotationsScanner(), new FieldAnnotationsScanner()));
 
     public CLightningPlugin() {
@@ -86,7 +93,6 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         CLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
         if(method.getType() == RPCMethodType.HOOK){
             this.manifest.addHook(method.getName());
-            log(CLightningLevelLog.WARNING, "ADD HOCK: " + method.getName());
         }
         this.manifest.addMethod(method);
     }
@@ -102,17 +108,18 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 }
                 CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
                 JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
-                log(CLightningLevelLog.WARNING, "Request: " +  object.toString());
                 if (!isRpcCall(object)) {
                     continue;
                 }
                 if(isNotification(object)){
                     CLightningJsonObject notificationRequest = new CLightningJsonObject(object);
+                    //TODO refactoring this inside the reflectionManager and add a list of methods inside this class
                     for(Method method : reflections.getMethodsAnnotatedWith(Subscription.class)){
                         if(method.isAnnotationPresent(Subscription.class)){
                             Subscription subscription = method.getAnnotation(Subscription.class);
                             String event = subscription.notification();
-                            if(notificationRequest.has(event)){
+                            String methodName = notificationRequest.get("method").getAsString();
+                            if(methodName.equals(event)){
                                 method.invoke(this, notificationRequest);
                             }
                         }
@@ -123,9 +130,17 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
             }
         } catch (IOException | ServiceException |
                 IllegalAccessException | InvocationTargetException ex) {
-            log(CLightningLevelLog.ERROR, ex.getLocalizedMessage());
             ex.printStackTrace();
+            log(PluginLog.ERROR, ex.getLocalizedMessage());
         }
+    }
+
+    public void setConfigs(CLightingPluginConfig configs) {
+        this.configs = configs;
+    }
+
+    public CLightingPluginConfig getConfigs() {
+        return configs;
     }
 
     private boolean isNotification(JsonObject object) {
@@ -135,11 +150,11 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         return !object.has("id");
     }
 
-    public void log(CLightningLevelLog level, CLightningJsonObject json){
+    public void log(PluginLog level, CLightningJsonObject json){
         this.log(level, json.getWrapper());
     }
 
-    public void log(CLightningLevelLog level, Object json){
+    public void log(PluginLog level, Object json){
         String jsonString = converter.serialization(json);
         this.log(level, jsonString);
     }
@@ -150,9 +165,9 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
      * @param logMessage log message should be the log message
      */
     @Override
-    public void log(CLightningLevelLog level, String logMessage) {
-        if(logMessage == null || logMessage.isEmpty()){
-            throw new IllegalArgumentException("Method log in Plugin class: Log message is null or empty");
+    public void log(PluginLog level, String logMessage) {
+        if(logMessage == null){
+            logMessage = "Message empty";
         }
         CLightningJsonObject payload = new CLightningJsonObject();
         CLightningJsonObject params = new CLightningJsonObject();
@@ -191,11 +206,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     }
 
     private void addOptionsWithAnnotation() {
-        log(CLightningLevelLog.WARNING, "add option annotated");
         for(Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)){
-            log(CLightningLevelLog.WARNING, "field annotated: " + field.getName());
             if(field.isAnnotationPresent(PluginOption.class)){
-                log(CLightningLevelLog.WARNING, "Find a plugin option");
                 PluginOption annotation = field.getAnnotation(PluginOption.class);
                 Option option = new Option();
                 //TODO pull the value directly from the annotation propriety
@@ -205,7 +217,6 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 option.setType(annotation.typeValue());
                 option.setDeprecated(annotation.deprecated());
                 this.manifest.addOption(option);
-                log(CLightningLevelLog.WARNING, option.getNamePlugin());
             }
         }
     }
@@ -259,7 +270,6 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         if (method == null || method.isEmpty()) {
             return;
         }
-        log(CLightningLevelLog.WARNING, method);
         CLightningLogger.getInstance().debug(TAG, "c-lightning calls for method: ++++++ " + method + " ++++++");
         for (AbstractRPCMethod rpcMethod : this.getRpcMethods()) {
             CLightningLogger.getInstance().debug(TAG, "Call method plugin ++++++ " + rpcMethod.getName() + " ++++++");
@@ -270,17 +280,26 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 CLightningJsonObject result = new CLightningJsonObject();
                 response.add("id", request.get("id"));
                 response.add("jsonrpc", request.get("jsonrpc"));
-                rpcMethod.doRun(this, new CLightningJsonObject(request), result);
+                try{
+                    rpcMethod.doRun(this, new CLightningJsonObject(request), result);
+                }catch (CLightningPluginException pluginException){
+                    returnWithAnError(result, pluginException.getCode(), pluginException.getErrorMessage());
+                    response.add("error", result.getWrapper());
+                }
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
-                //JsonElement jsonResult = (JsonElement) jsonConverter.deserialization(result, JsonElement.class);
-                CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
-                response.add("result", result.getWrapper());
+                if(!response.has("error")){
+                    response.add("result", result.getWrapper());
+                }
                 CLightningLogger.getInstance().debug(TAG, "******** final answer: " + response.toString());
-                log(CLightningLevelLog.WARNING, response.toString());
                 stdout.write(response.toString());
                 stdout.flush();
             }
         }
+    }
+
+    private void returnWithAnError(CLightningJsonObject response, int code, String message){
+        response.add("code", code);
+        response.add("message", message);
     }
 
     public void addSubscription(String event){
@@ -293,13 +312,13 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
     public <T> T getParameter(String key){
         if(key == null || key.isEmpty()){
-            log(CLightningLevelLog.WARNING, "Parameter key is null or empty");
+            log(PluginLog.ERROR, "Parameter key is null or empty");
             throw new IllegalArgumentException("Key is null or empty");
         }
         if(parameters.containsKey(key)){
            return (T) parameters.get(key);
         }
-        log(CLightningLevelLog.WARNING, String.format("Parameter with key %s not found", key));
+        log(PluginLog.ERROR, String.format("Parameter with key %s not found", key));
         return null;
     }
 

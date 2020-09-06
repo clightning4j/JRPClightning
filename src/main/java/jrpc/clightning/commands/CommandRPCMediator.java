@@ -82,9 +82,9 @@ public class CommandRPCMediator {
         Map<String, IRPCCommand> customCommandWithAnnotation = ReflectionManager.getInstance().getCustomCommandWithAnnotation();
         this.customCommands.putAll(customCommandWithAnnotation);
 
-        /* TODO this don't work because the key insode the not custom command is a enum type!
-        Map<String, IRPCCommand> commandWithAnnotation = ReflectionManager.getInstance().getCommandWithAnnotation();
-        this.commands*/
+        // TODO this don't work because the key insode the not custom command is a enum type!
+        Map<Command, IRPCCommand> commandWithAnnotation = ReflectionManager.getInstance().getCommandWithAnnotation();
+        this.commands.putAll(commandWithAnnotation);
 
     }
 

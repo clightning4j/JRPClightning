@@ -9,9 +9,8 @@ import java.lang.annotation.Target;
 
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.TYPE)
-//TODO look inside it! I need to know only one key??
 public @interface RPCCommand {
-    String name();
+    String name() default "null";
     boolean custom() default true;
     Command commandName() default Command.NULL;
 }

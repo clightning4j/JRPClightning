@@ -47,7 +47,7 @@ public class TestCommandRPCMediator {
     }
 
     private void cleanInvoice(){
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().getListInvoices();
+        CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices();
         for(CLightningInvoice invoice : listInvoices.getListInvoice()){
             CLightningRPC.getInstance().delInvoice(invoice.getLabel(), invoice.getStatus());
         }

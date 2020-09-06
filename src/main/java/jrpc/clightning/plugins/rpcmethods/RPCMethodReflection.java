@@ -1,8 +1,6 @@
 package jrpc.clightning.plugins.rpcmethods;
 
-import jrpc.clightning.plugins.log.CLightningLevelLog;
-import jrpc.exceptions.ServiceException;
-import jrpc.service.CLightningLogger;
+import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import jrpc.clightning.plugins.ICLightningPlugin;
 
@@ -31,10 +29,9 @@ public class RPCMethodReflection extends AbstractRPCMethod {
     public void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
         try {
             method.invoke(plugin, new Object[]{plugin, request, response});
-        } catch (Exception exception) {
-            CLightningLogger.getInstance().error(this.getClass(), exception.getLocalizedMessage());
-            plugin.log(CLightningLevelLog.ERROR, exception.getLocalizedMessage());
-            exception.printStackTrace();
+        } catch (IllegalAccessException | InvocationTargetException e) {
+            e.printStackTrace();
+            plugin.log(PluginLog.ERROR, e.getMessage());
         }
     }
 }

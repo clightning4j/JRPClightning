@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import jrpc.clightning.annotation.RPCCommand;
+import jrpc.clightning.commands.Command;
 import jrpc.clightning.commands.IRPCCommand;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.service.CLightningLogger;
@@ -38,19 +39,24 @@ public class ReflectionManager {
         return getCommandAnnotated(true);
     }
 
-    public Map<String, IRPCCommand> getCommandWithAnnotation(){
+    public Map<Command, IRPCCommand> getCommandWithAnnotation(){
         return getCommandAnnotated(false);
     }
 
-    private Map<String, IRPCCommand> getCommandAnnotated(boolean custom){
-        Map<String, IRPCCommand> commandsAnnotated = new HashMap<>();
+    private <T> T getCommandAnnotated(boolean custom){
+        Map<Object, IRPCCommand> commandsAnnotated = new HashMap<>();
         for(Class clazz : reflections.getTypesAnnotatedWith(RPCCommand.class)){
             if(clazz.isAnnotationPresent(RPCCommand.class)){
                 RPCCommand rpcCommand = (RPCCommand) clazz.getAnnotation(RPCCommand.class);
                 if(rpcCommand.custom() != custom) continue;
-                String key = rpcCommand.name();
+                Object key;
+                if(custom){
+                    key = rpcCommand.name();
+                }else{
+                    key = rpcCommand.commandName();
+                }
                 CLightningLogger.getInstance().debug(this.getClass(), String.format("Command annotate with : %s", key));
-                IRPCCommand newInstance = null;
+                IRPCCommand newInstance;
                 try {
                     newInstance = (IRPCCommand) this.getClass().getClassLoader().loadClass(clazz.getCanonicalName()).newInstance();
                 } catch (InstantiationException |
@@ -63,7 +69,7 @@ public class ReflectionManager {
         }
         CLightningLogger.getInstance().debug(this.getClass(),
                 String.format("getCommandWithAnnotation return with %d new methods", commandsAnnotated.size()));
-        return commandsAnnotated;
+        return (T) commandsAnnotated;
     }
 
 }

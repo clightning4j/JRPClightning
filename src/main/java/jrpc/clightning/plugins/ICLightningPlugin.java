@@ -1,8 +1,9 @@
 package jrpc.clightning.plugins;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonPrimitive;
+import jrpc.clightning.model.CLightningListConfigs;
+import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
+import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
@@ -25,13 +26,17 @@ public interface ICLightningPlugin {
 
     boolean isDynamic();
 
-    void log(CLightningLevelLog level, String logMessage);
+    void log(PluginLog level, String logMessage);
 
-    void log(CLightningLevelLog level, CLightningJsonObject json);
+    void log(PluginLog level, CLightningJsonObject json);
 
-    void log(CLightningLevelLog level, Object json);
+    void log(PluginLog level, Object json);
 
     void addParameter(String key, Object value);
+
+    void setConfigs(CLightingPluginConfig config);
+
+    CLightingPluginConfig getConfigs();
 
     <T> T getParameter(String key);
 

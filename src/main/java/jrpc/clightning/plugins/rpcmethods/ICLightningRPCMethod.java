@@ -1,5 +1,6 @@
 package jrpc.clightning.plugins.rpcmethods;
 
+import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
@@ -8,7 +9,8 @@ import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
  */
 public interface ICLightningRPCMethod {
 
-    void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response);
+    void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response)
+            throws CLightningException;
 
     String getName();
 

@@ -2,8 +2,6 @@ package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
-import jrpc.clightning.CLightningConstant;
-import jrpc.clightning.model.CLightningProprietiesMediator;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
@@ -42,8 +40,6 @@ public class ManifestMethod extends AbstractRPCMethod {
         JsonConverter converter = new JsonConverter();
         JsonObject getManifest = (JsonObject) converter.deserialization(converter.serialization(this), JsonObject.class);
         response.mapping(getManifest);
-        plugin.log(CLightningLevelLog.DEBUG, "----------- getmanifest response -------");
-        plugin.log(CLightningLevelLog.DEBUG, response);
     }
 
     public void addFeature(String node, String channel, String init, String invoice){

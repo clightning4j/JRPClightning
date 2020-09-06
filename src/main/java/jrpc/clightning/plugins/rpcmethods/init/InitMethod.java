@@ -2,11 +2,15 @@ package jrpc.clightning.plugins.rpcmethods.init;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
+import jrpc.clightning.model.CLightningListConfigs;
+import jrpc.clightning.CLightningRPC;
+import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;
+import jrpc.service.converters.JsonConverter;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 /**
@@ -26,13 +30,13 @@ public class InitMethod extends AbstractRPCMethod {
         CLightningLogger.getInstance().debug(TAG, "***** Json Object  " + request.toString() + " *****");
         JsonObject jsonParams = (JsonObject) request.get("params");
         JsonObject config = (JsonObject) jsonParams.get("configuration");
-        CLightningLogger.getInstance().debug(TAG, "***** Config propriety " + config.toString() + " *****");
-        String rpcPath = config.get("lightning-dir").getAsString() + "/" + config.get("rpc-file").getAsString();
-        CLightningLogger.getInstance().debug(TAG, "***** Method init rpc file path " + rpcPath + " *****");
+        JsonConverter converter = new JsonConverter();
+        CLightingPluginConfig pluginConf = (CLightingPluginConfig) converter.deserialization(
+                converter.serialization(config), CLightingPluginConfig.class);
+        plugin.setConfigs(pluginConf);
+        String rpcPath = pluginConf.getLightningDir() + "/" + pluginConf.getRpcFile();
         //This method change the url inside the configurator to set the personal path from plugin.
         CLightningConfigurator.getInstance().changeUrlRpcFile(rpcPath);
-
-        plugin.log(CLightningLevelLog.WARNING, jsonParams);
         mappingParameters(plugin, jsonParams);
     }
 
@@ -41,8 +45,6 @@ public class InitMethod extends AbstractRPCMethod {
         if(jsonParams == null){
             throw new IllegalArgumentException("jsonParams null");
         }
-        plugin.log(CLightningLevelLog.DEBUG, "-------------- Method mappingParameters with json object --------------");
-        plugin.log(CLightningLevelLog.DEBUG, jsonParams);
         if(jsonParams.has("options")){
             JsonObject options = jsonParams.getAsJsonObject("options");
             options.keySet().forEach(key -> {
@@ -54,9 +56,6 @@ public class InitMethod extends AbstractRPCMethod {
                 }else{
                     plugin.addParameter(key, value.getAsString());
                 }
-                plugin.log(CLightningLevelLog.WARNING,
-                        String.format("Parameter with key %s equal to %s", key, plugin.getParameter(key) + "")
-                );
             });
         }
     }
