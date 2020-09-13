@@ -25,9 +25,7 @@ import jrpc.clightning.annotation.Hook;
 import jrpc.clightning.annotation.PluginOption;
 import jrpc.clightning.annotation.RPCMethod;
 import jrpc.clightning.annotation.Subscription;
-import jrpc.clightning.model.CLightningListConfigs;
 import jrpc.clightning.model.types.CLightingPluginConfig;
-import jrpc.clightning.model.types.CLightningPluginConfModel;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
 import jrpc.clightning.CLightningRPC;
 import jrpc.clightning.plugins.log.PluginLog;
@@ -285,6 +283,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 }catch (CLightningPluginException pluginException){
                     returnWithAnError(result, pluginException.getCode(), pluginException.getErrorMessage());
                     response.add("error", result.getWrapper());
+                    log(PluginLog.ERROR, pluginException.getErrorMessage());
                 }
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
                 if(!response.has("error")){
@@ -318,7 +317,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         if(parameters.containsKey(key)){
            return (T) parameters.get(key);
         }
-        log(PluginLog.ERROR, String.format("Parameter with key %s not found", key));
+        log(PluginLog.WARNING, String.format("Parameter with key %s not found", key));
         return null;
     }
 

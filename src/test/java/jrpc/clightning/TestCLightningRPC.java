@@ -98,6 +98,20 @@ public class TestCLightningRPC {
     }
 
     @Test
+    public void testCommandGetInvoiceFour() {
+        String label = "Hello this is an test " + Math.random();
+        CLightningInvoice invoice = rpc.invoice("1000", label, "description");
+        TestCase.assertNotNull(invoice.getBolt11());
+        TestCase.assertNotNull(invoice.getStatus());
+        TestCase.assertNotNull(invoice.getmSatoshi());
+        TestCase.assertNotNull(invoice.getBolt11());
+        TestCase.assertNotNull(invoice.getExpiresAt());
+        TestCase.assertNotNull(invoice.getDescription());
+        TestCase.assertNotNull(invoice.getPaymentHash());
+        rpc.delInvoice(label, invoice.getStatus());
+    }
+
+    @Test
     public void testCommandGetListInvoiceOne() {
         CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices("");
         TestCase.assertNotNull(listInvoices.getListInvoice());

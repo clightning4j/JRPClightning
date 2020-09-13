@@ -22,7 +22,7 @@ public class NetworkAddresses {
 
     private String type;
     private String address;
-    private String port;
+    private int port;
 
     public String getType() {
         return type;
@@ -32,7 +32,7 @@ public class NetworkAddresses {
         return address;
     }
 
-    public String getPort() {
+    public int getPort() {
         return port;
     }
 }

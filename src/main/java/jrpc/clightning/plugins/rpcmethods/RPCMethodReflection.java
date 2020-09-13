@@ -30,8 +30,8 @@ public class RPCMethodReflection extends AbstractRPCMethod {
         try {
             method.invoke(plugin, new Object[]{plugin, request, response});
         } catch (IllegalAccessException | InvocationTargetException e) {
+            plugin.log(PluginLog.ERROR, e.getLocalizedMessage());
             e.printStackTrace();
-            plugin.log(PluginLog.ERROR, e.getMessage());
         }
     }
 }
