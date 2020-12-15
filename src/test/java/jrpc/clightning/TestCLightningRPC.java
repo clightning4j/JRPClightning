@@ -42,17 +42,17 @@ public class TestCLightningRPC {
 
     @Before
     public void cleanAll() {
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices();
+        CLightningListInvoices listInvoices = rpc.listInvoices();
         if (!listInvoices.getListInvoice().isEmpty()) {
             for (CLightningInvoice invoice : listInvoices.getListInvoice()) {
-                CLightningRPC.getInstance().delInvoice(invoice.getLabel(), invoice.getStatus());
+                rpc.delInvoice(invoice.getLabel(), invoice.getStatus());
             }
         }
     }
 
     @Test
     public void testCommandGetInfo() {
-        CLightningGetInfo infoNode = CLightningRPC.getInstance().getInfo();
+        CLightningGetInfo infoNode = rpc.getInfo();
         String id = infoNode.getId();
         String color = infoNode.getColor();
         System.out.println("id=" + id);
@@ -62,7 +62,7 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandNewAddress() {
-        String newAddress = CLightningRPC.getInstance().getNewAddress(AddressType.BECH32);
+        String newAddress = rpc.getNewAddress(AddressType.BECH32);
         CLightningLogger.getInstance().debug(TAG, "Address: " + newAddress);
         TestCase.assertFalse(newAddress.isEmpty());
     }
@@ -70,31 +70,31 @@ public class TestCLightningRPC {
     @Test
     public void testCommandGetInvoiceOne() {
         String label = "Hello this is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("1000", label, "description");
+        CLightningInvoice invoice = rpc.invoice("1000", label, "description");
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
-        CLightningRPC.getInstance().delInvoice(label, "unpaid");
+        rpc.delInvoice(label, "unpaid");
     }
 
     @Test
     public void testCommandGetInvoiceTwo() {
         String label = "This is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("1000", label, "description");
+        CLightningInvoice invoice = rpc.invoice("1000", label, "description");
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
 
-        CLightningRPC.getInstance().delInvoice(label, "unpaid");
+        rpc.delInvoice(label, "unpaid");
     }
 
     @Test
     public void testCommandGetInvoiceThree() {
         String label = "This is an test " + Math.random();
-        CLightningInvoice invoice = CLightningRPC.getInstance().invoice("100",
+        CLightningInvoice invoice = rpc.invoice("100",
                 label, "description", "1w",
                 new String[]{"2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"}, "", false);
         CLightningLogger.getInstance().debug(TAG, "invoice: " + invoice.getBolt11());
         TestCase.assertNotNull(invoice.getBolt11());
-        CLightningRPC.getInstance().delInvoice(label, "unpaid");
+        rpc.delInvoice(label, "unpaid");
     }
 
     @Test
@@ -113,7 +113,7 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandGetListInvoiceOne() {
-        CLightningListInvoices listInvoices = CLightningRPC.getInstance().listInvoices("");
+        CLightningListInvoices listInvoices = rpc.listInvoices("");
         TestCase.assertNotNull(listInvoices.getListInvoice());
     }
 
@@ -138,10 +138,11 @@ public class TestCLightningRPC {
     @Test
     public void testCommandTxPrepareTwo() {
         try {
-            BitcoinOutput bitcoinOutputOne = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-            BitcoinOutput bitcoinOutputTwo = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-            BitcoinOutput bitcoinOutputThree = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-            rpc.txPrepare(bitcoinOutputOne, bitcoinOutputTwo, bitcoinOutputThree);
+            BitcoinOutput bitcoinOutputOne = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "100");
+            BitcoinOutput bitcoinOutputTwo = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "100");
+            BitcoinOutput bitcoinOutputThree = new BitcoinOutput("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "100");
+            CLightningBitcoinTx bitcoinTx = rpc.txPrepare(bitcoinOutputOne, bitcoinOutputTwo, bitcoinOutputThree);
+            rpc.txDiscard(bitcoinTx.getTxId());
             TestCase.fail();
         } catch (CLightningException ex) {
             TestCase.assertTrue(ex.getLocalizedMessage().contains("this destination wants all satoshi."));
@@ -151,7 +152,7 @@ public class TestCLightningRPC {
     @Test
     public void testCommandWithDrawOne() {
         try {
-            CLightningBitcoinTx txBitcoin = rpc.withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+            rpc.withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
             TestCase.fail();
         } catch (CLightningException ex) {
             TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
@@ -376,16 +377,15 @@ public class TestCLightningRPC {
                 configs.getLightningDir() + "/" + configs.getNetwork());
     }
 
-    //Custom command implemented inside lightning
-    //This command work only with the follow for of c-lightining
-    //https://github.com/vincenzopalazzo/lightning
+    //This command is available inside the lightning project
+    // from version 0.9.1
     @Test(expected = CommandException.class)
     public void testCustomCommandDelPay() {
         HashMap<String, Object> payload = new HashMap<>();
         payload.put("payment_hash", "YOUR_BOLT11");
-
         PersonalDelPayRPCCommand paysCommand = new PersonalDelPayRPCCommand();
         rpc.registerCommand(CustomCommand.DELPAY, paysCommand);
+
         CLightningListPays result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
         TestCase.assertNotNull(result);
     }

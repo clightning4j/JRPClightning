@@ -5,7 +5,8 @@ repositories {
     mavenCentral()
 }
 
-version = '0.1.8-SNAPSHOT'
+version = VERSION
+group = GROUP_ID
 
 dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
@@ -31,7 +32,20 @@ task copyLib(type: Copy){
 }
 
 jar {
+    archiveVersion.set(VERSION as String)
+
+    inputs.property("moduleName", MODULE_NAME)
+
+    manifest {
+        attributes 'Automatic-Module-Name': MODULE_NAME
+    }
+}
+
+task jarWithDependencies(type: Jar) {
+    archiveVersion.set(VERSION as String)
+    archiveClassifier.set('with-dependencies')
     from {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
+    with jar
 }

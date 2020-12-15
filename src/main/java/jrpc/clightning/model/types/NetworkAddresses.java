@@ -15,6 +15,8 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 /**
  * @author https://github.com/vincenzopalazzo
  */
@@ -34,5 +36,14 @@ public class NetworkAddresses {
 
     public int getPort() {
         return port;
+    }
+
+    /**
+     * This method check if the object is fill from the json
+     * or the propriety inside the json was empty
+     * @return return true if the the object is good formed
+     */
+    public boolean isValid(){
+        return type != null && address != null;
     }
 }

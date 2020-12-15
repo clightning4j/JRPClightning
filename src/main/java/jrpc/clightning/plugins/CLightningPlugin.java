@@ -106,6 +106,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 }
                 CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
                 JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
+                log(PluginLog.WARNING, object);
                 if (!isRpcCall(object)) {
                     continue;
                 }

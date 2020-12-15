@@ -19,6 +19,7 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -71,5 +72,10 @@ public class CLightingPluginConfig {
 
     public boolean isUseProxyAlway() {
         return useProxyAlway;
+    }
+
+    public boolean isProxyEnabled() {
+        boolean proxyExist = proxy != null;
+        return proxyExist && proxy.isValid();
     }
 }
