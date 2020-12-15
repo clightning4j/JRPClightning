@@ -1,0 +1,18 @@
+#!/bin/bash
+
+echo ''
+echo 'run procedure to run two node lightning'
+echo ''
+
+DIR=/media/vincent/Maxtor/sanboxTestWrapperRPC
+
+cd clightning-v0.8.2.1-Ubuntu-18.04/bin
+./lightningd --lightning-dir=$DIR/lightning_dir_one --daemon --log-file=$DIR/lightning_dir_one/log.txt
+echo 'ran first node'
+echo 'The info is'
+./lightning-cli --lightning-dir=$DIR/lightning_dir_one getinfo
+./lightningd --lightning-dir=$DIR/lightning_dir_two --daemony
+ --log-file=$DIR/lightning_dir_two/log.txt
+echo 'ran node two'
+echo 'the info was'
+./lightning-cli --lightning-dir=$DIR/lightning_dir_two getinfo
