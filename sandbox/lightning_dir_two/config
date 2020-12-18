@@ -1,10 +1,10 @@
 #config c-lightning
 network=regtest
-alias=YELLOWSUCKER_TES_ONE
+alias=YELLOWSUCKER_TES_TWO
 rgb=03ad98
 
-#Config node testnet
-bind-addr=127.0.0.1:19735
+#Config node testner
+bind-addr=jrcplightning:19736
 
 #config bitcoin core
 bitcoin-cli=/workdir/sandbox/bitcoin-0.20.0/bin/bitcoin-cli

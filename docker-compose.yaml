@@ -4,3 +4,4 @@ services:
   jrcplightning:
     build:
       .
+    network_mode: host
