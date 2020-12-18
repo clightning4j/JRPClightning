@@ -1,0 +1,26 @@
+
+
+
+
+
+2019-12-27T13:37:05Z Bitcoin Core version v0.19.0.1 (release build)
+2019-12-27T13:37:05Z Assuming ancestors of block 00000000000000000005f8920febd3925f8272a6a71237563d78c2edfdd09ddf have valid signatures.
+2019-12-27T13:37:05Z Setting nMinimumChainWork=000000000000000000000000000000000000000008ea3cf107ae0dec57f03fe8
+2019-12-27T13:37:05Z Using the 'sse4(1way),sse41(4way),avx2(8way)' SHA256 implementation
+2019-12-27T13:37:05Z Using RdSeed as additional entropy source
+2019-12-27T13:37:05Z Using RdRand as an additional entropy source
+2019-12-27T13:37:07Z Default data directory /home/vincenzo/.bitcoin
+2019-12-27T13:37:07Z Using data directory /media/vincenzo/Maxtor/sanboxTestWrapperRPC/bitcoin_dir
+2019-12-27T13:37:07Z Config file: /media/vincenzo/Maxtor/sanboxTestWrapperRPC/bitcoin_dir/bitcoin.conf (not found, skipping)
+2019-12-27T13:37:08Z Using at most 125 automatic connections (1024 file descriptors available)
+2019-12-27T13:37:08Z Using 16 MiB out of 32/2 requested for signature cache, able to store 524288 elements
+2019-12-27T13:37:08Z Using 16 MiB out of 32/2 requested for script execution cache, able to store 524288 elements
+2019-12-27T13:37:08Z Using 4 threads for script verification
+2019-12-27T13:37:08Z scheduler thread start
+2019-12-27T13:37:08Z Binding RPC on address ::1 port 8332 failed.
+2019-12-27T13:37:08Z Binding RPC on address 127.0.0.1 port 8332 failed.
+2019-12-27T13:37:08Z Unable to bind any endpoint for RPC server
+2019-12-27T13:37:08Z Error: Unable to start HTTP server. See debug log for details.
+2019-12-27T13:37:08Z Shutdown: In progress...
+2019-12-27T13:37:08Z scheduler thread interrupt
+2019-12-27T13:37:09Z Shutdown: done
