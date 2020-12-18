@@ -1,12 +1,9 @@
 #!/bin/bash
 
-echo 'Sandbox Bitcoin core'
-echo ''
-echo 'author: https://github.com/vincenzopalazzo'
-echo 'descriptions: This sanbox is builded for test https://github.com/vincenzopalazzo/JRPClightning'
-
+echo 'generate bitcoin'
 DIR=/workdir/sandbox
-address="$(bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir getnewaddress)"
+# -regtest -datadir=$DIR/bitcoin_di
+address="$(bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir --rpcbind=172.60.0.1 getnewaddress)"
 echo "Generate to ${address}"
 bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir generatetoaddress 1000 "${address}"
 

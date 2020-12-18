@@ -1,5 +1,7 @@
 #!/bin/bash
 
+echo 'run c-lightning'
+
 DIR=/workdir/sandbox
 
 lightningd --lightning-dir=$DIR/lightning_dir_one --daemon
