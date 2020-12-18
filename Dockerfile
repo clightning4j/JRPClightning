@@ -26,4 +26,4 @@ RUN ["chmod", "+x", "/workdir/sandbox/run-bitcoin.sh"]
 RUN ["chmod", "+x", "/workdir/sandbox/generate-block-bitcoin.sh"]
 RUN ["chmod", "+x", "/workdir/sandbox/run-clightning.sh"]
 
-CMD ["/workdir/sandbox/entrypoint.sh"]
+ENTRYPOINT ["/workdir/sandbox/entrypoint.sh"]
