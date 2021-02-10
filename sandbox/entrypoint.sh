@@ -1,4 +1,4 @@
 #!/bin/bash
-bash run-bitcoin.sh
-bash generate-block-bitcoin.sh
-bash run-clightning.sh
+./run-bitcoin.sh
+./generate-block-bitcoin.sh
+./run-clightning.sh

@@ -20,11 +20,5 @@ COPY sandbox .
 
 RUN chmod +x *.sh
 RUN ls -l
-RUN ./run-bitcoin.sh
-RUN bitcoin-cli -regtest -datadir=/workdir/bitcoin_dir getblockchaininfo
-RUN ./generate-block-bitcoin.sh
-RUN ./run-clightning.sh
 
-COPY . .
-
-RUN ./gralew build
+CMD ["./entrypoint.sh"]
