@@ -1,9 +1,9 @@
 #!/bin/bash
 
 echo 'generate bitcoin'
-DIR=/workdir/sandbox
+DIR=/workdir
 # -regtest -datadir=$DIR/bitcoin_di
-address="$(bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir --rpcbind=172.60.0.1 getnewaddress)"
+address="$(bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir getnewaddress)"
 echo "Generate to ${address}"
 bitcoin-cli -regtest -datadir=$DIR/bitcoin_dir generatetoaddress 1000 "${address}"
 

@@ -1,6 +1,4 @@
 #!/bin/bash
-cd sandbox
-./run-bitcoin.sh
-./generate-block-bitcoin.sh
-./run-clightning.sh
-cd ..
+bash run-bitcoin.sh
+bash generate-block-bitcoin.sh
+bash run-clightning.sh

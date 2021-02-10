@@ -4,12 +4,3 @@ services:
   jrcplightning:
     build:
       .
-    networks:
-      - jrcplightning_network
-networks:
-  jrcplightning_network:
-    driver_opts:
-        com.docker.network.bridge.host_binding_ipv4: "172.60.0.1"
-    ipam:
-      config:
-        - subnet: "172.60.0.0/16"
