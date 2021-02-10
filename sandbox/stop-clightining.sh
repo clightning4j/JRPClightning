@@ -4,7 +4,7 @@ echo ''
 echo 'Run procedure to run two node lightning'
 echo ''
 
-DIR=/workdir/sandbox
+DIR=/workdir
 
 lightning-cli --lightning-dir=$DIR/lightning_dir_one stop
 echo 'stop first node'
