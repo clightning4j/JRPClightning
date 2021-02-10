@@ -7,7 +7,6 @@ rgb=03ad98
 bind-addr=0.0.0.0:19735
 
 #config bitcoin core
-#bitcoin-cli=/workdir/bitcoin-0.20.0/bin/bitcoin-cli
 bitcoin-datadir=/workdir/bitcoin_dir
 bitcoin-rpcuser=sandbox
 bitcoin-rpcpassword=sandbox
