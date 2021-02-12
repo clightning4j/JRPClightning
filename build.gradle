@@ -25,7 +25,7 @@ dependencies {
 }
 
 task copyLib(type: Copy){
-    from  "${project.buildDir}/libs/jrpclightning-${version}.jar" into '/home/vincent/Github/lightning-rest/libdev/'
+    from  "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/btcli4j/devlib'
 }
 
 test {
@@ -37,7 +37,6 @@ test {
 
 jar {
     archiveVersion.set(VERSION as String)
-
     inputs.property("moduleName", MODULE_NAME)
 
     manifest {
