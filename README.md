@@ -1,6 +1,5 @@
 # :zap: JRPClightning :zap:
-![GitHub All Releases](https://img.shields.io/github/downloads/vincenzopalazzo/JRPClightning/total?color=%23ff5722&style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/vincenzopalazzo/JRPClightning?color=%23ff5722&style=for-the-badge)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=for-the-badge)
 
 <p align="center">
     <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">

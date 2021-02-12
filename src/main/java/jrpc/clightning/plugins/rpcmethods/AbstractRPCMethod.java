@@ -1,17 +1,17 @@
 /**
  * This is a wrapper for c-lightning RPC interface.
  * Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -23,14 +23,10 @@ import com.google.gson.annotations.SerializedName;
 import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
 
-import java.util.HashMap;
-import java.util.Map;
-
-
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public abstract class AbstractRPCMethod implements ICLightningRPCMethod{
+public abstract class AbstractRPCMethod implements ICLightningRPCMethod {
 
     protected String name;
     protected String usage;
@@ -56,14 +52,12 @@ public abstract class AbstractRPCMethod implements ICLightningRPCMethod{
         this.type = type;
     }
 
-
     @Override
     public String toString() {
         IConverter converter = new JsonConverter();
         return converter.serialization(this);
     }
 
-    //Getter
     public String getName() {
         return name;
     }
