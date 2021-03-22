@@ -2,11 +2,8 @@ package jrpc.clightning.plugins.rpcmethods.init;
 
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
-import jrpc.clightning.model.CLightningListConfigs;
-import jrpc.clightning.CLightningRPC;
 import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;

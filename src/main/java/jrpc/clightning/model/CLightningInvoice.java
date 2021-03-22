@@ -22,18 +22,24 @@ import com.google.gson.annotations.SerializedName;
  */
 public class CLightningInvoice {
 
+    // Propriety inside the invoice command
     @SerializedName("payment_hash")
     private String paymentHash;
     @SerializedName("expires_at")
     private String expiresAt;
     private String bolt11;
-    @SerializedName("warning_capacity")
-    private String warningCapacity;
+    @SerializedName("warning_mpp")
+    private String warningMpp;
+    @SerializedName("warning_mpp_capacity")
+    private String warningMppCapacity;
+
+    // Get information inside the commadn listinvoices
     private String label;
-    @SerializedName("msatoshi")
-    private String mSatoshi;
-    private String status;
     private String description;
+    private String status;
+    @SerializedName("msatoshi")
+    private String milliSatoshi;
+
 
     public String getPaymentHash() {
         return paymentHash;
@@ -47,16 +53,20 @@ public class CLightningInvoice {
         return bolt11;
     }
 
-    public String getWarningCapacity() {
-        return warningCapacity;
+    public String getWarningMpp() {
+        return warningMpp;
+    }
+
+    public String getWarningMppCapacity() {
+        return warningMppCapacity;
     }
 
     public String getLabel() {
         return label;
     }
 
-    public String getmSatoshi() {
-        return mSatoshi;
+    public String getMilliSatoshi() {
+        return milliSatoshi;
     }
 
     public String getStatus() {

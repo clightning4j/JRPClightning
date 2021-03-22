@@ -14,7 +14,7 @@ public class CLightningNode {
     @SerializedName("last_timestamp")
     private BigInteger lastTimestamp;
     private String features;
-    private List<NetworkAddresses> addresses;
+    private List<NetworkAddress> addresses;
 
     // getter
     public String getNodeId() {
@@ -37,7 +37,7 @@ public class CLightningNode {
         return features;
     }
 
-    public List<NetworkAddresses> getAddresses() {
+    public List<NetworkAddress> getAddresses() {
         return addresses;
     }
 }

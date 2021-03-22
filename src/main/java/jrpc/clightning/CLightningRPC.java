@@ -141,7 +141,8 @@ public class CLightningRPC {
         return this.invoice(milliSatoshi, label, description, "", new String[]{}, "", false);
     }
 
-    public CLightningInvoice invoice(String milliSatoshi, String label, String description, String expiry, String[] fallbacks, String preImage, boolean exposePrivateChannels) {
+    public CLightningInvoice invoice(String milliSatoshi, String label, String description, String expiry, String[] fallbacks,
+                                     String preImage, boolean exposePrivateChannels) {
         doCheckString("invoice", "milliSatoshi", milliSatoshi, false);
         doCheckString("invoice", "description", description, false);
         doCheckString("invoice", "expiry", expiry, true);
@@ -188,7 +189,7 @@ public class CLightningRPC {
         if (label == null) {
             throw new CLightningException("The method getListInvoices have the parameter label null");
         }
-        if (status == null || status.isEmpty()) {
+        if (status == null) {
             throw new CLightningException("The method getListInvoices have the parameter label not valid (empty or null)");
         }
 
@@ -688,11 +689,12 @@ public class CLightningRPC {
     }
 
     public CLightningReserveInputs reserveInputs(String pdbt) {
-        return this.reseverInputs(pdbt, false);
+        return this.reserveInputs(pdbt, false);
     }
 
-    public CLightningReserveInputs reseverInputs(String psbt, boolean exclusive) {
-        doCheckString("reseverInputs", "psbt", psbt, false);
+    public CLightningReserveInputs reserveInputs(String psbt, boolean exclusive) {
+        doCheckString("reserveInputs", "psbt", psbt, false);
+        doCheckString("reserveInputs", "psbt", psbt, false);
         Map<String, Object> payload = new HashMap<>();
         payload.put("pdbt", psbt);
         payload.put("exclusive", exclusive);
@@ -739,17 +741,17 @@ public class CLightningRPC {
         return (CLightningReserveInputs) mediatorCommand.runCommand(Command.UNRESERVEINPUTS, payload);
     }
 
-    public CLightningListConfigs listConfigs(String config){
+    public CLightningListConfigs listConfigs(String config) {
         doCheckString("listConfig", "config", config, true);
         Map<String, Object> payload = new HashMap<>();
-        if(!config.trim().isEmpty()){
+        if (!config.trim().isEmpty()) {
             payload.put("config", config.trim());
         }
 
         return (CLightningListConfigs) mediatorCommand.runCommand(Command.LISTCONFIGS, payload);
     }
 
-    public CLightningListConfigs listConfigs(){
+    public CLightningListConfigs listConfigs() {
         return this.listConfigs("");
     }
 

@@ -21,8 +21,18 @@ package jrpc.clightning.model.types;
 public class CLightningConnect {
 
     private String id;
+    private String feature;
+    private NetworkAddress address;
 
     public String getId() {
         return id;
+    }
+
+    public String getFeature() {
+        return feature;
+    }
+
+    public NetworkAddress getAddress() {
+        return address;
     }
 }

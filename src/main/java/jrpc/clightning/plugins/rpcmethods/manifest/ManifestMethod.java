@@ -3,7 +3,6 @@ package jrpc.clightning.plugins.rpcmethods.manifest;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import jrpc.clightning.plugins.ICLightningPlugin;
-import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;

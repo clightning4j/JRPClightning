@@ -1,8 +1,6 @@
 package jrpc.clightning.plugins;
 
-import jrpc.clightning.model.CLightningListConfigs;
 import jrpc.clightning.model.types.CLightingPluginConfig;
-import jrpc.clightning.plugins.log.CLightningLevelLog;
 import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;

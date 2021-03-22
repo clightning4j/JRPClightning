@@ -20,7 +20,7 @@ import com.google.gson.annotations.Expose;
 /**
  * @author https://github.com/vincenzopalazzo
  */
-public class NetworkAddresses {
+public class NetworkAddress {
 
     private String type;
     private String address;

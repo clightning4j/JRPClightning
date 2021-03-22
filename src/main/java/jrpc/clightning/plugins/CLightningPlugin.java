@@ -177,7 +177,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         payload.add("params", params.getWrapper());
         CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
 
-        //TODO! I don't like that this print each line that have a \n on more debig log
+        //TODO! I don't like that this print each line that have a \n on more debug log
         StringTokenizer endLine = new StringTokenizer(logMessage, "\n");
         while (endLine.hasMoreTokens()){
             String line = endLine.nextToken();

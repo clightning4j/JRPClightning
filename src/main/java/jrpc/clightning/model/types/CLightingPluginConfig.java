@@ -19,7 +19,6 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.JsonObject;
-import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /**
@@ -36,7 +35,7 @@ public class CLightingPluginConfig {
     private String network;
     @SerializedName("feature_set")
     private JsonObject featureSet;
-    private NetworkAddresses proxy;
+    private NetworkAddress proxy;
     @SerializedName("torv3-enabled")
     private boolean torv3;
     @SerializedName("use_proxy_alway")
@@ -62,7 +61,7 @@ public class CLightingPluginConfig {
         return featureSet;
     }
 
-    public NetworkAddresses getProxy() {
+    public NetworkAddress getProxy() {
         return proxy;
     }
 
