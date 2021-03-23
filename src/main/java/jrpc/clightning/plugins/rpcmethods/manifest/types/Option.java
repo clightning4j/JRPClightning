@@ -1,9 +1,7 @@
 package jrpc.clightning.plugins.rpcmethods.manifest.types;
 
-import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
-import jrpc.clightning.plugins.ICLightningPlugin;
 
 
 /**
@@ -12,7 +10,7 @@ import jrpc.clightning.plugins.ICLightningPlugin;
 public class Option {
 
     @SerializedName("name")
-    protected String namePlugin;
+    protected String nameOption;
     protected String type = "string";
     @SerializedName("default")
     protected String defaultPropriety;
@@ -23,19 +21,19 @@ public class Option {
     public Option() {  }
 
     public Option(JsonObject object) {
-        this.namePlugin = object.get("name").getAsString();
+        this.nameOption = object.get("name").getAsString();
         this.descriptionPlugin = object.get("type").getAsString();
         this.type = object.get("default").getAsString();
         this.defaultPropriety = object.get("description").getAsString();
         this.deprecated = object.get("deprecated").getAsBoolean();
     }
 
-    public String getNamePlugin() {
-        return namePlugin;
+    public String getNameOption() {
+        return nameOption;
     }
 
     public void setName(String namePlugin) {
-        this.namePlugin = namePlugin;
+        this.nameOption = namePlugin;
     }
 
     public String getType() {
@@ -75,9 +73,22 @@ public class Option {
     }
 
     @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Option option = (Option) o;
+        return nameOption != null ? nameOption.equals(option.nameOption) : option.nameOption == null;
+    }
+
+    @Override
+    public int hashCode() {
+        return nameOption != null ? nameOption.hashCode() : 0;
+    }
+
+    @Override
     public String toString() {
         final StringBuilder sb = new StringBuilder("Options{");
-        sb.append("name:'").append(namePlugin).append('\'');
+        sb.append("name:'").append(nameOption).append('\'');
         sb.append(", type:'").append(type).append('\'');
         sb.append(", def:'").append(defaultPropriety).append('\'');
         sb.append(", description:'").append(descriptionPlugin).append('\'');

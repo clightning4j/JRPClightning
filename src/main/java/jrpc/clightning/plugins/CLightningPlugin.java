@@ -1,17 +1,17 @@
 /**
  * This is a wrapper for c-lightning RPC interface.
  * Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
- *
+ * <p>
  * This program is free software; you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation; either version 2 of the License, or
  * (at your option) any later version.
- *
+ * <p>
  * This program is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- *
+ * <p>
  * You should have received a copy of the GNU General Public License along
  * with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin Street, Fifth Floor, Boston, MA 02110-1301 USA.
@@ -27,7 +27,8 @@ import jrpc.clightning.annotation.RPCMethod;
 import jrpc.clightning.annotation.Subscription;
 import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
-import jrpc.clightning.CLightningRPC;
+import jrpc.clightning.plugins.interceptor.Interceptor;
+import jrpc.clightning.plugins.interceptor.MappingCmdOptions;
 import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
@@ -62,6 +63,10 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
     private ManifestMethod manifest;
     @Expose
+    private List<Interceptor> preInterceptor;
+    @Expose
+    private List<Interceptor> prostInterceptor;
+    @Expose
     protected Map<String, Object> parameters;
     @Expose
     private BufferedWriter stdout;
@@ -82,14 +87,17 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         this.stdout = new BufferedWriter(new OutputStreamWriter(System.out));
         this.parameters = new HashMap<>();
         this.converter = new JsonConverter();
+        this.prostInterceptor = new ArrayList<>();
+        this.preInterceptor = new ArrayList<>();
+        this.prostInterceptor.add(new MappingCmdOptions(reflections));
     }
 
-    public void addRPCMethod(AbstractRPCMethod method){
-        if(method == null){
+    public void addRPCMethod(AbstractRPCMethod method) {
+        if (method == null) {
             throw new IllegalArgumentException("Method object null");
         }
-        CLightningLogger.getInstance().debug(TAG,"Added method to list methods of plugin");
-        if(method.getType() == RPCMethodType.HOOK){
+        CLightningLogger.getInstance().debug(TAG, "Added method to list methods of plugin");
+        if (method.getType() == RPCMethodType.HOOK) {
             this.manifest.addHook(method.getName());
         }
         this.manifest.addMethod(method);
@@ -106,26 +114,27 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 }
                 CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
                 JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
-                log(PluginLog.WARNING, object);
-                if (!isRpcCall(object)) {
+                log(PluginLog.DEBUG, object);
+                if (!PluginUtils.isRpcCall(object)) {
                     continue;
                 }
-                if(isNotification(object)){
-                    CLightningJsonObject notificationRequest = new CLightningJsonObject(object);
+
+                if (PluginUtils.isNotification(object)) {
                     //TODO refactoring this inside the reflectionManager and add a list of methods inside this class
-                    for(Method method : reflections.getMethodsAnnotatedWith(Subscription.class)){
-                        if(method.isAnnotationPresent(Subscription.class)){
+                    CLightningJsonObject notificationRequest = new CLightningJsonObject(object);
+                    for (Method method : reflections.getMethodsAnnotatedWith(Subscription.class)) {
+                        if (method.isAnnotationPresent(Subscription.class)) {
                             Subscription subscription = method.getAnnotation(Subscription.class);
                             String event = subscription.notification();
                             String methodName = notificationRequest.get("method").getAsString();
-                            if(methodName.equals(event)){
+                            if (methodName.equals(event)) {
                                 method.invoke(this, notificationRequest);
                             }
                         }
                     }
-                    continue;
+                } else {
+                    this.doMethods(object, stdout);
                 }
-                doMethods(object, stdout);
             }
         } catch (IOException | ServiceException |
                 IllegalAccessException | InvocationTargetException ex) {
@@ -142,18 +151,11 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         return configs;
     }
 
-    private boolean isNotification(JsonObject object) {
-        if(object == null){
-            throw new IllegalArgumentException("Rpc call from daemon lightningd null");
-        }
-        return !object.has("id");
-    }
-
-    public void log(PluginLog level, CLightningJsonObject json){
+    public void log(PluginLog level, CLightningJsonObject json) {
         this.log(level, json.getWrapper());
     }
 
-    public void log(PluginLog level, Object json){
+    public void log(PluginLog level, Object json) {
         String jsonString = converter.serialization(json);
         this.log(level, jsonString);
     }
@@ -165,7 +167,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
      */
     @Override
     public void log(PluginLog level, String logMessage) {
-        if(logMessage == null){
+        if (logMessage == null) {
             logMessage = "Message empty";
         }
         CLightningJsonObject payload = new CLightningJsonObject();
@@ -179,11 +181,10 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
         //TODO! I don't like that this print each line that have a \n on more debug log
         StringTokenizer endLine = new StringTokenizer(logMessage, "\n");
-        while (endLine.hasMoreTokens()){
+        while (endLine.hasMoreTokens()) {
             String line = endLine.nextToken();
             params.remove("message");
             params.add("message", line);
-
             payload.remove("params");
             payload.add("params", params.getWrapper());
             try {
@@ -195,7 +196,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
-    protected void registerMethod(){
+    protected void registerMethod() {
         addRPCMethod(this.manifest);
         this.registerMethodsWithAnnotation();
         this.addOptionsWithAnnotation();
@@ -205,8 +206,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     }
 
     private void addOptionsWithAnnotation() {
-        for(Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)){
-            if(field.isAnnotationPresent(PluginOption.class)){
+        for (Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)) {
+            if (field.isAnnotationPresent(PluginOption.class)) {
                 PluginOption annotation = field.getAnnotation(PluginOption.class);
                 Option option = new Option();
                 //TODO pull the value directly from the annotation propriety
@@ -220,9 +221,9 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
-    private void registerMethodsWithAnnotation(){
-        for(Method method : reflections.getMethodsAnnotatedWith(jrpc.clightning.annotation.RPCMethod.class)){
-            if(method.isAnnotationPresent(jrpc.clightning.annotation.RPCMethod.class)){
+    private void registerMethodsWithAnnotation() {
+        for (Method method : reflections.getMethodsAnnotatedWith(jrpc.clightning.annotation.RPCMethod.class)) {
+            if (method.isAnnotationPresent(jrpc.clightning.annotation.RPCMethod.class)) {
                 RPCMethod annotation = method.getAnnotation(RPCMethod.class);
                 String name = annotation.name();
                 String description = annotation.description();
@@ -234,9 +235,9 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
-    private void registerSubscriptionsWithAnnotation(){
-        for(Method method : reflections.getMethodsAnnotatedWith(Subscription.class)){
-            if(method.isAnnotationPresent(Subscription.class)){
+    private void registerSubscriptionsWithAnnotation() {
+        for (Method method : reflections.getMethodsAnnotatedWith(Subscription.class)) {
+            if (method.isAnnotationPresent(Subscription.class)) {
                 Subscription subscription = method.getAnnotation(Subscription.class);
                 String event = subscription.notification();
                 this.addSubscription(event);
@@ -244,23 +245,16 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
-    private void registerHooksWithAnnotation(){
-        for(Method method : reflections.getMethodsAnnotatedWith(Hook.class)){
-            if(method.isAnnotationPresent(Hook.class)){
+    private void registerHooksWithAnnotation() {
+        for (Method method : reflections.getMethodsAnnotatedWith(Hook.class)) {
+            if (method.isAnnotationPresent(Hook.class)) {
                 Hook hook = method.getAnnotation(Hook.class);
                 String hookEvent = hook.hook();
-                RPCMethodReflection hookMethod =  new RPCMethodReflection(
+                RPCMethodReflection hookMethod = new RPCMethodReflection(
                         hookEvent, "", "", "", RPCMethodType.HOOK, method);
                 this.addRPCMethod(hookMethod);
             }
         }
-    }
-
-    private boolean isRpcCall(JsonObject object) {
-        if (object == null) {
-            throw new IllegalArgumentException("JsonObject null");
-        }
-        return object.has("method") || object.has("jsonrpc") || object.has("params");
     }
 
     private void doMethods(JsonObject request, BufferedWriter stdout) throws ServiceException, IOException {
@@ -279,15 +273,23 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 CLightningJsonObject result = new CLightningJsonObject();
                 response.add("id", request.get("id"));
                 response.add("jsonrpc", request.get("jsonrpc"));
-                try{
-                    rpcMethod.doRun(this, new CLightningJsonObject(request), result);
-                }catch (CLightningPluginException pluginException){
+                try {
+                    CLightningJsonObject internalRequest = new CLightningJsonObject(request);
+                    // Pre interceptor
+                    preInterceptor.forEach(interceptor -> interceptor.doAction(this, internalRequest, result));
+
+                    rpcMethod.doRun(this, internalRequest, result);
+                    // Post Interceptor
+                    prostInterceptor.forEach(interceptor ->
+                            interceptor.doAction(this, internalRequest, result)
+                    );
+                } catch (CLightningPluginException pluginException) {
                     returnWithAnError(result, pluginException.getCode(), pluginException.getErrorMessage());
                     response.add("error", result.getWrapper());
                     log(PluginLog.ERROR, pluginException.getErrorMessage());
                 }
                 CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
-                if(!response.has("error")){
+                if (!response.has("error")) {
                     response.add("result", result.getWrapper());
                 }
                 CLightningLogger.getInstance().debug(TAG, "******** final answer: " + response.toString());
@@ -297,29 +299,37 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
     }
 
-    private void returnWithAnError(CLightningJsonObject response, int code, String message){
+    private void returnWithAnError(CLightningJsonObject response, int code, String message) {
         response.add("code", code);
         response.add("message", message);
     }
 
-    public void addSubscription(String event){
+    public void addSubscription(String event) {
         manifest.addSubscriptions(event);
     }
 
-    public void addParameter(String key, Object value){
+    public void addParameter(String key, Object value) {
         this.parameters.put(key, value);
     }
 
-    public <T> T getParameter(String key){
-        if(key == null || key.isEmpty()){
+    public <T> T getParameter(String key) {
+        if (key == null || key.isEmpty()) {
             log(PluginLog.ERROR, "Parameter key is null or empty");
             throw new IllegalArgumentException("Key is null or empty");
         }
-        if(parameters.containsKey(key)){
-           return (T) parameters.get(key);
+        if (parameters.containsKey(key)) {
+            return (T) parameters.get(key);
         }
         log(PluginLog.WARNING, String.format("Parameter with key %s not found", key));
         return null;
+    }
+
+    public boolean hasParameter(String key) {
+        if (key == null || key.isEmpty()) {
+            log(PluginLog.ERROR, "Parameter key is null or empty");
+            throw new IllegalArgumentException("Key is null or empty");
+        }
+        return parameters.containsKey(key);
     }
 
     // getter method

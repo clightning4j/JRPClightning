@@ -4,6 +4,7 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.ICLightningPlugin;
+import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.CLightningLogger;
@@ -44,6 +45,7 @@ public class InitMethod extends AbstractRPCMethod {
         }
         if(jsonParams.has("options")){
             JsonObject options = jsonParams.getAsJsonObject("options");
+            plugin.log(PluginLog.DEBUG, options.toString());
             options.keySet().forEach(key -> {
                 JsonPrimitive value = options.get(key).getAsJsonPrimitive();
                 if(value.isBoolean()){

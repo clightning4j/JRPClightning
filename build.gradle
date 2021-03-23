@@ -25,7 +25,7 @@ dependencies {
 }
 
 task copyLib(type: Copy){
-    from  "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/btcli4j/devlib'
+    from  "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/LNQrcode/devlib'
 }
 
 test {

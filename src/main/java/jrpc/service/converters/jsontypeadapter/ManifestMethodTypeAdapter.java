@@ -22,7 +22,6 @@ import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
-import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.ICLightningRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
@@ -30,7 +29,6 @@ import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 
 import java.io.IOException;
-import java.util.Map;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -52,7 +50,7 @@ public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
         out.beginArray();
         for(Option option : value.getOptions()){
             out.beginObject();
-            out.name("name").value(option.getNamePlugin());
+            out.name("name").value(option.getNameOption());
             out.name("type").value(option.getType());
             out.name("default").value(option.getDefaultPropriety());
             out.name("description").value(option.getDescriptionPlugin());

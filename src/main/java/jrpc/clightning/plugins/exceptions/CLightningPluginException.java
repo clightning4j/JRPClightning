@@ -14,8 +14,9 @@ public class CLightningPluginException extends RuntimeException{
         this.errorMessage = message;
     }
 
-    public CLightningPluginException(Throwable cause) {
-        super(cause);
+    public CLightningPluginException(int code, String message, Throwable cause) {
+        this(code, message);
+        this.initCause(cause);
     }
 
     public int getCode() {
