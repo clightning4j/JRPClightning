@@ -45,6 +45,8 @@ public class JsonConverter implements IConverter {
     private String patternFormat = "dd-MM-yyyy HH:mm:ss";
 
     private GsonBuilder gsonBuilder;
+    private Gson gson;
+
 
     public JsonConverter() {
         this.gsonBuilder = new GsonBuilder();
@@ -55,14 +57,11 @@ public class JsonConverter implements IConverter {
         gsonBuilder.registerTypeAdapter(InitMethod.class, new InitMethodTypeAdapter(gsonBuilder.create()));
         gsonBuilder.registerTypeAdapter(BitcoinOutput.class, new BitcoinOutputTypeAdapter(gsonBuilder.create()));
         gsonBuilder.registerTypeAdapter(CLightningFeeRate.class, new FeeRateTypeAdapter(gsonBuilder.create()));
+        this.gson = gsonBuilder.create();
     }
 
     @Override
     public String serialization(Object o) {
-        if (o == null) {
-            throw new IllegalArgumentException("Argument function is null");
-        }
-        Gson gson = gsonBuilder.create();
         return gson.toJson(o);
     }
 
@@ -75,7 +74,6 @@ public class JsonConverter implements IConverter {
         JsonReader reader;
         try {
             reader = new JsonReader(new InputStreamReader(inputStream, ENCODING_DEFAULT));
-            Gson gson = gsonBuilder.create();
             response = gson.fromJson(reader, type);
             //reader.close(); //TODO can I release the connection open with socket?
         } catch (Exception ex) {
@@ -92,7 +90,6 @@ public class JsonConverter implements IConverter {
         }
         Object response;
         try {
-            Gson gson = gsonBuilder.create();
             response = gson.fromJson(jsonForm, type);
         } catch (Exception ex) {
             throw new ServiceException("Exception inside the method deserialization to " +
