@@ -11,7 +11,7 @@ RUN apt-get update  && apt-get install openjdk-11-jdk -y
 
 # Install bitcoin core and lightningd (last version)
 RUN add-apt-repository ppa:luke-jr/bitcoincore
-RUN apt-get update  && apt-get install -y bitcoind
+RUN apt-get update  && apt-get install -y bitcoind jq
 RUN add-apt-repository -u ppa:lightningnetwork/ppa
 RUN apt-get update  && apt-get install -y lightningd
 

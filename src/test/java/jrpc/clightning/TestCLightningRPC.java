@@ -174,10 +174,12 @@ public class TestCLightningRPC {
     @Test
     public void testCommandConnectAndCloseOne() {
         try {
-            CLightningBitcoinTx txBitcoin = rpc.close(infoFirstNode.getId());
-            TestCase.fail();
+            CLightningBitcoinTx tx = rpc.close(infoFirstNode.getId());
+            TestCase.assertNotNull(tx.getTxId());
+            TestCase.assertNotNull(tx.getUnsignedTx());
         } catch (CLightningException ex) {
-            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+            TestCase.fail();
+
         }
     }
 
@@ -325,11 +327,12 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testListNodesTwo() {
+    public void testListNodesTwo() throws InterruptedException {
         //Connect to node one
         String nodeId = infoFirstNode.getId();
-        rpc.connect(nodeId, "", "19735");
-
+        int port = infoFirstNode.getBinding().get(0).getPort();
+        rpc.connect(nodeId, "", port +  "");
+        Thread.sleep(2000);
         CLightningListNodes listNodes = rpc.listNodes(nodeId);
         TestCase.assertEquals(1, listNodes.getNodes().size());
 
