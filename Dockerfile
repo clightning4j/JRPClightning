@@ -17,6 +17,7 @@ RUN apt-get update  && apt-get install -y lightningd
 
 WORKDIR workdir
 COPY sandbox .
+COPY . /workdir/code
 
 RUN chmod +x *.sh
 RUN ls -l

@@ -1,5 +1,3 @@
 #!/bin/bash
-
-echo 'run bitcoin core'
 DIR=/workdir
-bitcoind -datadir=$DIR/bitcoin_dir --daemon
+bitcoind -datadir=$DIR/bitcoin_dir -server -logtimestamps -regtest -nolisten --daemon
