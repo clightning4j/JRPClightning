@@ -1,0 +1,26 @@
+name: Integration testing
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+#        with:
+#          submodules: 'true'
+      - name: Integration testing
+        run: |
+          docker-compose up --exit-code-from jrcplightning --quiet-pull
+      - name: Upload lightning log
+        uses: actions/upload-artifact@v2
+        if: failure()
+        with:
+          path: |
+            sandbox/node_one.log
+            sandbox/node_two.log
+            build/reports/tests/test/
+          name: ${{ github.run_number }}
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: always()
+        with:
+          files: build/test-results/**/*.xml

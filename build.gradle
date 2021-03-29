@@ -24,9 +24,15 @@ dependencies {
     testImplementation 'junit:junit:4.13.1'
 }
 
-
 task copyLib(type: Copy){
     from  "${project.buildDir}/libs/jrpclightning-${version}.jar" into '/home/vincent/Github/lightning-rest/libdev/'
+}
+
+test {
+    reports {
+        junitXml.enabled = true
+        html.enabled = true
+    }
 }
 
 jar {

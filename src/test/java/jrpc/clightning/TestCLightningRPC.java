@@ -25,6 +25,7 @@ import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
+import jrpc.util.MocksUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
@@ -38,7 +39,8 @@ public class TestCLightningRPC {
 
     private static final Class TAG = TestCLightningRPC.class;
 
-    CLightningRPC rpc = CLightningRPC.getInstance();
+    private CLightningRPC rpc = CLightningRPC.getInstance();
+    private CLightningGetInfo infoFirstNode = MocksUtils.getInfoFirstNode();
 
     @Before
     public void cleanAll() {
@@ -172,18 +174,16 @@ public class TestCLightningRPC {
     @Test
     public void testCommandConnectAndCloseOne() {
         try {
-            CLightningBitcoinTx txBitcoin = rpc.close("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e");
+            rpc.close(infoFirstNode.getId());
             TestCase.fail();
-        } catch (CLightningException ex) {
-            TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
-        }
+        } catch (Exception ex) { }
     }
 
     @Test
     public void testCommandFundChannelOne() {
         try {
             String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
-            CLightningBitcoinTx txBitcoin = rpc.fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+            CLightningBitcoinTx txBitcoin = rpc.fundChannel(infoFirstNode.getId(),
                     "10000", "normal", true, 1, new String[]{});
             TestCase.fail();
         } catch (CLightningException ex) {
@@ -195,7 +195,7 @@ public class TestCLightningRPC {
     public void testCommandFundChannelTwo() {
         try {
             String[] addresses = new String[]{"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
-            CLightningBitcoinTx txBitcoin = rpc.fundChannel("03ad9859fcbd6b821f1ee29d6d3c55883a5107588a668bf66dfddc71ca3dad1a4e",
+            CLightningBitcoinTx txBitcoin = rpc.fundChannel(infoFirstNode.getId(),
                     "10000", "normal", false, 1, new String[]{});
             TestCase.fail();
         } catch (CLightningException ex) {
@@ -212,8 +212,8 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandConnectOne() {
-        String idString = "02bd7e87692775d2ce65a3cf81765d942ea0b15c883c6bd6d060005aaa43dc5cc6";
-        String port = "19736";
+        String idString = infoFirstNode.getId();
+        String port = "19735";
         String id = rpc.connect(idString, "", port).getId();
         TestCase.assertNotNull(id);
     }
@@ -222,7 +222,7 @@ public class TestCLightningRPC {
     public void testCommandPayOne() {
         try {
             String bolt11 = "lntb120p1pwc8ep9pp5t330eyge3p2eukenek7wkzspny8jzt07csxjx3a8hyczzqrk63yqdqdwdjxzumywdskgxqyjw5qcqp28yycdhumpzy8avt4g4crawc7hc5xhdq04tnlqnh458ywvpy0wxp96rhws063g6jr68x3cldckf3s56ynj2q8y2fmnms8khhpvah8s6sqwh4m3e";
-            CLightningPayResult pay = rpc.pay(bolt11);
+            rpc.pay(bolt11);
             TestCase.fail();
         } catch (CLightningException ex) {
             TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
@@ -282,7 +282,7 @@ public class TestCLightningRPC {
     @Test
     public void testGetRouteOne() {
         try {
-            rpc.getRoute("0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6",
+            rpc.getRoute(infoFirstNode.getId(),
                     "2000", 0f);
             TestCase.fail();
         } catch (CLightningException exception) {
@@ -297,7 +297,7 @@ public class TestCLightningRPC {
 
     @Test
     public void testDisconnectTwo() throws InterruptedException {
-        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
+        String nodeId = infoFirstNode.getId();
         rpc.connect(nodeId, "", "19735");
         Thread.sleep(2000);
         boolean disconnected = rpc.disconnect(nodeId);
@@ -325,18 +325,14 @@ public class TestCLightningRPC {
     @Test
     public void testListNodesTwo() {
         //Connect to node one
-        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
-        rpc.connect(nodeId, "", "19735");
-
+        String nodeId = infoFirstNode.getId();
         CLightningListNodes listNodes = rpc.listNodes(nodeId);
-        TestCase.assertEquals(1, listNodes.getNodes().size());
-
-        rpc.disconnect(nodeId, true);
+        TestCase.assertEquals(0, listNodes.getNodes().size());
     }
 
     @Test
     public void testPingOne() {
-        String nodeId = "0222432c04c91358a1347d7ecefd846204355bd335145d3816301228a9464057e6";
+        String nodeId = infoFirstNode.getId();
         rpc.connect(nodeId, "", "19735");
 
         CLightningPing pingResult = rpc.ping(nodeId);
