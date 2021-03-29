@@ -39,4 +39,6 @@ public interface ICLightningPlugin {
     <T> T getParameter(String key);
 
     boolean hasParameter(String key);
+
+    boolean hasParametersReady();
 }

@@ -69,6 +69,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     @Expose
     protected Map<String, Object> parameters;
     @Expose
+    private boolean parametersReady;
+    @Expose
     private BufferedWriter stdout;
     @Expose
     private BufferedReader stdin;
@@ -90,6 +92,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         this.prostInterceptor = new ArrayList<>();
         this.preInterceptor = new ArrayList<>();
         this.prostInterceptor.add(new MappingCmdOptions(reflections));
+        this.parametersReady = false;
     }
 
     public void addRPCMethod(AbstractRPCMethod method) {
@@ -112,6 +115,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
                 if (messageSocket.trim().isEmpty()) {
                     continue;
                 }
+                log(PluginLog.DEBUG, messageSocket);
                 CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
                 JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
                 log(PluginLog.DEBUG, object);
@@ -149,6 +153,10 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
     public CLightingPluginConfig getConfigs() {
         return configs;
+    }
+
+    public boolean hasParametersReady() {
+        return parametersReady;
     }
 
     public void log(PluginLog level, CLightningJsonObject json) {
@@ -264,6 +272,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
             return;
         }
         CLightningLogger.getInstance().debug(TAG, "c-lightning calls for method: ++++++ " + method + " ++++++");
+        // TODO refactoring this with a map and not with a list
         for (AbstractRPCMethod rpcMethod : this.getRpcMethods()) {
             CLightningLogger.getInstance().debug(TAG, "Call method plugin ++++++ " + rpcMethod.getName() + " ++++++");
             if (method.trim().equals(rpcMethod.getName())) {

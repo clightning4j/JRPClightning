@@ -1,6 +1,6 @@
 <!--
 /**
- * Copyright 2019 https://github.com/vincenzopalazzo
+ * Copyright 2019/2021 https://github.com/vincenzopalazzo
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,11 +28,11 @@
     </encoder>
   </appender>
 
-  <root level="OFF">
+  <root level="DEBUG">
     <appender-ref ref="FILE" />
   </root>
 
-  <logger name="jrpc.clightning.plugins" level="OFF">
+  <logger name="jrpc.clightning.plugins" level="DEBUG">
     <appender-ref ref="FILE" />
   </logger>
 </configuration>

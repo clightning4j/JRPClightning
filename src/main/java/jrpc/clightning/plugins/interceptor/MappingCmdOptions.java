@@ -19,6 +19,7 @@ public class MappingCmdOptions implements Interceptor {
 
     @Override
     public void doAction(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
+        if (plugin.hasParametersReady()) return;
         for(Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)){
             if(field.isAnnotationPresent(PluginOption.class)){
                 PluginOption annotation = field.getAnnotation(PluginOption.class);
