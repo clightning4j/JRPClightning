@@ -1,0 +1,12 @@
+name: Integration testing
+on: push
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+#        with:
+#          submodules: 'true'
+      - name: Integration testing
+        run: |
+          docker-compose up
