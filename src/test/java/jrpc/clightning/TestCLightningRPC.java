@@ -29,9 +29,15 @@ import jrpc.service.converters.JsonConverter;
 import jrpc.util.MocksUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
+import org.junit.Ignore;
 import org.junit.Test;
 
+import java.awt.*;
 import java.util.HashMap;
+
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assume.assumeThat;
+import static org.junit.Assume.assumeTrue;
 
 /**
  * @author https://github.com/vincenzopalazzo
@@ -172,12 +178,21 @@ public class TestCLightningRPC {
 
     @Test
     public void testCommandConnectAndCloseOne() {
+        assumeTrue(rpc.listFunds().getOutputs().size() > 0);
         try {
-            rpc.close(infoFirstNode.getId());
-            JsonConverter converter = new JsonConverter();
-            TestCase.fail(converter.serialization(rpc));
-        } catch (CLightningException ex) {
-            TestCase.assertTrue(ex.getLocalizedMessage().contains("message"));
+            rpc.connect(infoFirstNode.getId(),
+                    infoFirstNode.getBinding().get(0).getAddress(),
+                    infoFirstNode.getBinding().get(0).getPort() + "");
+            MocksUtils.generateBlockBitcoin();
+            CLightningBitcoinTx fundTx = rpc.fundChannel(infoFirstNode.getId(), "1000");
+            TestCase.assertNotNull(fundTx.getTxId());
+            MocksUtils.generateBlockBitcoin();
+            CLightningListChannels channels = rpc.listChannels();
+            CLightningBitcoinTx closeTx = rpc.close(channels.getChannels().get(0).getShortChannelId());
+            TestCase.assertNotNull(closeTx.getTxId());
+            TestCase.assertNotNull(closeTx.getUnsignedTx());
+        } catch (CLightningException | CommandException ex) {
+            TestCase.fail(ex.getLocalizedMessage());
         }
     }
 
@@ -357,17 +372,17 @@ public class TestCLightningRPC {
 
     @Test
     public void testFundPSBTOne() {
-        try{
+        try {
             CLightningFundPSBT fundPSBT = rpc.fundPSBT("1000msat", 1, 1);
             TestCase.assertNotNull(fundPSBT);
             TestCase.assertTrue(fundPSBT.getPsbt().length() > 20);
-        }catch (CLightningException exception){
+        } catch (CLightningException exception) {
             TestCase.assertTrue(exception.getMessage().contains("Could not afford"));
         }
     }
 
     @Test
-    public void testListConfigs(){
+    public void testListConfigs() {
         CLightningListConfigs configs = rpc.listConfigs();
         TestCase.assertNotNull(configs);
         TestCase.assertEquals("regtest", configs.getNetwork());

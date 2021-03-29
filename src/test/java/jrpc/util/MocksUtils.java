@@ -13,7 +13,7 @@ import java.util.StringTokenizer;
 
 public class MocksUtils {
 
-    public static CLightningGetInfo getInfoFirstNode() {
+    private static String getSandBoxPath() {
         String url = CLightningConfigurator.getInstance().getUrl();
         StringTokenizer tokens = new StringTokenizer(url, "/");
         if (tokens.countTokens() > 1) {
@@ -25,18 +25,26 @@ public class MocksUtils {
                 }
                 builder.append(token).append("/");
             }
-            builder.append("node_one.info");
-            byte[] encoded = new byte[0];
-            try {
-                encoded = Files.readAllBytes(Paths.get(builder.toString()));
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            String getInfo = new String(encoded);
-            JsonConverter converter = new JsonConverter();
-            return (CLightningGetInfo) converter.deserialization(getInfo, CLightningGetInfo.class);
+            return builder.toString();
         }
-        return null;
+        return "";
+    }
+
+    public static CLightningGetInfo getInfoFirstNode() {
+
+        String sandBoxPath = MocksUtils.getSandBoxPath();
+        if (sandBoxPath.isEmpty()) return null;
+        sandBoxPath += "node_one.info";
+
+        byte[] encoded = new byte[0];
+        try {
+            encoded = Files.readAllBytes(Paths.get(sandBoxPath));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String getInfo = new String(encoded);
+        JsonConverter converter = new JsonConverter();
+        return (CLightningGetInfo) converter.deserialization(getInfo, CLightningGetInfo.class);
     }
 
 
@@ -68,9 +76,13 @@ public class MocksUtils {
 
     private static void runProcess(String cmd) {
         try {
+            String sandBoxPath = MocksUtils.getSandBoxPath();
+            if (sandBoxPath.isEmpty()) return;
+            sandBoxPath += "node_one.info";
+
             ProcessBuilder pb = new ProcessBuilder("bash", new File(cmd).toString());
             pb.inheritIO();
-            pb.directory(new File("/media/vincent/Maxtor/sanboxTestWrapperRPC/"));
+            pb.directory(new File(sandBoxPath));
             Process process = pb.start();
             process.waitFor();
             CLightningLogger.getInstance().error(MocksUtils.class, pb.redirectOutput().toString());

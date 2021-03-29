@@ -305,8 +305,8 @@ public class CLightningRPC {
         return this.withDraw(destination, satoshi, "", "");
     }
 
-    public CLightningBitcoinTx close(String id, String unilateraltimeout) {
-        if (id == null || id.trim().isEmpty()) {
+    public CLightningBitcoinTx close(String channelId, String unilateraltimeout) {
+        if (channelId == null || channelId.trim().isEmpty()) {
             throw new CLightningException("The method close have the parameter id is null");
         }
         if (unilateraltimeout == null) {
@@ -314,7 +314,7 @@ public class CLightningRPC {
         }
 
         StringBuilder payload = new StringBuilder();
-        payload.append("id=").append(id);
+        payload.append("id=").append(channelId);
 
         if (!unilateraltimeout.trim().isEmpty()) {
             payload.append(JOIN_TOKEN_PROP).append("unilateraltimeout=").append(unilateraltimeout.trim());
@@ -325,8 +325,8 @@ public class CLightningRPC {
         return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payloadString);
     }
 
-    public CLightningBitcoinTx close(String id) {
-        return this.close(id, "");
+    public CLightningBitcoinTx close(String channelId) {
+        return this.close(channelId, "");
     }
 
     public CLightningBitcoinTx fundChannel(String id, String satoshi) {
