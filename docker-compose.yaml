@@ -4,3 +4,6 @@ services:
   jrcplightning:
     build:
       .
+    volumes:
+      - ./sandbox:/workdir
+      - ./:/workdir/code

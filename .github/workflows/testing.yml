@@ -10,3 +10,8 @@ jobs:
       - name: Integration testing
         run: |
           docker-compose up --exit-code-from jrcplightning --quiet-pull
+      - name: Upload Package
+        uses: actions/upload-artifact@v2
+        with:
+          path: /workdir/code/build/reports/tests/test/index.html
+          #TODO: upload also the lightning node log
