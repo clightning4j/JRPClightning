@@ -174,13 +174,9 @@ public class TestCLightningRPC {
     @Test
     public void testCommandConnectAndCloseOne() {
         try {
-            CLightningBitcoinTx tx = rpc.close(infoFirstNode.getId());
-            TestCase.assertNotNull(tx.getTxId());
-            TestCase.assertNotNull(tx.getUnsignedTx());
-        } catch (CLightningException ex) {
+            rpc.close(infoFirstNode.getId());
             TestCase.fail();
-
-        }
+        } catch (Exception ex) { }
     }
 
     @Test
@@ -327,16 +323,11 @@ public class TestCLightningRPC {
     }
 
     @Test
-    public void testListNodesTwo() throws InterruptedException {
+    public void testListNodesTwo() {
         //Connect to node one
         String nodeId = infoFirstNode.getId();
-        int port = infoFirstNode.getBinding().get(0).getPort();
-        rpc.connect(nodeId, "", port +  "");
-        Thread.sleep(2000);
         CLightningListNodes listNodes = rpc.listNodes(nodeId);
-        TestCase.assertEquals(1, listNodes.getNodes().size());
-
-        rpc.disconnect(nodeId, true);
+        TestCase.assertEquals(0, listNodes.getNodes().size());
     }
 
     @Test
