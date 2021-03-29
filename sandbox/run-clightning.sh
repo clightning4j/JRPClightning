@@ -6,5 +6,5 @@ DIR=/workdir
 
 lightningd --lightning-dir=$DIR/lightning_dir_one --log-file=$DIR/lightning_dir_two/log.txt --daemon
 lightningd --lightning-dir=$DIR/lightning_dir_two --log-file=$DIR/lightning_dir_two/log.txt --daemon
-lightning-cli --lightning-dir=$DIR/lightning_dir_one getinfo
-lightning-cli --lightning-dir=$DIR/lightning_dir_two getinfo
+lightning-cli --lightning-dir=$DIR/lightning_dir_one getinfo > node_one.info
+lightning-cli --lightning-dir=$DIR/lightning_dir_two getinfo > node_two.info

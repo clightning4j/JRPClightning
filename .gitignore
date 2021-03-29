@@ -20,3 +20,5 @@ sandbox/lightning_dir_one/lightningd-regtest.pid
 *.txt
 
 *.log
+
+*.info
