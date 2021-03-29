@@ -25,6 +25,7 @@ import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
 import jrpc.service.CLightningLogger;
+import jrpc.service.converters.JsonConverter;
 import jrpc.util.MocksUtils;
 import junit.framework.TestCase;
 import org.junit.Before;
@@ -173,8 +174,11 @@ public class TestCLightningRPC {
     public void testCommandConnectAndCloseOne() {
         try {
             rpc.close(infoFirstNode.getId());
-            TestCase.fail();
-        } catch (Exception ex) { }
+            JsonConverter converter = new JsonConverter();
+            TestCase.fail(converter.serialization(rpc));
+        } catch (CLightningException ex) {
+            TestCase.assertTrue(ex.getLocalizedMessage().contains("message"));
+        }
     }
 
     @Test
