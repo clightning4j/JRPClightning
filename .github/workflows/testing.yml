@@ -9,4 +9,4 @@ jobs:
 #          submodules: 'true'
       - name: Integration testing
         run: |
-          docker-compose up
+          docker-compose up --exit-code-from jrcplightning --quiet-pull
