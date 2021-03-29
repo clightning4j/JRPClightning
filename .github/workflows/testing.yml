@@ -10,8 +10,13 @@ jobs:
       - name: Integration testing
         run: |
           docker-compose up --exit-code-from jrcplightning --quiet-pull
-      - name: Upload Package
+      - name: Upload lightning log
         uses: actions/upload-artifact@v2
+        if: failure()
         with:
-          path: /workdir/code/build/reports/tests/test/index.html
-          #TODO: upload also the lightning node log
+          path: /workdir/*.log
+      - name: Publish Unit Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v1
+        if: failure()
+        with:
+          files: /workdir/code/build/reports/tests/test/*.html

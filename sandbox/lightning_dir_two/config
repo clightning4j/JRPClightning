@@ -12,4 +12,6 @@ bitcoin-rpcuser=sandbox
 bitcoin-rpcpassword=sandbox
 bitcoin-rpcport=18333
 log-level=debug
+
 allow-deprecated-apis=false
+log-file=/workdir/node_two.log
