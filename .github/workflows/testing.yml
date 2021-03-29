@@ -14,9 +14,13 @@ jobs:
         uses: actions/upload-artifact@v2
         if: failure()
         with:
-          path: /workdir/*.log
+          path: |
+            /workdir/node_one.log
+            /workdir/node_two.log
+            /workdir/code/build/reports/tests/test/
+          name: ${{ github.run_number }}
       - name: Publish Unit Test Results
         uses: EnricoMi/publish-unit-test-result-action@v1
         if: failure()
         with:
-          files: /workdir/code/build/reports/tests/test/*.html
+          files: /workdir/code/build/test-results/**/*.xml
