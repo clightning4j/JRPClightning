@@ -142,7 +142,7 @@ public class TestCLightningRPC {
 
   @Test
   public void testCommandTxPrepareTwo() {
-      assumeTrue(rpc.listFunds().getOutputs().size() > 0);
+    assumeTrue(rpc.listFunds().getOutputs().size() > 0);
     try {
       String address = rpc.getNewAddress(AddressType.BECH32);
       BitcoinOutput bitcoinOutputOne = new BitcoinOutput(address, "100");
@@ -182,7 +182,8 @@ public class TestCLightningRPC {
   @Test
   public void testCommandConnectAndCloseOne() {
     assumeTrue(rpc.listFunds().getOutputs().size() > 0);
-    CLightningLogger.getInstance().debug(TAG, "invoice: " + converter.serialization(rpc.listFunds()));
+    CLightningLogger.getInstance()
+        .debug(TAG, "invoice: " + converter.serialization(rpc.listFunds()));
     try {
       rpc.connect(
           infoFirstNode.getId(),
