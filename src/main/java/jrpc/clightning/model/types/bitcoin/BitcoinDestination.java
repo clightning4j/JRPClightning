@@ -14,20 +14,20 @@
 package jrpc.clightning.model.types.bitcoin;
 
 /** @author https://github.com/vincenzopalazzo */
-public class BitcoinOutput {
+public class BitcoinDestination {
 
-  private String address;
-  private String amount = "all";
+  private String destination;
+  private String amount;
 
-  public BitcoinOutput() {}
+  public BitcoinDestination() {}
 
-  public BitcoinOutput(String address, String amount) {
-    this.address = address;
+  public BitcoinDestination(String destination, String amount) {
+    this.destination = destination;
     this.amount = amount;
   }
 
-  public String getAddress() {
-    return address;
+  public String getDestination() {
+    return destination;
   }
 
   public String getAmount() {
@@ -36,5 +36,10 @@ public class BitcoinOutput {
 
   public void setAmount(String amount) {
     this.amount = amount;
+  }
+
+  @Override
+  public String toString() {
+    return String.format("{%s: %s}", destination, amount);
   }
 }

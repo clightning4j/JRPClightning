@@ -22,7 +22,7 @@ import java.io.InputStreamReader;
 import java.lang.reflect.Type;
 import java.util.Date;
 import jrpc.clightning.model.CLightningFeeRate;
-import jrpc.clightning.model.types.bitcoin.BitcoinOutput;
+import jrpc.clightning.model.types.bitcoin.BitcoinDestination;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;
@@ -51,7 +51,7 @@ public class JsonConverter implements IConverter {
     gsonBuilder.registerTypeAdapter(
         InitMethod.class, new InitMethodTypeAdapter(gsonBuilder.create()));
     gsonBuilder.registerTypeAdapter(
-        BitcoinOutput.class, new BitcoinOutputTypeAdapter(gsonBuilder.create()));
+        BitcoinDestination.class, new BitcoinOutputTypeAdapter(gsonBuilder.create()));
     gsonBuilder.registerTypeAdapter(
         CLightningFeeRate.class, new FeeRateTypeAdapter(gsonBuilder.create()));
     this.gson = gsonBuilder.create();
