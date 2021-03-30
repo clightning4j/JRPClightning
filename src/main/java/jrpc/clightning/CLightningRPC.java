@@ -354,7 +354,7 @@ public class CLightningRPC {
   }
 
   public CLightningBitcoinTx fundChannel(String id, String satoshi) {
-    return fundChannel(id, satoshi, "normal", true, 1, new String[] {});
+    return fundChannel(id, satoshi, "normal", true, 1, new String[] {}, "", "");
   }
 
   /**
@@ -371,10 +371,19 @@ public class CLightningRPC {
    * @return CLightningBitcoinTx
    */
   public CLightningBitcoinTx fundChannel(
-      String id, String satoshi, String feerate, boolean announce, int minConf, String[] utxos) {
+      String id,
+      String satoshi,
+      String feerate,
+      boolean announce,
+      int minConf,
+      String[] utxos,
+      String pushMilliSat,
+      String closeTo) {
     doCheckString("fundChannel", "id", id, false);
     doCheckString("fundChannel", "satoshi", satoshi, false);
     doCheckString("fundChannel", "feerate", feerate, false);
+    doCheckString("fundChannel", "pushMilliSat", pushMilliSat, true);
+    doCheckString("fundChannel", "closeTo", closeTo, true);
 
     if (minConf <= 0) {
       throw new CLightningException(
@@ -393,6 +402,15 @@ public class CLightningRPC {
     if (utxos.length > 0) {
       payload.put("utxos", utxos);
     }
+
+    if (!pushMilliSat.isEmpty()) {
+      payload.put("push_msat", pushMilliSat);
+    }
+
+    if (!closeTo.isEmpty()) {
+      payload.put("close_to", closeTo);
+    }
+
     return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.FUNDCHANNEL, payload);
   }
 

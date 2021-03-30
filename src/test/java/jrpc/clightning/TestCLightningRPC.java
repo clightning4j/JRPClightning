@@ -193,11 +193,8 @@ public class TestCLightningRPC {
           infoFirstNode.getBinding().get(0).getPort() + "");
       CLightningBitcoinTx fundTx =
           rpc.fundChannel(
-              infoFirstNode.getId(), "50000", "urgent", true, 1, new String[] {utxoString});
+              infoFirstNode.getId(), "50000", "urgent", true, 1, new String[] {utxoString}, "", "");
       TestCase.assertNotNull(fundTx.getTxId());
-      MocksUtils.generateBlockBitcoin();
-      MocksUtils.generateBlockBitcoin();
-      MocksUtils.generateBlockBitcoin();
       MocksUtils.generateBlockBitcoin();
       Thread.sleep(2000);
       CLightningListChannels channels = rpc.listChannels();
@@ -218,7 +215,7 @@ public class TestCLightningRPC {
     try {
       String[] addresses = new String[] {"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
       CLightningBitcoinTx txBitcoin =
-          rpc.fundChannel(infoFirstNode.getId(), "10000", "normal", true, 1, new String[] {});
+          rpc.fundChannel(infoFirstNode.getId(), "10000", "normal", true, 1, new String[] {}, "", "");
       TestCase.fail();
     } catch (CLightningException ex) {
       TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
@@ -230,7 +227,7 @@ public class TestCLightningRPC {
     try {
       String[] addresses = new String[] {"2N9bpBQHvJvM3FtbTn4XuSMRR2ZxCHR2J97"};
       CLightningBitcoinTx txBitcoin =
-          rpc.fundChannel(infoFirstNode.getId(), "10000", "normal", false, 1, new String[] {});
+          rpc.fundChannel(infoFirstNode.getId(), "10000", "normal", false, 1, new String[] {}, "", "");
       TestCase.fail();
     } catch (CLightningException ex) {
       TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
