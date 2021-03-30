@@ -85,7 +85,7 @@ public class CLightningRPC {
       int cltv,
       String fromid,
       String fuzzpercent,
-      int maxHope,
+      int maxHops,
       ExcludeChannel... exclude) {
     doCheckString("getRoute", "id", id, false);
     doCheckString("getRoute", "mSatoshi", mSatoshi, false);
@@ -93,15 +93,15 @@ public class CLightningRPC {
     doCheckString("getRoute", "fuzzpercent", fuzzpercent, true);
     doCheckPositiveNumber("getRoute", "riskFactor", riskFactor);
     doCheckPositiveNumber("getRoute", "cltv", cltv);
-    doCheckPositiveNumber("getRoute", "maxHope", maxHope);
+    doCheckPositiveNumber("getRoute", "maxHops", maxHops);
 
     HashMap<String, Object> payload = new HashMap<>();
 
     payload.put("id", id);
-    payload.put("msatoshi", maxHope);
+    payload.put("msatoshi", maxHops);
     payload.put("riskfactor", riskFactor);
     payload.put("cltv", cltv);
-    payload.put("maxhope", maxHope);
+    payload.put("maxhops", maxHops);
 
     if (!fromid.isEmpty()) {
       payload.put("fromid", fromid);
@@ -284,7 +284,7 @@ public class CLightningRPC {
     return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXDISCARD, pyload);
   }
 
-  public CLightningBitcoinTx withDraw(
+  public CLightningBitcoinTx withdraw(
       String destination, String satoshi, String feerate, String minconf) {
     if (destination == null || destination.trim().isEmpty()) {
       throw new CLightningException(
@@ -324,8 +324,8 @@ public class CLightningRPC {
     return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.WITHDRAW, payloadString);
   }
 
-  public CLightningBitcoinTx withDraw(String destination, String satoshi) {
-    return this.withDraw(destination, satoshi, "", "");
+  public CLightningBitcoinTx withdraw(String destination, String satoshi) {
+    return this.withdraw(destination, satoshi, "", "");
   }
 
   public CLightningBitcoinTx close(String channelId, String unilateraltimeout) {

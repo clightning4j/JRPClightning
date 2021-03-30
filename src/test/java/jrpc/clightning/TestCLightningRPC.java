@@ -15,7 +15,6 @@ package jrpc.clightning;
 
 import static org.junit.Assume.assumeTrue;
 
-import java.awt.*;
 import java.util.HashMap;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
@@ -44,6 +43,7 @@ public class TestCLightningRPC {
 
   @Before
   public void cleanAll() {
+    MocksUtils.fundCLightningNodeTwo();
     CLightningListInvoices listInvoices = rpc.listInvoices();
     if (!listInvoices.getListInvoice().isEmpty()) {
       for (CLightningInvoice invoice : listInvoices.getListInvoice()) {
@@ -162,17 +162,17 @@ public class TestCLightningRPC {
   @Test
   public void testCommandWithDrawOne() {
     try {
-      rpc.withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
-      TestCase.fail();
+      CLightningBitcoinTx withdraw = rpc.withdraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+      TestCase.assertNotNull(withdraw);
     } catch (CLightningException ex) {
-      TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
+      TestCase.fail(ex.getLocalizedMessage());
     }
   }
 
   @Test
   public void testCommandTxDiscardOne() {
     try {
-      CLightningBitcoinTx txBitcoin = rpc.withDraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
+      CLightningBitcoinTx txBitcoin = rpc.withdraw("2NDHWDrq34EEZp77dMxg3qWFsBb8XteV8Yq", "");
       TestCase.assertNotNull(txBitcoin.getTxId());
     } catch (CLightningException ex) {
       TestCase.assertTrue(ex.getMessage().contains("Error inside command with error code:"));
@@ -180,25 +180,36 @@ public class TestCLightningRPC {
   }
 
   @Test
-  public void testCommandConnectAndCloseOne() {
+  public void testCommandConnectAndCloseOne() throws InterruptedException {
     assumeTrue(rpc.listFunds().getOutputs().size() > 0);
     CLightningLogger.getInstance()
         .debug(TAG, "invoice: " + converter.serialization(rpc.listFunds()));
     try {
+      CLightningOutput output = rpc.listFunds().getOutputs().get(0);
+      String utxoString = output.getTxId() + ":" + output.getOutput();
       rpc.connect(
           infoFirstNode.getId(),
           infoFirstNode.getBinding().get(0).getAddress(),
           infoFirstNode.getBinding().get(0).getPort() + "");
-      MocksUtils.generateBlockBitcoin();
-      CLightningBitcoinTx fundTx = rpc.fundChannel(infoFirstNode.getId(), "5000");
+      CLightningBitcoinTx fundTx =
+          rpc.fundChannel(
+              infoFirstNode.getId(), "50000", "urgent", true, 1, new String[] {utxoString});
       TestCase.assertNotNull(fundTx.getTxId());
       MocksUtils.generateBlockBitcoin();
+      MocksUtils.generateBlockBitcoin();
+      MocksUtils.generateBlockBitcoin();
+      MocksUtils.generateBlockBitcoin();
+      Thread.sleep(2000);
       CLightningListChannels channels = rpc.listChannels();
+      assumeTrue(!channels.getChannels().isEmpty());
       CLightningBitcoinTx closeTx = rpc.close(channels.getChannels().get(0).getShortChannelId());
       TestCase.assertNotNull(closeTx.getTxId());
       TestCase.assertNotNull(closeTx.getTx());
     } catch (CLightningException | CommandException ex) {
-      TestCase.fail(ex.getLocalizedMessage());
+      TestCase.fail(
+          ex.getLocalizedMessage()
+              + " \n listfunds -> "
+              + converter.serialization(rpc.listFunds()));
     }
   }
 
@@ -309,7 +320,7 @@ public class TestCLightningRPC {
       rpc.getRoute(infoFirstNode.getId(), "2000", 0f);
       TestCase.fail();
     } catch (CLightningException exception) {
-      exception.printStackTrace();
+      TestCase.assertTrue(exception.getLocalizedMessage().contains("Could not find a route"));
     }
   }
 
@@ -383,7 +394,7 @@ public class TestCLightningRPC {
       TestCase.assertNotNull(fundPSBT);
       TestCase.assertTrue(fundPSBT.getPsbt().length() > 20);
     } catch (CLightningException exception) {
-      TestCase.assertTrue(exception.getMessage().contains("Could not afford"));
+      TestCase.fail(exception.getLocalizedMessage());
     }
   }
 

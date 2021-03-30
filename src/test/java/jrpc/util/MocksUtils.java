@@ -7,7 +7,6 @@ import java.nio.file.Paths;
 import java.util.StringTokenizer;
 import jrpc.clightning.model.CLightningGetInfo;
 import jrpc.clightning.service.CLightningConfigurator;
-import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
 
 public class MocksUtils {
@@ -46,11 +45,6 @@ public class MocksUtils {
     return (CLightningGetInfo) converter.deserialization(getInfo, CLightningGetInfo.class);
   }
 
-  // deprecated stuff
-  public static void runBitcoin() {
-    runProcess("run-bitcoin.sh");
-  }
-
   public static void stopBitcoin() {
     runProcess("stop-bitcoin.sh");
   }
@@ -59,31 +53,20 @@ public class MocksUtils {
     runProcess("generate-block-bitcoin.sh");
   }
 
-  public static void startCLightningNodeOne() {
-    runProcess("run_node_one.sh");
-  }
-
-  public static void startCLightningNodeTwo() {
-    runProcess("run_node_two.sh");
-  }
-
-  public static void runCLightningNodes() {
-    startCLightningNodeTwo();
-    startCLightningNodeOne();
+  public static void fundCLightningNodeTwo() {
+    runProcess("fund_node_two.sh");
   }
 
   private static void runProcess(String cmd) {
     try {
       String sandBoxPath = MocksUtils.getSandBoxPath();
       if (sandBoxPath.isEmpty()) return;
-      sandBoxPath += "node_one.info";
 
       ProcessBuilder pb = new ProcessBuilder("bash", new File(cmd).toString());
       pb.inheritIO();
       pb.directory(new File(sandBoxPath));
       Process process = pb.start();
       process.waitFor();
-      CLightningLogger.getInstance().error(MocksUtils.class, pb.redirectOutput().toString());
     } catch (IOException | InterruptedException ioException) {
       ioException.printStackTrace();
     }

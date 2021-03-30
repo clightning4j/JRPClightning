@@ -15,7 +15,7 @@ public class CLightningFundPSBT {
   private int estimatedFinalWeight;
 
   @SerializedName("excess_msat")
-  private int excessMilliSat;
+  private String excessMilliSat;
 
   private List<CLightningReservation> reservations;
 
@@ -31,7 +31,7 @@ public class CLightningFundPSBT {
     return estimatedFinalWeight;
   }
 
-  public int getExcessMilliSat() {
+  public String getExcessMilliSat() {
     return excessMilliSat;
   }
 
