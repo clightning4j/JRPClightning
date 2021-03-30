@@ -149,10 +149,12 @@ public class TestCLightningRPC {
             BitcoinOutput bitcoinOutputTwo = new BitcoinOutput(address, "100");
             BitcoinOutput bitcoinOutputThree = new BitcoinOutput(address, "100");
             CLightningBitcoinTx bitcoinTx = rpc.txPrepare(bitcoinOutputOne, bitcoinOutputTwo, bitcoinOutputThree);
-            rpc.txDiscard(bitcoinTx.getTxId());
-            TestCase.fail();
+            CLightningBitcoinTx tx = rpc.txDiscard(bitcoinTx.getTxId());
+            TestCase.assertNotNull(tx);
+            //TestCase.fail();
         } catch (CLightningException ex) {
-            TestCase.assertTrue(ex.getLocalizedMessage().contains("Could not afford"));
+            //TestCase.assertTrue(ex.getLocalizedMessage().contains("Could not afford"));
+            TestCase.fail();
         }
     }
 
@@ -190,7 +192,7 @@ public class TestCLightningRPC {
             CLightningListChannels channels = rpc.listChannels();
             CLightningBitcoinTx closeTx = rpc.close(channels.getChannels().get(0).getShortChannelId());
             TestCase.assertNotNull(closeTx.getTxId());
-            TestCase.assertNotNull(closeTx.getUnsignedTx());
+            TestCase.assertNotNull(closeTx.getTx());
         } catch (CLightningException | CommandException ex) {
             TestCase.fail(ex.getLocalizedMessage());
         }
