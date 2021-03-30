@@ -2,6 +2,5 @@
 ./run-bitcoin.sh
 ./generate-block-bitcoin.sh
 ./run-clightning.sh
-./generate-block-bitcoin.sh
 cd code
-./gradlew test -i
+./gradlew test

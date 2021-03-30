@@ -5,14 +5,15 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-/**
- * @author https://github.com/vincenzopalazzo
- */
+/** @author https://github.com/vincenzopalazzo */
 @Retention(RetentionPolicy.RUNTIME)
 @Target(ElementType.METHOD)
 public @interface RPCMethod {
-    String name();
-    String description();
-    String longDescription() default "";
-    String parameter() default "";
+  String name();
+
+  String description();
+
+  String longDescription() default "";
+
+  String parameter() default "";
 }

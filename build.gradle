@@ -1,6 +1,18 @@
+buildscript {
+    repositories {
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
+    }
+    dependencies {
+        classpath "gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9"
+    }
+}
+
 apply plugin: 'java-library'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: "com.github.sherter.google-java-format"
 apply from: 'gradle/release.gradle'
 
 repositories {
@@ -25,7 +37,7 @@ dependencies {
 }
 
 task copyLib(type: Copy){
-    from  "${project.buildDir}/libs/jrpclightning-${version}.jar" into '/home/vincent/Github/lightning-rest/libdev/'
+    from  "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/LNQrcode/devlib'
 }
 
 test {
@@ -37,7 +49,6 @@ test {
 
 jar {
     archiveVersion.set(VERSION as String)
-
     inputs.property("moduleName", MODULE_NAME)
 
     manifest {

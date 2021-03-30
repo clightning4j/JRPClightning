@@ -1,6 +1,5 @@
 # :zap: JRPClightning :zap:
-![GitHub All Releases](https://img.shields.io/github/downloads/vincenzopalazzo/JRPClightning/total?color=%23ff5722&style=for-the-badge)
-![GitHub top language](https://img.shields.io/github/languages/top/vincenzopalazzo/JRPClightning?color=%23ff5722&style=for-the-badge)
+![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=for-the-badge)
 
 <p align="center">
     <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
@@ -12,7 +11,32 @@ This is a wrapper for c-lightning rpc, this project is inspired by this
 The wrapper aims to be versatile, the final version should allow the user to execute commands even of custom plugins, allowing them to write the code for the command.
 
 ## Status of project :construction:
-The project support some command, if you want try it don't use on the **MAINET** but use **TESTNET**
+The project support some command, if you want try it doesn't use on the **MAINET** but use **TESTNET**
+
+## Repositories
+
+#### Maven
+
+```xml
+<dependency>
+  <groupId>io.github.clightning4j</groupId>
+  <artifactId>jrpclightning</artifactId>
+  <version>0.1.9</version>
+</dependency>
+```
+
+#### Gradle Kotlin DSL
+
+```kotlin
+implementation("io.github.clightning4j:jrpclightning:0.1.8")
+```
+
+#### Gradle groovy DSL
+
+```groovy
+implementation 'io.github.clightning4j:jrpclightning:0.1.8'
+```
+
 
 ## Command Support
 

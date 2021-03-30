@@ -1,53 +1,56 @@
 package jrpc.clightning.model.types.bitcoin;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class CLightningRawTransactions {
 
-    private String hash;
-    private String rawtx;
-    @SerializedName("blockheight")
-    private int blockHeight;
-    @SerializedName("txindex")
-    private int txIndex;
-    @SerializedName("locktime")
-    private int locktime;
-    private int version;
-    private List<CLightningTransactionInput> inputs = new ArrayList<>();
-    private List<CLightningTransactionOutput> outputs = new ArrayList<>();
+  private String hash;
+  private String rawtx;
 
-    public String getHash() {
-        return hash;
-    }
+  @SerializedName("blockheight")
+  private int blockHeight;
 
-    public String getRawtx() {
-        return rawtx;
-    }
+  @SerializedName("txindex")
+  private int txIndex;
 
-    public int getBlockHeight() {
-        return blockHeight;
-    }
+  @SerializedName("locktime")
+  private int locktime;
 
-    public int getTxIndex() {
-        return txIndex;
-    }
+  private int version;
+  private List<CLightningTransactionInput> inputs = new ArrayList<>();
+  private List<CLightningTransactionOutput> outputs = new ArrayList<>();
 
-    public int getLocktime() {
-        return locktime;
-    }
+  public String getHash() {
+    return hash;
+  }
 
-    public int getVersion() {
-        return version;
-    }
+  public String getRawtx() {
+    return rawtx;
+  }
 
-    public List<CLightningTransactionInput> getInputs() {
-        return inputs;
-    }
+  public int getBlockHeight() {
+    return blockHeight;
+  }
 
-    public List<CLightningTransactionOutput> getOutputs() {
-        return outputs;
-    }
+  public int getTxIndex() {
+    return txIndex;
+  }
+
+  public int getLocktime() {
+    return locktime;
+  }
+
+  public int getVersion() {
+    return version;
+  }
+
+  public List<CLightningTransactionInput> getInputs() {
+    return inputs;
+  }
+
+  public List<CLightningTransactionOutput> getOutputs() {
+    return outputs;
+  }
 }

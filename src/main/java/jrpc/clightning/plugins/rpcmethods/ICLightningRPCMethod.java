@@ -4,21 +4,19 @@ import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
-/**
- * @author https://github.com/vincenzopalazzo
- */
+/** @author https://github.com/vincenzopalazzo */
 public interface ICLightningRPCMethod {
 
-    void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response)
-            throws CLightningException;
+  void doRun(ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response)
+      throws CLightningException;
 
-    String getName();
+  String getName();
 
-    String getUsage();
+  String getUsage();
 
-    String getDescription();
+  String getDescription();
 
-    String getLongDescription();
+  String getLongDescription();
 
-    RPCMethodType getType();
+  RPCMethodType getType();
 }

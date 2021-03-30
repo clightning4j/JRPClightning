@@ -8,24 +8,22 @@ import org.junit.Test;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-/**
- * @author https://github.com/vincenzopalazzo
- */
+/** @author https://github.com/vincenzopalazzo */
 public class TestInitMethod {
 
-    private static final Logger LOGGER = LoggerFactory.getLogger(TestManifestMethod.class);
+  private static final Logger LOGGER = LoggerFactory.getLogger(TestManifestMethod.class);
 
-    private ICLightningRPCMethod init;
+  private ICLightningRPCMethod init;
 
-    @Before
-    public void init(){
-        init = new InitMethod();
-    }
+  @Before
+  public void init() {
+    init = new InitMethod();
+  }
 
-    @Test
-    public void testStringMethodEmptyOne(){
-        String jsonResult = init.toString();
-        LOGGER.debug("\n" + jsonResult);
-        TestCase.assertFalse(jsonResult.contains("init"));
-    }
+  @Test
+  public void testStringMethodEmptyOne() {
+    String jsonResult = init.toString();
+    LOGGER.debug("\n" + jsonResult);
+    TestCase.assertFalse(jsonResult.contains("init"));
+  }
 }
