@@ -28,6 +28,9 @@ public class CLightningBitcoinTx {
     private String unsignedTx;
     @SerializedName("txid")
     private String txId;
+    // the close channel return the tx
+    // https://lightning.readthedocs.io/lightning-close.7.html
+    private String tx;
 
     public String getUnsignedTx() {
         return unsignedTx;
@@ -35,5 +38,9 @@ public class CLightningBitcoinTx {
 
     public String getTxId() {
         return txId;
+    }
+
+    public String getTx() {
+        return tx;
     }
 }
