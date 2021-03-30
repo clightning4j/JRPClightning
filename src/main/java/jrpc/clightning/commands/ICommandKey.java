@@ -1,6 +1,6 @@
 package jrpc.clightning.commands;
 
-public interface ICommandKey{
+public interface ICommandKey {
 
-    String getCommandKey();
+  String getCommandKey();
 }

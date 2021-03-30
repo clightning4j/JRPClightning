@@ -5,5 +5,6 @@ import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 public interface Interceptor {
 
-    void doAction(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response);
+  void doAction(
+      CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response);
 }

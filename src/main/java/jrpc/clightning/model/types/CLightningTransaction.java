@@ -2,18 +2,19 @@ package jrpc.clightning.model.types;
 
 import com.google.gson.annotations.SerializedName;
 
-//TODO maybe this class is redundant
+// TODO maybe this class is redundant
 public class CLightningTransaction {
 
-    @SerializedName("txid")
-    private String txId;
-    private String tx;
+  @SerializedName("txid")
+  private String txId;
 
-    public String getTxId() {
-        return txId;
-    }
+  private String tx;
 
-    public String getTx() {
-        return tx;
-    }
+  public String getTxId() {
+    return txId;
+  }
+
+  public String getTx() {
+    return tx;
+  }
 }

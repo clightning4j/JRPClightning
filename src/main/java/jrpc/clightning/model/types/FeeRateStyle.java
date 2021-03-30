@@ -1,18 +1,17 @@
 package jrpc.clightning.model.types;
 
 public enum FeeRateStyle {
+  PERKW("perkw"),
+  PERKB("perkb");
 
-    PERKW("perkw"),
-    PERKB("perkb");
+  private String style;
 
-    private String style;
+  FeeRateStyle(String style) {
+    this.style = style;
+  }
 
-    FeeRateStyle(String style) {
-        this.style = style;
-    }
-
-    @Override
-    public String toString() {
-        return style;
-    }
+  @Override
+  public String toString() {
+    return style;
+  }
 }

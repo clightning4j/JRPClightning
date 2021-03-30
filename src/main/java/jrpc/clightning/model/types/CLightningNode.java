@@ -1,43 +1,45 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.math.BigInteger;
 import java.util.List;
 
 public class CLightningNode {
 
-    @SerializedName("nodeid")
-    private String nodeId;
-    private String alias;
-    private String color;
-    @SerializedName("last_timestamp")
-    private BigInteger lastTimestamp;
-    private String features;
-    private List<NetworkAddress> addresses;
+  @SerializedName("nodeid")
+  private String nodeId;
 
-    // getter
-    public String getNodeId() {
-        return nodeId;
-    }
+  private String alias;
+  private String color;
 
-    public String getAlias() {
-        return alias;
-    }
+  @SerializedName("last_timestamp")
+  private BigInteger lastTimestamp;
 
-    public String getColor() {
-        return color;
-    }
+  private String features;
+  private List<NetworkAddress> addresses;
 
-    public BigInteger getLastTimestamp() {
-        return lastTimestamp;
-    }
+  // getter
+  public String getNodeId() {
+    return nodeId;
+  }
 
-    public String getFeatures() {
-        return features;
-    }
+  public String getAlias() {
+    return alias;
+  }
 
-    public List<NetworkAddress> getAddresses() {
-        return addresses;
-    }
+  public String getColor() {
+    return color;
+  }
+
+  public BigInteger getLastTimestamp() {
+    return lastTimestamp;
+  }
+
+  public String getFeatures() {
+    return features;
+  }
+
+  public List<NetworkAddress> getAddresses() {
+    return addresses;
+  }
 }

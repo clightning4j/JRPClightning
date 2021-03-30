@@ -1,25 +1,25 @@
 package jrpc.clightning.model.types.bitcoin;
 
 import com.google.gson.annotations.SerializedName;
-
 import java.math.BigInteger;
 
 public class CLightningTransactionInput {
 
-    @SerializedName("txid")
-    private String txId;
-    private int index;
-    private BigInteger sequences;
+  @SerializedName("txid")
+  private String txId;
 
-    public String getTxId() {
-        return txId;
-    }
+  private int index;
+  private BigInteger sequences;
 
-    public int getIndex() {
-        return index;
-    }
+  public String getTxId() {
+    return txId;
+  }
 
-    public BigInteger getSequences() {
-        return sequences;
-    }
+  public int getIndex() {
+    return index;
+  }
+
+  public BigInteger getSequences() {
+    return sequences;
+  }
 }

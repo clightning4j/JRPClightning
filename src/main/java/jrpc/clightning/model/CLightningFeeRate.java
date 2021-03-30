@@ -6,32 +6,31 @@ import jrpc.clightning.model.types.OnChainFeeEstimates;
 
 public class CLightningFeeRate {
 
-    @Expose
-    private String type;
-    private FeeRateInfo feeRateInfo;
-    private OnChainFeeEstimates onChainFeeEstimates;
+  @Expose private String type;
+  private FeeRateInfo feeRateInfo;
+  private OnChainFeeEstimates onChainFeeEstimates;
 
-    public FeeRateInfo getFeeRateInfo() {
-        return feeRateInfo;
-    }
+  public FeeRateInfo getFeeRateInfo() {
+    return feeRateInfo;
+  }
 
-    public void setFeeRateInfo(FeeRateInfo feeRateInfo) {
-        this.feeRateInfo = feeRateInfo;
-    }
+  public void setFeeRateInfo(FeeRateInfo feeRateInfo) {
+    this.feeRateInfo = feeRateInfo;
+  }
 
-    public OnChainFeeEstimates getOnChainFeeEstimates() {
-        return onChainFeeEstimates;
-    }
+  public OnChainFeeEstimates getOnChainFeeEstimates() {
+    return onChainFeeEstimates;
+  }
 
-    public void setOnChainFeeEstimates(OnChainFeeEstimates onChainFeeEstimates) {
-        this.onChainFeeEstimates = onChainFeeEstimates;
-    }
+  public void setOnChainFeeEstimates(OnChainFeeEstimates onChainFeeEstimates) {
+    this.onChainFeeEstimates = onChainFeeEstimates;
+  }
 
-    public String getType() {
-        return type;
-    }
+  public String getType() {
+    return type;
+  }
 
-    public void setType(String type) {
-        this.type = type;
-    }
+  public void setType(String type) {
+    this.type = type;
+  }
 }

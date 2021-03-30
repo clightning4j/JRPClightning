@@ -4,10 +4,10 @@ import com.google.gson.annotations.SerializedName;
 
 public class CLightningPing {
 
-    @SerializedName("totlen")
-    private int totLen;
+  @SerializedName("totlen")
+  private int totLen;
 
-    public int getTotLen() {
-        return totLen;
-    }
+  public int getTotLen() {
+    return totLen;
+  }
 }
