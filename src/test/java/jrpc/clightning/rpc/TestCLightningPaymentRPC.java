@@ -3,10 +3,17 @@ package jrpc.clightning.rpc;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.model.*;
 import jrpc.service.CLightningLogger;
+import jrpc.util.MocksUtils;
 import junit.framework.TestCase;
+import org.junit.Before;
 import org.junit.Test;
 
 public class TestCLightningPaymentRPC extends AbstractTestRPC {
+
+  @Before
+  public void cleanAll() {
+    MocksUtils.fundCLightningNodeTwo();
+  }
 
   @Test
   public void testCommandGetInvoiceOne() {

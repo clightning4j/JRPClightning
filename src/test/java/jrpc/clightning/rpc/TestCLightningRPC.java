@@ -22,24 +22,11 @@ import jrpc.clightning.model.types.*;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;
-import jrpc.util.MocksUtils;
 import junit.framework.TestCase;
-import org.junit.Before;
 import org.junit.Test;
 
 /** @author https://github.com/vincenzopalazzo */
 public class TestCLightningRPC extends AbstractTestRPC {
-
-  @Before
-  public void cleanAll() {
-    MocksUtils.fundCLightningNodeTwo();
-    CLightningListInvoices listInvoices = rpc.listInvoices();
-    if (!listInvoices.getListInvoice().isEmpty()) {
-      for (CLightningInvoice invoice : listInvoices.getListInvoice()) {
-        rpc.delInvoice(invoice.getLabel(), invoice.getStatus());
-      }
-    }
-  }
 
   @Test
   public void testCommandGetInfo() {

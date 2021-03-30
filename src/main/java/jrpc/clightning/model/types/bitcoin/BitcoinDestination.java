@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2020 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
+ * Copyright 2019-2021 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
  *
  * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
@@ -36,10 +36,5 @@ public class BitcoinDestination {
 
   public void setAmount(String amount) {
     this.amount = amount;
-  }
-
-  @Override
-  public String toString() {
-    return String.format("{%s: %s}", destination, amount);
   }
 }

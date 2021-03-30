@@ -93,14 +93,14 @@ public class CLightningChannelRPC {
     HashMap<String, Object> payload = new HashMap<>();
     payload.put("id", id);
     if (!host.isEmpty()) {
-        payload.put("host", host);
+      payload.put("host", host);
     } else {
-        payload.put("host", "127.0.0.1");
+      payload.put("host", "127.0.0.1");
     }
     if (!port.isEmpty()) {
-        payload.put("port", port);
+      payload.put("port", port);
     } else {
-        payload.put("port", "9735");
+      payload.put("port", "9735");
     }
 
     return (CLightningConnect) mediatorCommand.runCommand(Command.CONNECT, payload);

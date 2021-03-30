@@ -1,7 +1,6 @@
 package jrpc.clightning.rpc.bitcoin;
 
 import java.math.BigInteger;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -67,18 +66,13 @@ public class CLightningBitcoinRPC {
           "The method getListInvoices have the parameter output is/are empty");
     }
 
-    List<String> output = new ArrayList<>();
-    bitcoinOutputs.forEach(it -> output.add(it.toString()));
-    List<String> utxoString = new ArrayList<>();
-    utxos.forEach(it -> utxoString.add(it.toString()));
-
     HashMap<String, Object> payload = new HashMap<>();
-    payload.put("outputs", output);
+    payload.put("outputs", bitcoinOutputs);
     payload.put("minconf", minConf);
 
     if (!feeRate.isEmpty()) payload.put("feerate", feeRate);
 
-    if (!utxoString.isEmpty()) payload.put("utxos", utxoString);
+    if (!utxos.isEmpty()) payload.put("utxos", utxos);
     return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.TXPREPARE, payload);
   }
 
@@ -109,9 +103,7 @@ public class CLightningBitcoinRPC {
     payload.put("minconf", minconf);
 
     if (!utxos.isEmpty()) {
-        List<String> utxoString = new ArrayList<>();
-        utxos.forEach(it -> utxoString.add(it.toString()));
-        payload.put("utxos", utxoString);
+      payload.put("utxos", utxos);
     }
 
     if (!feeRate.isEmpty()) {
@@ -149,7 +141,7 @@ public class CLightningBitcoinRPC {
     if (lockTime != null) payload.put("locktime", lockTime);
     if (minWitnessWeight != null) payload.put("min_witness_weight", minWitnessWeight);
     // TODO added after 0.9.3
-    //if (excessAsChange != null) payload.put("excess_as_change", excessAsChange);
+    // if (excessAsChange != null) payload.put("excess_as_change", excessAsChange);
 
     return (CLightningFundPSBT) mediatorCommand.runCommand(Command.FUNDPSBT, payload);
   }

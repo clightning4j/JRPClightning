@@ -10,8 +10,16 @@ public class BitcoinUTXO {
     this.index = index;
   }
 
+  public String getTxId() {
+    return txId;
+  }
+
+  public int getIndex() {
+    return index;
+  }
+
   @Override
   public String toString() {
-    return  txId + ": " + index;
+    return String.format("%s: %d", txId, index);
   }
 }
