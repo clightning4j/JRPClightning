@@ -4,8 +4,9 @@
     <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
 </p>
 
-![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square)
+[![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square)](https://search.maven.org/search?q=g:io.github.clightning4j)
 [![codecov](https://codecov.io/gh/clightning4j/JRPClightning/branch/master/graph/badge.svg?token=YVrQVYtqVn)](https://codecov.io/gh/clightning4j/JRPClightning)
+[![discussion](https://img.shields.io/badge/Discussion-Join-green)](https://github.com/clightning4j/JRPClightning/discussions)
 
 This is a wrapper for c-lightning rpc, this project is inspired by this 
 [pull request](https://github.com/ElementsProject/lightning/pull/2223) by @renepickhardt.
