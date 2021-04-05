@@ -23,7 +23,7 @@ The project support some command, if you want try it doesn't use on the **MAINET
 <dependency>
   <groupId>io.github.clightning4j</groupId>
   <artifactId>jrpclightning</artifactId>
-  <version>0.1.9</version>
+  <version>0.1.8</version>
 </dependency>
 ```
 
@@ -39,10 +39,42 @@ implementation("io.github.clightning4j:jrpclightning:0.1.8")
 implementation 'io.github.clightning4j:jrpclightning:0.1.8'
 ```
 
+### Snapshot version
+
+An example of gradle configuration is reported below
+
+_Gradle (Kotlin DSL)_
+
+### Snapshot version
+
+Each master version has a SNAPSHOT version that is the official version `x.x.x + 1`, so for example for the version `v0.1.9`
+the version on if exist a new version of the master branch is `v0.1.9-SNAPSHOT`, or some release candidate version, like `v0.1.9-rc1`, will be
+`v0.1.9-rc1-SNAPSHOT`.
+
+Describe a static rule at the moment it is difficult for the snapshot release, for this reason, feel free to open a 
+[question on the Github discussion](https://github.com/clightning4j/JRPClightning/discussions) if you have any doubt
+
+```kotlin
+configurations.all {
+    resolutionStrategy.cacheDynamicVersionsFor(0, "seconds")
+    resolutionStrategy.cacheChangingModulesFor(0, "seconds")
+}
+
+repositories {
+    ... other suff
+    maven("https://oss.sonatype.org/content/repositories/snapshots")
+}
+
+dependencies {
+    ... other stuff 
+    implementation("io.github.clightning4j:jrpclightning:0.1.9-SNAPSHOT")
+}
+
+```
 
 ## Command Support
 
-At the moment the library doesn't support all command avaible on clightning, a list of command is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
+At the moment the library doesn't support all command available on c-lightning, a list of command is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
 
 - You can use the RPC wrapper to call the method **getinfo**, the command returns the 
 json wrapper, called CLightningGetInfo.
@@ -55,7 +87,7 @@ json wrapper, called CLightningGetInfo.
         System.out.println("color=" + color);
     ```
 
-- You can create the personal wrapper to support new commands (i.e: personal plugins or command not supported yet by library)
+- You can create the personal wrapper to support new commands (i.e: personal plugins or command not supported yet by the library)
    
   **Create the command wrapper**
   
@@ -76,7 +108,7 @@ json wrapper, called CLightningGetInfo.
   ```
   
   **Create the personal Json wrapper** 
-  - In this cases is used a library wrapper, you can see all wrapper available in the library [here](https://vincenzopalazzo.github.io/JRPClightning/)
+  - In these cases is used a library wrapper, you can see all wrapper available in the library [here](https://vincenzopalazzo.github.io/JRPClightning/)
   
   **Register the command and run it**
   
@@ -101,11 +133,13 @@ RPC_DIR=/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc
 
 # Plugin support
 
-The library support now the plugins and you can subscribe the plugin to notify with the annotation.
+The library support from version 0.1.8 plugins, and the library contains a collections of Annotation to make the developing phase easy.
 
 ### Example
 
 ### Plugin example 
+
+##### Java
 
 ```java
     @RPCMethod(
@@ -120,6 +154,8 @@ The library support now the plugins and you can subscribe the plugin to notify w
 
 ### Notification example 
 
+##### Java
+
 ```java
     @Subscription(notification = "invoice_creation")
     public void doInvoiceCreation(CLightningJsonObject data){
@@ -130,6 +166,8 @@ The library support now the plugins and you can subscribe the plugin to notify w
 
 ### Hook example
 
+##### Java
+
 ```java
     @Hook(hook = "rpc_command")
     public void logAllRPCCommand(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
@@ -138,8 +176,32 @@ The library support now the plugins and you can subscribe the plugin to notify w
     }
 ```
 
+### Plugin Option
+
+##### Koltin
+
+```kotlin
+class Plugin : CLightningPlugin() {
+
+    @PluginOption(
+        name = "hello-kotlin",
+        description = "This propriety is a fake propriety, there is any problem if it is not exist in the command line",
+        defValue = "true",
+        typeValue = "flag"
+    )
+    private var sayHello = false
+}
+```
+
+A complete example of plugin wrote with kotlin is available at the [following link](https://github.com/clightning4j/btcli4j) or a java version
+it is [available at the following link](https://github.com/clightning4j/lightning-rest).
+
+Stat to write a plugin with the following templates
+
+- [Kotlin Template](https://github.com/clightning4j/kotlin-template)
+
 ## Support
-If you like the library and want support it, please considerer to donate with the following system
+If you like the library and want to support it, please considerer to donate with the following system
 
 - [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
 - [3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU](bitcoin:3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU)
@@ -151,8 +213,9 @@ If you like the library and want support it, please considerer to donate with th
   <img src="https://opensource.org/files/osi_keyhole_300X300_90ppi_0.png" width="150" height="150"/>
 </div>
 
- This is a wrapper for c-lightning RPC interface.
- Copyright (C) 2020 Vincenzo Palazzo vincenzopalazzodev@gmail.com
+ C-lightning RPC wrapper, with the complete support to Plugins and custom settings.
+
+ Copyright (C) 2020-2021 Vincenzo Palazzo vincenzopalazzodev@gmail.com
  
  This program is free software; you can redistribute it and/or modify
  it under the terms of the GNU General Public License as published by
