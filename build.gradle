@@ -52,6 +52,13 @@ test {
     }
 }
 
+jacocoTestReport {
+    reports {
+        xml.enabled true
+        html.enabled false
+    }
+}
+
 jar {
     archiveVersion.set(VERSION as String)
     inputs.property("moduleName", MODULE_NAME)
@@ -70,21 +77,10 @@ task jarWithDependencies(type: Jar) {
     with jar
 }
 
-task codeCoverageReport(type: JacocoReport) {
-    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
-
-    subprojects.each {
-        sourceSets it.sourceSets.main
-    }
-
-    reports {
-        xml.enabled true
-        xml.destination file("${buildDir}/reports/jacoco/report.xml")
-        html.enabled false
-        csv.enabled false
-    }
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
-codeCoverageReport.dependsOn {
-    subprojects*.test
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
 }
