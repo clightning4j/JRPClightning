@@ -1,9 +1,11 @@
 # :zap: JRPClightning :zap:
-![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=for-the-badge)
 
 <p align="center">
     <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
 </p>
+
+![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square)
+[![codecov](https://codecov.io/gh/clightning4j/JRPClightning/branch/master/graph/badge.svg?token=YVrQVYtqVn)](https://codecov.io/gh/clightning4j/JRPClightning)
 
 This is a wrapper for c-lightning rpc, this project is inspired by this 
 [pull request](https://github.com/ElementsProject/lightning/pull/2223) by @renepickhardt.
