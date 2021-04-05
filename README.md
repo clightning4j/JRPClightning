@@ -41,18 +41,16 @@ implementation 'io.github.clightning4j:jrpclightning:0.1.8'
 
 ### Snapshot version
 
-An example of gradle configuration is reported below
-
-_Gradle (Kotlin DSL)_
-
-### Snapshot version
-
 Each master version has a SNAPSHOT version that is the official version `x.x.x + 1`, so for example for the version `v0.1.9`
 the version on if exist a new version of the master branch is `v0.1.9-SNAPSHOT`, or some release candidate version, like `v0.1.9-rc1`, will be
 `v0.1.9-rc1-SNAPSHOT`.
 
 Describe a static rule at the moment it is difficult for the snapshot release, for this reason, feel free to open a 
 [question on the Github discussion](https://github.com/clightning4j/JRPClightning/discussions) if you have any doubt
+
+An example of gradle configuration is reported below
+
+_Gradle (Kotlin DSL)_
 
 ```kotlin
 configurations.all {
