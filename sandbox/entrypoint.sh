@@ -4,3 +4,4 @@
 ./run-clightning.sh
 cd code
 ./gradlew test
+./gradlew codeCoverageReport

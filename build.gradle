@@ -12,6 +12,7 @@ buildscript {
 apply plugin: 'java-library'
 apply plugin: 'maven'
 apply plugin: 'signing'
+apply plugin: 'jacoco'
 apply plugin: "com.github.sherter.google-java-format"
 apply from: 'gradle/release.gradle'
 
@@ -27,10 +28,14 @@ dependencies {
     implementation 'ch.qos.logback:logback-classic:1.2.3'
     implementation 'ch.qos.logback:logback-core:1.2.3'
     implementation 'org.slf4j:slf4j-api:1.7.25'
+
     implementation 'com.kohlschutter.junixsocket:junixsocket-common:2.3.2'
     implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.3.2'
+
     implementation 'com.google.code.gson:gson:2.8.6'
+
     implementation 'org.reflections:reflections:0.9.12'
+
     implementation 'commons-io:commons-io:2.4'
 
     testImplementation 'junit:junit:4.13.1'
@@ -63,4 +68,23 @@ task jarWithDependencies(type: Jar) {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
+}
+
+task codeCoverageReport(type: JacocoReport) {
+    executionData fileTree(project.rootDir.absolutePath).include("**/build/jacoco/*.exec")
+
+    subprojects.each {
+        sourceSets it.sourceSets.main
+    }
+
+    reports {
+        xml.enabled true
+        xml.destination file("${buildDir}/reports/jacoco/report.xml")
+        html.enabled false
+        csv.enabled false
+    }
+}
+
+codeCoverageReport.dependsOn {
+    subprojects*.test
 }
