@@ -104,10 +104,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         if (messageSocket.trim().isEmpty()) {
           continue;
         }
-        log(PluginLog.DEBUG, messageSocket);
         CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
         JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
-        log(PluginLog.DEBUG, object);
         if (!PluginUtils.isRpcCall(object)) {
           continue;
         }
@@ -135,7 +133,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         | IllegalAccessException
         | InvocationTargetException ex) {
       ex.printStackTrace();
-      log(PluginLog.ERROR, ex.getLocalizedMessage());
+      log(PluginLog.ERROR, ex.getMessage());
     }
   }
 
