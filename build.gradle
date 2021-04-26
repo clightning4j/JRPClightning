@@ -34,7 +34,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.6'
 
-    implementation 'org.reflections:reflections:0.9.12'
+    implementation 'org.reflections:reflections:0.9.11'
 
     implementation 'commons-io:commons-io:2.4'
 
