@@ -5,6 +5,7 @@
 </p>
 
 [![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square)](https://search.maven.org/search?q=g:io.github.clightning4j)
+![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.clightning4j/jrpclightning?server=https%3A%2F%2Foss.sonatype.org&style=flat-square)
 [![codecov](https://codecov.io/gh/clightning4j/JRPClightning/branch/master/graph/badge.svg?token=YVrQVYtqVn)](https://codecov.io/gh/clightning4j/JRPClightning)
 [![discussion](https://img.shields.io/badge/Discussion-Join-green)](https://github.com/clightning4j/JRPClightning/discussions)
 
