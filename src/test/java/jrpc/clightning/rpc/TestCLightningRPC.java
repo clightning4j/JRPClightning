@@ -18,7 +18,6 @@ import java.util.HashMap;
 import jrpc.clightning.exceptions.CLightningException;
 import jrpc.clightning.exceptions.CommandException;
 import jrpc.clightning.model.*;
-import jrpc.clightning.model.types.*;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.mock.rpccommand.CustomCommand;
 import jrpc.mock.rpccommand.PersonalDelPayRPCCommand;

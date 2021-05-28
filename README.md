@@ -202,9 +202,12 @@ Stat to write a plugin with the following templates
 ## Support
 If you like the library and want to support it, please considerer to donate with the following system
 
-- [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
 - [3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU](bitcoin:3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU)
+- [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
 - [Github support](https://github.com/sponsors/vincenzopalazzo)
+- [buymeacoffee](https://www.buymeacoffee.com/vincenzopalazzo)
+
+P.S: Lightning donation is coming ;-)
 
 ## License
 

@@ -14,6 +14,7 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.annotations.SerializedName;
+import java.math.BigInteger;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningInfoChannel {
@@ -25,19 +26,26 @@ public class CLightningInfoChannel {
   private String shortChannelId;
 
   @SerializedName("channel_sat")
-  private String channelSat;
+  private BigInteger channelSat;
 
   @SerializedName("our_amount_msat")
   private String ourAmountMSat;
 
   @SerializedName("channel_total_sat")
-  private String channelTotalSat;
+  private BigInteger channelTotalSat;
 
   @SerializedName("amount_msat")
   private String amountMSat;
 
+  @SerializedName("funding_txid")
+  private String fundingTxId;
+
   @SerializedName("funding_output")
   private int fundingOutput;
+
+  private Boolean connected;
+
+  private String state;
 
   public String getPeerId() {
     return peerId;
@@ -47,7 +55,7 @@ public class CLightningInfoChannel {
     return shortChannelId;
   }
 
-  public String getChannelSat() {
+  public BigInteger getChannelSat() {
     return channelSat;
   }
 
@@ -55,7 +63,7 @@ public class CLightningInfoChannel {
     return ourAmountMSat;
   }
 
-  public String getChannelTotalSat() {
+  public BigInteger getChannelTotalSat() {
     return channelTotalSat;
   }
 
@@ -65,5 +73,17 @@ public class CLightningInfoChannel {
 
   public int getFundingOutput() {
     return fundingOutput;
+  }
+
+  public String getFundingTxId() {
+    return fundingTxId;
+  }
+
+  public Boolean getConnected() {
+    return connected;
+  }
+
+  public String getState() {
+    return state;
   }
 }
