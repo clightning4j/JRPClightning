@@ -180,7 +180,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     payload.add("jsonrpc", "2.0");
     payload.add("method", "log");
     payload.add("params", params.getWrapper());
-    CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload.toString());
+    CLightningLogger.getInstance().debug(TAG, "LOG result: " + payload);
 
     // TODO! I don't like that this print each line that have a \n on more debug log
     StringTokenizer endLine = new StringTokenizer(logMessage, "\n");
@@ -213,7 +213,6 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
       if (field.isAnnotationPresent(PluginOption.class)) {
         PluginOption annotation = field.getAnnotation(PluginOption.class);
         Option option = new Option();
-        // TODO pull the value directly from the annotation propriety
         option.setDefaultValue(annotation.defValue());
         option.setDescriptionOption(annotation.description());
         option.setName(annotation.name());

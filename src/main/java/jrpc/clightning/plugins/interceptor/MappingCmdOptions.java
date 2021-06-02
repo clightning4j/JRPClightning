@@ -26,10 +26,10 @@ public class MappingCmdOptions implements Interceptor {
         if (plugin.hasParameter(annotation.name())) {
           // The init method arrived and we can make the binging
           // It variable is used to avoid to use reflection each time.
-          // plugin.setParametersReady(true);
+          plugin.setParametersReady(true);
           Object value = plugin.getParameter(annotation.name());
           CLightningLogger.getInstance()
-              .info(this.getClass(), "Option " + annotation.name() + "=" + value);
+              .debug(this.getClass(), "Option " + annotation.name() + "=" + value);
           try {
             field.setAccessible(true);
             field.set(plugin, value);
