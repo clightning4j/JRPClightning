@@ -28,11 +28,11 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="OFF">
         <appender-ref ref="FILE"/>
     </root>
 
-    <logger name="jrpc.clightning.plugins" level="INFO">
+    <logger name="jrpc.clightning" level="INFO">
         <appender-ref ref="FILE"/>
     </logger>
 </configuration>
