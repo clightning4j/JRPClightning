@@ -149,6 +149,10 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     return parametersReady;
   }
 
+  public void setParametersReady(boolean parametersReady) {
+    this.parametersReady = parametersReady;
+  }
+
   public void log(PluginLog level, CLightningJsonObject json) {
     this.log(level, json.getWrapper());
   }

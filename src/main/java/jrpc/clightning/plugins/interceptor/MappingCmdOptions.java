@@ -4,7 +4,7 @@ import java.lang.reflect.Field;
 import jrpc.clightning.annotation.PluginOption;
 import jrpc.clightning.plugins.CLightningPlugin;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
-import jrpc.clightning.plugins.log.PluginLog;
+import jrpc.service.CLightningLogger;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import org.reflections.Reflections;
 
@@ -25,7 +25,8 @@ public class MappingCmdOptions implements Interceptor {
         PluginOption annotation = field.getAnnotation(PluginOption.class);
         if (plugin.hasParameter(annotation.name())) {
           Object value = plugin.getParameter(annotation.name());
-          plugin.log(PluginLog.DEBUG, "Option " + annotation.name() + "=" + value);
+          CLightningLogger.getInstance()
+              .debug(this.getClass(), "Option " + annotation.name() + "=" + value);
           try {
             field.setAccessible(true);
             field.set(plugin, value);
@@ -37,5 +38,7 @@ public class MappingCmdOptions implements Interceptor {
         }
       }
     }
+    // Avoid to use reflection each time.
+    plugin.setParametersReady(true);
   }
 }

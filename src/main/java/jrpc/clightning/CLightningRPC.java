@@ -45,8 +45,6 @@ public class CLightningRPC {
   private static final Class TAG = CLightningRPC.class;
   private static CLightningRPC SINGLETON;
 
-  protected static final String JOIN_TOKEN_PROP = "+";
-
   public static CLightningRPC getInstance() {
     if (SINGLETON == null) {
       SINGLETON = new CLightningRPC();
@@ -395,7 +393,7 @@ public class CLightningRPC {
   }
 
   // Register commands
-  public void registerCommand(ICommandKey key, IRPCCommand command) {
+  public <T> void registerCommand(ICommandKey key, IRPCCommand<T> command) {
     if (key == null || command == null) {
       throw new IllegalArgumentException("Key and/or command null");
     }
