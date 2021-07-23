@@ -203,8 +203,8 @@ public class CLightningRPC {
         mediatorCommand, id, amount, feeRate, announce, minConf, utxos, pushMilliSat, closeTo);
   }
 
-  public CLightningListFounds listFunds() {
-    return (CLightningListFounds) mediatorCommand.runCommand(Command.LISTFOUNDS, new HashMap<>());
+  public CLightningListFunds listFunds() {
+    return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, new HashMap<>());
   }
 
   public CLightningConnect connect(String id, String host, String port) {
@@ -257,11 +257,12 @@ public class CLightningRPC {
   }
 
   public CLightningListChannels listChannels() {
-    return this.listChannels("", "");
+    return this.listChannels("", "", "");
   }
 
-  public CLightningListChannels listChannels(String shortIdChannel, String source) {
-    return this.channelRPC.listChannels(mediatorCommand, shortIdChannel, source);
+  public CLightningListChannels listChannels(
+      String shortIdChannel, String source, String destination) {
+    return this.channelRPC.listChannels(mediatorCommand, shortIdChannel, source, destination);
   }
 
   public CLightningListPeers listPeers() {

@@ -41,8 +41,8 @@ public class CLightingPluginConfig {
   @SerializedName("torv3-enabled")
   private boolean torv3;
 
-  @SerializedName("use_proxy_alway")
-  private boolean useProxyAlway;
+  @SerializedName("use_proxy_always")
+  private boolean useProxyAlways;
 
   public String getLightningDir() {
     return lightningDir;
@@ -72,8 +72,8 @@ public class CLightingPluginConfig {
     return torv3;
   }
 
-  public boolean isUseProxyAlway() {
-    return useProxyAlway;
+  public boolean isUseProxyAlways() {
+    return useProxyAlways;
   }
 
   public boolean isProxyEnabled() {

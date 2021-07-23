@@ -81,7 +81,7 @@ public class TestCLightningPaymentRPC extends AbstractTestRPC {
 
   @Test
   public void testCommandListFunds() {
-    CLightningListFounds listFounds = rpc.listFunds();
+    CLightningListFunds listFounds = rpc.listFunds();
     TestCase.assertNotNull(listFounds);
   }
 

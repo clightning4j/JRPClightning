@@ -27,19 +27,28 @@ public class CLightningInvoice {
 
   private String bolt11;
 
-  @SerializedName("warning_mpp")
-  private String warningMpp;
+  @SerializedName("warning_private_unused")
+  private String warningPrivateUnused;
 
-  @SerializedName("warning_mpp_capacity")
-  private String warningMppCapacity;
+  @SerializedName("warning_capacity")
+  private String warningCapacity;
+
+  @SerializedName("warning_offline")
+  private String warningOffline;
+
+  @SerializedName("warning_deadends")
+  private String warningDeadends;
+
+  @SerializedName("payment_secret")
+  private String paymentSecret;
+
+  @SerializedName("msatoshi")
+  private String milliSatoshi;
 
   // Get information inside the commadn listinvoices
   private String label;
   private String description;
   private String status;
-
-  @SerializedName("msatoshi")
-  private String milliSatoshi;
 
   public String getPaymentHash() {
     return paymentHash;
@@ -53,12 +62,20 @@ public class CLightningInvoice {
     return bolt11;
   }
 
-  public String getWarningMpp() {
-    return warningMpp;
+  public String getWarningPrivateUnused() {
+    return warningPrivateUnused;
   }
 
-  public String getWarningMppCapacity() {
-    return warningMppCapacity;
+  public String getWarningCapacity() {
+    return warningCapacity;
+  }
+
+  public String getWarningOffline() {
+    return warningOffline;
+  }
+
+  public String getWarningDeadends() {
+    return warningDeadends;
   }
 
   public String getLabel() {
@@ -75,5 +92,9 @@ public class CLightningInvoice {
 
   public String getDescription() {
     return description;
+  }
+
+  public String getPaymentSecret() {
+    return paymentSecret;
   }
 }

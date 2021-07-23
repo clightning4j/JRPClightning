@@ -4,7 +4,6 @@ import java.lang.reflect.Field;
 import jrpc.clightning.annotation.PluginOption;
 import jrpc.clightning.plugins.CLightningPlugin;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
-import jrpc.service.CLightningLogger;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import org.reflections.Reflections;
 
@@ -18,7 +17,10 @@ public class MappingCmdOptions implements Interceptor {
 
   @Override
   public void doAction(
-      CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
+      String methodName,
+      CLightningPlugin plugin,
+      CLightningJsonObject request,
+      CLightningJsonObject response) {
     if (plugin.hasParametersReady()) return;
     for (Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)) {
       if (field.isAnnotationPresent(PluginOption.class)) {
@@ -28,8 +30,6 @@ public class MappingCmdOptions implements Interceptor {
           // It variable is used to avoid to use reflection each time.
           plugin.setParametersReady(true);
           Object value = plugin.getParameter(annotation.name());
-          CLightningLogger.getInstance()
-              .debug(this.getClass(), "Option " + annotation.name() + "=" + value);
           try {
             field.setAccessible(true);
             field.set(plugin, value);
