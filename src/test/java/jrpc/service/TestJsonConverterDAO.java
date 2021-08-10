@@ -13,10 +13,14 @@
  */
 package jrpc.service;
 
+import com.google.gson.reflect.TypeToken;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashSet;
+import java.util.Set;
+import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
 import jrpc.exceptions.ServiceException;
 import jrpc.mock.RequestLightningRPC;
 import jrpc.service.converters.IConverter;
@@ -50,7 +54,7 @@ public class TestJsonConverterDAO {
   }
 
   @Test
-  public void testOnefromJson() throws FileNotFoundException, ServiceException {
+  public void testOneFromJson() throws FileNotFoundException, ServiceException {
     InputStream inputStream =
         new FileInputStream(
             new File(System.getProperty("user.dir") + "/src/test/resources/object.json"));
@@ -58,5 +62,31 @@ public class TestJsonConverterDAO {
         (RequestLightningRPC) genericDAO.deserialization(inputStream, RequestLightningRPC.class);
     TestCase.assertEquals("getinfo", req.getMethod());
     TestCase.assertEquals("qwerty", req.getArgument());
+  }
+
+  @Test
+  public void testSerializeHasSet() throws ServiceException {
+    Set<Notification> notifications = new HashSet<>();
+    notifications.add(new Notification("testOne"));
+    notifications.add(new Notification("testTwo"));
+    notifications.add(new Notification("testThree"));
+
+    String decoding = genericDAO.serialization(notifications);
+    int count = 0;
+    for (char c : decoding.toCharArray()) {
+      if (c == '[' || c == ']') {
+        count++;
+      }
+    }
+    TestCase.assertEquals(2, count);
+  }
+
+  @Test
+  public void testDecodingHasSet() throws ServiceException {
+    String decoding = "[]";
+    Set<Notification> notifications =
+        (Set<Notification>)
+            genericDAO.deserialization(decoding, new TypeToken<Set<Notification>>() {}.getType());
+    TestCase.assertEquals(0, notifications.size());
   }
 }

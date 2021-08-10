@@ -39,6 +39,7 @@ import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
+import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
@@ -209,8 +210,54 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         this.stdout.write(payload.getWrapper().toString());
         this.stdout.flush();
       } catch (IOException ioException) {
-        ioException.printStackTrace();
+        CLightningLogger.getInstance().error(TAG, ioException.getLocalizedMessage());
+        this.log(PluginLog.ERROR, ioException.getLocalizedMessage());
       }
+    }
+  }
+
+  /**
+   * Method to help the user to register a custom notification for the plugin
+   *
+   * @param methodName: A unique key to identify notification in the plugin
+   */
+  public void addNotification(String methodName) {
+    if (this.manifest.getNotifications().contains(new Notification(methodName))) {
+      throw new CLightningPluginException(
+          -1,
+          String.format("The plugin already have a notification with method name %s", methodName));
+    }
+    this.manifest.addNotification(methodName);
+  }
+
+  /**
+   * Helper method to check if a notification with the key (method name) exist in the plugin.
+   *
+   * @param methodName A unique key to identify notification in the plugin
+   * @return true if the plugin contains a notification with the key (methodName), false otherwise.
+   */
+  public boolean containsNotification(String methodName) {
+    return this.manifest.getNotifications().contains(new Notification(methodName));
+  }
+
+  /**
+   * Method to tell the plugin that the user want send a notification
+   *
+   * @param methodName: A unique key to identify notification in the plugin
+   * @param params: A json object (CLightningJsonObject) that contains all the parameters that the
+   *     notification need to ship.
+   */
+  public void sendNotification(String methodName, CLightningJsonObject params) {
+    CLightningJsonObject payload = new CLightningJsonObject();
+    payload.add("jsonrpc", "2.0");
+    payload.add("method", methodName);
+    payload.add("params", params);
+    try {
+      this.stdout.write(payload.getWrapper().toString());
+      this.stdout.flush();
+    } catch (IOException ioException) {
+      CLightningLogger.getInstance().error(TAG, ioException.getLocalizedMessage());
+      this.log(PluginLog.ERROR, ioException.getLocalizedMessage());
     }
   }
 
