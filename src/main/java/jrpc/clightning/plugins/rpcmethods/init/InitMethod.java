@@ -7,7 +7,6 @@ import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
-import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
@@ -23,9 +22,6 @@ public class InitMethod extends AbstractRPCMethod {
   @Override
   public void doRun(
       ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
-    CLightningLogger.getInstance().debug(TAG, "**** Called rpc method init ****");
-    CLightningLogger.getInstance()
-        .debug(TAG, "***** Json Object  " + request.toString() + " *****");
     JsonObject jsonParams = (JsonObject) request.get("params");
     JsonObject config = (JsonObject) jsonParams.get("configuration");
     JsonConverter converter = new JsonConverter();

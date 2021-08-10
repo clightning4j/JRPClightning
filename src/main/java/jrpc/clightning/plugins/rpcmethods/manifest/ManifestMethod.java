@@ -3,11 +3,14 @@ package jrpc.clightning.plugins.rpcmethods.manifest;
 import com.google.gson.JsonObject;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import jrpc.clightning.plugins.ICLightningPlugin;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
+import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
@@ -27,6 +30,7 @@ public class ManifestMethod extends AbstractRPCMethod {
   private List<String> hooks = new ArrayList<>();
   private Features features = new Features();
   private boolean dynamic = true;
+  private Set<Notification> notifications = new HashSet<>();
 
   public ManifestMethod() {
     super("getmanifest", null, null);
@@ -88,6 +92,9 @@ public class ManifestMethod extends AbstractRPCMethod {
     this.dynamic = dynamic;
   }
 
+  public void addNotification(String methodName) {
+    this.notifications.add(new Notification(methodName));
+  }
   // getter methods
   public List<Option> getOptions() {
     return options;
@@ -111,5 +118,9 @@ public class ManifestMethod extends AbstractRPCMethod {
 
   public Boolean getDynamic() {
     return dynamic;
+  }
+
+  public Set<Notification> getNotifications() {
+    return notifications;
   }
 }

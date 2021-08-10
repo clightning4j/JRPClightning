@@ -19,7 +19,7 @@ import jrpc.clightning.model.types.CLightningInfoChannel;
 import jrpc.clightning.model.types.CLightningOutput;
 
 /** @author https://github.com/vincenzopalazzo */
-public class CLightningListFounds {
+public class CLightningListFunds {
 
   private List<CLightningOutput> outputs = new ArrayList<>();
   private List<CLightningInfoChannel> channels = new ArrayList<>();

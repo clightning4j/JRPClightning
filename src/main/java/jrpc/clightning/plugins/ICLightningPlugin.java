@@ -2,6 +2,7 @@ package jrpc.clightning.plugins;
 
 import java.util.List;
 import jrpc.clightning.model.types.CLightingPluginConfig;
+import jrpc.clightning.plugins.interceptor.Interceptor;
 import jrpc.clightning.plugins.log.PluginLog;
 import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
@@ -11,7 +12,14 @@ public interface ICLightningPlugin {
 
   void start();
 
+  void onInit(
+      ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response);
+
   void addRPCMethod(AbstractRPCMethod method);
+
+  void addInterceptorBeforeRPCMethod(Interceptor interceptor);
+
+  void addInterceptorAfterRPCMethod(Interceptor interceptor);
 
   List<AbstractRPCMethod> getRpcMethods();
 

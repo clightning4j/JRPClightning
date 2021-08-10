@@ -8,7 +8,7 @@ public class TestCLightningChannelRPC extends AbstractTestRPC {
 
   @Test
   public void testCommandListChannelsOne() {
-    CLightningListChannels channles = rpc.listChannels("", "");
+    CLightningListChannels channles = rpc.listChannels("", "", "");
     TestCase.assertNotNull(channles);
   }
 }

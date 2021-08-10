@@ -176,16 +176,25 @@ public class CLightningChannelRPC {
   }
 
   public CLightningListChannels listChannels(
-      CommandRPCMediator mediatorCommand, String shortIdChannel, String source) {
+      CommandRPCMediator mediatorCommand,
+      String shortIdChannel,
+      String source,
+      String destination) {
     ParameterChecker.doCheckString("listChannels", "shortIdChannel", shortIdChannel, true);
     ParameterChecker.doCheckString("listChannels", "source", source, true);
+    ParameterChecker.doCheckString("listChannels", "destination", source, true);
 
     HashMap<String, Object> payload = new HashMap<>();
     if (!shortIdChannel.trim().isEmpty()) {
       payload.put("short_channel_id", shortIdChannel.trim());
     }
+
     if (!source.isEmpty()) {
       payload.put("source", source.trim());
+    }
+
+    if (!destination.isEmpty()) {
+      payload.put("destination", source.trim());
     }
 
     return (CLightningListChannels) mediatorCommand.runCommand(Command.LISTCHANNELS, payload);

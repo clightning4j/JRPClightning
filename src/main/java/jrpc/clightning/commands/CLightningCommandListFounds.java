@@ -15,11 +15,11 @@ package jrpc.clightning.commands;
 
 import com.google.gson.reflect.TypeToken;
 import java.lang.reflect.Type;
-import jrpc.clightning.model.CLightningListFounds;
+import jrpc.clightning.model.CLightningListFunds;
 import jrpc.wrapper.response.RPCResponseWrapper;
 
 /** @author https://github.com/vincenzopalazzo */
-class CLightningCommandListFounds extends AbstractRPCCommand<CLightningListFounds> {
+class CLightningCommandListFounds extends AbstractRPCCommand<CLightningListFunds> {
 
   private static final String COMMAND_NAME = "listfunds";
 
@@ -29,6 +29,6 @@ class CLightningCommandListFounds extends AbstractRPCCommand<CLightningListFound
 
   @Override
   protected Type toTypeFromClass() {
-    return new TypeToken<RPCResponseWrapper<CLightningListFounds>>() {}.getType();
+    return new TypeToken<RPCResponseWrapper<CLightningListFunds>>() {}.getType();
   }
 }

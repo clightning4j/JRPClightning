@@ -17,7 +17,6 @@ apply plugin: "com.github.sherter.google-java-format"
 apply from: 'gradle/release.gradle'
 
 repositories {
-    jcenter()
     mavenCentral()
 }
 
@@ -25,20 +24,20 @@ version = VERSION
 group = GROUP_ID
 
 dependencies {
-    implementation 'ch.qos.logback:logback-classic:1.2.3'
-    implementation 'ch.qos.logback:logback-core:1.2.3'
-    implementation 'org.slf4j:slf4j-api:1.7.25'
+    implementation 'ch.qos.logback:logback-classic:1.2.5'
+    implementation 'ch.qos.logback:logback-core:1.2.5'
+    implementation 'org.slf4j:slf4j-api:1.7.32'
 
-    implementation 'com.kohlschutter.junixsocket:junixsocket-common:2.3.2'
-    implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.3.2'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-common:2.4.0'
+    implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.4.0'
 
-    implementation 'com.google.code.gson:gson:2.8.6'
+    implementation 'com.google.code.gson:gson:2.8.7'
 
-    implementation 'org.reflections:reflections:0.9.11'
+    implementation 'org.reflections:reflections:0.9.12'
 
     implementation 'commons-io:commons-io:2.4'
 
-    testImplementation 'junit:junit:4.13.1'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 task copyLib(type: Copy){

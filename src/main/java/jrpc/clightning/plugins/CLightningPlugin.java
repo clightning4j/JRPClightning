@@ -30,6 +30,7 @@ import jrpc.clightning.annotation.RPCMethod;
 import jrpc.clightning.annotation.Subscription;
 import jrpc.clightning.model.types.CLightingPluginConfig;
 import jrpc.clightning.plugins.exceptions.CLightningPluginException;
+import jrpc.clightning.plugins.interceptor.CallOnInitMethod;
 import jrpc.clightning.plugins.interceptor.Interceptor;
 import jrpc.clightning.plugins.interceptor.MappingCmdOptions;
 import jrpc.clightning.plugins.log.PluginLog;
@@ -38,6 +39,7 @@ import jrpc.clightning.plugins.rpcmethods.RPCMethodReflection;
 import jrpc.clightning.plugins.rpcmethods.RPCMethodType;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
+import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
@@ -57,7 +59,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
   private ManifestMethod manifest;
   @Expose private List<Interceptor> preInterceptor;
-  @Expose private List<Interceptor> prostInterceptor;
+  @Expose private List<Interceptor> postInterceptor;
   @Expose protected Map<String, Object> parameters;
   @Expose private boolean parametersReady;
   @Expose private BufferedWriter stdout;
@@ -78,22 +80,36 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     this.stdout = new BufferedWriter(new OutputStreamWriter(System.out));
     this.parameters = new HashMap<>();
     this.converter = new JsonConverter();
-    this.prostInterceptor = new ArrayList<>();
+    this.postInterceptor = new ArrayList<>();
     this.preInterceptor = new ArrayList<>();
-    this.prostInterceptor.add(new MappingCmdOptions(reflections));
     this.parametersReady = false;
+    this.initPreHandlerInterceptor();
+    this.initPostHandlerInterceptor();
   }
 
   public void addRPCMethod(AbstractRPCMethod method) {
     if (method == null) {
       throw new IllegalArgumentException("Method object null");
     }
-    CLightningLogger.getInstance().debug(TAG, "Added method to list methods of plugin");
     if (method.getType() == RPCMethodType.HOOK) {
       this.manifest.addHook(method.getName());
     }
     this.manifest.addMethod(method);
   }
+
+  @Override
+  public void addInterceptorBeforeRPCMethod(Interceptor interceptor) {
+    this.preInterceptor.add(interceptor);
+  }
+
+  @Override
+  public void addInterceptorAfterRPCMethod(Interceptor interceptor) {
+    this.postInterceptor.add(interceptor);
+  }
+
+  @Override
+  public void onInit(
+      ICLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {}
 
   @Override
   public void start() {
@@ -194,9 +210,62 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         this.stdout.write(payload.getWrapper().toString());
         this.stdout.flush();
       } catch (IOException ioException) {
-        ioException.printStackTrace();
+        CLightningLogger.getInstance().error(TAG, ioException.getLocalizedMessage());
+        this.log(PluginLog.ERROR, ioException.getLocalizedMessage());
       }
     }
+  }
+
+  /**
+   * Method to help the user to register a custom notification for the plugin
+   *
+   * @param methodName: A unique key to identify notification in the plugin
+   */
+  public void addNotification(String methodName) {
+    if (this.manifest.getNotifications().contains(new Notification(methodName))) {
+      throw new CLightningPluginException(
+          -1,
+          String.format("The plugin already have a notification with method name %s", methodName));
+    }
+    this.manifest.addNotification(methodName);
+  }
+
+  /**
+   * Helper method to check if a notification with the key (method name) exist in the plugin.
+   *
+   * @param methodName A unique key to identify notification in the plugin
+   * @return true if the plugin contains a notification with the key (methodName), false otherwise.
+   */
+  public boolean containsNotification(String methodName) {
+    return this.manifest.getNotifications().contains(new Notification(methodName));
+  }
+
+  /**
+   * Method to tell the plugin that the user want send a notification
+   *
+   * @param methodName: A unique key to identify notification in the plugin
+   * @param params: A json object (CLightningJsonObject) that contains all the parameters that the
+   *     notification need to ship.
+   */
+  public void sendNotification(String methodName, CLightningJsonObject params) {
+    CLightningJsonObject payload = new CLightningJsonObject();
+    payload.add("jsonrpc", "2.0");
+    payload.add("method", methodName);
+    payload.add("params", params);
+    try {
+      this.stdout.write(payload.getWrapper().toString());
+      this.stdout.flush();
+    } catch (IOException ioException) {
+      CLightningLogger.getInstance().error(TAG, ioException.getLocalizedMessage());
+      this.log(PluginLog.ERROR, ioException.getLocalizedMessage());
+    }
+  }
+
+  protected void initPreHandlerInterceptor() {}
+
+  protected void initPostHandlerInterceptor() {
+    this.postInterceptor.add(new MappingCmdOptions(reflections));
+    this.postInterceptor.add(new CallOnInitMethod());
   }
 
   protected void registerMethod() {
@@ -268,12 +337,8 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
     if (method == null || method.isEmpty()) {
       return;
     }
-    CLightningLogger.getInstance()
-        .debug(TAG, "c-lightning calls for method: ++++++ " + method + " ++++++");
     // TODO refactoring this with a map and not with a list
     for (AbstractRPCMethod rpcMethod : this.getRpcMethods()) {
-      CLightningLogger.getInstance()
-          .debug(TAG, "Call method plugin ++++++ " + rpcMethod.getName() + " ++++++");
       if (method.trim().equals(rpcMethod.getName())) {
         // Pass the request object and create a response object like Java servlet.
         // String result = rpcMethod.doRun(request); //this method is deprecated
@@ -285,22 +350,21 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
           CLightningJsonObject internalRequest = new CLightningJsonObject(request);
           // Pre interceptor
           preInterceptor.forEach(
-              interceptor -> interceptor.doAction(this, internalRequest, result));
-
+              interceptor ->
+                  interceptor.doAction(rpcMethod.getName(), this, internalRequest, result));
           rpcMethod.doRun(this, internalRequest, result);
           // Post Interceptor
-          prostInterceptor.forEach(
-              interceptor -> interceptor.doAction(this, internalRequest, result));
+          postInterceptor.forEach(
+              interceptor ->
+                  interceptor.doAction(rpcMethod.getName(), this, internalRequest, result));
         } catch (CLightningPluginException pluginException) {
           returnWithAnError(result, pluginException.getCode(), pluginException.getErrorMessage());
           response.add("error", result.getWrapper());
           log(PluginLog.ERROR, pluginException.getErrorMessage());
         }
-        CLightningLogger.getInstance().debug(TAG, "Plugin result ++++++ " + response + " ++++++");
         if (!response.has("error")) {
           response.add("result", result.getWrapper());
         }
-        CLightningLogger.getInstance().debug(TAG, "******** final answer: " + response.toString());
         stdout.write(response.toString());
         stdout.flush();
       }

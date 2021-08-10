@@ -41,6 +41,9 @@ public class CLightningOutput {
 
   private Boolean reserved;
 
+  @SerializedName("reserved_to_block")
+  private BigInteger reservedToBlock;
+
   public String getTxId() {
     return txId;
   }
@@ -107,6 +110,10 @@ public class CLightningOutput {
 
   public Boolean getReserved() {
     return reserved;
+  }
+
+  public BigInteger getReservedToBlock() {
+    return reservedToBlock;
   }
 
   public void setReserved(Boolean reserved) {
