@@ -18,7 +18,7 @@ import java.lang.reflect.Type;
 import jrpc.wrapper.response.RPCResponseWrapper;
 
 /** @author https://github.com/vincenzopalazzo */
-class CLightningCommandAutoCleanInvoice extends AbstractRPCCommand<String> {
+class CLightningCommandAutoCleanInvoice extends AbstractRPCCommand<Object> {
 
   private static final String COMMAND_NAME = "autocleaninvoice";
 
@@ -28,6 +28,6 @@ class CLightningCommandAutoCleanInvoice extends AbstractRPCCommand<String> {
 
   @Override
   protected Type toTypeFromClass() {
-    return new TypeToken<RPCResponseWrapper<String>>() {}.getType();
+    return new TypeToken<RPCResponseWrapper<Object>>() {}.getType();
   }
 }

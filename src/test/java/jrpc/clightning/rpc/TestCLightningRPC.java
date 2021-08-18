@@ -60,6 +60,14 @@ public class TestCLightningRPC extends AbstractTestRPC {
     TestCase.assertNotNull(help);
   }
 
+    @Test
+    public void testHelpTwo() {
+        CLightningHelp help = rpc.help();
+        TestCase.assertTrue(help.getHelpItems().size() > 0);
+        var count = (int) help.getHelpItems().stream().count();
+        TestCase.assertEquals(help.getHelpItems().size(), count);
+  }
+
   @Test
   public void testListConfigs() {
     CLightningListConfigs configs = rpc.listConfigs();
