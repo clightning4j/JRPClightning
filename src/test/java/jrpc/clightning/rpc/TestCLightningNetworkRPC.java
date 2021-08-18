@@ -72,7 +72,8 @@ public class TestCLightningNetworkRPC extends AbstractTestRPC {
       rpc.getRoute(infoFirstNode.getId(), "2000", 0f);
       TestCase.fail();
     } catch (CLightningException exception) {
-      TestCase.assertTrue(exception.getLocalizedMessage().contains("unknown source node_id (no public channels?)"));
+      TestCase.assertTrue(
+          exception.getLocalizedMessage().contains("unknown source node_id (no public channels?)"));
     }
   }
 
