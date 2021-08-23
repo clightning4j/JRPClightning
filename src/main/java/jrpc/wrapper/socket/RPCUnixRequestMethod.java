@@ -13,15 +13,23 @@
  */
 package jrpc.wrapper.socket;
 
+import com.google.gson.annotations.SerializedName;
 import java.util.Map;
+import java.util.Random;
 
 public class RPCUnixRequestMethod implements IWrapperSocketCall {
 
   private int id;
   private String method;
+
+  @SerializedName("jsonrpc")
+  private String version;
+
   private Map<String, Object> params;
+  private RandomUtils randomUtils;
 
   public RPCUnixRequestMethod(String method, Map<String, Object> params) {
+    randomUtils = new RandomUtils();
     this.id = getRandomNumber();
     this.method = method;
     this.params = params;
@@ -29,6 +37,11 @@ public class RPCUnixRequestMethod implements IWrapperSocketCall {
 
   public int getId() {
     return id;
+  }
+
+  @Override
+  public String getVersion() {
+    return version;
   }
 
   public String getMethod() {
@@ -39,8 +52,26 @@ public class RPCUnixRequestMethod implements IWrapperSocketCall {
     return params;
   }
 
-  // TODO generate a correct id number, is correct this number?
   public int getRandomNumber() {
-    return (int) (Math.random() * 100);
+    // TODO 0, 20000 is the correct number?
+    return randomUtils.nextInt(0, 20000);
+  }
+
+  private static class RandomUtils extends Random {
+
+    /**
+     * @param min generated value. Can't be > then max
+     * @param max generated value
+     * @return values in closed range [min, max].
+     */
+    public int nextInt(int min, int max) {
+      if (min > max)
+        throw new IllegalArgumentException(
+            "min can't be > then max; values:[" + min + ", " + max + "]");
+      if (min == max) {
+        return max;
+      }
+      return nextInt(max - min + 1) + min;
+    }
   }
 }

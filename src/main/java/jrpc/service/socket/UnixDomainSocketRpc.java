@@ -52,7 +52,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     this.pathSocket = pathSocket;
     try {
       this.socket = AFUNIXSocket.newInstance();
-      this.socket.connect(new AFUNIXSocketAddress(file));
+      this.socket.connect(AFUNIXSocketAddress.of(file));
       this.inputStream = socket.getInputStream();
       this.outputStream = socket.getOutputStream();
       this.converterJson = new JsonConverter();
@@ -103,7 +103,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         CLightningLogger.getInstance().debug(TAG, "UnixDomainSocketRpc: path is " + pathSocket);
         File fileRPC = new File(pathSocket);
         if (fileRPC.exists()) {
-          InetSocketAddress socketAddress = new AFUNIXSocketAddress(fileRPC);
+          InetSocketAddress socketAddress = AFUNIXSocketAddress.of(fileRPC);
           CLightningLogger.getInstance().error(TAG, "BEFORE CONNECT INSIDE METHOD doCall");
           this.socket = AFUNIXSocket.newInstance();
           this.socket.connect(socketAddress);
