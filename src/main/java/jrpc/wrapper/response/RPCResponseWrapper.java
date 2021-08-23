@@ -20,7 +20,6 @@ public class RPCResponseWrapper<T> {
 
   @SerializedName("jsonrpc")
   private String version;
-
   private int id;
   private T result;
   private ErrorResponse error;
