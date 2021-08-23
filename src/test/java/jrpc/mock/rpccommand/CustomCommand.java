@@ -1,5 +1,6 @@
 package jrpc.mock.rpccommand;
 
+import java.util.Locale;
 import jrpc.clightning.commands.ICommandKey;
 
 public enum CustomCommand implements ICommandKey {
@@ -8,7 +9,7 @@ public enum CustomCommand implements ICommandKey {
   private String commandKey;
 
   CustomCommand(String commandKey) {
-    this.commandKey = commandKey;
+    this.commandKey = commandKey.toLowerCase(Locale.ROOT);
   }
 
   @Override

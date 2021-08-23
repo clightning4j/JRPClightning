@@ -10,7 +10,7 @@ import jrpc.wrapper.response.RPCResponseWrapper;
 @RPCCommand(name = "delpay")
 public class PersonalDelPayRPCCommand extends AbstractRPCCommand<CLightningListPays> {
 
-  private static final String COMMAND_NAME = "delpay";
+  private static final String COMMAND_NAME = CustomCommand.DELPAY.getCommandKey();
 
   public PersonalDelPayRPCCommand() {
     super(COMMAND_NAME);
