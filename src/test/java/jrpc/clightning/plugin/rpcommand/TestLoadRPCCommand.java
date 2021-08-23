@@ -16,6 +16,6 @@ public class TestLoadRPCCommand {
   @Test
   public void testLoadRPCCustomCommandTwo() {
     var map = ReflectionManager.getInstance().getCustomCommandWithAnnotation();
-    TestCase.assertTrue(map.containsKey(CustomCommand.DELPAY.getCommandKey()));
+    TestCase.assertTrue(map.containsKey(CustomCommand.ANN_DELPAY.getCommandKey()));
   }
 }
