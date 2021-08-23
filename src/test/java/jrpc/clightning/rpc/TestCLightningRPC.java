@@ -89,6 +89,7 @@ public class TestCLightningRPC extends AbstractTestRPC {
 
     CLightningListPays result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
     TestCase.assertNotNull(result);
+    rpc.unregisterCommand(CustomCommand.DELPAY);
   }
 
   @Test(expected = CommandException.class)
@@ -96,7 +97,9 @@ public class TestCLightningRPC extends AbstractTestRPC {
     HashMap<String, Object> payload = new HashMap<>();
     payload.put("payment_hash", "YOUR_BOLT11");
 
-    CLightningListPays result = rpc.runRegisterCommand("delpay", payload);
+    TestCase.assertFalse(rpc.hasCommand(CustomCommand.DELPAY, true));
+
+    CLightningListPays result = rpc.runRegisterCommand(CustomCommand.DELPAY, payload);
     TestCase.assertNotNull(result);
   }
 }

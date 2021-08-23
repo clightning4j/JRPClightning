@@ -7,10 +7,10 @@ import org.junit.Test;
 public class TestCLightningUtilRPC extends AbstractTestRPC {
 
   @Test
-  public void testSimpleListFounds() {
-    CLightningListFunds listFounds = rpc.listFunds();
-    TestCase.assertNotNull(listFounds);
-    TestCase.assertNotNull(listFounds.getChannels());
-    TestCase.assertNotNull(listFounds.getOutputs());
+  public void testSimpleListFunds() {
+    CLightningListFunds listFunds = rpc.listFunds();
+    TestCase.assertNotNull(listFunds);
+    TestCase.assertNotNull(listFunds.getChannels());
+    TestCase.assertNotNull(listFunds.getOutputs());
   }
 }

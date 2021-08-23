@@ -401,11 +401,23 @@ public class CLightningRPC {
     mediatorCommand.registerCommand(key, command);
   }
 
+  public void unregisterCommand(ICommandKey key) {
+    this.mediatorCommand.unregisterCommand(key);
+  }
+
   public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
   }
 
   public <T> T runRegisterCommand(String key, HashMap<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
+  }
+
+  public boolean hasCommand(ICommandKey key) {
+    return this.mediatorCommand.containsCommand(key, false);
+  }
+
+  public boolean hasCommand(ICommandKey key, boolean custom) {
+    return this.mediatorCommand.containsCommand(key, custom);
   }
 }
