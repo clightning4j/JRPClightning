@@ -11,7 +11,7 @@ public @interface PluginOption {
   String name();
 
   String description();
-  // TODO this option sholw have different type!
+
   String defValue() default "null";
 
   String typeValue() default "string";
