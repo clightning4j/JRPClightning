@@ -13,12 +13,14 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningListInvoices {
 
+  @Expose
   @SerializedName("invoices")
   private ArrayList<CLightningInvoice> listInvoice = new ArrayList<>();
 

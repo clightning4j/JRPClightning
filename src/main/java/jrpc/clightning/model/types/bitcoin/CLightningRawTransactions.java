@@ -1,13 +1,14 @@
 package jrpc.clightning.model.types.bitcoin;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.List;
 
 public class CLightningRawTransactions {
 
-  private String hash;
-  private String rawtx;
+  @Expose private String hash;
+  @Expose private String rawtx;
 
   @SerializedName("blockheight")
   private int blockHeight;

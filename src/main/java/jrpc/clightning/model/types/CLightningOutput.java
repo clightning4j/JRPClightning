@@ -13,34 +13,38 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningOutput {
 
+  @Expose
   @SerializedName("txid")
   private String txId;
 
-  private Integer output;
+  @Expose private Integer output;
+  @Expose private BigInteger value;
 
-  private BigInteger value;
-
+  @Expose
   @SerializedName("amount_msat")
   private String amount;
 
-  private String address;
+  @Expose private String address;
+  @Expose private String status;
 
-  private String status;
-
+  @Expose
   @SerializedName("scriptpubkey")
   private String scriptPubKey;
 
+  @Expose
   @SerializedName("blockheight")
   private BigInteger blockHeight;
 
-  private Boolean reserved;
+  @Expose private Boolean reserved;
 
+  @Expose
   @SerializedName("reserved_to_block")
   private BigInteger reservedToBlock;
 

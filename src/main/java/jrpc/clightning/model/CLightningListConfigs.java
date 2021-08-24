@@ -16,6 +16,7 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import jrpc.clightning.model.types.CLightningPluginConfModel;
@@ -25,111 +26,141 @@ public class CLightningListConfigs {
   // TODO if there are the propriety allowDeprecatedApis (true by default) gson generate an error
   // because
   // contains more proprietis plugin :-) the in this case the list plugin was empty!
+  @Expose
   @SerializedName("# version")
   private String version;
 
+  @Expose
   @SerializedName("lightning-dir")
   private String lightningDir;
 
-  private String network;
+  @Expose private String network;
 
+  @Expose
   @SerializedName("allow-deprecated-apis")
   private String allowDeprecatedApis;
 
+  @Expose
   @SerializedName("rpc-file")
   private String rpcFile;
   // TODO create a plugin wrapper
-  private List<CLightningPluginConfModel> plugins;
+  @Expose private List<CLightningPluginConfModel> plugins;
 
+  @Expose
   @SerializedName("important-plugins")
   private List<CLightningPluginConfModel> importantPlugins;
 
+  @Expose
   @SerializedName("disable-plugin")
   private List<String> disablePlugin;
 
+  @Expose
   @SerializedName("always-use-proxy")
   private boolean alwaysUseProxy;
 
-  private boolean daemon;
-  private String wallet;
-  private boolean wumbo;
+  @Expose private boolean daemon;
+  @Expose private String wallet;
+  @Expose private boolean wumbo;
 
+  @Expose
   @SerializedName("rgb")
   private String color;
 
-  private String alias;
+  @Expose private String alias;
 
+  @Expose
   @SerializedName("pid-file:")
   private String pidFile;
 
+  @Expose
   @SerializedName("ignore-fee-limits")
   private boolean ignoreFeeLimits;
 
+  @Expose
   @SerializedName("watchtime-blocks")
   private int watchTimeBlocks;
 
+  @Expose
   @SerializedName("max-locktime-blocks")
   private long maxLockTimeBlocks;
 
+  @Expose
   @SerializedName("funding-confirms")
   private long fundingConfirms;
 
+  @Expose
   @SerializedName("commit-fee-min")
   private int commitFeeMin;
 
+  @Expose
   @SerializedName("commit-fee-max")
   private int commitFeeMax;
 
+  @Expose
   @SerializedName("cltv-delta")
   private int cltvDeelta;
 
+  @Expose
   @SerializedName("cltv-final")
   private int cltvFinal;
 
+  @Expose
   @SerializedName("commit-time")
   private int commitTime;
 
+  @Expose
   @SerializedName("fee-base")
   private int feeBase;
 
-  private long rescan;
+  @Expose private long rescan;
 
+  @Expose
   @SerializedName("fee-per-satoshi")
   private int feePerSatoshi;
 
+  @Expose
   @SerializedName("max-concurrent-htlcs")
   private int maxConcurrentHtlcs;
 
+  @Expose
   @SerializedName("min-capacity-sat")
   private int minCapacitySat;
 
-  private String addr;
+  @Expose private String addr;
 
+  @Expose
   @SerializedName("bind-addr")
   private String bindAddr;
 
+  @Expose
   @SerializedName("announce-addr")
   private String announceAddr;
 
-  private boolean offline;
-  private boolean autolisten;
-  private String proxy;
+  @Expose private boolean offline;
+  @Expose private boolean autolisten;
+  @Expose private String proxy;
 
+  @Expose
   @SerializedName("disable-dns")
   private boolean disableDns;
 
+  @Expose
   @SerializedName("enable-autotor-v2-mode")
   private boolean enableAutotorV2Mode;
 
+  @Expose
   @SerializedName("encrypted-hsm")
   private boolean encryptedHsm;
 
+  @Expose
   @SerializedName("rpc-file-mode")
   private String rpcFileMode;
 
+  @Expose
   @SerializedName("log-level")
   private String logLevel;
 
+  @Expose
   @SerializedName("log-prefix")
   private String logPrefix;
 

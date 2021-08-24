@@ -1,7 +1,9 @@
 package jrpc.clightning.plugins.rpcmethods.manifest.types;
 
+import com.google.gson.annotations.Expose;
+
 public class Notification {
-  private String method;
+  @Expose private String method;
 
   public Notification(String method) {
     this.method = method;

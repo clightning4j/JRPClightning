@@ -1,23 +1,27 @@
 package jrpc.clightning.plugins.rpcmethods.manifest.types;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
 public class Option {
 
+  @Expose
   @SerializedName("name")
   protected String nameOption;
 
-  protected String type = "string";
+  @Expose protected String type = "string";
 
+  @Expose
   @SerializedName("default")
   protected String defaultPropriety;
 
+  @Expose
   @SerializedName("description")
   protected String descriptionPlugin;
 
-  protected boolean deprecated = false;
+  @Expose protected boolean deprecated = false;
 
   public Option() {}
 

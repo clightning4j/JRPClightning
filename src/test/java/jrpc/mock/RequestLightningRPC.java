@@ -13,12 +13,14 @@
  */
 package jrpc.mock;
 
+import com.google.gson.annotations.Expose;
+
 /** @author https://github.com/vincenzopalazzo */
 public class RequestLightningRPC {
 
-  private String method;
+  @Expose private String method;
 
-  private String argument;
+  @Expose private String argument;
 
   public void setMethod(String method) {
     this.method = method;

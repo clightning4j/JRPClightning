@@ -1,30 +1,35 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.Date;
 
 public class CLightningSendPay {
 
-  private String id;
+  @Expose private String id;
 
+  @Expose
   @SerializedName("payment_hash")
   private String paymentHash;
 
-  private String destination;
+  @Expose private String destination;
 
+  @Expose
   @SerializedName("amount_msat")
   private String amountMsat;
 
+  @Expose
   @SerializedName("created_at")
   private Date createdAt;
 
-  private String status;
+  @Expose private String status;
 
+  @Expose
   @SerializedName("payment_preimage")
   private String preimage;
 
-  private String label;
-  private String bolt11;
+  @Expose private String label;
+  @Expose private String bolt11;
 
   public String getId() {
     return id;

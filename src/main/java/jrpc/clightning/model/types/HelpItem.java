@@ -1,11 +1,13 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 public class HelpItem {
 
-  private String command;
-  private String category;
-  private String description;
-  private String verbose;
+  @Expose private String command;
+  @Expose private String category;
+  @Expose private String description;
+  @Expose private String verbose;
 
   public String getCommand() {
     return command;

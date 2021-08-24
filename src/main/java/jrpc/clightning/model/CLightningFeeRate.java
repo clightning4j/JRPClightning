@@ -6,9 +6,9 @@ import jrpc.clightning.model.types.OnChainFeeEstimates;
 
 public class CLightningFeeRate {
 
-  @Expose private String type;
-  private FeeRateInfo feeRateInfo;
-  private OnChainFeeEstimates onChainFeeEstimates;
+  private String type;
+  @Expose private FeeRateInfo feeRateInfo;
+  @Expose private OnChainFeeEstimates onChainFeeEstimates;
 
   public FeeRateInfo getFeeRateInfo() {
     return feeRateInfo;

@@ -20,14 +20,15 @@ import java.util.Random;
 
 public class RPCUnixRequestMethod implements IWrapperSocketCall {
 
-  private int id;
-  private String method;
+  @Expose private int id;
+  @Expose private String method;
 
+  @Expose
   @SerializedName("jsonrpc")
   private String version;
 
-  private Map<String, Object> params;
-  @Expose private RandomUtils randomUtils;
+  @Expose private Map<String, Object> params;
+  private RandomUtils randomUtils;
 
   public RPCUnixRequestMethod(String method, Map<String, Object> params) {
     randomUtils = new RandomUtils();

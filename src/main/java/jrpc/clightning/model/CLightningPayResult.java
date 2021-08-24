@@ -13,17 +13,21 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningPayResult {
 
+  @Expose
   @SerializedName("payment_preimage")
   private String paymentPreImage;
 
+  @Expose
   @SerializedName("getroute_tries")
   private String getRouteTries;
 
+  @Expose
   @SerializedName("sendpay_tries")
   private String sendPayTries;
 

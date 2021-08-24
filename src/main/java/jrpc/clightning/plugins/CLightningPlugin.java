@@ -55,19 +55,18 @@ import org.reflections.util.ConfigurationBuilder;
 /** @author https://github.com/vincenzopalazzo */
 public abstract class CLightningPlugin implements ICLightningPlugin {
 
-  @Expose private static final Class TAG = CLightningPlugin.class;
+  private static final Class TAG = CLightningPlugin.class;
 
-  private ManifestMethod manifest;
-  @Expose private List<Interceptor> preInterceptor;
-  @Expose private List<Interceptor> postInterceptor;
-  @Expose protected Map<String, Object> parameters;
-  @Expose private boolean parametersReady;
-  @Expose private BufferedWriter stdout;
-  @Expose private BufferedReader stdin;
-  @Expose private JsonConverter converter;
-  @Expose protected CLightingPluginConfig configs;
+  @Expose private ManifestMethod manifest;
+  private List<Interceptor> preInterceptor;
+  private List<Interceptor> postInterceptor;
+  protected Map<String, Object> parameters;
+  private boolean parametersReady;
+  private BufferedWriter stdout;
+  private BufferedReader stdin;
+  private JsonConverter converter;
+  protected CLightingPluginConfig configs;
 
-  @Expose
   private Reflections reflections =
       new Reflections(
           new ConfigurationBuilder()

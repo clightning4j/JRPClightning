@@ -13,20 +13,22 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningPeerData {
 
+  @Expose
   @SerializedName("id")
   private String idPeer;
 
-  private Boolean connected;
-  private List<String> netaddr;
-  private String features;
-  private List<CLightningChannel> channels;
-  private String log;
+  @Expose private Boolean connected;
+  @Expose private List<String> netaddr;
+  @Expose private String features;
+  @Expose private List<CLightningChannel> channels;
+  @Expose private String log;
 
   public String getIdPeer() {
     return idPeer;

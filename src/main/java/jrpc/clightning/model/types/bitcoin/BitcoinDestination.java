@@ -13,11 +13,13 @@
  */
 package jrpc.clightning.model.types.bitcoin;
 
+import com.google.gson.annotations.Expose;
+
 /** @author https://github.com/vincenzopalazzo */
 public class BitcoinDestination {
 
-  private String destination;
-  private String amount;
+  @Expose private String destination;
+  @Expose private String amount;
 
   public BitcoinDestination() {}
 

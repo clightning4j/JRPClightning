@@ -13,6 +13,7 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 import jrpc.clightning.model.types.NetworkAddress;
@@ -20,21 +21,21 @@ import jrpc.clightning.model.types.NetworkAddress;
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningGetInfo {
 
-  private String id;
-  private String alias;
-  private String color;
-  private int num_peers;
-  private int num_pending_channels;
-  private int num_active_channels;
-  private int num_inactive_channels;
-  private List<NetworkAddress> address = new ArrayList<>(); // TODO the this
-  private List<NetworkAddress> binding = new ArrayList<>();
-  private String version;
-  private Long blockheight;
-  private String network;
-  private Long msatoshi_fees_collected;
-  private String fees_collected_msat;
-  private String warning_lightningd_sync;
+  @Expose private String id;
+  @Expose private String alias;
+  @Expose private String color;
+  @Expose private int num_peers;
+  @Expose private int num_pending_channels;
+  @Expose private int num_active_channels;
+  @Expose private int num_inactive_channels;
+  @Expose private List<NetworkAddress> address = new ArrayList<>();
+  @Expose private List<NetworkAddress> binding = new ArrayList<>();
+  @Expose private String version;
+  @Expose private Long blockheight;
+  @Expose private String network;
+  @Expose private Long msatoshi_fees_collected;
+  @Expose private String fees_collected_msat;
+  @Expose private String warning_lightningd_sync;
 
   public String getId() {
     return id;

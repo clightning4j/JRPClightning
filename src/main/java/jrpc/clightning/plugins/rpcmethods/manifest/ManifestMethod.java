@@ -1,6 +1,7 @@
 package jrpc.clightning.plugins.rpcmethods.manifest;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -21,16 +22,17 @@ public class ManifestMethod extends AbstractRPCMethod {
 
   private static final Class<ManifestMethod> TAG = ManifestMethod.class;
 
-  private List<Option> options = new ArrayList<>();
+  @Expose private List<Option> options = new ArrayList<>();
 
+  @Expose
   @SerializedName("rpcmethods")
   private List<AbstractRPCMethod> rpcMethods = new ArrayList<>();
 
-  private List<String> subscriptions = new ArrayList<>();
-  private List<String> hooks = new ArrayList<>();
-  private Features features = new Features();
-  private boolean dynamic = true;
-  private Set<Notification> notifications = new HashSet<>();
+  @Expose private List<String> subscriptions = new ArrayList<>();
+  @Expose private List<String> hooks = new ArrayList<>();
+  @Expose private Features features = new Features();
+  @Expose private boolean dynamic = true;
+  @Expose private Set<Notification> notifications = new HashSet<>();
 
   public ManifestMethod() {
     super("getmanifest", null, null);

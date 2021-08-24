@@ -13,6 +13,7 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 import jrpc.clightning.model.types.CLightningPeerData;
@@ -20,7 +21,7 @@ import jrpc.clightning.model.types.CLightningPeerData;
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningListPeers {
 
-  private List<CLightningPeerData> peers = new ArrayList<>();
+  @Expose private List<CLightningPeerData> peers = new ArrayList<>();
 
   public List<CLightningPeerData> getPeers() {
     return peers;

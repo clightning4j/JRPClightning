@@ -13,12 +13,14 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningConnect {
 
-  private String id;
-  private String feature;
-  private NetworkAddress address;
+  @Expose private String id;
+  @Expose private String feature;
+  @Expose private NetworkAddress address;
 
   public String getId() {
     return id;

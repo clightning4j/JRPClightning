@@ -17,30 +17,37 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightingPluginConfig {
 
+  @Expose
   @SerializedName("lightning-dir")
   private String lightningDir;
 
+  @Expose
   @SerializedName("rpc-file")
   private String rpcFile;
 
+  @Expose
   @SerializedName("startup")
   private Boolean startup;
 
-  private String network;
+  @Expose private String network;
 
+  @Expose
   @SerializedName("feature_set")
   private JsonObject featureSet;
 
-  private NetworkAddress proxy;
+  @Expose private NetworkAddress proxy;
 
+  @Expose
   @SerializedName("torv3-enabled")
   private boolean torv3;
 
+  @Expose
   @SerializedName("use_proxy_always")
   private boolean useProxyAlways;
 

@@ -1,9 +1,11 @@
 package jrpc.clightning.model.types.bitcoin;
 
+import com.google.gson.annotations.Expose;
+
 public class BitcoinUTXO {
 
-  private String txId;
-  private int index;
+  @Expose private String txId;
+  @Expose private int index;
 
   public BitcoinUTXO(String txId, int index) {
     this.txId = txId;

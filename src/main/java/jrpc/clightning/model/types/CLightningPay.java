@@ -1,21 +1,25 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CLightningPay {
 
-  private String bolt11;
+  @Expose private String bolt11;
 
+  @Expose
   @SerializedName("payment_hash")
   private String paymentHash;
 
-  private String status;
+  @Expose private String status;
 
+  @Expose
   @SerializedName("payment_preimage")
   private String preimage;
 
-  private String label;
+  @Expose private String label;
 
+  @Expose
   @SerializedName("amount_sent_msat")
   private String amountSentMsat;
 

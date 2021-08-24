@@ -13,11 +13,13 @@
  */
 package jrpc.wrapper.response;
 
+import com.google.gson.annotations.Expose;
+
 /** @author https://github.com/vincenzopalazzo */
 public class ErrorResponse {
 
-  private int code;
-  private String message;
+  @Expose private int code;
+  @Expose private String message;
 
   public int getCode() {
     return code;

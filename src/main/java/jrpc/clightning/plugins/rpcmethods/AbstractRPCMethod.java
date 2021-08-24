@@ -24,14 +24,15 @@ import jrpc.service.converters.JsonConverter;
 /** @author https://github.com/vincenzopalazzo */
 public abstract class AbstractRPCMethod implements ICLightningRPCMethod {
 
-  protected String name;
-  protected String usage;
-  protected String description;
+  @Expose protected String name;
+  @Expose protected String usage;
+  @Expose protected String description;
 
+  @Expose
   @SerializedName("long_description")
   protected String longDescription;
 
-  @Expose private RPCMethodType type;
+  private RPCMethodType type;
 
   public AbstractRPCMethod(String name, String usage, String description) {
     this(name, usage, description, description);

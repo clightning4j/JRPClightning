@@ -1,5 +1,6 @@
 package jrpc.clightning.plugins.rpcmethods;
 
+import com.google.gson.annotations.Expose;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import jrpc.clightning.plugins.ICLightningPlugin;
@@ -10,7 +11,7 @@ public class RPCMethodReflection extends AbstractRPCMethod {
 
   private static final Class TAG = RPCMethodReflection.class;
 
-  private Method method;
+  @Expose private Method method;
 
   public RPCMethodReflection(
       String name, String usage, String description, String longDescription, Method method) {

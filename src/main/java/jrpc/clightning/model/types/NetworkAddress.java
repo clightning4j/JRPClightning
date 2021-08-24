@@ -13,12 +13,14 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 /** @author https://github.com/vincenzopalazzo */
 public class NetworkAddress {
 
-  private String type;
-  private String address;
-  private int port;
+  @Expose private String type;
+  @Expose private String address;
+  @Expose private int port;
 
   public String getType() {
     return type;

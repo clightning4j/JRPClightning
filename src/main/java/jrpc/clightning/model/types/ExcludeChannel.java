@@ -1,9 +1,11 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 public class ExcludeChannel {
 
-  private String shortChannel;
-  private int direction;
+  @Expose private String shortChannel;
+  @Expose private int direction;
 
   public ExcludeChannel(String shortChannel, int direction) {
     this.shortChannel = shortChannel;

@@ -13,33 +13,41 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningInfoChannel {
-
+  @Expose
   @SerializedName("peer_id")
   private String peerId;
 
+  @Expose
   @SerializedName("short_channel_id")
   private String shortChannelId;
 
+  @Expose
   @SerializedName("channel_sat")
   private BigInteger channelSat;
 
+  @Expose
   @SerializedName("our_amount_msat")
   private String ourAmountMSat;
 
+  @Expose
   @SerializedName("channel_total_sat")
   private BigInteger channelTotalSat;
 
+  @Expose
   @SerializedName("amount_msat")
   private String amountMSat;
 
+  @Expose
   @SerializedName("funding_txid")
   private String fundingTxId;
 
+  @Expose
   @SerializedName("funding_output")
   private int fundingOutput;
 

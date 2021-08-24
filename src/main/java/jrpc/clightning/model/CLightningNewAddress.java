@@ -13,13 +13,15 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningNewAddress {
 
-  private String bech32;
+  @Expose private String bech32;
 
+  @Expose
   @SerializedName("p2sh-segwit")
   private String p2shSegwit;
 
