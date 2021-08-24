@@ -41,6 +41,7 @@ public class JsonConverter implements IConverter {
 
   public JsonConverter() {
     this.gsonBuilder = new GsonBuilder();
+    gsonBuilder.excludeFieldsWithoutExposeAnnotation();
     gsonBuilder.setPrettyPrinting();
     gsonBuilder.setDateFormat(patternFormat);
     gsonBuilder.registerTypeAdapter(Date.class, new MyDateTypeAdapter());
