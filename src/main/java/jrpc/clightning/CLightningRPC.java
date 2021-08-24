@@ -46,10 +46,16 @@ public class CLightningRPC {
   private static CLightningRPC SINGLETON;
 
   public static CLightningRPC getInstance() {
-    if (SINGLETON == null) {
-      SINGLETON = new CLightningRPC();
+    CLightningRPC result = SINGLETON;
+    if (result != null) {
+      return result;
     }
-    return SINGLETON;
+    synchronized (CLightningRPC.class) {
+      if (SINGLETON == null) {
+        SINGLETON = new CLightningRPC();
+      }
+      return SINGLETON;
+    }
   }
 
   protected CLightningSocket socket;
