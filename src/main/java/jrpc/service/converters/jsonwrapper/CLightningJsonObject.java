@@ -3,9 +3,12 @@ package jrpc.service.converters.jsonwrapper;
 import com.google.gson.*;
 import java.util.Map;
 import java.util.Set;
+import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
 
 public class CLightningJsonObject extends JsonElement {
+
+  private static final Class TAG = CLightningJsonObject.class;
 
   private JsonObject jsonObject;
   private JsonConverter converter;
@@ -18,6 +21,20 @@ public class CLightningJsonObject extends JsonElement {
   public CLightningJsonObject() {
     this.jsonObject = new JsonObject();
     this.converter = new JsonConverter();
+  }
+
+  public static boolean isValidJSON(String jsonString) {
+    try {
+      return JsonParser.parseString(jsonString).isJsonArray()
+          || JsonParser.parseString(jsonString).isJsonNull()
+          || JsonParser.parseString(jsonString).isJsonObject()
+          || JsonParser.parseString(jsonString).isJsonPrimitive();
+    } catch (Exception ex) {
+      CLightningLogger.getInstance()
+          .debug(
+              TAG, String.format("Invalid json, exception received: %s", ex.getLocalizedMessage()));
+      return false;
+    }
   }
 
   public void add(String property, JsonElement value) {

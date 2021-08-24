@@ -1,20 +1,18 @@
 package jrpc.clightning.plugins;
 
 import com.google.gson.JsonObject;
+import jrpc.util.ParameterChecker;
 
 public class PluginUtils {
 
   public static boolean isNotification(JsonObject object) {
-    if (object == null) {
-      throw new IllegalArgumentException("Rpc call from daemon lightningd with obj null");
-    }
+    ParameterChecker.checkJSONObjectNotNull("isNotification", PluginUtils.class, object);
     return !object.has("id");
   }
 
   public static boolean isRpcCall(JsonObject object) {
-    if (object == null) {
-      throw new IllegalArgumentException("JsonObject null");
-    }
+    ParameterChecker.checkJSONObjectNotNull("isRpcCall", PluginUtils.class, object);
+    // TODO it is an and conditions?
     return object.has("method") || object.has("jsonrpc") || object.has("params");
   }
 }

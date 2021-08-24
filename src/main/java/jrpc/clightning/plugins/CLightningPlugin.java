@@ -119,7 +119,14 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         if (messageSocket.trim().isEmpty()) {
           continue;
         }
-        CLightningLogger.getInstance().debug(TAG, "Message from stdout: " + messageSocket);
+        CLightningLogger.getInstance()
+            .debug(TAG, String.format("Message from stdout: %s", messageSocket));
+        if (!CLightningJsonObject.isValidJSON(messageSocket)) {
+          CLightningLogger.getInstance()
+              .error(TAG, String.format("JSON string %s invalid from socket", messageSocket));
+          continue;
+        }
+
         JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();
         if (!PluginUtils.isRpcCall(object)) {
           continue;
