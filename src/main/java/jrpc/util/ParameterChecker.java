@@ -1,5 +1,6 @@
 package jrpc.util;
 
+import com.google.gson.JsonObject;
 import jrpc.clightning.exceptions.CLightningException;
 
 public class ParameterChecker {
@@ -36,5 +37,14 @@ public class ParameterChecker {
       String message = "Propriety " + name + " in the command " + command + " must be positive";
       throw new CLightningException(message);
     }
+  }
+
+  public static void checkJSONObjectNotNull(
+      String functionName, Class clazz, JsonObject jsonObject) {
+    if (jsonObject == null)
+      throw new IllegalArgumentException(
+          String.format(
+              "JSON object null passed to the function %s in class %s",
+              functionName, clazz.getCanonicalName()));
   }
 }
