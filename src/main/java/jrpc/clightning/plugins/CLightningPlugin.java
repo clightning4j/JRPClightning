@@ -121,10 +121,28 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
         }
         CLightningLogger.getInstance()
             .debug(TAG, String.format("Message from stdout: %s", messageSocket));
-        if (!CLightningJsonObject.isValidJSON(messageSocket)) {
+        int deep = 0;
+        int maxDeep = Integer.MAX_VALUE / 2;
+        // There is a \n in the JSON, this need to be skipped to c-lightning?
+        while (!CLightningJsonObject.isValidJSON(messageSocket) && deep < maxDeep) {
+          deep++;
           CLightningLogger.getInstance()
               .error(TAG, String.format("JSON string %s invalid from socket", messageSocket));
-          continue;
+          messageSocket += stdin.readLine();
+        }
+
+        if (deep >= maxDeep) {
+          CLightningLogger.getInstance()
+              .error(
+                  TAG,
+                  String.format(
+                      "JSON string %s invalid from socket (max recursion deep reached)",
+                      messageSocket));
+          throw new CLightningPluginException(
+              -1,
+              String.format(
+                  "JSON string %s invalid from socket (max recursion deep reached)",
+                  messageSocket));
         }
 
         JsonObject object = JsonParser.parseString(messageSocket).getAsJsonObject();

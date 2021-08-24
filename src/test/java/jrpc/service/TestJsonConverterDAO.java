@@ -48,6 +48,7 @@ public class TestJsonConverterDAO {
   public void testOneToJson() {
     requestLightningRPC.setMethod("getinfo");
     String objectDecode = genericDAO.serialization(requestLightningRPC);
+    System.out.println(objectDecode);
     LOGGER.debug("The decode from json result is\n" + objectDecode);
     TestCase.assertFalse(objectDecode.isEmpty());
   }
