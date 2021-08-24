@@ -20,6 +20,8 @@ public interface IWrapperSocketCall {
 
   int getId();
 
+  String getVersion();
+
   String getMethod();
 
   Map<String, Object> getParams();

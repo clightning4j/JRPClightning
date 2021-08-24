@@ -13,16 +13,20 @@
  */
 package jrpc.wrapper.response;
 
+import com.google.gson.annotations.SerializedName;
+
 /** @author https://github.com/vincenzopalazzo */
 public class RPCResponseWrapper<T> {
 
-  private float jsonrpc;
+  @SerializedName("jsonrpc")
+  private String version;
+
   private int id;
   private T result;
   private ErrorResponse error;
 
-  public float getJsonrpc() {
-    return jsonrpc;
+  public String getVersion() {
+    return version;
   }
 
   public int getId() {

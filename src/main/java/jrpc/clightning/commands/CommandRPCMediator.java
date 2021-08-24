@@ -78,7 +78,7 @@ public class CommandRPCMediator {
         ReflectionManager.getInstance().getCustomCommandWithAnnotation();
     this.customCommands.putAll(customCommandWithAnnotation);
 
-    // TODO this don't work because the key insode the not custom command is a enum type!
+    // TODO this don't work because the key inside the not custom command is a enum type!
     Map<Command, IRPCCommand> commandWithAnnotation =
         ReflectionManager.getInstance().getCommandWithAnnotation();
     this.commands.putAll(commandWithAnnotation);
@@ -263,5 +263,22 @@ public class CommandRPCMediator {
     }
     CLightningLogger.getInstance().debug(TAG, "The value not is a list");
     return null;
+  }
+
+  public boolean containsCommand(ICommandKey key, boolean custom) {
+    if (custom) return customCommands.containsKey(key.getCommandKey());
+    if (!(key instanceof Command))
+      throw new IllegalArgumentException(
+          String.format(
+              "Key of a custom command should be a instance of %s",
+              Command.class.getCanonicalName()));
+    return commands.containsKey(key);
+  }
+
+  public void unregisterCommand(ICommandKey key) {
+    if (!this.containsCommand(key, true))
+      throw new CLightningException(
+          String.format("Command with key %s not present in the RPC interface", key.toString()));
+    this.customCommands.remove(key.getCommandKey());
   }
 }

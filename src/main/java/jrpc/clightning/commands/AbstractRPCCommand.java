@@ -46,7 +46,7 @@ public abstract class AbstractRPCCommand<T> implements IRPCCommand<T> {
       throw new CommandException(
           "Error inside command with error code: "
               + response.getError().getCode()
-              + "\nMessage: "
+              + "\n Message: "
               + response.getError().getMessage());
     }
     return response.getResult();

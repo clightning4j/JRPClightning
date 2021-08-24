@@ -14,7 +14,6 @@
 package jrpc.service;
 
 import com.google.gson.reflect.TypeToken;
-import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
@@ -56,8 +55,7 @@ public class TestJsonConverterDAO {
   @Test
   public void testOneFromJson() throws FileNotFoundException, ServiceException {
     InputStream inputStream =
-        new FileInputStream(
-            new File(System.getProperty("user.dir") + "/src/test/resources/object.json"));
+        new FileInputStream(System.getProperty("user.dir") + "/src/test/resources/object.json");
     RequestLightningRPC req =
         (RequestLightningRPC) genericDAO.deserialization(inputStream, RequestLightningRPC.class);
     TestCase.assertEquals("getinfo", req.getMethod());
