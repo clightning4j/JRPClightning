@@ -1,22 +1,28 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 public class OnChainFeeEstimates {
 
+  @Expose
   @SerializedName("opening_channel_satoshis")
   private BigInteger openingChannelSatoshis;
 
+  @Expose
   @SerializedName("mutual_close_satoshis")
   private BigInteger mutualCloseSatoshis;
 
+  @Expose
   @SerializedName("unilateral_close_satoshis")
   private BigInteger unilateralCloseSatoshis;
 
+  @Expose
   @SerializedName("htlc_timeout_satoshis")
   private BigInteger htlcTimeoutSatoshis;
 
+  @Expose
   @SerializedName("htlc_success_satoshis")
   private BigInteger htlcSuccessSatoshis;
 

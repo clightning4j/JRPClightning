@@ -1,10 +1,12 @@
 package jrpc.clightning.model.types.bitcoin;
 
+import com.google.gson.annotations.Expose;
+
 public class CLightningTransactionOutput {
 
-  private int index;
-  private String satoshis;
-  private String scriptPubKey;
+  @Expose private int index;
+  @Expose private String satoshis;
+  @Expose private String scriptPubKey;
 
   public int getIndex() {
     return index;

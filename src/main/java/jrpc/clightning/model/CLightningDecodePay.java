@@ -16,24 +16,27 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import javax.xml.crypto.Data;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningDecodePay {
 
-  private String currency;
-  private Data timestamp;
-  private long expiry;
-  private String payee;
+  @Expose private String currency;
+  @Expose private Data timestamp;
+  @Expose private long expiry;
+  @Expose private String payee;
 
+  @Expose
   @SerializedName("payment_hash")
   private String paymentHash;
 
-  private String signature;
-  private String description;
-  private String msatoshi;
+  @Expose private String signature;
+  @Expose private String description;
+  @Expose private String msatoshi;
 
+  @Expose
   @SerializedName("amount_msat")
   private String amountMSat;
   // also another field optional

@@ -1,11 +1,13 @@
 package jrpc.clightning.plugins.rpcmethods.manifest.types;
 
+import com.google.gson.annotations.Expose;
+
 public class Features {
 
-  private String node;
-  private String channel;
-  private String init;
-  private String invoice;
+  @Expose private String node;
+  @Expose private String channel;
+  @Expose private String init;
+  @Expose private String invoice;
 
   public Features() {}
 

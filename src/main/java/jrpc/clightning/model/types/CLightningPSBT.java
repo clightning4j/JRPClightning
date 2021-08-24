@@ -1,8 +1,10 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
+
 public class CLightningPSBT {
 
-  private String psbt;
+  @Expose private String psbt;
 
   public String getPSBT() {
     return psbt;

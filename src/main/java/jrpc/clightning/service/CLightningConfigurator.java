@@ -25,7 +25,7 @@ import jrpc.service.CLightningLogger;
  */
 public class CLightningConfigurator {
 
-  private static final CLightningConfigurator SINGLETON = new CLightningConfigurator();
+  private static CLightningConfigurator SINGLETON = new CLightningConfigurator();
 
   private final Class TAG = CLightningConfigurator.class;
   private static final String NAME_FILE_CONFIG = "/clightning-rpc.properties";
@@ -43,7 +43,16 @@ public class CLightningConfigurator {
   private String socketFileName;
 
   public static CLightningConfigurator getInstance() {
-    return SINGLETON;
+    CLightningConfigurator result = SINGLETON;
+    if (result != null) {
+      return result;
+    }
+    synchronized (CLightningConfigurator.class) {
+      if (SINGLETON == null) {
+        SINGLETON = new CLightningConfigurator();
+      }
+      return SINGLETON;
+    }
   }
 
   private CLightningConfigurator() {
@@ -70,7 +79,7 @@ public class CLightningConfigurator {
     }
   }
 
-  private void analizeUrl() {
+  private void analyzeUrl() {
     // TODO look the delimitator
     StringTokenizer tokenizer = new StringTokenizer(url, "/");
     int start = 0;
@@ -92,7 +101,7 @@ public class CLightningConfigurator {
     return url;
   }
 
-  public void changeUrlRpcFile(String urlRpcFile) {
+  public synchronized void changeUrlRpcFile(String urlRpcFile) {
     this.url = urlRpcFile;
   }
 
@@ -101,7 +110,7 @@ public class CLightningConfigurator {
       throw new IllegalArgumentException("URL socket is null");
     }
     if (socketPath == null) {
-      analizeUrl();
+      analyzeUrl();
     }
     return socketPath;
   }
@@ -111,7 +120,7 @@ public class CLightningConfigurator {
       throw new IllegalArgumentException("URL socket is null");
     }
     if (socketFileName == null) {
-      analizeUrl();
+      analyzeUrl();
     }
     return socketFileName;
   }

@@ -1,14 +1,15 @@
 package jrpc.clightning.model.types;
 
 import com.google.gson.JsonObject;
+import com.google.gson.annotations.Expose;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 
 public class CLightningPluginConfModel {
 
-  private String path;
-  private String name;
+  @Expose private String path;
+  @Expose private String name;
   // TODO review the type of options
-  private JsonObject options;
+  @Expose private JsonObject options;
 
   public String getPath() {
     return path;

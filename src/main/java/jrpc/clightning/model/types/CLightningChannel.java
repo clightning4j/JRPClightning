@@ -13,6 +13,7 @@
  */
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 import java.util.Date;
@@ -20,8 +21,8 @@ import java.util.Date;
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningChannel {
 
-  private String source;
-  private String destination;
+  @Expose private String source;
+  @Expose private String destination;
 
   @SerializedName("short_channel_id")
   private String shortChannelId;

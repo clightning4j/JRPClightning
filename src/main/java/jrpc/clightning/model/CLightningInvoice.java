@@ -13,42 +13,51 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningInvoice {
 
   // Propriety inside the invoice command
+  @Expose
   @SerializedName("payment_hash")
   private String paymentHash;
 
+  @Expose
   @SerializedName("expires_at")
   private String expiresAt;
 
-  private String bolt11;
+  @Expose private String bolt11;
 
+  @Expose
   @SerializedName("warning_private_unused")
   private String warningPrivateUnused;
 
+  @Expose
   @SerializedName("warning_capacity")
   private String warningCapacity;
 
+  @Expose
   @SerializedName("warning_offline")
   private String warningOffline;
 
+  @Expose
   @SerializedName("warning_deadends")
   private String warningDeadends;
 
+  @Expose
   @SerializedName("payment_secret")
   private String paymentSecret;
 
+  @Expose
   @SerializedName("msatoshi")
   private String milliSatoshi;
 
   // Get information inside the commadn listinvoices
-  private String label;
-  private String description;
-  private String status;
+  @Expose private String label;
+  @Expose private String description;
+  @Expose private String status;
 
   public String getPaymentHash() {
     return paymentHash;

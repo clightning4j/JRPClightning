@@ -13,6 +13,7 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
@@ -21,14 +22,16 @@ public class CLightningBitcoinTx {
   // TODO Testing this command because I have the different Behaviors
   // Look also the reference
   // https://github.com/ElementsProject/lightning/blob/master/doc/lightning-withdraw.7.md
+  @Expose
   @SerializedName("unsigned_tx")
   private String unsignedTx;
 
+  @Expose
   @SerializedName("txid")
   private String txId;
   // the close channel return the tx
   // https://lightning.readthedocs.io/lightning-close.7.html
-  private String tx;
+  @Expose private String tx;
 
   public String getUnsignedTx() {
     return unsignedTx;

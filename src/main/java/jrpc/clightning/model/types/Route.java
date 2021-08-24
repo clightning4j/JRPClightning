@@ -1,19 +1,23 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
+import java.math.BigInteger;
 
 public class Route {
 
-  private String id;
+  @Expose private String id;
 
+  @Expose
   @SerializedName("msatoshi")
   private String mSatoshi;
 
+  @Expose
   @SerializedName("amount_msat")
   private String amountMsat;
 
-  private int delay;
-  private String style;
+  @Expose private BigInteger delay;
+  @Expose private String style;
 
   public String getId() {
     return id;
@@ -27,7 +31,7 @@ public class Route {
     return amountMsat;
   }
 
-  public int getDelay() {
+  public BigInteger getDelay() {
     return delay;
   }
 

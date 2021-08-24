@@ -13,6 +13,7 @@
  */
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import java.util.ArrayList;
 import java.util.List;
 import jrpc.clightning.model.types.CLightningInfoChannel;
@@ -21,8 +22,8 @@ import jrpc.clightning.model.types.CLightningOutput;
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningListFunds {
 
-  private List<CLightningOutput> outputs = new ArrayList<>();
-  private List<CLightningInfoChannel> channels = new ArrayList<>();
+  @Expose private List<CLightningOutput> outputs = new ArrayList<>();
+  @Expose private List<CLightningInfoChannel> channels = new ArrayList<>();
 
   public List<CLightningOutput> getOutputs() {
     return outputs;

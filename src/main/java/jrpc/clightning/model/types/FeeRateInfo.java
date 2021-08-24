@@ -1,35 +1,42 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 public class FeeRateInfo {
 
-  private BigInteger opening;
+  @Expose private BigInteger opening;
 
+  @Expose
   @SerializedName("mutual_close")
   private BigInteger mutualClose;
 
+  @Expose
   @SerializedName("unilateral_close")
   private BigInteger unilateralClose;
 
+  @Expose
   @SerializedName("delayed_to_us")
   private BigInteger delayToUs;
 
+  @Expose
   @SerializedName("htlc_resolution")
   private BigInteger htlcResolution;
 
-  private BigInteger penalty;
+  @Expose private BigInteger penalty;
 
+  @Expose
   @SerializedName("min_acceptable")
   private BigInteger minAcceptable;
 
+  @Expose
   @SerializedName("max_acceptable")
   private BigInteger maxAcceptable;
 
-  private BigInteger urgent;
-  private BigInteger normal;
-  private BigInteger slow;
+  @Expose private BigInteger urgent;
+  @Expose private BigInteger normal;
+  @Expose private BigInteger slow;
 
   // getter
   public BigInteger getOpening() {

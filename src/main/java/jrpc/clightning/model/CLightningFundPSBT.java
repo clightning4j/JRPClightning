@@ -1,19 +1,23 @@
 package jrpc.clightning.model;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.util.List;
 import jrpc.clightning.model.types.CLightningReservation;
 
 public class CLightningFundPSBT {
 
-  private String psbt;
+  @Expose private String psbt;
 
+  @Expose
   @SerializedName("feerate_per_kw")
   private int feeratePerKw;
 
+  @Expose
   @SerializedName("estimated_final_weight")
   private int estimatedFinalWeight;
 
+  @Expose
   @SerializedName("excess_msat")
   private String excessMilliSat;
 

@@ -1,20 +1,24 @@
 package jrpc.clightning.model.types;
 
+import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import java.math.BigInteger;
 
 public class CLightningReservation {
 
+  @Expose
   @SerializedName("txid")
   private String txId;
 
-  private int vout;
+  @Expose private int vout;
 
+  @Expose
   @SerializedName("was_reserved")
   private boolean wasReserved;
 
-  private boolean reserved;
+  @Expose private boolean reserved;
 
+  @Expose
   @SerializedName("reserved_to_block")
   private BigInteger blockReservation;
 
