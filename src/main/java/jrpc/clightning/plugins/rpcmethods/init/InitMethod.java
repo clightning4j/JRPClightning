@@ -9,6 +9,7 @@ import jrpc.clightning.plugins.rpcmethods.AbstractRPCMethod;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.service.converters.JsonConverter;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
+import jrpc.util.ParameterChecker;
 
 /** @author https://github.com/vincenzopalazzo */
 public class InitMethod extends AbstractRPCMethod {
@@ -35,14 +36,13 @@ public class InitMethod extends AbstractRPCMethod {
     mappingParameters(plugin, jsonParams);
   }
 
-  // TODO I can bing this parameter with the direct propriety annotated!
   private void mappingParameters(ICLightningPlugin plugin, JsonObject jsonParams) {
-    if (jsonParams == null) {
-      throw new IllegalArgumentException("jsonParams null");
-    }
+    ParameterChecker.checkJSONObjectNotNull("mappingParameters", TAG, jsonParams);
     if (jsonParams.has("options")) {
       JsonObject options = jsonParams.getAsJsonObject("options");
-      plugin.log(PluginLog.DEBUG, options.toString());
+      plugin.log(
+          PluginLog.DEBUG,
+          String.format("Plugin parameter in the init method are: %s", options.toString()));
       options
           .keySet()
           .forEach(
