@@ -51,9 +51,9 @@ public class CLightningInfoChannel {
   @SerializedName("funding_output")
   private int fundingOutput;
 
-  private Boolean connected;
+  @Expose private Boolean connected;
 
-  private String state;
+  @Expose private String state;
 
   public String getPeerId() {
     return peerId;
