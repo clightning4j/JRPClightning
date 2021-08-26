@@ -73,7 +73,7 @@ public class JsonConverter implements IConverter {
     try {
       reader = new JsonReader(new InputStreamReader(inputStream, ENCODING_DEFAULT));
       response = gson.fromJson(reader, type);
-      // reader.close(); //TODO can I release the connection open with socket?
+      reader.close();
     } catch (Exception ex) {
       throw new ServiceException(
           "Exception inside the method deserialization to "
