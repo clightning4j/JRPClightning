@@ -104,12 +104,10 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         File fileRPC = new File(pathSocket);
         if (fileRPC.exists()) {
           InetSocketAddress socketAddress = AFUNIXSocketAddress.of(fileRPC);
-          CLightningLogger.getInstance().error(TAG, "BEFORE CONNECT INSIDE METHOD doCall");
           this.socket = AFUNIXSocket.newInstance();
           this.socket.connect(socketAddress);
           this.inputStream = socket.getInputStream();
           this.outputStream = socket.getOutputStream();
-          CLightningLogger.getInstance().error(TAG, "AFTER CONNECT INSIDE METHOD doCall");
         } else {
           CLightningLogger.getInstance()
               .error(TAG, "File not exist inside the path: " + pathSocket);
@@ -119,7 +117,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         throw new ServiceException(
             "Exception generated to doCall method of the class "
                 + this.getClass().getSimpleName()
-                + " with message\n"
+                + " with message \n"
                 + e.getLocalizedMessage());
       }
     }
@@ -128,18 +126,24 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     try {
       this.outputStream.write(serializationForm.getBytes(ENCODING));
       this.outputStream.flush();
-      CLightningLogger.getInstance().debug(TAG, "Run request");
     } catch (IOException e) {
       throw new ServiceException(
           "Exception generated to doCall method of the class "
               + this.getClass().getSimpleName()
-              + " with message\n"
+              + " with message \n"
               + e.getLocalizedMessage());
     }
     Object o = converterJson.deserialization(inputStream, typeResult);
-    // TODO I should be close the socket my maybe no?
-    // this.close();
     CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(o));
+    try {
+      this.socket.close();
+    } catch (IOException e) {
+      throw new ServiceException(
+          "Exception generated to doCall method of the class "
+              + this.getClass().getSimpleName()
+              + " with message \n"
+              + e.getLocalizedMessage());
+    }
     return o;
   }
 
