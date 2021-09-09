@@ -18,9 +18,7 @@ package jrpc.service.socket;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.net.InetSocketAddress;
 import java.net.SocketException;
-import jrpc.clightning.exceptions.CLightningException;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
@@ -34,11 +32,8 @@ public abstract class UnixDomainSocketRpc implements ISocket {
   private static final Class TAG = UnixDomainSocketRpc.class;
   protected static final String ENCODING = "UTF-8";
 
-  protected AFUNIXSocket socket;
-  protected InputStream inputStream;
-  protected OutputStream outputStream;
   protected IConverter converterJson;
-  protected String pathSocket;
+  protected File socketFile;
 
   public UnixDomainSocketRpc(String pathSocket) {
     if (pathSocket == null || pathSocket.isEmpty()) {
@@ -48,111 +43,68 @@ public abstract class UnixDomainSocketRpc implements ISocket {
         throw new ServiceException("Path socket is empty");
       }
     }
-    File file = new File(pathSocket);
-    this.pathSocket = pathSocket;
+    this.socketFile = new File(pathSocket);
+    this.converterJson = new JsonConverter();
+  }
+
+  private AFUNIXSocket makeSocket() {
     try {
-      this.socket = AFUNIXSocket.newInstance();
-      this.socket.connect(AFUNIXSocketAddress.of(file));
-      this.inputStream = socket.getInputStream();
-      this.outputStream = socket.getOutputStream();
-      this.converterJson = new JsonConverter();
+      var socket = AFUNIXSocket.newInstance();
+      socket.connect(AFUNIXSocketAddress.of(this.socketFile));
+      return socket;
     } catch (IOException e) {
-      CLightningLogger.getInstance().error(TAG, e.getMessage());
-      throw new ServiceException(
-          "Exception inside the method deserialization to "
-              + this.getClass().getSimpleName()
-              + " with message\n"
-              + e.getLocalizedMessage());
+      var message =
+          String.format(
+              "Exception generated to doCall method of the class %s, with message: %s",
+              this.getClass().getSimpleName(), e.getLocalizedMessage());
+      CLightningLogger.getInstance().error(TAG, message);
+      throw new ServiceException(message);
     }
   }
 
   @Override
   public int getReceiveBufferSize() throws SocketException {
-    return socket.getReceiveBufferSize();
+    return -1;
   }
 
   @Override
-  public void close() throws ServiceException {
-    try {
-      if (socket.isClosed()) {
-        socket.shutdownInput();
-        socket.shutdownOutput();
-        socket.close();
-      }
-    } catch (IOException e) {
-      throw new ServiceException(
-          "Exception generated to doCall method of the class "
-              + this.getClass().getSimpleName()
-              + " with message\n"
-              + e.getLocalizedMessage());
-    }
-  }
+  public void close() throws ServiceException {}
 
   @Override
   public boolean isOpen() {
-    return socket != null && !socket.isClosed();
+    return false;
   }
 
+  /**
+   * We create a new socket each time because the socket can take time to answer, and we can receive
+   * two call at the same time, and we can not the same socket because the input message need to be
+   * for the message sent.
+   */
   @Override
   public Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException {
     if (wrapperSocket == null) {
       throw new IllegalArgumentException("The argument wrapperSocket is null");
     }
-    if (socket.isClosed()) {
-      try {
-        CLightningLogger.getInstance().debug(TAG, "UnixDomainSocketRpc: path is " + pathSocket);
-        File fileRPC = new File(pathSocket);
-        if (fileRPC.exists()) {
-          InetSocketAddress socketAddress = AFUNIXSocketAddress.of(fileRPC);
-          this.socket = AFUNIXSocket.newInstance();
-          this.socket.connect(socketAddress);
-          this.inputStream = socket.getInputStream();
-          this.outputStream = socket.getOutputStream();
-        } else {
-          CLightningLogger.getInstance()
-              .error(TAG, "File not exist inside the path: " + pathSocket);
-          throw new CLightningException("File not exist inside the path: " + pathSocket);
-        }
-      } catch (IOException e) {
-        throw new ServiceException(
-            "Exception generated to doCall method of the class "
-                + this.getClass().getSimpleName()
-                + " with message \n"
-                + e.getLocalizedMessage());
-      }
-    }
+
     String serializationForm = converterJson.serialization(wrapperSocket);
     CLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
+    var socket = makeSocket();
     try {
-      this.outputStream.write(serializationForm.getBytes(ENCODING));
-      this.outputStream.flush();
-    } catch (IOException e) {
-      throw new ServiceException(
-          "Exception generated to doCall method of the class "
-              + this.getClass().getSimpleName()
-              + " with message \n"
-              + e.getLocalizedMessage());
-    }
-    Object o = converterJson.deserialization(inputStream, typeResult);
-    CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(o));
-    try {
-      this.socket.close();
-    } catch (IOException e) {
-      throw new ServiceException(
-          "Exception generated to doCall method of the class "
-              + this.getClass().getSimpleName()
-              + " with message \n"
-              + e.getLocalizedMessage());
-    }
-    return o;
-  }
+      OutputStream outputStream = socket.getOutputStream();
+      outputStream.write(serializationForm.getBytes(ENCODING));
+      outputStream.flush();
 
-  // get and setter
-  public InputStream getInputStream() {
-    return inputStream;
-  }
-
-  public OutputStream getOutputStream() {
-    return outputStream;
+      InputStream inputStream = socket.getInputStream();
+      Object result = converterJson.deserialization(inputStream, typeResult);
+      CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(result));
+      socket.close();
+      return result;
+    } catch (IOException e) {
+      var message =
+          String.format(
+              "Exception generated to doCall method of the class %s, with message: %s",
+              this.getClass().getSimpleName(), e.getLocalizedMessage());
+      throw new ServiceException(message);
+    }
   }
 }
