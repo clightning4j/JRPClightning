@@ -18,9 +18,7 @@ package jrpc.service.socket;
 
 import java.io.*;
 import java.lang.reflect.Type;
-import java.net.InetSocketAddress;
 import java.net.SocketException;
-import jrpc.clightning.exceptions.CLightningException;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
