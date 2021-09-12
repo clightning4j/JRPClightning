@@ -1,23 +1,43 @@
-# :zap: JRPClightning :zap:
 
-<p align="center">
-    <img src="https://i.ibb.co/tKG2Kkq/final-Icon.png" alt="final-Icon" border="0">
+<div align="center">
+  <h1>:zap: JRPClightning :zap:</h1>
+
+  <img src="https://github.com/clightning4j/icons/raw/main/org/ic_launcher/res/mipmap-xxxhdpi/ic_launcher.png" />
+
+  <p>
+    <strong> :zap: Java framework for C-Lightning to work with the RPC interface, and also the library simplifies the work to develop custom plugins with Java, Kotlin, and all the languages that supports the Java dependencies :zap: </strong>
+  </p>
+
+  <p>
+   <a href="https://search.maven.org/search?q=g:io.github.clightning4j">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square">
+   </a>
+   <img alt="GitHub Workflow Status" src="https://img.shields.io/nexus/s/io.github.clightning4j/jrpclightning?server=https%3A%2F%2Foss.sonatype.org&style=flat-square">
+    <a href="https://codecov.io/gh/clightning4j/JRPClightning">
+    <img alt="GitHub Workflow Status" src="https://codecov.io/gh/clightning4j/JRPClightning/branch/master/graph/badge.svg?token=YVrQVYtqVn">
+   </a>
+   <a href="https://github.com/clightning4j/JRPClightning/discussions">
+    <img alt="GitHub Workflow Status" src="https://img.shields.io/badge/Discussion-Join-green">
+   </a>
+
 </p>
+</div>
 
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.clightning4j/jrpclightning?style=flat-square)](https://search.maven.org/search?q=g:io.github.clightning4j)
-![Sonatype Nexus (Snapshots)](https://img.shields.io/nexus/s/io.github.clightning4j/jrpclightning?server=https%3A%2F%2Foss.sonatype.org&style=flat-square)
-[![codecov](https://codecov.io/gh/clightning4j/JRPClightning/branch/master/graph/badge.svg?token=YVrQVYtqVn)](https://codecov.io/gh/clightning4j/JRPClightning)
-[![discussion](https://img.shields.io/badge/Discussion-Join-green)](https://github.com/clightning4j/JRPClightning/discussions)
+## Table of Content
 
+- Introduction
+- How to Use
+- Example
+- Support
+- License
+
+## Introduction
 This is a wrapper for c-lightning rpc, this project is inspired by this 
 [pull request](https://github.com/ElementsProject/lightning/pull/2223) by @renepickhardt.
 
 The wrapper aims to be versatile, the final version should allow the user to execute commands even of custom plugins, allowing them to write the code for the command.
 
-## Status of project :construction:
-The project support some command, if you want try it doesn't use on the **MAINET** but use **TESTNET**
-
-## Repositories
+## How to Use
 
 #### Maven
 
@@ -25,20 +45,20 @@ The project support some command, if you want try it doesn't use on the **MAINET
 <dependency>
   <groupId>io.github.clightning4j</groupId>
   <artifactId>jrpclightning</artifactId>
-  <version>0.1.9</version>
+  <version>0.2.1</version>
 </dependency>
 ```
 
 #### Gradle Kotlin DSL
 
 ```kotlin
-implementation("io.github.clightning4j:jrpclightning:0.1.9")
+implementation("io.github.clightning4j:jrpclightning:0.2.1")
 ```
 
 #### Gradle groovy DSL
 
 ```groovy
-implementation 'io.github.clightning4j:jrpclightning:0.1.9'
+implementation 'io.github.clightning4j:jrpclightning:0.2.1'
 ```
 
 ### Snapshot version
@@ -72,7 +92,7 @@ dependencies {
 
 ```
 
-## Command Support
+### Command Support
 
 At the moment the library doesn't support all command available on c-lightning, a list of command is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
 
@@ -120,7 +140,7 @@ json wrapper, called CLightningGetInfo.
 
 Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/).
 
-# Configuration Unix Socket
+### Configuration Unix Socket
 For the configuration unix socket you can create a file called **clightning-rpc.properties** inside the classpath in your application.
 
 The example file config is [here](https://github.com/vincenzopalazzo/JRPClightning/blob/master/src/main/resources/clightning-rpc.properties).
@@ -131,15 +151,13 @@ The example file config is [here](https://github.com/vincenzopalazzo/JRPClightni
 RPC_DIR=/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc
 ```
 
-# Plugin support
+### Plugin support
 
 The library support from version 0.1.8 plugins, and the library contains a collections of Annotation to make the developing phase easy.
 
-### Example
+## Examples
 
-### Plugin example 
-
-##### Java
+##### Create a rpc method in a Java class
 
 ```java
     @RPCMethod(
@@ -152,9 +170,7 @@ The library support from version 0.1.8 plugins, and the library contains a colle
     }
 ```
 
-### Notification example 
-
-##### Java
+##### Receive a notification in a Java
 
 ```java
     @Subscription(notification = "invoice_creation")
@@ -164,9 +180,7 @@ The library support from version 0.1.8 plugins, and the library contains a colle
     }
 ```
 
-### Hook example
-
-##### Java
+##### Subscript to a hooks from a Java class
 
 ```java
     @Hook(hook = "rpc_command")
@@ -176,9 +190,9 @@ The library support from version 0.1.8 plugins, and the library contains a colle
     }
 ```
 
-### Plugin Option
+### Kotlin alternative
 
-##### Koltin
+##### Create  plugin in Koltin
 
 ```kotlin
 class Plugin : CLightningPlugin() {
