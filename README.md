@@ -94,9 +94,9 @@ dependencies {
 
 ### Command Support
 
-At the moment the library doesn't support all command available on c-lightning, a list of command is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
+At the moment the library doesn't support all command available on c-lightning, a list of commands is described inside [the javadoc](https://vincenzopalazzo.github.io/JRPClightning/)
 
-- You can use the RPC wrapper to call the method **getinfo**, the command returns the 
+- You can use the RPC wrapper to call the method **getinfo**, that returns the 
 json wrapper, called CLightningGetInfo.
     
     ```java
@@ -107,7 +107,7 @@ json wrapper, called CLightningGetInfo.
         System.out.println("color=" + color);
     ```
 
-- You can create the personal wrapper to support new commands (i.e: personal plugins or command not supported yet by the library)
+- You can create a personal wrapper to support new commands (i.e: personal plugins or command not supported yet by the library)
    
   **Create the command wrapper**
   
@@ -128,7 +128,7 @@ json wrapper, called CLightningGetInfo.
   ```
   
   **Create the personal Json wrapper** 
-  - In these cases is used a library wrapper, you can see all wrapper available in the library [here](https://vincenzopalazzo.github.io/JRPClightning/)
+  - In these cases it is used a library wrapper, you can see all wrappers available in the library [here](https://vincenzopalazzo.github.io/JRPClightning/)
   
   **Register the command and run it**
   
@@ -141,7 +141,7 @@ json wrapper, called CLightningGetInfo.
 Complete javadoc [here](https://vincenzopalazzo.github.io/JRPClightning/).
 
 ### Configuration Unix Socket
-For the configuration unix socket you can create a file called **clightning-rpc.properties** inside the classpath in your application.
+For the configuration of unix socket you can create a file called **clightning-rpc.properties** inside the classpath in your application.
 
 The example file config is [here](https://github.com/vincenzopalazzo/JRPClightning/blob/master/src/main/resources/clightning-rpc.properties).
 
@@ -153,7 +153,7 @@ RPC_DIR=/media/vincenzo/Maxtor/C-lightning/node/testnet/lightning-rpc
 
 ### Plugin support
 
-The library support from version 0.1.8 plugins, and the library contains a collections of Annotation to make the developing phase easy.
+The library supports plugins from version 0.1.8, and the library contains a collections of Annotation to make the developing phase easy.
 
 ## Examples
 
@@ -207,15 +207,15 @@ class Plugin : CLightningPlugin() {
 }
 ```
 
-A complete example of plugin wrote with kotlin is available at the [following link](https://github.com/clightning4j/btcli4j) or a java version
+A complete example of a plugin wrote with kotlin is available at the [following link](https://github.com/clightning4j/btcli4j) or a java version
 it is [available at the following link](https://github.com/clightning4j/lightning-rest).
 
-Stat to write a plugin with the following templates
+Start to write a plugin with the following templates
 
 - [Kotlin Template](https://github.com/clightning4j/kotlin-template)
 
 ## Support
-If you like the library and want to support it, please considerer to donate with the following system
+If you like the library and want to support it, please considerer to donate with the following systems
 
 - [3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU](bitcoin:3BQ8qbn8hLdmBKEjt1Hj1Z6SiDsnjJurfU)
 - [liberapay.com/vincenzopalazzo](https://liberapay.com/vincenzopalazzo)
