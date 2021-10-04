@@ -6,6 +6,7 @@ buildscript {
     }
     dependencies {
         classpath "gradle.plugin.com.github.sherter.google-java-format:google-java-format-gradle-plugin:0.9"
+        classpath 'com.adarshr:gradle-test-logger-plugin:3.0.0'
     }
 }
 
@@ -16,6 +17,7 @@ apply plugin: 'signing'
 apply plugin: 'jacoco'
 apply plugin: "com.github.sherter.google-java-format"
 apply from: 'gradle/release.gradle'
+apply plugin: 'com.adarshr.test-logger'
 
 repositories {
     mavenCentral()
@@ -25,14 +27,14 @@ version = VERSION
 group = GROUP_ID
 
 dependencies {
-    implementation 'ch.qos.logback:logback-classic:1.2.5'
-    implementation 'ch.qos.logback:logback-core:1.2.5'
+    implementation 'ch.qos.logback:logback-classic:1.2.6'
+    implementation 'ch.qos.logback:logback-core:1.2.6'
     implementation 'org.slf4j:slf4j-api:1.7.32'
 
     implementation 'com.kohlschutter.junixsocket:junixsocket-common:2.4.0'
     implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.4.0'
 
-    implementation 'com.google.code.gson:gson:2.8.7'
+    implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'org.reflections:reflections:0.9.12'
 
     implementation 'commons-io:commons-io:2.4'
@@ -40,8 +42,8 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
-task copyLib(type: Copy){
-    from  "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/LNQrcode/devlib'
+task copyLib(type: Copy) {
+    from "${project.buildDir}/libs/jrpclightning-${version}-with-dependencies.jar" into '/home/vincent/Github/LNQrcode/devlib'
 }
 
 test {
@@ -49,6 +51,7 @@ test {
         junitXml.enabled = true
         html.enabled = true
     }
+    finalizedBy jacocoTestReport // report is always generated after tests run
 }
 
 jacocoTestReport {
@@ -56,6 +59,7 @@ jacocoTestReport {
         xml.enabled true
         html.enabled false
     }
+    dependsOn test // tests are required to run before generating the report
 }
 
 jar {
@@ -74,12 +78,4 @@ task jarWithDependencies(type: Jar) {
         configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
     }
     with jar
-}
-
-test {
-    finalizedBy jacocoTestReport // report is always generated after tests run
-}
-
-jacocoTestReport {
-    dependsOn test // tests are required to run before generating the report
 }

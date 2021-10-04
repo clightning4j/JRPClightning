@@ -436,6 +436,7 @@ public class CLightningRPC {
    * @param commandName: The c-lightning command name.
    * @param params: The c-lightning command parameter, if any.
    * @return the raw JSON string received from the UNIX socket.
+   * @throws IOException Throw an exception that the UNIX socket generate in case of error
    */
   public String rawCommand(String commandName, Map<String, Object> params) throws IOException {
     ParameterChecker.doCheckString("rawCommand", "commandName", commandName, false);
@@ -450,6 +451,7 @@ public class CLightningRPC {
    *
    * @param commandName: The c-lightning command name.
    * @return the raw JSON string received from the UNIX socket.
+   * @throws IOException Throw an exception that the UNIX socket generate in case of error
    */
   public String rawCommand(String commandName) throws IOException {
     return this.rawCommand(commandName, new HashMap<>());

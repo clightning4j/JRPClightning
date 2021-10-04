@@ -19,6 +19,7 @@ package jrpc.service.socket;
 import java.io.*;
 import java.lang.reflect.Type;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
@@ -100,17 +101,28 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     }
 
     String serializationForm = converterJson.serialization(wrapperSocket);
-    CLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
+    CLightningLogger.getInstance().debug(TAG, String.format("Request: \n%s", serializationForm));
     var socket = makeSocket();
     // Send the message
     OutputStream outputStream = socket.getOutputStream();
     outputStream.write(serializationForm.getBytes(ENCODING));
     outputStream.flush();
+    outputStream.close();
 
     // receive the message
     InputStream inputStream = socket.getInputStream();
-    var result = new String(inputStream.readAllBytes());
-    CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(result));
+    var buffer = new ByteArrayOutputStream();
+    int nRead;
+    var data = new byte[1024];
+    while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
+      buffer.write(data, 0, nRead);
+    }
+    inputStream.close();
+    buffer.flush();
+
+    var result = buffer.toString(StandardCharsets.UTF_8);
+    CLightningLogger.getInstance().error(TAG, String.format("Response: %s", result));
+
     socket.close();
     return result;
   }
