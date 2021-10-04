@@ -19,8 +19,7 @@ public class TestRawClightningCall extends AbstractTestRPC {
                   rawString, new TypeToken<RPCResponseWrapper<CLightningGetInfo>>() {}.getType());
       TestCase.assertNull(getInfo.getError());
       var rpcGetInfo = rpc.getInfo();
-      TestCase.assertEquals(
-          converter.serialization(rpcGetInfo).trim(), converter.serialization(getInfo.getResult()));
+      TestCase.assertEquals(rpcGetInfo.getAlias(), getInfo.getResult().getAlias());
     } catch (IOException e) {
       TestCase.fail(e.getLocalizedMessage());
     }
