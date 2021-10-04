@@ -13,6 +13,7 @@
  */
 package jrpc.service.socket;
 
+import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.SocketException;
 import jrpc.exceptions.ServiceException;
@@ -21,7 +22,25 @@ import jrpc.wrapper.socket.IWrapperSocketCall;
 /** @author https://github.com/vincenzopalazzo */
 public interface ISocket {
 
-  Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException;
+  /**
+   * Make a raw call to the socket without JSON parsing
+   *
+   * @param wrapperSocket: The Payload to encoding and send throw the socket.
+   * @param typeResult: The type result where the JSON payload will be encoded
+   * @return Object of the required type build with the JSON string content.
+   * @throws SocketException Throws if any error with the socket will happen.
+   */
+  Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult)
+      throws ServiceException, IOException;
+
+  /**
+   * Make a raw call to the socket without JSON parsing
+   *
+   * @param wrapperSocket: The Payload to encoding and send throw the socket.
+   * @return A raw JSON string
+   * @throws SocketException Throws if any error with the socket will happen.
+   */
+  String doRawCall(IWrapperSocketCall wrapperSocket) throws SocketException, IOException;
 
   void close() throws ServiceException;
 

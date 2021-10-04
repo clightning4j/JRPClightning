@@ -16,6 +16,7 @@
  */
 package jrpc.clightning;
 
+import java.io.IOException;
 import java.math.BigInteger;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,6 +39,7 @@ import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.util.ParameterChecker;
+import jrpc.wrapper.socket.RPCUnixRequestMethod;
 
 /** @author https://github.com/vincenzopalazzo */
 public class CLightningRPC {
@@ -425,5 +427,31 @@ public class CLightningRPC {
 
   public boolean hasCommand(ICommandKey key, boolean custom) {
     return this.mediatorCommand.containsCommand(key, custom);
+  }
+
+  /**
+   * Run any command directly over the UNIX socket, this command is faster, but the final user need
+   * to manage the JSON string received from the Socket.
+   *
+   * @param commandName: The c-lightning command name.
+   * @param params: The c-lightning command parameter, if any.
+   * @return the raw JSON string received from the UNIX socket.
+   */
+  public String rawCommand(String commandName, Map<String, Object> params) throws IOException {
+    ParameterChecker.doCheckString("rawCommand", "commandName", commandName, false);
+    ParameterChecker.doCheckObjectNotNull("rawCommand", "params", params);
+    var jsonRpcWrapper = new RPCUnixRequestMethod(commandName, params);
+    return socket.doRawCall(jsonRpcWrapper);
+  }
+
+  /**
+   * Run any command directly over the UNIX socket, this command is faster, but the final user need
+   * to manage the JSON string received from the Socket.
+   *
+   * @param commandName: The c-lightning command name.
+   * @return the raw JSON string received from the UNIX socket.
+   */
+  public String rawCommand(String commandName) throws IOException {
+    return this.rawCommand(commandName, new HashMap<>());
   }
 }

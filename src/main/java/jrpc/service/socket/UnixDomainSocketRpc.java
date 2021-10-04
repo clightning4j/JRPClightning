@@ -75,13 +75,26 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     return false;
   }
 
-  /**
-   * We create a new socket each time because the socket can take time to answer, and we can receive
-   * two call at the same time, and we can not the same socket because the input message need to be
-   * for the message sent.
-   */
   @Override
   public Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException {
+    if (wrapperSocket == null) {
+      throw new IllegalArgumentException("The argument wrapperSocket is null");
+    }
+
+    try {
+      var resultStr = this.doRawCall(wrapperSocket);
+      return converterJson.deserialization(resultStr, typeResult);
+    } catch (IOException e) {
+      var errorMessage =
+          String.format(
+              "Error during call %s with message %s",
+              wrapperSocket.getMethod(), e.getLocalizedMessage());
+      throw new ServiceException(errorMessage, e.getCause());
+    }
+  }
+
+  @Override
+  public String doRawCall(IWrapperSocketCall wrapperSocket) throws IOException {
     if (wrapperSocket == null) {
       throw new IllegalArgumentException("The argument wrapperSocket is null");
     }
@@ -89,22 +102,16 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     String serializationForm = converterJson.serialization(wrapperSocket);
     CLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
     var socket = makeSocket();
-    try {
-      OutputStream outputStream = socket.getOutputStream();
-      outputStream.write(serializationForm.getBytes(ENCODING));
-      outputStream.flush();
+    // Send the message
+    OutputStream outputStream = socket.getOutputStream();
+    outputStream.write(serializationForm.getBytes(ENCODING));
+    outputStream.flush();
 
-      InputStream inputStream = socket.getInputStream();
-      Object result = converterJson.deserialization(inputStream, typeResult);
-      CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(result));
-      socket.close();
-      return result;
-    } catch (IOException e) {
-      var message =
-          String.format(
-              "Exception generated to doCall method of the class %s, with message: %s",
-              this.getClass().getSimpleName(), e.getLocalizedMessage());
-      throw new ServiceException(message);
-    }
+    // receive the message
+    InputStream inputStream = socket.getInputStream();
+    var result = new String(inputStream.readAllBytes());
+    CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(result));
+    socket.close();
+    return result;
   }
 }
