@@ -23,7 +23,7 @@
     </appender>
 
     <appender name="FILE" class="ch.qos.logback.core.FileAppender">
-        <file>${user.home}/clightning_java_plugin/log-test.log</file>
+        <file>${user.dir}/logs/clightning_java_plugin/log-test.log</file>
         <append>true</append>
         <!-- set immediateFlush to false for much higher logging throughput -->
         <immediateFlush>true</immediateFlush>
@@ -34,7 +34,7 @@
         </encoder>
     </appender>
 
-    <root level="INFO">
+    <root level="DEBUG">
         <appender-ref ref="STDOUT"/>
         <appender-ref ref="FILE"/>
     </root>
@@ -44,12 +44,12 @@
         <appender-ref ref="FILE"/>
     </logger>
 
-    <logger name="jrpc.clightning.plugins" level="DEBUG">
+    <logger name="jrpc.clightning.plugins" level="INFO">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </logger>
 
-    <logger name="jrpc.util" level="DEBUG">
+    <logger name="jrpc.util" level="INFO">
         <appender-ref ref="FILE"/>
         <appender-ref ref="STDOUT"/>
     </logger>

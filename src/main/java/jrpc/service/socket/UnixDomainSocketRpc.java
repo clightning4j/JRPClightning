@@ -18,7 +18,9 @@ package jrpc.service.socket;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.Socket;
 import java.net.SocketException;
+import java.nio.charset.StandardCharsets;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
@@ -30,7 +32,7 @@ import org.newsclub.net.unix.AFUNIXSocketAddress;
 public abstract class UnixDomainSocketRpc implements ISocket {
 
   private static final Class TAG = UnixDomainSocketRpc.class;
-  protected static final String ENCODING = "UTF-8";
+  protected static final String ENCODING = StandardCharsets.UTF_8.name();
 
   protected IConverter converterJson;
   protected File socketFile;
@@ -47,18 +49,13 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     this.converterJson = new JsonConverter();
   }
 
-  private AFUNIXSocket makeSocket() {
+  private AFUNIXSocket makeSocket() throws IOException {
     try {
       var socket = AFUNIXSocket.newInstance();
       socket.connect(AFUNIXSocketAddress.of(this.socketFile));
       return socket;
     } catch (IOException e) {
-      var message =
-          String.format(
-              "Exception generated to doCall method of the class %s, with message: %s",
-              this.getClass().getSimpleName(), e.getLocalizedMessage());
-      CLightningLogger.getInstance().error(TAG, message);
-      throw new ServiceException(message);
+      throw e;
     }
   }
 
@@ -75,36 +72,73 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     return false;
   }
 
-  /**
-   * We create a new socket each time because the socket can take time to answer, and we can receive
-   * two call at the same time, and we can not the same socket because the input message need to be
-   * for the message sent.
-   */
   @Override
   public Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult) throws ServiceException {
     if (wrapperSocket == null) {
       throw new IllegalArgumentException("The argument wrapperSocket is null");
     }
 
-    String serializationForm = converterJson.serialization(wrapperSocket);
-    CLightningLogger.getInstance().debug(TAG, "Request: \n" + serializationForm);
-    var socket = makeSocket();
     try {
-      OutputStream outputStream = socket.getOutputStream();
+      var resultStr = this.doRawCall(wrapperSocket);
+      return converterJson.deserialization(resultStr, typeResult);
+    } catch (IOException e) {
+      var errorMessage =
+          String.format(
+              "Error during call %s with message %s",
+              wrapperSocket.getMethod(), e.getLocalizedMessage());
+      throw new ServiceException(errorMessage, e.getCause());
+    }
+  }
+
+  @Override
+  public String doRawCall(IWrapperSocketCall wrapperSocket) throws IOException {
+    if (wrapperSocket == null) {
+      throw new IllegalArgumentException("The argument wrapperSocket is null");
+    }
+
+    String serializationForm = converterJson.serialization(wrapperSocket);
+    CLightningLogger.getInstance().debug(TAG, String.format("Request: \n%s", serializationForm));
+    AFUNIXSocket socket = null;
+    OutputStream outputStream = null;
+    try {
+      socket = makeSocket();
+      // Send the message
+      outputStream = socket.getOutputStream();
       outputStream.write(serializationForm.getBytes(ENCODING));
       outputStream.flush();
 
-      InputStream inputStream = socket.getInputStream();
-      Object result = converterJson.deserialization(inputStream, typeResult);
-      CLightningLogger.getInstance().debug(TAG, "Response\n" + converterJson.serialization(result));
-      socket.close();
+      // receive the message
+      var result = readAll(socket);
+      CLightningLogger.getInstance().debug(TAG, String.format("Response: %s", result));
       return result;
-    } catch (IOException e) {
-      var message =
-          String.format(
-              "Exception generated to doCall method of the class %s, with message: %s",
-              this.getClass().getSimpleName(), e.getLocalizedMessage());
-      throw new ServiceException(message);
+    } catch (IOException exception) {
+      throw exception;
+    } finally {
+      if (outputStream != null) outputStream.close();
+      if (socket != null) socket.close();
     }
+  }
+
+  private String readAll(Socket socket) throws IOException {
+    var inputStream = socket.getInputStream();
+    Reader inputReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+    var response = new StringBuilder();
+    int buffSize = 1024;
+    char[] buffer = new char[buffSize];
+
+    int read;
+    // FIXME(vincenzopalazzo): We can do better that this, because I think that indexOf take O(N)
+    // time complexity, but it avoid the space complexity to make a toString() each time.
+    // However, we can avoid it? Mh!
+    while ((read = inputReader.read(buffer, 0, buffer.length)) > 0) {
+      response.append(buffer, 0, read);
+      // c-lightning add \n\n at the end of all rpc answer and JAVA have
+      // same problem to catch it
+      // Source https://github.com/ElementsProject/lightning/blob/master/lightningd/jsonrpc.c#L202
+      if (response.indexOf("\n\n") != -1) {
+        return response.toString();
+      }
+    }
+    return response.toString();
   }
 }

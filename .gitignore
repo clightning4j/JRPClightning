@@ -16,9 +16,6 @@ sandbox/bitcoin_dir/regtest/
 sandbox/lightning_dir_one/lightningd-regtest.pid
 
 *.pid
-
 *.txt
-
 *.log
-
 *.info
