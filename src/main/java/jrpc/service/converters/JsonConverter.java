@@ -28,6 +28,7 @@ import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.converters.jsontypeadapter.*;
+import jrpc.util.ParameterChecker;
 
 /** @author https://github.com/vincenzopalazzo */
 public class JsonConverter implements IConverter {
@@ -36,8 +37,8 @@ public class JsonConverter implements IConverter {
 
   private String patternFormat = "dd-MM-yyyy HH:mm:ss";
 
-  private GsonBuilder gsonBuilder;
-  private Gson gson;
+  private final GsonBuilder gsonBuilder;
+  private final Gson gson;
 
   public JsonConverter() {
     this.gsonBuilder = new GsonBuilder();
@@ -65,9 +66,9 @@ public class JsonConverter implements IConverter {
 
   @Override
   public Object deserialization(InputStream inputStream, Type type) throws ServiceException {
-    if (inputStream == null || type == null) {
-      throw new IllegalArgumentException("Arguments are/is null");
-    }
+    ParameterChecker.doCheckObjectNotNull("deserialization", "inputStream", inputStream);
+    ParameterChecker.doCheckObjectNotNull("deserialization", "type", type);
+
     Object response;
     JsonReader reader;
     try {
@@ -86,9 +87,8 @@ public class JsonConverter implements IConverter {
 
   @Override
   public Object deserialization(String jsonForm, Type type) throws ServiceException {
-    if ((jsonForm == null || jsonForm.isEmpty()) || type == null) {
-      throw new IllegalArgumentException("Arguments are/is null");
-    }
+    ParameterChecker.doCheckString("deserialization", "jsonForm", jsonForm, false);
+    ParameterChecker.doCheckObjectNotNull("deserialization", "type", type);
     Object response;
     try {
       response = gson.fromJson(jsonForm, type);

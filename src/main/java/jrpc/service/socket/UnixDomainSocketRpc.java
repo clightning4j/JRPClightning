@@ -18,6 +18,7 @@ package jrpc.service.socket;
 
 import java.io.*;
 import java.lang.reflect.Type;
+import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
 import jrpc.exceptions.ServiceException;
@@ -31,7 +32,7 @@ import org.newsclub.net.unix.AFUNIXSocketAddress;
 public abstract class UnixDomainSocketRpc implements ISocket {
 
   private static final Class TAG = UnixDomainSocketRpc.class;
-  protected static final String ENCODING = "UTF-8";
+  protected static final String ENCODING = StandardCharsets.UTF_8.name();
 
   protected IConverter converterJson;
   protected File socketFile;
@@ -48,18 +49,13 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     this.converterJson = new JsonConverter();
   }
 
-  private AFUNIXSocket makeSocket() {
+  private AFUNIXSocket makeSocket() throws IOException {
     try {
       var socket = AFUNIXSocket.newInstance();
       socket.connect(AFUNIXSocketAddress.of(this.socketFile));
       return socket;
     } catch (IOException e) {
-      var message =
-          String.format(
-              "Exception generated to doCall method of the class %s, with message: %s",
-              this.getClass().getSimpleName(), e.getLocalizedMessage());
-      CLightningLogger.getInstance().error(TAG, message);
-      throw new ServiceException(message);
+      throw e;
     }
   }
 
@@ -102,28 +98,47 @@ public abstract class UnixDomainSocketRpc implements ISocket {
 
     String serializationForm = converterJson.serialization(wrapperSocket);
     CLightningLogger.getInstance().debug(TAG, String.format("Request: \n%s", serializationForm));
-    var socket = makeSocket();
-    // Send the message
-    OutputStream outputStream = socket.getOutputStream();
-    outputStream.write(serializationForm.getBytes(ENCODING));
-    outputStream.flush();
-    outputStream.close();
+    AFUNIXSocket socket = null;
+    OutputStream outputStream = null;
+    try {
+      socket = makeSocket();
+      // Send the message
+      outputStream = socket.getOutputStream();
+      outputStream.write(serializationForm.getBytes(ENCODING));
+      outputStream.flush();
 
-    // receive the message
-    InputStream inputStream = socket.getInputStream();
-    var buffer = new ByteArrayOutputStream();
-    int nRead;
-    var data = new byte[1024];
-    while ((nRead = inputStream.read(data, 0, data.length)) != -1) {
-      buffer.write(data, 0, nRead);
+      // receive the message
+      var result = readAll(socket);
+      CLightningLogger.getInstance().debug(TAG, String.format("Response: %s", result));
+      return result;
+    } catch (IOException exception) {
+      throw exception;
+    } finally {
+      if (outputStream != null) outputStream.close();
+      if (socket != null) socket.close();
     }
-    inputStream.close();
-    buffer.flush();
+  }
 
-    var result = buffer.toString(StandardCharsets.UTF_8);
-    CLightningLogger.getInstance().error(TAG, String.format("Response: %s", result));
+  private String readAll(Socket socket) throws IOException {
+    var inputStream = socket.getInputStream();
+    Reader inputReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
+    var response = new StringBuilder();
+    int buffSize = 1024;
+    char[] buffer = new char[buffSize];
 
-    socket.close();
-    return result;
+    int read;
+    // FIXME(vincenzopalazzo): We can do better that this, because I think that indexOf take O(N)
+    // time complexity, but it avoid the space complexity to make a toString() each time.
+    // However, we can avoid it? Mh!
+    while ((read = inputReader.read(buffer, 0, buffer.length)) > 0) {
+      response.append(buffer, 0, read);
+      // c-lightning add \n\n at the end of all rpc answer and JAVA have
+      // same problem to catch it
+      // Source https://github.com/ElementsProject/lightning/blob/master/lightningd/jsonrpc.c#L202
+      if (response.indexOf("\n\n") != -1) {
+        return response.toString();
+      }
+    }
+    return response.toString();
   }
 }

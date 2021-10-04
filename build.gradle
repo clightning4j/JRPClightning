@@ -36,6 +36,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson:2.8.8'
     implementation 'org.reflections:reflections:0.9.12'
+    implementation 'com.google.guava:guava:31.0.1-jre'
 
     implementation 'commons-io:commons-io:2.4'
 
@@ -47,6 +48,9 @@ task copyLib(type: Copy) {
 }
 
 test {
+    testLogging {
+        showStandardStreams = true
+    }
     reports {
         junitXml.enabled = true
         html.enabled = true
