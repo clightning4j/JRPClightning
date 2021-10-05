@@ -24,39 +24,49 @@ public class CLightningChannel {
   @Expose private String source;
   @Expose private String destination;
 
+  @Expose
   @SerializedName("short_channel_id")
   private String shortChannelId;
 
+  @Expose
   @SerializedName("public")
   private boolean publicChannel;
 
-  private long satoshis;
+  @Expose private long satoshis;
 
+  @Expose
   @SerializedName("amount_sat")
   private String amountSat;
 
+  @Expose
   @SerializedName("message_flags")
   private int messageFlags;
 
+  @Expose
   @SerializedName("channel_flags")
   private int channelFlags;
 
-  private boolean active;
+  @Expose private boolean active;
 
+  @Expose
   @SerializedName("last_update")
   private Date lastUpdate;
 
+  @Expose
   @SerializedName("base_fee_millisatoshi")
   private BigInteger baseFeeMilliSatoshi;
 
+  @Expose
   @SerializedName("fee_per_millionth")
   private long feePerMillionth;
 
-  private long delay;
+  @Expose private long delay;
 
+  @Expose
   @SerializedName("htlc_minimum_msat")
   private String htlcMinimumMSat;
 
+  @Expose
   @SerializedName("htlc_maximum_msat")
   private String htlcMaximumMSat;
 
