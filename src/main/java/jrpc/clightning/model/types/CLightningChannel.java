@@ -90,6 +90,11 @@ public class CLightningChannel {
     return satoshis;
   }
 
+  @Deprecated
+  public String getAmountSat() {
+    return this.getAmountMilliSat();
+  }
+
   public String getAmountMilliSat() {
     return amountMilliSat;
   }
