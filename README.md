@@ -171,7 +171,7 @@ The library supports plugins from version 0.1.8, and the library contains a coll
             description = "Annotation plugin"
     )
     public void hello(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
-        log(CLightningLevelLog.WARNING, request.toString());
+        log(PluginLog.WARNING, request.toString());
         response.add("type", "random");
     }
 ```
@@ -181,7 +181,7 @@ The library supports plugins from version 0.1.8, and the library contains a coll
 ```java
     @Subscription(notification = "invoice_creation")
     public void doInvoiceCreation(CLightningJsonObject data){
-        log(CLightningLevelLog.WARNING, "Notification invoice_creation received inside the plugin lightning rest");
+        log(PluginLog.WARNING, "Notification invoice_creation received inside the plugin lightning rest");
         CLightningLogger.getInstance().debug( this.getClass(), "Data received by notification are \n" + data.toString());
     }
 ```
@@ -191,7 +191,7 @@ The library supports plugins from version 0.1.8, and the library contains a coll
 ```java
     @Hook(hook = "rpc_command")
     public void logAllRPCCommand(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
-        log(CLightningLevelLog.WARNING, request.toString());
+        log(PluginLog.WARNING, request.toString());
         response.add("result", "continue");
     }
 ```
