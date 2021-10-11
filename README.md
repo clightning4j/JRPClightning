@@ -171,7 +171,7 @@ The library supports plugins from version 0.1.8, and the library contains a coll
             description = "Annotation plugin"
     )
     public void hello(CLightningPlugin plugin, CLightningJsonObject request, CLightningJsonObject response) {
-        log(CLightningLevelLog.WARNING, request.toString());
+        log(PluginLog.WARNING, request.toString());
         response.add("type", "random");
     }
 ```
