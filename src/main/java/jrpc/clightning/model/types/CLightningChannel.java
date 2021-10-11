@@ -35,8 +35,8 @@ public class CLightningChannel {
   @Expose private long satoshis;
 
   @Expose
-  @SerializedName("amount_sat")
-  private String amountSat;
+  @SerializedName("amount_msat")
+  private String amountMilliSat;
 
   @Expose
   @SerializedName("message_flags")
@@ -90,8 +90,8 @@ public class CLightningChannel {
     return satoshis;
   }
 
-  public String getAmountSat() {
-    return amountSat;
+  public String getAmountMilliSat() {
+    return amountMilliSat;
   }
 
   public int getMessageFlags() {
