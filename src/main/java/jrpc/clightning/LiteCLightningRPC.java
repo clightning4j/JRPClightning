@@ -56,7 +56,7 @@ public class LiteCLightningRPC {
    * opportunity to use also the os env.
    */
   public LiteCLightningRPC() {
-    this.path = CLightningConfigurator.getInstance().getSocketPath();
+    this.path = CLightningConfigurator.getInstance().getUrl();
     this.socket = new CLightningSocket();
   }
 

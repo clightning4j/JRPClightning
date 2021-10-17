@@ -75,7 +75,7 @@ public class CLightningRPC {
    * opportunity to use also the os env.
    */
   public CLightningRPC() {
-    this(CLightningConfigurator.getInstance().getSocketPath());
+    this(CLightningConfigurator.getInstance().getUrl());
   }
 
   /**
