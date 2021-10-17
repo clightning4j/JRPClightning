@@ -16,6 +16,7 @@
  */
 package jrpc.clightning;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 import jrpc.clightning.service.CLightningConfigurator;
@@ -63,12 +64,55 @@ public class LiteCLightningRPC {
     return path;
   }
 
+  /**
+   * Make a JSON RPC 2.0 call over the socket, and unwrap the result in a class of the specified
+   * type
+   *
+   * @param methodName: The method name to be call.
+   * @param type: The type of the object where the response need to be decoded.
+   * @return An object of the specified type with the content of the response.
+   */
   public <T> T call(String methodName, Class<T> type) {
     return this.call(methodName, new HashMap<>(), type);
   }
 
-  public <T> T call(String name, Map<String, Object> params, Class<T> type) {
-    IWrapperSocketCall request = new RPCUnixRequestMethod(name, params);
-    return (T) socket.doCall(request, type);
+  /**
+   * Make a JSON RPC 2.0 call over the socket, and unwrap the result in a class of the specified
+   * type
+   *
+   * @param methodName: The method name to be call.
+   * @param params: A map where the parameter for the method call are specified.
+   * @param type: The type of the object where the response need to be decoded.
+   * @return An object of the specified type with the content of the response.
+   */
+  public <T> T call(String methodName, Map<String, Object> params, Class<T> type) {
+    IWrapperSocketCall request = new RPCUnixRequestMethod(methodName, params);
+    return socket.makeCall(request, type);
+  }
+
+  /**
+   * Low lever call, useful if you want useful another type of JSON decoder, it returns a raw string
+   * received from the socket.
+   *
+   * @param method: The method name to be call.
+   * @return: Raw String returned from the socket.
+   * @throws IOException
+   */
+  public String rawCall(String method) throws IOException {
+    return this.rawCall(method, new HashMap<>());
+  }
+
+  /**
+   * Low lever call, useful if you want useful another type of JSON decoder, it returns a raw string
+   * received from the socket.
+   *
+   * @param method: The method name to be call.
+   * @param params: A map where the parameter for the method call are specified.
+   * @return: Raw String returned from the socket.
+   * @throws IOException
+   */
+  public String rawCall(String method, Map<String, Object> params) throws IOException {
+    IWrapperSocketCall request = new RPCUnixRequestMethod(method, params);
+    return socket.doRawCall(request);
   }
 }
