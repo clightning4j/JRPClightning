@@ -1,3 +1,19 @@
+/**
+ * This is a wrapper for c-lightning RPC interface. Copyright (C) 2020-2021 Vincenzo Palazzo
+ * vincenzopalazzodev@gmail.com
+ *
+ * <p>This program is free software; you can redistribute it and/or modify it under the terms of the
+ * GNU General Public License as published by the Free Software Foundation; either version 2 of the
+ * License, or (at your option) any later version.
+ *
+ * <p>This program is distributed in the hope that it will be useful, but WITHOUT ANY WARRANTY;
+ * without even the implied warranty of MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ * GNU General Public License for more details.
+ *
+ * <p>You should have received a copy of the GNU General Public License along with this program; if
+ * not, write to the Free Software Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA
+ * 02110-1301 USA.
+ */
 package jrpc.clightning;
 
 import java.util.HashMap;
@@ -20,9 +36,9 @@ import jrpc.wrapper.socket.RPCUnixRequestMethod;
 public class LiteCLightningRPC {
 
   // The path where the socket it is located
-  private String path;
+  protected String path;
   // The socket object where it is possible talk with c-lightning.
-  private CLightningSocket socket;
+  protected CLightningSocket socket;
 
   /**
    * Create a client where with a connection with the unix socket at the specified path
@@ -41,6 +57,10 @@ public class LiteCLightningRPC {
   public LiteCLightningRPC() {
     this.path = CLightningConfigurator.getInstance().getSocketPath();
     this.socket = new CLightningSocket();
+  }
+
+  public String getPath() {
+    return path;
   }
 
   public <T> T call(String methodName, Class<T> type) {
