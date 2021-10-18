@@ -21,6 +21,7 @@ import java.util.HashMap;
 import java.util.Map;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.clightning.service.socket.CLightningSocket;
+import jrpc.wrapper.response.RPCResponseWrapper;
 import jrpc.wrapper.socket.IWrapperSocketCall;
 import jrpc.wrapper.socket.RPCUnixRequestMethod;
 
@@ -70,6 +71,7 @@ public class LiteCLightningRPC {
    *
    * @param methodName: The method name to be call.
    * @param type: The type of the object where the response need to be decoded.
+   * @param <T>: The return type.
    * @return An object of the specified type with the content of the response.
    */
   public <T> T call(String methodName, Class<T> type) {
@@ -83,6 +85,7 @@ public class LiteCLightningRPC {
    * @param methodName: The method name to be call.
    * @param params: A map where the parameter for the method call are specified.
    * @param type: The type of the object where the response need to be decoded.
+   * @param <T>: The return type.
    * @return An object of the specified type with the content of the response.
    */
   public <T> T call(String methodName, Map<String, Object> params, Class<T> type) {
@@ -95,8 +98,8 @@ public class LiteCLightningRPC {
    * received from the socket.
    *
    * @param method: The method name to be call.
-   * @return: Raw String returned from the socket.
-   * @throws IOException
+   * @return Raw String returned from the socket.
+   * @throws IOException In case of error
    */
   public String rawCall(String method) throws IOException {
     return this.rawCall(method, new HashMap<>());
@@ -108,8 +111,8 @@ public class LiteCLightningRPC {
    *
    * @param method: The method name to be call.
    * @param params: A map where the parameter for the method call are specified.
-   * @return: Raw String returned from the socket.
-   * @throws IOException
+   * @return Raw String returned from the socket.
+   * @throws IOException In case of error
    */
   public String rawCall(String method, Map<String, Object> params) throws IOException {
     IWrapperSocketCall request = new RPCUnixRequestMethod(method, params);

@@ -98,9 +98,8 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     ParameterChecker.doCheckObjectNotNull("doCall", "wrapperSocketCall", request);
     try {
       var responseStr = this.doRawCall(request);
-      var type = new TypeToken<RPCResponseWrapper<T>>() {}.getType();
-      RPCResponseWrapper<T> response =
-          (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
+      var type = new TypeToken<RPCResponseWrapper<Class<T>>>() {}.getType();
+      RPCResponseWrapper<T> response = (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
       return response.getResult();
     } catch (IOException e) {
       var errorMessage =
