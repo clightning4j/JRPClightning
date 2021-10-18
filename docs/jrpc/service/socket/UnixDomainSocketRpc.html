@@ -26,7 +26,7 @@
     catch(err) {
     }
 //-->
-var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10};
+var data = {"i0":10,"i1":10,"i2":10,"i3":10,"i4":10,"i5":10,"i6":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -245,6 +245,17 @@ implements <a href="ISocket.html" title="interface in jrpc.service.socket">ISock
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isOpen()">isOpen</a></span>()</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeCall(jrpc.wrapper.socket.IWrapperSocketCall)">makeCall</a></span>&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;request)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.Class)">makeCall</a></span>&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;request,
+        java.lang.Class&lt;T&gt;&nbsp;typeResult)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
 </table>
 <ul class="blockList">
 <li class="blockList"><a id="methods.inherited.from.class.java.lang.Object">
@@ -276,10 +287,6 @@ implements <a href="ISocket.html" title="interface in jrpc.service.socket">ISock
 <li class="blockList">
 <h4>ENCODING</h4>
 <pre>protected static final&nbsp;java.lang.String ENCODING</pre>
-<dl>
-<dt><span class="seeLabel">See Also:</span></dt>
-<dd><a href="../../../constant-values.html#jrpc.service.socket.UnixDomainSocketRpc.ENCODING">Constant Field Values</a></dd>
-</dl>
 </li>
 </ul>
 <a id="converterJson">
@@ -393,6 +400,39 @@ implements <a href="ISocket.html" title="interface in jrpc.service.socket">ISock
 <dd><code>typeResult</code> - : The type result where the JSON payload will be encoded</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Object of the required type build with the JSON string content.</dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="makeCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.Class)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>makeCall</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;T&nbsp;makeCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;request,
+                      java.lang.Class&lt;T&gt;&nbsp;typeResult)
+               throws <a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="ISocket.html#makeCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.Class)">makeCall</a></code>&nbsp;in interface&nbsp;<code><a href="ISocket.html" title="interface in jrpc.service.socket">ISocket</a></code></dd>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="makeCall(jrpc.wrapper.socket.IWrapperSocketCall)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>makeCall</h4>
+<pre class="methodSignature">public&nbsp;&lt;T&gt;&nbsp;T&nbsp;makeCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;request)
+               throws <a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></pre>
+<dl>
+<dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
+<dd><code><a href="ISocket.html#makeCall(jrpc.wrapper.socket.IWrapperSocketCall)">makeCall</a></code>&nbsp;in interface&nbsp;<code><a href="ISocket.html" title="interface in jrpc.service.socket">ISocket</a></code></dd>
 <dt><span class="throwsLabel">Throws:</span></dt>
 <dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
 </dl>
