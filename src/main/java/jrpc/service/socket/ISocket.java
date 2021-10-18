@@ -35,6 +35,9 @@ public interface ISocket {
       throws ServiceException, IOException;
 
   <T> T makeCall(IWrapperSocketCall wrapperSocketCall, Class<T> typeResult) throws ServiceException;
+
+  <T> T makeCall(IWrapperSocketCall wrapperSocketCall) throws ServiceException;
+
   /**
    * Make a raw call to the socket without JSON parsing
    *

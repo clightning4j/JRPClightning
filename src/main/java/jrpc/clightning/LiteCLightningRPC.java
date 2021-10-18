@@ -21,7 +21,6 @@ import java.util.HashMap;
 import java.util.Map;
 import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.clightning.service.socket.CLightningSocket;
-import jrpc.wrapper.response.RPCResponseWrapper;
 import jrpc.wrapper.socket.IWrapperSocketCall;
 import jrpc.wrapper.socket.RPCUnixRequestMethod;
 

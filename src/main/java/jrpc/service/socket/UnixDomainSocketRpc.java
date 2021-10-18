@@ -22,6 +22,7 @@ import java.lang.reflect.Type;
 import java.net.Socket;
 import java.net.SocketException;
 import java.nio.charset.StandardCharsets;
+import java.util.HashMap;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.IConverter;
@@ -98,8 +99,29 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     ParameterChecker.doCheckObjectNotNull("doCall", "wrapperSocketCall", request);
     try {
       var responseStr = this.doRawCall(request);
-      var type = new TypeToken<RPCResponseWrapper<Class<T>>>() {}.getType();
-      RPCResponseWrapper<T> response = (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
+      var type = new TypeToken<RPCResponseWrapper<HashMap<String, Object>>>() {}.getType();
+      // We need to decode the answer in a RPCResponseWrapper and after that we need to
+      // decode with the correct type. This is a bottleneck given by gson.
+      RPCResponseWrapper<HashMap<String, Object>> response =
+          (RPCResponseWrapper<HashMap<String, Object>>)
+              converterJson.deserialization(responseStr, type);
+      var responseBody = converterJson.serialization(response.getResult());
+      return (T) converterJson.deserialization(responseBody, typeResult);
+    } catch (IOException e) {
+      var errorMessage =
+          String.format(
+              "Error during call %s with message %s", request.getMethod(), e.getLocalizedMessage());
+      throw new ServiceException(errorMessage, e.getCause());
+    }
+  }
+
+  @Override
+  public <T> T makeCall(IWrapperSocketCall request) throws ServiceException {
+    ParameterChecker.doCheckObjectNotNull("makeCall", "wrapperSocketCall", request);
+    try {
+      var responseStr = this.doRawCall(request);
+      var type = new TypeToken<RPCResponseWrapper<T>>() {}.getType();
+      var response = (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
       return response.getResult();
     } catch (IOException e) {
       var errorMessage =
@@ -111,9 +133,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
 
   @Override
   public String doRawCall(IWrapperSocketCall wrapperSocket) throws IOException {
-    if (wrapperSocket == null) {
-      throw new IllegalArgumentException("The argument wrapperSocket is null");
-    }
+    ParameterChecker.doCheckObjectNotNull("doRawCall", "wrapperSocket", wrapperSocket);
 
     String serializationForm = converterJson.serialization(wrapperSocket);
     CLightningLogger.getInstance().debug(TAG, String.format("Request: \n%s", serializationForm));
