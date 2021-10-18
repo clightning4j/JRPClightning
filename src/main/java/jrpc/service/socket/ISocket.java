@@ -30,8 +30,13 @@ public interface ISocket {
    * @return Object of the required type build with the JSON string content.
    * @throws SocketException Throws if any error with the socket will happen.
    */
+  @Deprecated
   Object doCall(IWrapperSocketCall wrapperSocket, Type typeResult)
       throws ServiceException, IOException;
+
+  <T> T makeCall(IWrapperSocketCall wrapperSocketCall, Class<T> typeResult) throws ServiceException;
+
+  <T> T makeCall(IWrapperSocketCall wrapperSocketCall) throws ServiceException;
 
   /**
    * Make a raw call to the socket without JSON parsing

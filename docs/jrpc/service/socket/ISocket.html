@@ -26,8 +26,8 @@
     catch(err) {
     }
 //-->
-var data = {"i0":6,"i1":6,"i2":6,"i3":6,"i4":6};
-var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"]};
+var data = {"i0":6,"i1":38,"i2":6,"i3":6,"i4":6,"i5":6,"i6":6};
+var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],4:["t3","Abstract Methods"],32:["t6","Deprecated Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
 var tableTab = "tableTab";
@@ -141,7 +141,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 </a>
 <h3>Method Summary</h3>
 <table class="memberSummary">
-<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
+<caption><span id="t0" class="activeTableTab"><span>All Methods</span><span class="tabEnd">&nbsp;</span></span><span id="t2" class="tableTab"><span><a href="javascript:show(2);">Instance Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t3" class="tableTab"><span><a href="javascript:show(4);">Abstract Methods</a></span><span class="tabEnd">&nbsp;</span></span><span id="t6" class="tableTab"><span><a href="javascript:show(32);">Deprecated Methods</a></span><span class="tabEnd">&nbsp;</span></span></caption>
 <tr>
 <th class="colFirst" scope="col">Modifier and Type</th>
 <th class="colSecond" scope="col">Method</th>
@@ -157,7 +157,7 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#doCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.reflect.Type)">doCall</a></span>&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocket,
       java.lang.reflect.Type&nbsp;typeResult)</code></th>
 <td class="colLast">
-<div class="block">Make a raw call to the socket without JSON parsing</div>
+<div class="block"><span class="deprecatedLabel">Deprecated.</span></div>
 </td>
 </tr>
 <tr id="i2" class="altColor">
@@ -175,6 +175,17 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <tr id="i4" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
 <th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#isOpen()">isOpen</a></span>()</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i5" class="rowColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeCall(jrpc.wrapper.socket.IWrapperSocketCall)">makeCall</a></span>&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocketCall)</code></th>
+<td class="colLast">&nbsp;</td>
+</tr>
+<tr id="i6" class="altColor">
+<td class="colFirst"><code>&lt;T&gt;&nbsp;T</code></td>
+<th class="colSecond" scope="row"><code><span class="memberNameLink"><a href="#makeCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.Class)">makeCall</a></span>&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocketCall,
+        java.lang.Class&lt;T&gt;&nbsp;typeResult)</code></th>
 <td class="colLast">&nbsp;</td>
 </tr>
 </table>
@@ -200,10 +211,12 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <ul class="blockList">
 <li class="blockList">
 <h4>doCall</h4>
-<pre class="methodSignature">java.lang.Object&nbsp;doCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocket,
+<pre class="methodSignature">@Deprecated
+java.lang.Object&nbsp;doCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocket,
                         java.lang.reflect.Type&nbsp;typeResult)
                  throws <a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a>,
                         java.io.IOException</pre>
+<div class="deprecationBlock"><span class="deprecatedLabel">Deprecated.</span></div>
 <div class="block">Make a raw call to the socket without JSON parsing</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
@@ -215,6 +228,35 @@ $('.navPadding').css('padding-top', $('.fixedNav').css("height"));
 <dd><code>java.net.SocketException</code> - Throws if any error with the socket will happen.</dd>
 <dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
 <dd><code>java.io.IOException</code></dd>
+</dl>
+</li>
+</ul>
+<a id="makeCall(jrpc.wrapper.socket.IWrapperSocketCall,java.lang.Class)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>makeCall</h4>
+<pre class="methodSignature">&lt;T&gt;&nbsp;T&nbsp;makeCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocketCall,
+               java.lang.Class&lt;T&gt;&nbsp;typeResult)
+        throws <a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></pre>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
+</dl>
+</li>
+</ul>
+<a id="makeCall(jrpc.wrapper.socket.IWrapperSocketCall)">
+<!--   -->
+</a>
+<ul class="blockList">
+<li class="blockList">
+<h4>makeCall</h4>
+<pre class="methodSignature">&lt;T&gt;&nbsp;T&nbsp;makeCall&#8203;(<a href="../../wrapper/socket/IWrapperSocketCall.html" title="interface in jrpc.wrapper.socket">IWrapperSocketCall</a>&nbsp;wrapperSocketCall)
+        throws <a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></pre>
+<dl>
+<dt><span class="throwsLabel">Throws:</span></dt>
+<dd><code><a href="../../exceptions/ServiceException.html" title="class in jrpc.exceptions">ServiceException</a></code></dd>
 </dl>
 </li>
 </ul>

@@ -35,6 +35,7 @@ import jrpc.clightning.rpc.bitcoin.CLightningBitcoinRPC;
 import jrpc.clightning.rpc.channel.CLightningChannelRPC;
 import jrpc.clightning.rpc.network.CLightningNetworkRPC;
 import jrpc.clightning.rpc.payment.CLightningPaymentRPC;
+import jrpc.clightning.service.CLightningConfigurator;
 import jrpc.clightning.service.socket.CLightningSocket;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
@@ -45,8 +46,9 @@ import jrpc.wrapper.socket.RPCUnixRequestMethod;
 public class CLightningRPC {
 
   private static final Class TAG = CLightningRPC.class;
-  private static CLightningRPC SINGLETON;
+  @Deprecated private static CLightningRPC SINGLETON;
 
+  @Deprecated
   public static CLightningRPC getInstance() {
     CLightningRPC result = SINGLETON;
     if (result != null) {
@@ -60,6 +62,7 @@ public class CLightningRPC {
     }
   }
 
+  protected String path;
   protected CLightningSocket socket;
   private CLightningBitcoinRPC bitcoinRPC;
   private CLightningNetworkRPC networkRPC;
@@ -67,9 +70,23 @@ public class CLightningRPC {
   private CLightningChannelRPC channelRPC;
   protected CommandRPCMediator mediatorCommand;
 
-  private CLightningRPC() {
+  /**
+   * Create a client where the configuration it is taken from a config file. TODO: Give the
+   * opportunity to use also the os env.
+   */
+  public CLightningRPC() {
+    this(CLightningConfigurator.getInstance().getUrl());
+  }
+
+  /**
+   * Create a client where with a connection with the unix socket at the specified path.
+   *
+   * @param path: String that contains the path where the socket it is located
+   */
+  public CLightningRPC(String path) {
     try {
-      socket = new CLightningSocket();
+      this.path = path;
+      socket = new CLightningSocket(path);
       this.mediatorCommand = new CommandRPCMediator(socket);
       this.bitcoinRPC = new CLightningBitcoinRPC();
       this.networkRPC = new CLightningNetworkRPC();
