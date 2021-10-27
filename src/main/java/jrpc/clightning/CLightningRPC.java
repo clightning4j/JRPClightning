@@ -202,13 +202,26 @@ public class CLightningRPC {
   }
 
   public CLightningBitcoinTx close(
-      String channelId, String unilateralTimeout, String feeNegotiationStep, String wrongFunding) {
+      String id,
+      String unilateralTimeout,
+      String destination,
+      String feeNegotiationStep,
+      String wrongFunding,
+      boolean forceLeaseClosed,
+      List<Number> feeange) {
     return this.channelRPC.close(
-        mediatorCommand, channelId, unilateralTimeout, feeNegotiationStep, wrongFunding);
+        mediatorCommand,
+        id,
+        unilateralTimeout,
+        destination,
+        feeNegotiationStep,
+        wrongFunding,
+        forceLeaseClosed,
+        feeange);
   }
 
   public CLightningBitcoinTx close(String channelId) {
-    return this.close(channelId, "", "", "");
+    return this.close(channelId, "", "", "", "", false, new ArrayList<>());
   }
 
   public CLightningBitcoinTx fundChannel(String id, String amount) {
