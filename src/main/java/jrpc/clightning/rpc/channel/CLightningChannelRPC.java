@@ -13,23 +13,30 @@ import jrpc.util.ParameterChecker;
 
 public class CLightningChannelRPC {
 
-  public CLightningBitcoinTx close(
+  public CLightningClose close(
       CommandRPCMediator mediatorCommand,
-      String channelId,
+      String id,
       String unilateralTimeout,
+      String destination,
       String feeNegotiationStep,
-      String wrongFunding) {
-    ParameterChecker.doCheckString("close", "channelId", channelId, false);
+      String wrongFunding,
+      boolean forceLeaseClosed,
+      List<Number> feeange) {
+    ParameterChecker.doCheckString("close", "id", id, false);
+    ParameterChecker.doCheckString("close", "destination", destination, true);
     ParameterChecker.doCheckString("close", "unilateralTimeout", unilateralTimeout, true);
     ParameterChecker.doCheckString("close", "feeNegotiationStep", feeNegotiationStep, true);
     ParameterChecker.doCheckString("close", "wrongFunding", wrongFunding, true);
+    ParameterChecker.doCheckObjectNotNull("close", "feeange", feeange);
 
     HashMap<String, Object> payload = new HashMap<>();
-    payload.put("id", channelId.trim());
+    payload.put("id", id.trim());
 
     if (!unilateralTimeout.trim().isEmpty()) {
       payload.put("unilateraltimeout", unilateralTimeout.trim());
     }
+
+    if (destination.trim().isEmpty()) payload.put("destination", destination.trim());
 
     if (!feeNegotiationStep.isEmpty()) {
       payload.put("fee_negotiation_step", feeNegotiationStep.trim());
@@ -38,7 +45,10 @@ public class CLightningChannelRPC {
     if (!wrongFunding.isEmpty()) {
       payload.put("wrong_funding", wrongFunding.trim());
     }
-    return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payload);
+
+    payload.put("force_lease_closed", forceLeaseClosed);
+    payload.put("feeange", feeange);
+    return (CLightningClose) mediatorCommand.runCommand(Command.CLOSE, payload);
   }
 
   public CLightningBitcoinTx fundChannel(

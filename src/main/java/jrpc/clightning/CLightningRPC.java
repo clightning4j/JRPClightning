@@ -201,14 +201,27 @@ public class CLightningRPC {
     return this.withdraw(destination, satoshi, "", 1, new ArrayList<>());
   }
 
-  public CLightningBitcoinTx close(
-      String channelId, String unilateralTimeout, String feeNegotiationStep, String wrongFunding) {
+  public CLightningClose close(
+      String id,
+      String unilateralTimeout,
+      String destination,
+      String feeNegotiationStep,
+      String wrongFunding,
+      boolean forceLeaseClosed,
+      List<Number> feeange) {
     return this.channelRPC.close(
-        mediatorCommand, channelId, unilateralTimeout, feeNegotiationStep, wrongFunding);
+        mediatorCommand,
+        id,
+        unilateralTimeout,
+        destination,
+        feeNegotiationStep,
+        wrongFunding,
+        forceLeaseClosed,
+        feeange);
   }
 
-  public CLightningBitcoinTx close(String channelId) {
-    return this.close(channelId, "", "", "");
+  public CLightningClose close(String channelId) {
+    return this.close(channelId, "", "", "", "", false, new ArrayList<>());
   }
 
   public CLightningBitcoinTx fundChannel(String id, String amount) {
@@ -229,7 +242,13 @@ public class CLightningRPC {
   }
 
   public CLightningListFunds listFunds() {
-    return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, new HashMap<>());
+    return this.listFunds(false);
+  }
+
+  public CLightningListFunds listFunds(boolean spent) {
+    var payload = new HashMap<String, Object>();
+    payload.put("spent", spent);
+    return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, payload);
   }
 
   public CLightningConnect connect(String id, String host, String port) {
@@ -430,11 +449,11 @@ public class CLightningRPC {
     this.mediatorCommand.unregisterCommand(key);
   }
 
-  public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(ICommandKey key, Map<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
   }
 
-  public <T> T runRegisterCommand(String key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(String key, Map<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
   }
 

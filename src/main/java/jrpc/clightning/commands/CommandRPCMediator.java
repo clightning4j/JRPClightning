@@ -146,7 +146,7 @@ public class CommandRPCMediator {
     customCommands.put(key.getCommandKey(), command);
   }
 
-  public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(ICommandKey key, Map<String, Object> payload) {
     if (!customCommands.containsKey(key.getCommandKey())) {
       throw new IllegalArgumentException(
           "Command with key:" + key.getCommandKey() + " inside the register command cache");
@@ -155,7 +155,7 @@ public class CommandRPCMediator {
     return (T) command.doRPCCommand(socket, payload);
   }
 
-  public <T> T runRegisterCommand(String key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(String key, Map<String, Object> payload) {
     if (!customCommands.containsKey(key)) {
       throw new IllegalArgumentException(
           "Command with key:" + key + " inside the register command cache");
