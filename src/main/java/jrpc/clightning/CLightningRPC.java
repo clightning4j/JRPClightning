@@ -242,7 +242,13 @@ public class CLightningRPC {
   }
 
   public CLightningListFunds listFunds() {
-    return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, new HashMap<>());
+    return this.listFunds(false);
+  }
+
+  public CLightningListFunds listFunds(boolean spent) {
+    var payload = new HashMap<String, Object>();
+    payload.put("spent", spent);
+    return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, payload);
   }
 
   public CLightningConnect connect(String id, String host, String port) {
