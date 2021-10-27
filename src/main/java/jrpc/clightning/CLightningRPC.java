@@ -449,11 +449,11 @@ public class CLightningRPC {
     this.mediatorCommand.unregisterCommand(key);
   }
 
-  public <T> T runRegisterCommand(ICommandKey key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(ICommandKey key, Map<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
   }
 
-  public <T> T runRegisterCommand(String key, HashMap<String, Object> payload) {
+  public <T> T runRegisterCommand(String key, Map<String, Object> payload) {
     return mediatorCommand.runRegisterCommand(key, payload);
   }
 
