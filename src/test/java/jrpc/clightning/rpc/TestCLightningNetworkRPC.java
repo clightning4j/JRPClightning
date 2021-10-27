@@ -41,7 +41,7 @@ public class TestCLightningNetworkRPC extends AbstractTestRPC {
       Thread.sleep(2000);
       CLightningListChannels channels = rpc.listChannels();
       assumeTrue(!channels.getChannels().isEmpty());
-      CLightningBitcoinTx closeTx = rpc.close(channels.getChannels().get(0).getShortChannelId());
+      var closeTx = rpc.close(channels.getChannels().get(0).getShortChannelId());
       TestCase.assertNotNull(closeTx.getTxId());
       TestCase.assertNotNull(closeTx.getTx());
     } catch (CLightningException | CommandException ex) {

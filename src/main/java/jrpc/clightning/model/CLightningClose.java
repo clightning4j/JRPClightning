@@ -1,5 +1,5 @@
 /**
- * Copyright 2019-2020 https://github.com/vincenzopalazzo vincenzo.palazzo@protonmail.com
+ * Copyright 2019-2020 Vincenzo Palazzo vincenzo.palazzo@protonmail.com
  *
  * <p>Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file
  * except in compliance with the License. You may obtain a copy of the License at
@@ -11,24 +11,29 @@
  * express or implied. See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package jrpc.clightning.commands;
+package jrpc.clightning.model;
 
-import com.google.gson.reflect.TypeToken;
-import java.lang.reflect.Type;
-import jrpc.clightning.model.CLightningClose;
-import jrpc.wrapper.response.RPCResponseWrapper;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
 
 /** @author https://github.com/vincenzopalazzo */
-class CLightningCommandClose extends AbstractRPCCommand<CLightningClose> {
+public class CLightningClose {
+  @Expose private String type;
+  @Expose private String tx;
 
-  private static final String COMMAND_NAME = "close";
+  @SerializedName("txid")
+  @Expose
+  String txId;
 
-  public CLightningCommandClose() {
-    super(COMMAND_NAME);
+  public String getType() {
+    return type;
   }
 
-  @Override
-  protected Type toTypeFromClass() {
-    return new TypeToken<RPCResponseWrapper<CLightningClose>>() {}.getType();
+  public String getTx() {
+    return tx;
+  }
+
+  public String getTxId() {
+    return txId;
   }
 }

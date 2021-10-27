@@ -201,7 +201,7 @@ public class CLightningRPC {
     return this.withdraw(destination, satoshi, "", 1, new ArrayList<>());
   }
 
-  public CLightningBitcoinTx close(
+  public CLightningClose close(
       String id,
       String unilateralTimeout,
       String destination,
@@ -220,7 +220,7 @@ public class CLightningRPC {
         feeange);
   }
 
-  public CLightningBitcoinTx close(String channelId) {
+  public CLightningClose close(String channelId) {
     return this.close(channelId, "", "", "", "", false, new ArrayList<>());
   }
 

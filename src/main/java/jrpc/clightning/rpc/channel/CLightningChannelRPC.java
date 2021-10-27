@@ -13,7 +13,7 @@ import jrpc.util.ParameterChecker;
 
 public class CLightningChannelRPC {
 
-  public CLightningBitcoinTx close(
+  public CLightningClose close(
       CommandRPCMediator mediatorCommand,
       String id,
       String unilateralTimeout,
@@ -48,7 +48,7 @@ public class CLightningChannelRPC {
 
     payload.put("force_lease_closed", forceLeaseClosed);
     payload.put("feeange", feeange);
-    return (CLightningBitcoinTx) mediatorCommand.runCommand(Command.CLOSE, payload);
+    return (CLightningClose) mediatorCommand.runCommand(Command.CLOSE, payload);
   }
 
   public CLightningBitcoinTx fundChannel(
