@@ -55,7 +55,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
 
   private AFUNIXSocket makeSocket() throws IOException {
     try {
-      var socket = AFUNIXSocket.newInstance();
+      AFUNIXSocket socket = AFUNIXSocket.newInstance();
       socket.connect(AFUNIXSocketAddress.of(this.socketFile));
       return socket;
     } catch (IOException e) {
@@ -83,10 +83,10 @@ public abstract class UnixDomainSocketRpc implements ISocket {
     }
 
     try {
-      var resultStr = this.doRawCall(wrapperSocket);
+      String resultStr = this.doRawCall(wrapperSocket);
       return converterJson.deserialization(resultStr, typeResult);
     } catch (IOException e) {
-      var errorMessage =
+      String errorMessage =
           String.format(
               "Error during call %s with message %s",
               wrapperSocket.getMethod(), e.getLocalizedMessage());
@@ -98,17 +98,17 @@ public abstract class UnixDomainSocketRpc implements ISocket {
   public <T> T makeCall(IWrapperSocketCall request, Class<T> typeResult) throws ServiceException {
     ParameterChecker.doCheckObjectNotNull("doCall", "wrapperSocketCall", request);
     try {
-      var responseStr = this.doRawCall(request);
-      var type = new TypeToken<RPCResponseWrapper<HashMap<String, Object>>>() {}.getType();
+      String responseStr = this.doRawCall(request);
+      Type type = new TypeToken<RPCResponseWrapper<HashMap<String, Object>>>() {}.getType();
       // We need to decode the answer in a RPCResponseWrapper and after that we need to
       // decode with the correct type. This is a bottleneck given by gson.
       RPCResponseWrapper<HashMap<String, Object>> response =
           (RPCResponseWrapper<HashMap<String, Object>>)
               converterJson.deserialization(responseStr, type);
-      var responseBody = converterJson.serialization(response.getResult());
+      String responseBody = converterJson.serialization(response.getResult());
       return (T) converterJson.deserialization(responseBody, typeResult);
     } catch (IOException e) {
-      var errorMessage =
+      String errorMessage =
           String.format(
               "Error during call %s with message %s", request.getMethod(), e.getLocalizedMessage());
       throw new ServiceException(errorMessage, e.getCause());
@@ -119,12 +119,13 @@ public abstract class UnixDomainSocketRpc implements ISocket {
   public <T> T makeCall(IWrapperSocketCall request) throws ServiceException {
     ParameterChecker.doCheckObjectNotNull("makeCall", "wrapperSocketCall", request);
     try {
-      var responseStr = this.doRawCall(request);
-      var type = new TypeToken<RPCResponseWrapper<T>>() {}.getType();
-      var response = (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
+      String responseStr = this.doRawCall(request);
+      Type type = new TypeToken<RPCResponseWrapper<T>>() {}.getType();
+      RPCResponseWrapper<T> response =
+          (RPCResponseWrapper<T>) converterJson.deserialization(responseStr, type);
       return response.getResult();
     } catch (IOException e) {
-      var errorMessage =
+      String errorMessage =
           String.format(
               "Error during call %s with message %s", request.getMethod(), e.getLocalizedMessage());
       throw new ServiceException(errorMessage, e.getCause());
@@ -147,7 +148,7 @@ public abstract class UnixDomainSocketRpc implements ISocket {
       outputStream.flush();
 
       // receive the message
-      var result = readAll(socket);
+      String result = readAll(socket);
       CLightningLogger.getInstance().debug(TAG, String.format("Response: %s", result));
       return result;
     } catch (IOException exception) {
@@ -159,9 +160,9 @@ public abstract class UnixDomainSocketRpc implements ISocket {
   }
 
   private String readAll(Socket socket) throws IOException {
-    var inputStream = socket.getInputStream();
+    InputStream inputStream = socket.getInputStream();
     Reader inputReader = new InputStreamReader(inputStream, StandardCharsets.UTF_8);
-    var response = new StringBuilder();
+    StringBuilder response = new StringBuilder();
     int buffSize = 1024;
     char[] buffer = new char[buffSize];
 

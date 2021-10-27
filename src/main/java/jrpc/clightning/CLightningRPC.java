@@ -246,7 +246,7 @@ public class CLightningRPC {
   }
 
   public CLightningListFunds listFunds(boolean spent) {
-    var payload = new HashMap<String, Object>();
+    Map<String, Object> payload = new HashMap<>();
     payload.put("spent", spent);
     return (CLightningListFunds) mediatorCommand.runCommand(Command.LISTFOUNDS, payload);
   }
@@ -477,7 +477,7 @@ public class CLightningRPC {
   public String rawCommand(String commandName, Map<String, Object> params) throws IOException {
     ParameterChecker.doCheckString("rawCommand", "commandName", commandName, false);
     ParameterChecker.doCheckObjectNotNull("rawCommand", "params", params);
-    var jsonRpcWrapper = new RPCUnixRequestMethod(commandName, params);
+    RPCUnixRequestMethod jsonRpcWrapper = new RPCUnixRequestMethod(commandName, params);
     return socket.doRawCall(jsonRpcWrapper);
   }
 
