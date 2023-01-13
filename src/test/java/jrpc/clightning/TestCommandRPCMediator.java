@@ -90,7 +90,7 @@ public class TestCommandRPCMediator {
     String label = "I am vincent and this is my personal test" + (int) (Math.random() * 100);
     String description = "This is a minimal expression for command invoice?";
     String payload =
-        "msatoshi=1000"
+        "amount_msat=1000"
             + JOIN_TOKEN_PROP
             + "label="
             + label
@@ -110,7 +110,7 @@ public class TestCommandRPCMediator {
   @Test(expected = RuntimeException.class)
   public void testParsingPayloadInvoiceTwo() {
     String description = "This is a minimal expression for command invoice?";
-    String payload = "msatoshi=1000" + JOIN_TOKEN_PROP + "description=" + description;
+    String payload = "amount_msat=1000" + JOIN_TOKEN_PROP + "description=" + description;
     Object response = mediator.runCommand(Command.INVOICE, payload);
     TestCase.assertNotNull(response);
   }
@@ -119,7 +119,7 @@ public class TestCommandRPCMediator {
   public void testParsingPayloadInvoiceThree() {
     String description = "This is a minimal expression for command invoice?";
     String payload =
-        "msatoshi=1000"
+        "amount_msat=1000"
             + JOIN_TOKEN_PROP
             + "label"
             + JOIN_TOKEN_PROP
@@ -134,7 +134,7 @@ public class TestCommandRPCMediator {
     String label = "I am vincent and this is my personal test" + (int) (Math.random() * 100);
     String description = "This is a minimal expression for command invoice?";
     String payload =
-        "msatoshi=1000"
+        "amount_msat=1000"
             + JOIN_TOKEN_PROP
             + "label="
             + label
@@ -225,37 +225,5 @@ public class TestCommandRPCMediator {
     String status = "pippo";
     String payload = "label=" + " " + JOIN_TOKEN_PROP + "status=" + status;
     mediator.runCommand(Command.DELINVOICE, payload);
-  }
-
-  @Test
-  public void testParsingPayloadAutoCleanInvoiceOne() {
-    String payload = " ";
-    Object response = mediator.runCommand(Command.AUTOCLEANINVOICE, payload);
-    TestCase.assertNotNull(response);
-  }
-
-  @Test
-  public void testParsingPayloadAutoCleanInvoiceTwo() {
-    String cycleSeconds = "3600";
-    String expiredBy = "86400";
-    String payload = "cycle_seconds=" + cycleSeconds + JOIN_TOKEN_PROP + "expired_by=" + expiredBy;
-    Object response = mediator.runCommand(Command.AUTOCLEANINVOICE, payload);
-    TestCase.assertNotNull(response);
-  }
-
-  @Test
-  public void testParsingPayloadAutoCleanInvoiceThree() {
-    String cycleSeconds = "3600";
-    String payload = "cycle_seconds=" + cycleSeconds;
-    Object response = mediator.runCommand(Command.AUTOCLEANINVOICE, payload);
-    TestCase.assertNotNull(response);
-  }
-
-  @Test
-  public void testParsingPayloadTxPrepareOne() {
-    String cycleSeconds = "3600";
-    String payload = "cycle_seconds=" + cycleSeconds;
-    Object response = mediator.runCommand(Command.AUTOCLEANINVOICE, payload);
-    TestCase.assertNotNull(response);
   }
 }

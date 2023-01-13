@@ -33,7 +33,7 @@ public class CLightningNetworkRPC {
     HashMap<String, Object> payload = new HashMap<>();
 
     payload.put("id", id);
-    payload.put("msatoshi", maxHops);
+    payload.put("amount_msat", maxHops);
     payload.put("riskfactor", riskFactor);
     payload.put("cltv", cltv);
     payload.put("maxhops", maxHops);

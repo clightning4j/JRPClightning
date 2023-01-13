@@ -90,11 +90,11 @@ public class TestJsonConverterDAO {
     TestCase.assertEquals(0, notifications.size());
   }
 
-    @Test
-    public void testSerializeNullsValues() throws ServiceException {
-        HashMap<String, String> payload = new HashMap();
-        payload.put("value", null);
-        String encoding = genericDAO.serialization(payload);
-        TestCase.assertTrue(encoding.contains("value"));
-    }
+  @Test
+  public void testSerializeNullsValues() throws ServiceException {
+    HashMap<String, String> payload = new HashMap();
+    payload.put("value", null);
+    String encoding = genericDAO.serialization(payload);
+    TestCase.assertTrue(encoding.contains("value"));
+  }
 }

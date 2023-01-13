@@ -133,14 +133,14 @@ public class CLightningRPC {
   }
 
   public CLightningInvoice invoice(String milliSatoshi, String label, String description) {
-    return this.invoice(milliSatoshi, label, description, "", new String[] {}, "", false);
+    return this.invoice(milliSatoshi, label, description, null, new String[] {}, "", false);
   }
 
   public CLightningInvoice invoice(
       String milliSatoshi,
       String label,
       String description,
-      String expiry,
+      BigInteger expiry,
       String[] fallbacks,
       String preImage,
       boolean exposePrivateChannels) {
@@ -379,7 +379,7 @@ public class CLightningRPC {
   }
 
   public CLightningFundPSBT fundPSBT(String satoshi, int feeRate, int startWeight) {
-    return fundsPSBT(satoshi, feeRate, startWeight, 1, true, null, null, false);
+    return fundsPSBT(satoshi, feeRate, startWeight, 1, 0, null, null, false);
   }
 
   public CLightningReserveInputs reserveInputs(String pdbt) {
@@ -403,7 +403,7 @@ public class CLightningRPC {
       int feeRate,
       int startWeight,
       int minConf,
-      boolean reserve,
+      int reserve,
       BigInteger lockTime,
       BigInteger minWitnessWeight,
       Boolean excessAsChange) {
