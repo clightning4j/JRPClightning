@@ -1,0 +1,16 @@
+{
+  "package_name": "JRPClightning",
+  "version": "v0.2.3",
+  "api": {
+    "name": "github",
+    "repository": "clightning4j/JRPClightning",
+    "branch": "macros/serialize-null"
+  },
+  "generation_method": {
+    "name": "semver-v2",
+    "header_filter": false
+  },
+  "serialization_method": {
+    "name": "md"
+  }
+}
