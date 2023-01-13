@@ -140,9 +140,7 @@ public class TestCommandRPCMediator {
             + label
             + JOIN_TOKEN_PROP
             + "description="
-            + description
-            + JOIN_TOKEN_PROP
-            + "expiry=1w";
+            + description;
     Object response = mediator.runCommand(Command.INVOICE, payload);
     TestCase.assertNotNull(response);
 
@@ -177,15 +175,13 @@ public class TestCommandRPCMediator {
     String label = "This invoice is created for test the command delete invoice";
     String description = "This is a minimal expression for command invoice?";
     String payload =
-        "msatoshi=1000"
+        "amount_msat=1000"
             + JOIN_TOKEN_PROP
             + "label="
             + label
             + JOIN_TOKEN_PROP
             + "description="
-            + description
-            + JOIN_TOKEN_PROP
-            + "expiry=1w";
+            + description;
     Object response = mediator.runCommand(Command.INVOICE, payload);
     TestCase.assertNotNull(response);
 
@@ -201,15 +197,13 @@ public class TestCommandRPCMediator {
     String label = " ";
     String description = "This is a minimal expression for command invoice?";
     String payload =
-        "msatoshi=1000"
+        "amount_msat=1000"
             + JOIN_TOKEN_PROP
             + "label="
             + label
             + JOIN_TOKEN_PROP
             + "description="
-            + description
-            + JOIN_TOKEN_PROP
-            + "expiry=1w";
+            + description;
     Object response = mediator.runCommand(Command.INVOICE, payload);
     TestCase.assertNotNull(response);
 
