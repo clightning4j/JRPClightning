@@ -1,5 +1,6 @@
 package jrpc.clightning.rpc.payment;
 
+import java.math.BigInteger;
 import java.util.HashMap;
 import java.util.Map;
 import jrpc.clightning.commands.Command;
@@ -17,18 +18,17 @@ public class CLightningPaymentRPC {
       String milliSatoshi,
       String label,
       String description,
-      String expiry,
+      BigInteger expiry,
       String[] fallbacks,
       String preImage,
       boolean exposePrivateChannels) {
     ParameterChecker.doCheckString("invoice", "milliSatoshi", milliSatoshi, false);
     ParameterChecker.doCheckString("invoice", "description", description, false);
-    ParameterChecker.doCheckString("invoice", "expiry", expiry, true);
     ParameterChecker.doCheckObjectNotNull("invoice", "expiry", fallbacks);
     ParameterChecker.doCheckObjectNotNull("preImage", "preImage", fallbacks);
 
     Map<String, Object> payload = new HashMap<>();
-    if (!expiry.trim().isEmpty()) {
+    if (expiry != null) {
       payload.put("expiry", expiry);
     }
 
@@ -40,7 +40,7 @@ public class CLightningPaymentRPC {
       payload.put("preimage", preImage);
     }
     payload.put("exposeprivatechannels", exposePrivateChannels);
-    payload.put("msatoshi", milliSatoshi);
+    payload.put("amount_msat", milliSatoshi);
     payload.put("label", label);
     payload.put("description", description.trim());
     return (CLightningInvoice) mediatorCommand.runCommand(Command.INVOICE, payload);

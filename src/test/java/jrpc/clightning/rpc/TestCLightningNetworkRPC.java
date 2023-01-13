@@ -73,6 +73,7 @@ public class TestCLightningNetworkRPC extends AbstractTestRPC {
       TestCase.fail();
     } catch (CLightningException exception) {
       TestCase.assertTrue(
+          exception.toString(),
           exception.getLocalizedMessage().contains("unknown source node_id (no public channels?)"));
     }
   }

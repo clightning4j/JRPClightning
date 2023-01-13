@@ -119,7 +119,7 @@ public class CLightningBitcoinRPC {
       int feeRate,
       int startWeight,
       int minConf,
-      boolean reserve,
+      int reserve,
       BigInteger lockTime,
       BigInteger minWitnessWeight,
       Boolean excessAsChange) {

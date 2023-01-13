@@ -41,7 +41,7 @@ public class TestCLightningPaymentRPC extends AbstractTestRPC {
             "100",
             label,
             "description",
-            "1w",
+            null,
             new String[] {
               "2MymqReM8EaYCQKzv4rhcvafGGcddZacUtV", "2NDVm22NNuosAXFbC27Scsn1smMh1QEFZUk"
             },
@@ -119,7 +119,7 @@ public class TestCLightningPaymentRPC extends AbstractTestRPC {
             + "5dh6z4q85uqp0jseflzjfap5fajwa35m6ughfrq69l96ur37jgrl63s655es88htygqughf82";
     CLightningDecodePay decodePay = rpc.decodePay(bolt11);
     TestCase.assertNotNull(decodePay);
-    TestCase.assertEquals("13300msat", decodePay.getAmountMSat());
+    TestCase.assertEquals("13300", decodePay.getAmountMSat());
   }
 
   @Test(expected = CLightningException.class)

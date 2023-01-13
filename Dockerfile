@@ -15,7 +15,7 @@ RUN apt-get update  && apt-get install -y bitcoind jq
 #RUN add-apt-repository -u ppa:lightningnetwork/ppa
 #RUN apt-get update  && apt-get install -y lightningd
 
-ENV CLIGHTNING_VERSION=0.10.1
+ENV CLIGHTNING_VERSION=22.11.1
 
 RUN wget https://github.com/ElementsProject/lightning/releases/download/v$CLIGHTNING_VERSION/clightning-v$CLIGHTNING_VERSION-Ubuntu-20.04.tar.xz && \
     tar -xvf clightning-v$CLIGHTNING_VERSION-Ubuntu-20.04.tar.xz -C /opt && cd /opt && \

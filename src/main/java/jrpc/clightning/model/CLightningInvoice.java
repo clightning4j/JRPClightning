@@ -51,8 +51,8 @@ public class CLightningInvoice {
   private String paymentSecret;
 
   @Expose
-  @SerializedName("msatoshi")
-  private String milliSatoshi;
+  @SerializedName("amount_msat")
+  private String amountMSat;
 
   // Get information inside the commadn listinvoices
   @Expose private String label;
@@ -91,8 +91,8 @@ public class CLightningInvoice {
     return label;
   }
 
-  public String getMilliSatoshi() {
-    return milliSatoshi;
+  public String getAmountMSat() {
+    return amountMSat;
   }
 
   public String getStatus() {
