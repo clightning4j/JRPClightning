@@ -17,6 +17,7 @@ import com.google.gson.reflect.TypeToken;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
@@ -88,4 +89,12 @@ public class TestJsonConverterDAO {
             genericDAO.deserialization(decoding, new TypeToken<Set<Notification>>() {}.getType());
     TestCase.assertEquals(0, notifications.size());
   }
+
+    @Test
+    public void testSerializeNullsValues() throws ServiceException {
+        HashMap<String, String> payload = new HashMap();
+        payload.put("value", null);
+        String encoding = genericDAO.serialization(payload);
+        TestCase.assertTrue(encoding.contains("value"));
+    }
 }
