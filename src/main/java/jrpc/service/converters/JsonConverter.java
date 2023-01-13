@@ -56,7 +56,7 @@ public class JsonConverter implements IConverter {
         CLightningFeeRate.class, new FeeRateTypeAdapter(gsonBuilder.create()));
     gsonBuilder.registerTypeAdapter(
         BitcoinUTXO.class, new BitcoinUTXOTypeAdapter(gsonBuilder.create()));
-    this.gson = gsonBuilder.create();
+    this.gson = gsonBuilder.serializeNulls().create();
   }
 
   @Override
