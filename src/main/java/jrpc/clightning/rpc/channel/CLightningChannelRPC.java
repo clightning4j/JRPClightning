@@ -21,13 +21,13 @@ public class CLightningChannelRPC {
       String feeNegotiationStep,
       String wrongFunding,
       boolean forceLeaseClosed,
-      List<Number> feeange) {
+      List<Number> feeRange) {
     ParameterChecker.doCheckString("close", "id", id, false);
     ParameterChecker.doCheckString("close", "destination", destination, true);
     ParameterChecker.doCheckString("close", "unilateralTimeout", unilateralTimeout, true);
     ParameterChecker.doCheckString("close", "feeNegotiationStep", feeNegotiationStep, true);
     ParameterChecker.doCheckString("close", "wrongFunding", wrongFunding, true);
-    ParameterChecker.doCheckObjectNotNull("close", "feeange", feeange);
+    ParameterChecker.doCheckObjectNotNull("close", "feeRange", feeRange);
 
     HashMap<String, Object> payload = new HashMap<>();
     payload.put("id", id.trim());
@@ -47,7 +47,7 @@ public class CLightningChannelRPC {
     }
 
     payload.put("force_lease_closed", forceLeaseClosed);
-    payload.put("feeange", feeange);
+    payload.put("feerange", feeRange);
     return (CLightningClose) mediatorCommand.runCommand(Command.CLOSE, payload);
   }
 
