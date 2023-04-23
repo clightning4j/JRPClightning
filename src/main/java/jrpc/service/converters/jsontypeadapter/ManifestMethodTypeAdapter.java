@@ -16,6 +16,8 @@
  */
 package jrpc.service.converters.jsontypeadapter;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -30,10 +32,10 @@ import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 /** @author https://github.com/vincenzopalazzo */
 public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public ManifestMethodTypeAdapter(Gson gson) {
-    this.gson = gson;
+    this.gson = requireNonNull(gson);
   }
 
   @Override

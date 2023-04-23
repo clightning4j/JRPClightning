@@ -1,5 +1,7 @@
 package jrpc.service.converters.jsonwrapper;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.*;
 import java.util.Map;
 import java.util.Set;
@@ -8,18 +10,17 @@ import jrpc.service.converters.JsonConverter;
 
 public class CLightningJsonObject extends JsonElement {
 
-  private static final Class TAG = CLightningJsonObject.class;
+  private static final Class<CLightningJsonObject> TAG = CLightningJsonObject.class;
 
-  private JsonObject jsonObject;
-  private JsonConverter converter;
-
-  public CLightningJsonObject(JsonObject jsonObject) {
-    this.jsonObject = jsonObject;
-    this.converter = new JsonConverter();
-  }
+  private final JsonObject jsonObject;
+  private final JsonConverter converter;
 
   public CLightningJsonObject() {
-    this.jsonObject = new JsonObject();
+    this(new JsonObject());
+  }
+
+  public CLightningJsonObject(JsonObject jsonObject) {
+    this.jsonObject = requireNonNull(jsonObject);
     this.converter = new JsonConverter();
   }
 

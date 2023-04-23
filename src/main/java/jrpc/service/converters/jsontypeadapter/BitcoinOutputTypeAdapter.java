@@ -1,5 +1,7 @@
 package jrpc.service.converters.jsontypeadapter;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -9,10 +11,10 @@ import jrpc.clightning.model.types.bitcoin.BitcoinDestination;
 
 public class BitcoinOutputTypeAdapter extends TypeAdapter<BitcoinDestination> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public BitcoinOutputTypeAdapter(Gson gson) {
-    this.gson = gson;
+    this.gson = requireNonNull(gson);
   }
 
   @Override
