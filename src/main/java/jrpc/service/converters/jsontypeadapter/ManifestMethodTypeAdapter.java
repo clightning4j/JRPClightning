@@ -27,13 +27,15 @@ import jrpc.clightning.plugins.rpcmethods.manifest.ManifestMethod;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Features;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 
+import static java.util.Objects.requireNonNull;
+
 /** @author https://github.com/vincenzopalazzo */
 public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
 
   private final Gson gson;
 
   public ManifestMethodTypeAdapter(Gson gson) {
-    this.gson = gson;
+      this.gson = requireNonNull(gson);
   }
 
   @Override

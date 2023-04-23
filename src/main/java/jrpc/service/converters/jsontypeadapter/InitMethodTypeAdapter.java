@@ -7,12 +7,14 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 
+import static java.util.Objects.requireNonNull;
+
 public class InitMethodTypeAdapter extends TypeAdapter<InitMethod> {
 
   private final Gson gson;
 
   public InitMethodTypeAdapter(Gson gson) {
-    this.gson = gson;
+      this.gson = requireNonNull(gson);
   }
 
   @Override

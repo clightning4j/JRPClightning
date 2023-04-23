@@ -6,6 +6,8 @@ import java.util.Set;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
 
+import static java.util.Objects.requireNonNull;
+
 public class CLightningJsonObject extends JsonElement {
 
   private static final Class<CLightningJsonObject> TAG = CLightningJsonObject.class;
@@ -13,13 +15,12 @@ public class CLightningJsonObject extends JsonElement {
   private final JsonObject jsonObject;
   private final JsonConverter converter;
 
-  public CLightningJsonObject(JsonObject jsonObject) {
-    this.jsonObject = jsonObject;
-    this.converter = new JsonConverter();
+  public CLightningJsonObject() {
+    this(new JsonObject());
   }
 
-  public CLightningJsonObject() {
-    this.jsonObject = new JsonObject();
+  public CLightningJsonObject(JsonObject jsonObject) {
+    this.jsonObject = requireNonNull(jsonObject);
     this.converter = new JsonConverter();
   }
 
