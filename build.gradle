@@ -35,7 +35,7 @@ dependencies {
     implementation 'com.kohlschutter.junixsocket:junixsocket-native-common:2.4.0'
 
     implementation 'com.google.code.gson:gson:2.8.8'
-    implementation 'org.reflections:reflections:0.9.12'
+    implementation 'org.reflections:reflections:0.10.2'
     implementation 'com.google.guava:guava:31.0.1-jre'
 
     implementation 'commons-io:commons-io:2.4'
