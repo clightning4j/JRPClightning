@@ -9,7 +9,7 @@ import jrpc.clightning.plugins.rpcmethods.init.InitMethod;
 
 public class InitMethodTypeAdapter extends TypeAdapter<InitMethod> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public InitMethodTypeAdapter(Gson gson) {
     this.gson = gson;

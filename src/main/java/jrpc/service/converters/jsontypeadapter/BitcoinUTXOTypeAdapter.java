@@ -9,7 +9,7 @@ import jrpc.clightning.model.types.bitcoin.BitcoinUTXO;
 
 public class BitcoinUTXOTypeAdapter extends TypeAdapter<BitcoinUTXO> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public BitcoinUTXOTypeAdapter(Gson gson) {
     this.gson = gson;

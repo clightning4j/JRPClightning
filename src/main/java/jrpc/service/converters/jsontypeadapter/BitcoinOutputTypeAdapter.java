@@ -9,7 +9,7 @@ import jrpc.clightning.model.types.bitcoin.BitcoinDestination;
 
 public class BitcoinOutputTypeAdapter extends TypeAdapter<BitcoinDestination> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public BitcoinOutputTypeAdapter(Gson gson) {
     this.gson = gson;

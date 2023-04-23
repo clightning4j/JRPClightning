@@ -30,7 +30,7 @@ import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 /** @author https://github.com/vincenzopalazzo */
 public class ManifestMethodTypeAdapter extends TypeAdapter<ManifestMethod> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public ManifestMethodTypeAdapter(Gson gson) {
     this.gson = gson;

@@ -8,10 +8,10 @@ import jrpc.service.converters.JsonConverter;
 
 public class CLightningJsonObject extends JsonElement {
 
-  private static final Class TAG = CLightningJsonObject.class;
+  private static final Class<CLightningJsonObject> TAG = CLightningJsonObject.class;
 
-  private JsonObject jsonObject;
-  private JsonConverter converter;
+  private final JsonObject jsonObject;
+  private final JsonConverter converter;
 
   public CLightningJsonObject(JsonObject jsonObject) {
     this.jsonObject = jsonObject;

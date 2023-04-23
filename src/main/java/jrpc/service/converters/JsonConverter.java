@@ -35,7 +35,7 @@ public class JsonConverter implements IConverter {
 
   private static final String ENCODING_DEFAULT = "UTF-8";
 
-  private String patternFormat = "dd-MM-yyyy HH:mm:ss";
+  private final String patternFormat = "dd-MM-yyyy HH:mm:ss";
 
   private final GsonBuilder gsonBuilder;
   private final Gson gson;
@@ -102,7 +102,7 @@ public class JsonConverter implements IConverter {
     return response;
   }
 
-  protected class MyDateTypeAdapter extends TypeAdapter<Date> {
+  protected static class MyDateTypeAdapter extends TypeAdapter<Date> {
     @Override
     public void write(JsonWriter out, Date value) throws IOException {
       if (value == null) {

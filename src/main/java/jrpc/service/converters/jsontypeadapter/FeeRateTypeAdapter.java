@@ -12,7 +12,7 @@ import jrpc.clightning.model.types.OnChainFeeEstimates;
 
 public class FeeRateTypeAdapter extends TypeAdapter<CLightningFeeRate> {
 
-  private Gson gson;
+  private final Gson gson;
 
   public FeeRateTypeAdapter(Gson gson) {
     this.gson = gson;
