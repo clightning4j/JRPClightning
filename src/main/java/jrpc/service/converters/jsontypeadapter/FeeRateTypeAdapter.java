@@ -1,5 +1,7 @@
 package jrpc.service.converters.jsontypeadapter;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -10,14 +12,12 @@ import jrpc.clightning.model.CLightningFeeRate;
 import jrpc.clightning.model.types.FeeRateInfo;
 import jrpc.clightning.model.types.OnChainFeeEstimates;
 
-import static java.util.Objects.requireNonNull;
-
 public class FeeRateTypeAdapter extends TypeAdapter<CLightningFeeRate> {
 
   private final Gson gson;
 
   public FeeRateTypeAdapter(Gson gson) {
-      this.gson = requireNonNull(gson);
+    this.gson = requireNonNull(gson);
   }
 
   @Override

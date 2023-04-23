@@ -1,5 +1,7 @@
 package jrpc.service.converters.jsontypeadapter;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
@@ -7,14 +9,12 @@ import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
 import jrpc.clightning.model.types.bitcoin.BitcoinUTXO;
 
-import static java.util.Objects.requireNonNull;
-
 public class BitcoinUTXOTypeAdapter extends TypeAdapter<BitcoinUTXO> {
 
   private final Gson gson;
 
   public BitcoinUTXOTypeAdapter(Gson gson) {
-      this.gson = requireNonNull(gson);
+    this.gson = requireNonNull(gson);
   }
 
   @Override

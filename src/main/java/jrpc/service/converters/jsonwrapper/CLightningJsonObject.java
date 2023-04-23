@@ -1,12 +1,12 @@
 package jrpc.service.converters.jsonwrapper;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.*;
 import java.util.Map;
 import java.util.Set;
 import jrpc.service.CLightningLogger;
 import jrpc.service.converters.JsonConverter;
-
-import static java.util.Objects.requireNonNull;
 
 public class CLightningJsonObject extends JsonElement {
 

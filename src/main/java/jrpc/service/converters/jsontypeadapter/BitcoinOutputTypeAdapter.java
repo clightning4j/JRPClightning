@@ -1,15 +1,13 @@
 package jrpc.service.converters.jsontypeadapter;
 
+import static java.util.Objects.requireNonNull;
+
 import com.google.gson.Gson;
 import com.google.gson.TypeAdapter;
 import com.google.gson.stream.JsonReader;
 import com.google.gson.stream.JsonWriter;
 import java.io.IOException;
-import java.util.Objects;
-
 import jrpc.clightning.model.types.bitcoin.BitcoinDestination;
-
-import static java.util.Objects.requireNonNull;
 
 public class BitcoinOutputTypeAdapter extends TypeAdapter<BitcoinDestination> {
 
