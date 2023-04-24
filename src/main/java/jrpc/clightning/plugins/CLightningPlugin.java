@@ -43,35 +43,33 @@ import jrpc.clightning.plugins.rpcmethods.manifest.types.Notification;
 import jrpc.clightning.plugins.rpcmethods.manifest.types.Option;
 import jrpc.exceptions.ServiceException;
 import jrpc.service.CLightningLogger;
-import jrpc.service.converters.IConverter;
 import jrpc.service.converters.JsonConverter;
 import jrpc.service.converters.jsonwrapper.CLightningJsonObject;
 import org.reflections.Reflections;
-import org.reflections.scanners.FieldAnnotationsScanner;
-import org.reflections.scanners.MethodAnnotationsScanner;
+import org.reflections.scanners.Scanners;
 import org.reflections.util.ClasspathHelper;
 import org.reflections.util.ConfigurationBuilder;
 
 /** @author https://github.com/vincenzopalazzo */
 public abstract class CLightningPlugin implements ICLightningPlugin {
 
-  private static final Class TAG = CLightningPlugin.class;
+  private static final Class<CLightningPlugin> TAG = CLightningPlugin.class;
 
-  @Expose private ManifestMethod manifest;
-  private List<Interceptor> preInterceptor;
-  private List<Interceptor> postInterceptor;
+  @Expose private final ManifestMethod manifest;
+  private final List<Interceptor> preInterceptor;
+  private final List<Interceptor> postInterceptor;
   protected Map<String, Object> parameters;
   private boolean parametersReady;
-  private BufferedWriter stdout;
-  private BufferedReader stdin;
-  private JsonConverter converter;
+  private final BufferedWriter stdout;
+  private final BufferedReader stdin;
+  private final JsonConverter converter;
   protected CLightingPluginConfig configs;
 
-  private Reflections reflections =
+  private final Reflections reflections =
       new Reflections(
           new ConfigurationBuilder()
-              .setUrls(ClasspathHelper.forJavaClassPath())
-              .setScanners(new MethodAnnotationsScanner(), new FieldAnnotationsScanner()));
+              .setUrls(ClasspathHelper.forClassLoader())
+              .setScanners(Scanners.MethodsAnnotated, Scanners.FieldsAnnotated));
 
   public CLightningPlugin() {
     this.manifest = new ManifestMethod();
@@ -265,7 +263,7 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
   }
 
   /**
-   * Method to tell the plugin that the user want send a notification
+   * Method to tell the plugin that the user wants to send a notification
    *
    * @param methodName: A unique key to identify notification in the plugin
    * @param params: A json object (CLightningJsonObject) that contains all the parameters that the
@@ -447,7 +445,6 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
 
   @Override
   public String toString() {
-    IConverter converter = new JsonConverter();
     return converter.serialization(this);
   }
 }
