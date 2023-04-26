@@ -16,6 +16,7 @@
  */
 package jrpc.clightning.plugins;
 
+import com.google.common.collect.ImmutableSet;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonParser;
 import com.google.gson.annotations.Expose;
@@ -23,6 +24,7 @@ import java.io.*;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
+import java.net.URL;
 import java.util.*;
 import jrpc.clightning.annotation.Hook;
 import jrpc.clightning.annotation.PluginOption;
@@ -68,7 +70,11 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
   private final Reflections reflections =
       new Reflections(
           new ConfigurationBuilder()
-              .setUrls(ClasspathHelper.forClassLoader())
+              .setUrls(
+                  ImmutableSet.<URL>builder()
+                      .addAll(ClasspathHelper.forJavaClassPath())
+                      .addAll(ClasspathHelper.forClassLoader())
+                      .build())
               .setScanners(Scanners.MethodsAnnotated, Scanners.FieldsAnnotated));
 
   public CLightningPlugin() {
