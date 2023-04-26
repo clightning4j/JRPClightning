@@ -26,6 +26,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.*;
+import java.util.stream.Collectors;
 import jrpc.clightning.annotation.Hook;
 import jrpc.clightning.annotation.PluginOption;
 import jrpc.clightning.annotation.RPCMethod;
@@ -158,15 +159,22 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
           // TODO refactoring this inside the reflectionManager and add a list of methods inside
           // this class
           CLightningJsonObject notificationRequest = new CLightningJsonObject(object);
-          for (Method method : reflections.getMethodsAnnotatedWith(Subscription.class)) {
-            if (method.isAnnotationPresent(Subscription.class)) {
-              Subscription subscription = method.getAnnotation(Subscription.class);
-              String event = subscription.notification();
-              String methodName = notificationRequest.get("method").getAsString();
-              if (methodName.equals(event)) {
-                method.invoke(this, notificationRequest);
-              }
-            }
+
+          List<Method> eligibleMethods =
+              reflections.getMethodsAnnotatedWith(Subscription.class).stream()
+                  .filter(it -> it.isAnnotationPresent(Subscription.class))
+                  .filter(it -> Arrays.asList(this.getClass().getDeclaredMethods()).contains(it))
+                  .filter(
+                      it -> {
+                        Subscription subscription = it.getAnnotation(Subscription.class);
+                        String event = subscription.notification();
+                        String methodName = notificationRequest.get("method").getAsString();
+                        return methodName.equals(event);
+                      })
+                  .collect(Collectors.toList());
+
+          for (Method method : eligibleMethods) {
+            method.invoke(this, notificationRequest);
           }
         } else {
           this.doMethods(object, stdout);
@@ -306,56 +314,78 @@ public abstract class CLightningPlugin implements ICLightningPlugin {
   }
 
   private void addOptionsWithAnnotation() {
-    for (Field field : reflections.getFieldsAnnotatedWith(PluginOption.class)) {
-      if (field.isAnnotationPresent(PluginOption.class)) {
-        PluginOption annotation = field.getAnnotation(PluginOption.class);
-        Option option = new Option();
-        option.setDefaultValue(annotation.defValue());
-        option.setDescriptionOption(annotation.description());
-        option.setName(annotation.name());
-        option.setType(annotation.typeValue());
-        option.setDeprecated(annotation.deprecated());
-        this.manifest.addOption(option);
-      }
-    }
+    List<Field> fields =
+        reflections.getFieldsAnnotatedWith(PluginOption.class).stream()
+            .filter(it -> it.isAnnotationPresent(PluginOption.class))
+            .filter(it -> Arrays.asList(this.getClass().getDeclaredFields()).contains(it))
+            .collect(Collectors.toList());
+
+    fields.stream()
+        .map(
+            it -> {
+              PluginOption annotation = it.getAnnotation(PluginOption.class);
+              Option option = new Option();
+              option.setDefaultValue(annotation.defValue());
+              option.setDescriptionOption(annotation.description());
+              option.setName(annotation.name());
+              option.setType(annotation.typeValue());
+              option.setDeprecated(annotation.deprecated());
+              return option;
+            })
+        .forEach(this.manifest::addOption);
   }
 
   private void registerMethodsWithAnnotation() {
-    for (Method method :
-        reflections.getMethodsAnnotatedWith(jrpc.clightning.annotation.RPCMethod.class)) {
-      if (method.isAnnotationPresent(jrpc.clightning.annotation.RPCMethod.class)) {
-        RPCMethod annotation = method.getAnnotation(RPCMethod.class);
-        String name = annotation.name();
-        String description = annotation.description();
-        String longDescription = annotation.longDescription();
-        String parameter = annotation.parameter();
-        RPCMethodReflection rpcMethod =
-            new RPCMethodReflection(name, parameter, description, longDescription, method);
-        this.addRPCMethod(rpcMethod);
-      }
-    }
+    List<Method> methods =
+        reflections.getMethodsAnnotatedWith(RPCMethod.class).stream()
+            .filter(it -> it.isAnnotationPresent(RPCMethod.class))
+            .filter(it -> Arrays.asList(this.getClass().getDeclaredMethods()).contains(it))
+            .collect(Collectors.toList());
+
+    methods.stream()
+        .map(
+            it -> {
+              RPCMethod annotation = it.getAnnotation(RPCMethod.class);
+              String name = annotation.name();
+              String description = annotation.description();
+              String longDescription = annotation.longDescription();
+              String parameter = annotation.parameter();
+              return new RPCMethodReflection(name, parameter, description, longDescription, it);
+            })
+        .forEach(this::addRPCMethod);
   }
 
   private void registerSubscriptionsWithAnnotation() {
-    for (Method method : reflections.getMethodsAnnotatedWith(Subscription.class)) {
-      if (method.isAnnotationPresent(Subscription.class)) {
-        Subscription subscription = method.getAnnotation(Subscription.class);
-        String event = subscription.notification();
-        this.addSubscription(event);
-      }
-    }
+    List<Method> methods =
+        reflections.getMethodsAnnotatedWith(Subscription.class).stream()
+            .filter(it -> it.isAnnotationPresent(Subscription.class))
+            .filter(it -> Arrays.asList(this.getClass().getDeclaredMethods()).contains(it))
+            .collect(Collectors.toList());
+
+    methods.stream()
+        .map(
+            it -> {
+              Subscription subscription = it.getAnnotation(Subscription.class);
+              return subscription.notification();
+            })
+        .forEach(this::addSubscription);
   }
 
   private void registerHooksWithAnnotation() {
-    for (Method method : reflections.getMethodsAnnotatedWith(Hook.class)) {
-      if (method.isAnnotationPresent(Hook.class)) {
-        Hook hook = method.getAnnotation(Hook.class);
-        String hookEvent = hook.hook();
-        RPCMethodReflection hookMethod =
-            new RPCMethodReflection(hookEvent, "", "", "", RPCMethodType.HOOK, method);
-        this.addRPCMethod(hookMethod);
-      }
-    }
+    List<Method> methods =
+        reflections.getMethodsAnnotatedWith(Hook.class).stream()
+            .filter(it -> it.isAnnotationPresent(Hook.class))
+            .filter(it -> Arrays.asList(this.getClass().getDeclaredMethods()).contains(it))
+            .collect(Collectors.toList());
+
+    methods.stream()
+        .map(
+            it -> {
+              Hook hook = it.getAnnotation(Hook.class);
+              String hookEvent = hook.hook();
+              return new RPCMethodReflection(hookEvent, "", "", "", RPCMethodType.HOOK, it);
+            })
+        .forEach(this::addRPCMethod);
   }
 
   private void doMethods(JsonObject request, BufferedWriter stdout)
